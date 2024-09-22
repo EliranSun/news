@@ -14,25 +14,26 @@ const RssFeedComponent = () => {
 				const text = await response.text();
 				const result = parser.parse(text);
 				console.log({ result });
+				const items = [];
 
-				const items = result?.rss?.channel?.item
-					.map((item) => {
+				result?.rss?.forEach((feed) => {
+					feed.channel.item.forEach((item) => {
 						const now = new Date();
 						const date = new Date(item.pubDate);
 						const diffTime = Math.abs(now - date);
 						const diffMinutes = Math.ceil(diffTime / (1000 * 60));
 
-						return {
+						items.push({
 							title: item.title,
 							link: item.link,
-							language: result?.rss?.channel?.language,
+							language: feed.channel?.language,
 							diffMinutes,
 							date: item.pubDate,
-						};
-					})
-					.sort((a, b) => a.diffMinutes - b.diffMinutes);
+						});
+					});
+				});
 
-				setFeeds(items);
+				setFeeds(items.sort((a, b) => a.diffMinutes - b.diffMinutes));
 			} catch (error) {
 				console.error("Error fetching and parsing feeds:", error);
 			}
@@ -44,13 +45,26 @@ const RssFeedComponent = () => {
 	console.log({ feeds });
 
 	return (
-		<div>
+		<div
+			style={{
+				// maxWidth: "700px",
+				margin: "0 auto",
+				display: "flex",
+				flexDirection: "column",
+				justifyContent: "center",
+				alignItems: "center",
+				width: "100vw",
+				gap: "4px",
+			}}>
 			{feeds.map((item, index) => (
 				<div
+					style={{ maxWidth: "700px" }}
 					key={index}
-					dir={item.language === "en" ? "ltr" : "rtl"}>
-					<h1>{item.title}</h1>
-					<h2 dir="ltr">{item.diffMinutes} min ago</h2>
+					dir={item.language === "he" ? "rtl" : "ltr"}>
+					<a href={item.link}>
+						<h1>{item.title}</h1>
+						<h2 dir="ltr">{item.diffMinutes} min ago</h2>
+					</a>
 				</div>
 			))}
 		</div>
