@@ -8,12 +8,7 @@ const RssFeedComponent = () => {
 		try {
 			const parser = new XMLParser();
 			const url = `https://walak.vercel.app/api/rss?time=${new Date().getTime()}`;
-			const response = await fetch(url, {
-				headers: {
-					"Cache-Control": "no-cache",
-					Pragma: "no-cache",
-				},
-			});
+			const response = await fetch(url);
 			const text = await response.text();
 			const result = parser.parse(text);
 			console.log({ result });
