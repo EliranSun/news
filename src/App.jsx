@@ -11,7 +11,6 @@ const RssFeedComponent = () => {
 			const response = await fetch(url, {
 				headers: {
 					"Cache-Control": "no-cache",
-					Pragma: "no-cache",
 				},
 			});
 			const text = await response.text();
