@@ -12,11 +12,7 @@ const RssFeedComponent = () => {
 			try {
 				const allFeedsData = await Promise.all(
 					rssFeedUrls.map(async (url) => {
-						const response = await fetch(url, {
-							headers: {
-								"Content-Type": "application/xml",
-							},
-						});
+						const response = await fetch(url);
 						const text = await response.text();
 						const result = parser.parse(text);
 						return result;
