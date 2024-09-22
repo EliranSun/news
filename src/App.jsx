@@ -58,12 +58,16 @@ const RssFeedComponent = () => {
 			}}>
 			{feeds.map((item, index) => (
 				<div
-					style={{ maxWidth: "700px" }}
+					style={{ maxWidth: "700px", padding: "0 16px" }}
 					key={index}
 					dir={item.language === "he" ? "rtl" : "ltr"}>
 					<a href={item.link}>
-						<h1>{item.title}</h1>
-						<h2 dir="ltr">{item.diffMinutes} min ago</h2>
+						<h1 style={{ fontSize: "2rem" }}>{item.title}</h1>
+						<h2
+							style={{ fontSize: "0.9rem" }}
+							dir="ltr">
+							{item.diffMinutes} min ago
+						</h2>
 					</a>
 				</div>
 			))}
