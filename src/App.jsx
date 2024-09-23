@@ -1,6 +1,26 @@
 import { useEffect, useState, useCallback } from "react";
 import { XMLParser } from "fast-xml-parser";
 
+const getDiffTime = (time) => {
+	// return diff in minutes, hours, days
+	const now = new Date();
+	const date = new Date(time);
+	const diffTime = Math.abs(now - date);
+	const diffMinutes = Math.round(diffTime / (1000 * 60));
+	const diffHours = Math.round(diffTime / (1000 * 60 * 60));
+	const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+	if (diffMinutes < 60) {
+		return { value: diffMinutes, unit: "m", diffTime };
+	}
+
+	if (diffHours < 24) {
+		return { value: diffHours, unit: "h", diffTime };
+	}
+
+	return { value: diffDays, unit: "d", diffTime };
+};
+
 const RssFeedComponent = () => {
 	const [feeds, setFeeds] = useState([]);
 
@@ -16,22 +36,17 @@ const RssFeedComponent = () => {
 
 			result?.rss?.forEach((feed) => {
 				feed.channel.item.forEach((item) => {
-					const now = new Date();
-					const date = new Date(item.pubDate);
-					const diffTime = Math.abs(now - date);
-					const diffMinutes = Math.ceil(diffTime / (1000 * 60));
-
 					items.push({
 						title: item.title,
 						link: item.link,
 						language: feed.channel?.language,
-						diffMinutes,
+						diff: getDiffTime(item.pubDate),
 						date: item.pubDate,
 					});
 				});
 			});
 
-			setFeeds(items.sort((a, b) => a.diffMinutes - b.diffMinutes));
+			setFeeds(items.sort((a, b) => a.diff.diffTime - b.diff.diffTime));
 		} catch (error) {
 			console.error("Error fetching and parsing feeds:", error);
 		}
@@ -60,7 +75,9 @@ const RssFeedComponent = () => {
 			{new Date().toLocaleTimeString()}
 			{feeds.map((item, index) => (
 				<div
-					style={{ maxWidth: "700px", padding: "0 16px" }}
+					style={{
+						textAlign: item.language === "he" ? "right" : "left",
+						width: "100%", maxWidth: "700px", padding: "0 16px" }}
 					key={index}
 					dir={item.language === "he" ? "rtl" : "ltr"}>
 					<a href={item.link}>
@@ -68,7 +85,7 @@ const RssFeedComponent = () => {
 						<h2
 							style={{ fontSize: "0.9rem" }}
 							dir="ltr">
-							{item.diffMinutes} min ago
+							{item.diff.value}{item.diff.unit}
 						</h2>
 					</a>
 				</div>
