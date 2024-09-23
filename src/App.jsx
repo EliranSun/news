@@ -62,35 +62,42 @@ const RssFeedComponent = () => {
 	}, [fetchAndParseFeeds]);
 
 	return (
-		<div
-			style={{
-				margin: "0 auto",
-				display: "flex",
-				flexDirection: "column",
-				justifyContent: "center",
-				alignItems: "center",
-				width: "100vw",
-				gap: "4px",
-			}}>
-			{new Date().toLocaleTimeString()}
-			{feeds.map((item, index) => (
-				<div
-					style={{
-						textAlign: item.language === "he" ? "right" : "left",
-						width: "100%", maxWidth: "700px", padding: "0 16px" }}
-					key={index}
-					dir={item.language === "he" ? "rtl" : "ltr"}>
-					<a href={item.link}>
-						<h1 style={{ fontSize: "1.5rem" }}>{item.title}</h1>
-						<h2
-							style={{ fontSize: "0.9rem" }}
-							dir="ltr">
-							{item.diff.value}{item.diff.unit}
-						</h2>
-					</a>
-				</div>
-			))}
-		</div>
+		<section style={{
+			padding: "20px"
+		}}>
+			<span style={{ position: "fixed", top: "10px", left: "18px", backgroundColor: "white", padding: "4px", borderRadius: "4px" }}>{new Date().toLocaleTimeString()}</span>
+			<div
+				style={{
+					margin: "0 auto",
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "center",
+					alignItems: "center",
+					width: "100%",
+					gap: "4px",
+					paddingTop: "20px",
+					boxSizing: "border-box",
+				}}>
+				{feeds.map((item, index) => (
+					<div
+						style={{
+							textAlign: item.language === "he" ? "right" : "left",
+							maxWidth: "700px",
+						}}
+						key={index}
+						dir={item.language === "he" ? "rtl" : "ltr"}>
+						<a href={item.link}>
+							<h1 style={{ fontSize: "1.5rem" }}>{item.title}</h1>
+							<h2
+								style={{ fontSize: "0.9rem" }}
+								dir="ltr">
+								{item.diff.value}{item.diff.unit}
+							</h2>
+						</a>
+					</div>
+				))}
+			</div>
+		</section>
 	);
 };
 
