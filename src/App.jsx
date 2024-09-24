@@ -66,7 +66,15 @@ const RssFeedComponent = () => {
 		<section style={{
 			padding: "20px"
 		}}>
-			<span style={{ position: "fixed", top: "10px", left: "18px", backgroundColor: "white", padding: "4px", borderRadius: "4px" }}>{new Date().toLocaleTimeString()}</span>
+			<span style={{ 
+				position: "fixed", 
+				top: "10px", 
+				left: "18px", 
+				color: "black",
+				backgroundColor: "white", 
+				padding: "4px",
+				borderRadius: "4px"
+				}}>{new Date().toLocaleTimeString()}</span>
 			<div
 				style={{
 					margin: "0 auto",
