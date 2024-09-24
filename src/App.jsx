@@ -39,6 +39,7 @@ const RssFeedComponent = () => {
 					items.push({
 						title: item.title,
 						link: item.link,
+						description: item.description,
 						language: feed.channel?.language,
 						diff: getDiffTime(item.pubDate),
 						date: item.pubDate,
@@ -88,6 +89,7 @@ const RssFeedComponent = () => {
 						dir={item.language === "he" ? "rtl" : "ltr"}>
 						<a href={item.link}>
 							<h1 style={{ fontSize: "1.5rem" }}>{item.title}</h1>
+							<p>{item.description}</p>
 							<h2
 								style={{ fontSize: "0.9rem" }}
 								dir="ltr">
