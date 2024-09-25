@@ -43,8 +43,10 @@ const RssFeedComponent = () => {
 			const text = await response.text();
 			const result = parser.parse(text);
 			const items = [];
+			const channels = [];
 
 			result?.rss?.forEach((feed) => {
+				channels.push(feed.channel.title);
 				feed.channel.item.forEach((item) => {
 					const isItemExist = items.some(existingItem => existingItem.title === item.title);
 					if (!isItemExist) {
@@ -61,7 +63,7 @@ const RssFeedComponent = () => {
 			});
 
 			const sortedItems = items.sort((a, b) => a.diff.diffTime - b.diff.diffTime);
-			console.log({ sortedItems });
+			console.log({ channels, sortedItems });
 			setFeeds(sortedItems);
 		} catch (error) {
 			console.error("Error fetching and parsing feeds:", error);
