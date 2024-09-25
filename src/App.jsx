@@ -33,7 +33,7 @@ const LinkStyle = {
 };
 
 function removeUnicode(text) {
-    return text.replace(/[^\x00-\x7F]/g, "");
+    return text.replaceAll("&#8226;", "•").replaceAll("&bull;", "•");
 }
 
 const RssFeedComponent = () => {
