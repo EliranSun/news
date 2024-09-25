@@ -101,7 +101,7 @@ const RssFeedComponent = () => {
 							<h1 style={{ fontSize: "1.1rem" }}>{item.title}</h1>
 							<p style={{ fontSize: "0.8rem" }}>{item.description}</p>
 							<div style={{ display: "flex", gap: "8px" }}>
-								<h2 {{ border: "1px solid black", fontSize: "0.6rem", padding: "2px" }} dir="ltr">
+								<h2 style={{ border: "1px solid black", fontSize: "0.6rem", padding: "2px" }} dir="ltr">
 									{item.diff.value}{item.diff.unit}
 								</h2>
 								<a style={{ border: "1px solid black", fontSize: "0.6rem", padding: "2px" }} href={item.link}>🔗</a>
