@@ -32,6 +32,10 @@ const LinkStyle = {
 	justifyContent: "center",
 };
 
+function removeUnicode(text) {
+    return text.replace(/[^\x00-\x7F]/g, "");
+}
+
 const RssFeedComponent = () => {
 	const [feeds, setFeeds] = useState([]);
 
@@ -51,9 +55,9 @@ const RssFeedComponent = () => {
 					const isItemExist = items.some(existingItem => existingItem.title === item.title);
 					if (!isItemExist) {
 						items.push({
-							title: item.title,
+							title: removeUnicode(item.title),
 							link: item.link,
-							description: item.description,
+							description: removeUnicode(item.description),
 							language: feed.channel?.language,
 							diff: getDiffTime(item.pubDate),
 							date: item.pubDate,
