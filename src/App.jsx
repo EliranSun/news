@@ -35,14 +35,17 @@ const RssFeedComponent = () => {
 
 			result?.rss?.forEach((feed) => {
 				feed.channel.item.forEach((item) => {
-					items.push({
-						title: item.title,
-						link: item.link,
-						description: item.description,
-						language: feed.channel?.language,
-						diff: getDiffTime(item.pubDate),
-						date: item.pubDate,
-					});
+					const isItemExist = items.some(existingItem => existingItem.title === item.title);
+					if (!isItemExist) {
+						items.push({
+							title: item.title,
+							link: item.link,
+							description: item.description,
+							language: feed.channel?.language,
+							diff: getDiffTime(item.pubDate),
+							date: item.pubDate,
+						});
+					}
 				});
 			});
 
