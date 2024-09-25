@@ -24,7 +24,7 @@ const getDiffTime = (time) => {
 const LinkStyle = {
 	width: "20px", 
 	height: "10px", 
-	border: "1px solid black", 
+	// border: "1px solid black", 
 	fontSize: "0.6rem", 
 	padding: "4px",
 	display: "flex",
