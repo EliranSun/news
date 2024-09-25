@@ -99,7 +99,7 @@ const RssFeedComponent = () => {
 							<h1 style={{ fontSize: "1rem" }}>{item.title}</h1>
 							<p>{item.description}</p>
 							<h2
-								style={{ fontSize: "0.5rem" }}
+								style={{ fontSize: "0.3rem" }}
 								dir="ltr">
 								{item.diff.value}{item.diff.unit}
 							</h2>
