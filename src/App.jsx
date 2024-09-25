@@ -36,6 +36,10 @@ function removeUnicode(text) {
     return text.replaceAll("&#8226;", "•").replaceAll("&bull;", "•");
 }
 
+function sanitizeText(text) {
+    return text.replace(/<[^>]*>/g, "");
+}
+
 const RssFeedComponent = () => {
 	const [feeds, setFeeds] = useState([]);
 
@@ -55,9 +59,9 @@ const RssFeedComponent = () => {
 					const isItemExist = items.some(existingItem => existingItem.title === item.title);
 					if (!isItemExist) {
 						items.push({
-							title: removeUnicode(item.title),
+							title: removeUnicode(sanitizeText(item.title)),
 							link: item.link,
-							description: removeUnicode(item.description),
+							description: removeUnicode(sanitizeText(item.description)),
 							language: feed.channel?.language,
 							diff: getDiffTime(item.pubDate),
 							date: item.pubDate,
