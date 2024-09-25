@@ -84,8 +84,6 @@ const RssFeedComponent = () => {
 					margin: "0 auto",
 					display: "flex",
 					flexDirection: "column",
-					// justifyContent: "center",
-					// alignItems: "center",
 					width: "100%",
 					gap: "4px",
 					paddingTop: "20px",
@@ -99,14 +97,15 @@ const RssFeedComponent = () => {
 						}}
 						key={item.link + item.title}
 						dir={item.language === "he" ? "rtl" : "ltr"}>
-						<a href={item.link}>
+					
 							<h1 style={{ fontSize: "1.1rem" }}>{item.title}</h1>
 							<p style={{ fontSize: "0.8rem" }}>{item.description}</p>
-							<h2 style={{ fontSize: "0.5rem" }}
-								dir="ltr">
-								{item.diff.value}{item.diff.unit}
-							</h2>
-						</a>
+							<div style={{ display: "flex", gap: "8px" }}>
+								<h2 style={{ fontSize: "0.5rem" }} dir="ltr">
+									{item.diff.value}{item.diff.unit}
+								</h2>
+								<a href={item.link}>🔗</a>
+							</div>
 					</div>
 				))}
 			</div>
