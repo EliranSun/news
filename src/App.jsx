@@ -27,11 +27,10 @@ const RssFeedComponent = () => {
 	const fetchAndParseFeeds = useCallback(async () => {
 		try {
 			const parser = new XMLParser();
-			const url = `https://walak.vercel.app/api/rss?time=${new Date().getTime()}`;
+			const url = "https://walak.vercel.app/api/rss";
 			const response = await fetch(url);
 			const text = await response.text();
 			const result = parser.parse(text);
-			console.log({ result });
 			const items = [];
 
 			result?.rss?.forEach((feed) => {
@@ -47,7 +46,9 @@ const RssFeedComponent = () => {
 				});
 			});
 
-			setFeeds(items.sort((a, b) => a.diff.diffTime - b.diff.diffTime));
+			const sortedItems = items.sort((a, b) => a.diff.diffTime - b.diff.diffTime);
+			console.log({ sortedItems });
+			setFeeds(sortedItems);
 		} catch (error) {
 			console.error("Error fetching and parsing feeds:", error);
 		}
