@@ -111,11 +111,12 @@ const RssFeedComponent = () => {
 			result?.rss?.forEach((feed) => {
 				channels.push(feed.channel.title);
 				feed.channel.item.forEach((item) => {
+					const isRead = localStorage.getItem(item.link) === "read";
 					const isItemExist = items.some(
 						(existingItem) => existingItem.title === item.title
 					);
 
-					if (!isItemExist && isToday(item.pubDate)) {
+					if (!isItemExist && isToday(item.pubDate) && !isRead) {
 						items.push({
 							title: removeUnicode(sanitizeText(item.title)),
 							link: item.link,
@@ -147,15 +148,15 @@ const RssFeedComponent = () => {
 		}, 60 * 1000);
 	}, [fetchAndParseFeeds]);
 
-	useEffect(() => {
-		const buttons = document.querySelectorAll("#buttons-read");
-		if (buttons) {
-			console.log(buttons);
-			buttons.forEach((button) => {
-				button.parentElement.style.display = "none";
-			});
-		}
-	}, [feeds]);
+	// useEffect(() => {
+	// 	const buttons = document.querySelectorAll("#buttons-read");
+	// 	if (buttons) {
+	// 		console.log(buttons);
+	// 		buttons.forEach((button) => {
+	// 			button.parentElement.style.display = "none";
+	// 		});
+	// 	}
+	// }, [feeds]);
 
 	if (feeds.length === 0) {
 		return (
