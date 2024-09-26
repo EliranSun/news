@@ -161,10 +161,7 @@ const RssFeedComponent = () => {
 		<section
 			style={{
 				padding: "20px",
-				display: "flex",
-				flexDirection: "column",
-				alignItems: "center",
-				justifyContent: "center",
+				height: "100dvh"
 			}}>
 			{/* <span
 				style={{
