@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { XMLParser } from "fast-xml-parser";
+import ClearFeedUpToDate from "./ClearFeedUpToDate";
 
 const getDiffTime = (time) => {
 	// return diff in minutes, hours, days
@@ -161,7 +162,7 @@ const RssFeedComponent = () => {
 			style={{
 				padding: "20px",
 			}}>
-			<span
+			{/* <span
 				style={{
 					position: "fixed",
 					top: "10px",
@@ -172,7 +173,8 @@ const RssFeedComponent = () => {
 					borderRadius: "4px",
 				}}>
 				{new Date().toLocaleTimeString()}
-			</span>
+			</span> */}
+			<ClearFeedUpToDate items={feeds} />
 			<div
 				style={{
 					margin: "0 auto",
@@ -185,12 +187,12 @@ const RssFeedComponent = () => {
 				}}>
 				{feeds.map((item, index) => (
 					<div
+						key={item.link + item.title}
+						dir={item.language === "he" ? "rtl" : "ltr"}
 						style={{
 							textAlign: item.language === "he" ? "right" : "left",
 							maxWidth: "700px",
-						}}
-						key={item.link + item.title}
-						dir={item.language === "he" ? "rtl" : "ltr"}>
+						}}>
 						<h1 style={{ fontSize: "1.1rem" }}>{item.title}</h1>
 						<p style={{ fontSize: "0.8rem" }}>{item.description}</p>
 						<Buttons item={item} />
