@@ -23,8 +23,7 @@ const getDiffTime = (time) => {
 };
 
 const LinkStyle = {
-	width: "20px",
-	height: "10px",
+	height: "20px",
 	// border: "1px solid black",
 	backgroundColor: "#ededed",
 	borderRadius: "4px",
@@ -65,8 +64,9 @@ const Buttons = ({ item }) => {
 		<div
 			id={`buttons-${isRead ? "read" : "unread"}`}
 			style={{
-				display: "flex",
-				gap: "8px",
+				display: "grid",
+				gridTemplateColumns: "repeat(3, 1fr)",
+				gap: "4px",
 				alignItems: "center",
 				justifyContent: "end",
 			}}>
