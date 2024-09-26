@@ -180,6 +180,7 @@ const RssFeedComponent = () => {
 					margin: "0 auto",
 					display: "flex",
 					flexDirection: "column",
+					alignItems: "start",
 					width: "100%",
 					gap: "4px",
 					paddingTop: "20px",
