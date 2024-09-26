@@ -143,7 +143,7 @@ const RssFeedComponent = () => {
 		setInterval(() => {
 			console.log("fetching feeds");
 			fetchAndParseFeeds();
-		}, 1000 * 10);
+		}, 60 * 1000);
 	}, [fetchAndParseFeeds]);
 
 	useEffect(() => {
