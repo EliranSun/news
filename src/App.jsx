@@ -81,7 +81,9 @@ const Buttons = ({ item }) => {
 			</h2>
 			<a
 				style={LinkStyle}
-				href={item.link}>
+				href={item.link}
+				target="_blank"
+				rel="noopener noreferrer">
 				🔗
 			</a>
 		</div>
