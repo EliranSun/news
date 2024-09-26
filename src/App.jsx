@@ -44,6 +44,10 @@ function sanitizeText(text) {
 
 function isToday(date) {
 	const diff = getDiffTime(date);
+	if (diff.unit === "m") {
+		return true;
+	}
+
 	if (diff.unit !== "d") {
 		return diff.value < 5;
 	}
