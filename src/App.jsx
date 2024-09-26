@@ -157,24 +157,28 @@ const RssFeedComponent = () => {
 		}
 	}, [feeds]);
 
+	if (feeds.length === 0) {
+		return (
+			<img
+				alt="loading"
+				src="https://cdn.dribbble.com/users/4072391/screenshots/19660250/media/d31593551e019ea191d9cd69cc542792.gif"
+				style={{
+					width: "100%",
+					height: "100%",
+					objectFit: "cover",
+					display: "block",
+					margin: "0 auto",
+				}}
+			/>
+		);
+	}
+
 	return (
 		<section
 			style={{
 				padding: "20px",
-				height: "100dvh"
+				height: "100dvh",
 			}}>
-			{/* <span
-				style={{
-					position: "fixed",
-					top: "10px",
-					left: "18px",
-					color: "black",
-					backgroundColor: "white",
-					padding: "4px",
-					borderRadius: "4px",
-				}}>
-				{new Date().toLocaleTimeString()}
-			</span> */}
 			<ClearFeedUpToDate items={feeds} />
 			<div
 				style={{
@@ -184,7 +188,7 @@ const RssFeedComponent = () => {
 					alignItems: "start",
 					width: "100%",
 					gap: "4px",
-					paddingTop: "20px",
+					paddingTop: "5px",
 					boxSizing: "border-box",
 				}}>
 				{feeds.map((item, index) => (
