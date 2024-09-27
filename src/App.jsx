@@ -64,7 +64,7 @@ const Buttons = ({ item, onRead }) => {
 		<div
 			id={`buttons-${isRead ? "read" : "unread"}`}
 			style={{
-				display: isRead ? "none" : "grid",
+				display: "grid",
 				gridTemplateColumns: "repeat(3, 1fr)",
 				gap: "4px",
 				alignItems: "center",
@@ -87,6 +87,7 @@ const Buttons = ({ item, onRead }) => {
 				style={LinkStyle}
 				onClick={() => {
 					setIsRead(true);
+					onRead();
 					localStorage.setItem(item.link, "read");
 				}}>
 				{isRead ? "☑️" : "☐"}
