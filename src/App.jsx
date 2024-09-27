@@ -72,14 +72,6 @@ const Buttons = ({ item }) => {
 			}}>
 			<h2
 				style={LinkStyle}
-				onClick={() => {
-					setIsRead(true);
-					localStorage.setItem(item.link, "read");
-				}}>
-				{isRead ? "☑️" : "☐"}
-			</h2>
-			<h2
-				style={LinkStyle}
 				dir="ltr">
 				{item.diff.value}
 				{item.diff.unit}
@@ -91,6 +83,14 @@ const Buttons = ({ item }) => {
 				rel="noopener noreferrer">
 				🔗
 			</a>
+			<h2
+				style={LinkStyle}
+				onClick={() => {
+					setIsRead(true);
+					localStorage.setItem(item.link, "read");
+				}}>
+				{isRead ? "☑️" : "☐"}
+			</h2>
 		</div>
 	);
 };
