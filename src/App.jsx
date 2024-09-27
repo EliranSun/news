@@ -206,7 +206,7 @@ const RssFeedComponent = () => {
 						<p 
 													dir={item.language === "he" ? "rtl" : "ltr"}
 							style={{ fontSize: "0.8rem" }}>{item.description}</p>
-						<Buttons item={item} onRead={() => setFeeds(feed.filter(foo => foo.link !== item.link))}/>
+						<Buttons item={item} onRead={() => setFeeds(feeds.filter(foo => foo.link !== item.link))}/>
 					</div>
 				))}
 			</div>
