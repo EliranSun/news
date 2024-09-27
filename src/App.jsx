@@ -64,7 +64,7 @@ const Buttons = ({ item }) => {
 		<div
 			id={`buttons-${isRead ? "read" : "unread"}`}
 			style={{
-				display: "grid",
+				display: isRead ? "none" : "grid",
 				gridTemplateColumns: "repeat(3, 1fr)",
 				gap: "4px",
 				alignItems: "center",
