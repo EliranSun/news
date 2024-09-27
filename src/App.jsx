@@ -55,7 +55,7 @@ function isToday(date) {
 	return false;
 }
 
-const Buttons = ({ item }) => {
+const Buttons = ({ item, onRead }) => {
 	const [isRead, setIsRead] = useState(
 		localStorage.getItem(item.link) === "read" || false
 	);
@@ -206,7 +206,7 @@ const RssFeedComponent = () => {
 						<p 
 													dir={item.language === "he" ? "rtl" : "ltr"}
 							style={{ fontSize: "0.8rem" }}>{item.description}</p>
-						<Buttons item={item} />
+						<Buttons item={item} onRead={() => setFeeds(feed.filter(foo => foo.link !== item.link))}/>
 					</div>
 				))}
 			</div>
