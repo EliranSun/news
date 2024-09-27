@@ -195,14 +195,17 @@ const RssFeedComponent = () => {
 				{feeds.map((item, index) => (
 					<div
 						key={item.link + item.title}
-						dir={item.language === "he" ? "rtl" : "ltr"}
 						style={{
 							textAlign: item.language === "he" ? "right" : "left",
 							maxWidth: "700px",
 							width: "100%",
 						}}>
-						<h1 style={{ fontSize: "1.1rem" }}>{item.title}</h1>
-						<p style={{ fontSize: "0.8rem" }}>{item.description}</p>
+						<h1 
+													dir={item.language === "he" ? "rtl" : "ltr"}
+							style={{ fontSize: "1.1rem" }}>{item.title}</h1>
+						<p 
+													dir={item.language === "he" ? "rtl" : "ltr"}
+							style={{ fontSize: "0.8rem" }}>{item.description}</p>
 						<Buttons item={item} />
 					</div>
 				))}
