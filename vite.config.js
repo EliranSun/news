@@ -12,7 +12,7 @@ export default defineConfig({
         name: 'News 2',
         short_name: 'News 2',
         description: 'Up to Date & Full of Anxiety',
-        theme_color: '#000000',
+        theme_color: '#ffffff',
         icons: [
           // Add your icon configurations here
         ]
