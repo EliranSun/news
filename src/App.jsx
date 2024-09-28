@@ -117,7 +117,7 @@ const RssFeedComponent = () => {
 						(existingItem) => existingItem.title === item.title
 					);
 
-					if (!isItemExist && isToday(item.pubDate) && !isRead) {
+					if (!isItemExist && !isRead) {
 						items.push({
 							title: removeUnicode(sanitizeText(item.title)),
 							link: item.link,
