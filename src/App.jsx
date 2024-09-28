@@ -79,6 +79,7 @@ const Buttons = ({ item, onRead }) => {
 			<a
 				style={LinkStyle}
 				href={item.link}
+				target="_blank"
 				rel="noopener noreferrer">
 				🔗
 			</a>
