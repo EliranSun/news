@@ -6,8 +6,8 @@ export const useRssFeed = () => {
 
 	const fetchAndParseFeeds = useCallback(async () => {
 		try {
-			// const url = "https://walak.vercel.app/api/rss";
-			const url = "http://localhost:3000/api/rss";
+			const url = "https://walak.vercel.app/api/rss";
+			// const url = "http://localhost:3000/api/rss";
 			const response = await fetch(url);
 			const data = (await response.json()) || [];
 			const items = [];
