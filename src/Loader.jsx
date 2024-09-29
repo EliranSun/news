@@ -16,7 +16,7 @@ export const Loader = () => {
 			/>
 			<LoaderImage
 				className="hidden dark:block"
-				src="/loader-dark.gif"
+				src="/public/loader-dark.gif"
 			/>
 		</div>
 	);
