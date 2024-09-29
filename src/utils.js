@@ -21,10 +21,12 @@ export const getDiffTime = (time) => {
 export function removeUnicode(text) {
 	return text
 		.replaceAll("&#8226;", "•")
+		.replaceAll("#8226;", "•")
 		.replaceAll("&#34;", '"')
 		.replaceAll("&#8230;", "...")
 		.replaceAll("&quot;", '"')
-		.replaceAll("&bull;", "•");
+		.replaceAll("&bull;", "•")
+		.replaceAll("&amp;", "&");
 }
 
 export function sanitizeText(text) {
