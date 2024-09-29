@@ -39,7 +39,7 @@ export const FeedItem = ({ item, onRead }) => {
 				</h1>
 				<p
 					dir={item.language === "he" ? "rtl" : "ltr"}
-					className="text-sm mb-3 overflow-hidden text-ellipsis max-h-[3.9rem]">
+					className="text-sm mb-3">
 					{queryResult || item.description}
 				</p>
 				<div className="w-full flex gap-1">
