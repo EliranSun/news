@@ -17,16 +17,30 @@ function FireTimer() {
     return () => clearInterval(timer);
   }, [isRunning, timeLeft]);
 
-  const handleRekindle = () => {
-    setTimeLeft(rekindleTime);
+  // Calculate scale and opacity based on timeLeft
+  const calculateScale = () => Math.max(timeLeft / rekindleTime, 0.1); // Ensures a minimum size
+  const calculateOpacity = () => Math.max(timeLeft / rekindleTime, 0.1); // Ensures a minimum opacity
+
+  // Rekindle the fire by adding more time
+  const rekindleFire = () => {
+    setTimeLeft((prev) => Math.min(prev + 10, rekindleTime)); // Add 10 seconds, but not exceed rekindleTime
     setIsRunning(true);
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-800 text-white">
-      <h1 className="text-9xl mb-4 animate-bounce">🔥</h1>
-      <h2 className="text-2xl mb-4">Time Left: {timeLeft}s</h2>
-      <div className="mb-4">
+      <div
+        className="transition-transform transition-opacity duration-100"
+        onClick={rekindleFire}
+        style={{
+          transform: `scale(${calculateScale()})`,
+          opacity: calculateOpacity(),
+          cursor: 'pointer',
+        }}
+      >
+        <h1 className="text-9xl">🔥</h1>
+      </div>
+      <div className="mt-4">
         <label className="block text-sm font-medium">
           Rekindle Time (s):
           <input
@@ -37,19 +51,12 @@ function FireTimer() {
           />
         </label>
       </div>
-      {timeLeft === 0 ? (
+      {!isRunning && timeLeft > 0 && (
         <button
-          onClick={handleRekindle}
-          className="px-4 py-2 bg-red-600 hover:bg-red-500 rounded font-medium"
+          onClick={() => setIsRunning(true)}
+          className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded font-medium"
         >
-          Rekindle Fire
-        </button>
-      ) : (
-        <button
-          onClick={() => setIsRunning(!isRunning)}
-          className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded font-medium"
-        >
-          {isRunning ? 'Pause' : 'Start'}
+          Start
         </button>
       )}
     </div>
