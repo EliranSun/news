@@ -1,3 +1,5 @@
+import darkLoader from './assets/loader-dark.gif';
+
 const LoaderImage = ({ src, className }) => {
 	return (
 		<img
@@ -7,6 +9,7 @@ const LoaderImage = ({ src, className }) => {
 		/>
 	);
 };
+
 export const Loader = () => {
 	return (
 		<div className="h-dvh w-full flex items-center justify-center">
@@ -16,7 +19,7 @@ export const Loader = () => {
 			/>
 			<LoaderImage
 				className="hidden dark:block"
-				src="/public/loader-dark.gif"
+				src={darkLoader}
 			/>
 		</div>
 	);
