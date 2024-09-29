@@ -45,7 +45,7 @@ export const useRssFeed = () => {
 		setInterval(() => {
 			console.log("fetching feeds");
 			fetchAndParseFeeds();
-		}, 60 * 1000);
+		}, 5 * 60 * 1000);
 	}, [fetchAndParseFeeds]);
 
 	return { feeds, setFeeds };
