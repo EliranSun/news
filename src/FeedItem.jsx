@@ -31,17 +31,19 @@ export const FeedItem = ({ item, onRead }) => {
                 max-w-[700px] my-4 flex gap-4 justify-between
                 w-full border-b border-gray-200 pb-8
             `}>
-			<div className="w-full">
-				<h1
-					dir={item.language === "he" ? "rtl" : "ltr"}
-					className="text-lg font-bold">
-					{item.title}
-				</h1>
-				<p
-					dir={item.language === "he" ? "rtl" : "ltr"}
-					className="text-sm mb-3">
-					{queryResult || item.description}
-				</p>
+			<div className="w-full flex flex-col justify-between">
+				<div>
+					<h1
+						dir={item.language === "he" ? "rtl" : "ltr"}
+						className="text-lg font-bold">
+						{item.title}
+					</h1>
+					<p
+						dir={item.language === "he" ? "rtl" : "ltr"}
+						className="text-sm mb-3">
+						{queryResult || item.description}
+					</p>
+				</div>
 				<div className="w-full flex gap-1">
 					<input
 						type="text"
