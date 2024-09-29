@@ -28,7 +28,7 @@ function FireTimer() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-800 text-white">
+    <div className="flex flex-col items-center justify-center w-screen h-screen bg-black text-white">
       <div
         className="transition-transform transition-opacity duration-100"
         onClick={rekindleFire}
