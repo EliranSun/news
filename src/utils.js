@@ -22,6 +22,8 @@ export function removeUnicode(text) {
 	return text
 		.replaceAll("&#8226;", "•")
 		.replaceAll("#8226;", "•")
+		.replaceAll("#8217;", "'")
+		.replaceAll("&#8217;", "'")
 		.replaceAll("&#34;", '"')
 		.replaceAll("&#8230;", "...")
 		.replaceAll("&quot;", '"')
