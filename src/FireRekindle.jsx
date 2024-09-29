@@ -46,7 +46,10 @@ function FireTimer() {
           <input
             type="number"
             value={rekindleTime}
-            onChange={(e) => setRekindleTime(Number(e.target.value))}
+            onChange={(e) => {
+              setRekindleTime(Number(e.target.value));
+              setTimeLeft(Number(e.target.value));
+            }}
             className="ml-2 p-1 rounded bg-gray-700 border border-gray-600"
           />
         </label>
