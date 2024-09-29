@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 function FireTimer() {
-  const [rekindleTime, setRekindleTime] = useState(60); // Default rekindle time
+  const [rekindleTime, setRekindleTime] = useState(86400); // Default rekindle time
   const [timeLeft, setTimeLeft] = useState(rekindleTime);
   const [isRunning, setIsRunning] = useState(false);
 
@@ -42,7 +42,6 @@ function FireTimer() {
       </div>
       <div className="mt-4">
         <label className="block text-sm font-medium">
-          Rekindle Time (s):
           <input
             type="number"
             value={rekindleTime}
