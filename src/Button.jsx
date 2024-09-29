@@ -1,10 +1,9 @@
-export const Button = ({children, className, ...rest}) => {
-    return (
-        <button
-            {...rest}
-            className={`h-8 bg-gray-100 rounded text-xs p-1.5 flex items-center justify-center ${className}`}
-            dir="ltr">
-            {children}
-        </button>
-    )
-}
+export const Button = ({ children, className, ...rest }) => {
+	return (
+		<button
+			{...rest}
+			className={`size-8 bg-gray-100 dark:bg-gray-900 dark:text-white rounded text-xs p-1.5 flex items-center justify-center ${className}`}>
+			{children}
+		</button>
+	);
+};
