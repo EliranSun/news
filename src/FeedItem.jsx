@@ -29,6 +29,11 @@ export const FeedItem = ({ item, onRead }) => {
                 max-w-[700px] my-4
                 w-full
             `}>
+			<Buttons
+				item={item}
+				onRead={onRead}
+				onQueryClick={onQueryClick}
+			/>
 			<h1
 				dir={item.language === "he" ? "rtl" : "ltr"}
 				className="text-lg font-bold">
@@ -39,11 +44,6 @@ export const FeedItem = ({ item, onRead }) => {
 				className="text-sm mb-3 overflow-hidden text-ellipsis max-h-[3.9rem]">
 				{queryResult || item.description}
 			</p>
-			<Buttons
-				item={item}
-				onRead={onRead}
-				onQueryClick={onQueryClick}
-			/>
 		</div>
 	);
 };
