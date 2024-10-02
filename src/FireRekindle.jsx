@@ -1,68 +1,62 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from "react";
+
+const MAX_TIME = 86400;
+const initFireState = localStorage.getItem("fireState") || MAX_TIME;
+const debug = new URLSearchParams(window.location.search).get("debug");
 
 function FireTimer() {
-  const [rekindleTime, setRekindleTime] = useState(86400); // Default rekindle time
-  const [timeLeft, setTimeLeft] = useState(rekindleTime);
-  const [isRunning, setIsRunning] = useState(false);
+	const [timeLeft, setTimeLeft] = useState(initFireState);
+	const random = Math.random() * (2000 - 10) + 10;
 
-  useEffect(() => {
-    let timer;
+	useEffect(() => {
+		let timer;
 
-    if (isRunning && timeLeft > 0) {
-      timer = setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
-      }, 1000);
-    }
+		if (timeLeft > 0) {
+			timer = setInterval(() => {
+				setTimeLeft((prev) => prev - 1);
+				localStorage.setItem("fireState", timeLeft);
+			}, random);
+		}
 
-    return () => clearInterval(timer);
-  }, [isRunning, timeLeft]);
+		return () => clearInterval(timer);
+	}, [timeLeft, random]);
 
-  // Calculate scale and opacity based on timeLeft
-  const calculateScale = () => Math.max(timeLeft / rekindleTime, 0.1); // Ensures a minimum size
-  const calculateOpacity = () => Math.max(timeLeft / rekindleTime, 0.1); // Ensures a minimum opacity
+	const scale = useMemo(() => Math.max(timeLeft / MAX_TIME, 0.1), [timeLeft]);
+	const opacity = useMemo(() => Math.max(timeLeft / MAX_TIME, 0.1), [timeLeft]); // Ensures a minimum opacity
 
-  // Rekindle the fire by adding more time
-  const rekindleFire = () => {
-    setTimeLeft((prev) => Math.min(prev + 10, rekindleTime)); // Add 10 seconds, but not exceed rekindleTime
-    setIsRunning(true);
-  };
-
-  return (
-    <div className="flex flex-col items-center justify-center w-screen h-screen bg-black text-white">
-      <div
-        className="transition-transform transition-opacity duration-100"
-        onClick={rekindleFire}
-        style={{
-          transform: `scale(${calculateScale()})`,
-          opacity: calculateOpacity(),
-          cursor: 'pointer',
-        }}
-      >
-        <h1 className="text-9xl">🔥</h1>
-      </div>
-      <div className="mt-4">
-        <label className="block text-sm font-medium">
-          <input
-            type="number"
-            value={rekindleTime}
-            onChange={(e) => {
-              setRekindleTime(Number(e.target.value));
-              setTimeLeft(Number(e.target.value));
-            }}
-            className="ml-2 p-1 rounded bg-gray-700 border border-gray-600"
-          />
-        </label>
-      </div>
-      {!isRunning && timeLeft > 0 && (
-        <button
-          onClick={() => setIsRunning(true)}
-          className="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded font-medium"
-        >
-          Start
-        </button>
-      )}
-    </div>
-  );
+	return (
+		<div
+			className="flex flex-col items-center justify-center w-screen h-screen bg-black text-white"
+			onClick={() => {
+				setTimeLeft((prev) => Math.min(Math.round((prev + 1) * 1.3), MAX_TIME));
+			}}>
+			<div
+				className="relative z-10 transition duration-100"
+				style={{
+					opacity,
+					transform: `scale(${scale})`,
+					cursor: "pointer",
+				}}>
+				<h1 className="text-9xl select-none animate-grow-shrink">🔥</h1>
+			</div>
+			<div className="z-0 relative w-40 h-28">
+				<div className="absolute -top-10 left-0 text-8xl select-none rotate-90">
+					🪵
+				</div>
+				<div className="absolute -top-8 right-0 text-8xl select-none rotate-[-80deg]">
+					🪵
+				</div>
+			</div>
+			{debug ? (
+				<>
+					<label>{timeLeft}</label>
+					<label>{opacity}</label>
+					<label>{scale}</label>
+					<label>{random}</label>
+				</>
+			) : null}
+		</div>
+	);
 }
 
 export default FireTimer;
