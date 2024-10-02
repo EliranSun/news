@@ -40,10 +40,7 @@ function FireTimer() {
 				<h1 className="text-9xl select-none animate-grow-shrink">🔥</h1>
 			</div>
 			<div className="z-0 relative w-40 h-28">
-				<div className="absolute -top-10 left-0 text-8xl select-none rotate-90">
-					🪵
-				</div>
-				<div className="absolute -top-8 right-0 text-8xl select-none rotate-[-80deg]">
+				<div className="absolute -top-4 inset-x-0 text-8xl select-none rotate-90">
 					🪵
 				</div>
 			</div>

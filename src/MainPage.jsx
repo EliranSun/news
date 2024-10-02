@@ -2,16 +2,16 @@ import News from "./App.jsx";
 import FireRekindle from "./FireRekindle";
 import QrCodes from "./QrCodes";
 
-const queryParams = new URLSearchParams(window.location.search);
-const imageID = queryParams.get("image_id");
-const fireRekindle = queryParams.get("fire");
+const path = window.location.pathname;
+const firePage = path === "/fire";
+const imagePage = new URLSearchParams(window.location.search).get("image_id");
 
 export const MainPage = () => {
-	if (imageID) {
-		return <QrCodes imageID={imageID} />;
+	if (imagePage) {
+		return <QrCodes imageID={imagePage} />;
 	}
 
-	if (fireRekindle) {
+	if (firePage) {
 		return <FireRekindle />;
 	}
 
