@@ -3,10 +3,10 @@ import Image1 from "./assets/nofar-1.gif";
 import Image2 from "./assets/nofar-2.gif";
 import Image3 from "./assets/nofar-3.gif";
 import Image4 from "./assets/nofar-4.gif";
-import Image5 from "./assets/nofar-5.gif";
-import Image6 from "./assets/nofar-6.gif";
-import Image7 from "./assets/nofar-7.gif";
-import Image8 from "./assets/nofar-8.gif";
+import Image5 from "./assets/nofar-14.gif";
+import Image6 from "./assets/nofar-16.gif";
+import Image7 from "./assets/nofar-27.gif";
+import Image8 from "./assets/nofar-28.gif";
 
 export const ImagePage = ({ imageID }) => {
 	const imageSrc = useMemo(() => {
