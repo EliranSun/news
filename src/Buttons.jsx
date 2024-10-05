@@ -10,14 +10,9 @@ export const Buttons = ({ item, onRead, onQueryClick }) => {
 		<div
 			id={`buttons-${isRead ? "read" : "unread"}`}
 			className="flex gap-2 items-center justify-center w-full">
-			
 			<Button>
-				<a
-					href={item.link}
-					target="_blank"
-					rel="noopener noreferrer">
-					🔗
-				</a>
+				{item.diff.value}
+				{item.diff.unit}
 			</Button>
 			<Button
 				onClick={() => {
@@ -27,11 +22,15 @@ export const Buttons = ({ item, onRead, onQueryClick }) => {
 				}}>
 				✔️
 			</Button>
+			<Button onClick={onQueryClick}>?</Button>
 			<Button>
-				{item.diff.value}
-				{item.diff.unit}
+				<a
+					href={item.link}
+					target="_blank"
+					rel="noopener noreferrer">
+					🔗
+				</a>
 			</Button>
-											<Button onClick={onQueryClick}>?</Button>
 		</div>
 	);
 };

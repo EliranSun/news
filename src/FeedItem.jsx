@@ -28,19 +28,19 @@ export const FeedItem = ({ item, onRead }) => {
 		<div
 			className={`
                 ${item.language.includes("he") ? "text-right" : "text-left"}
-                max-w-[700px] my-4 flex gap-4 justify-between
-                w-full border-b border-gray-200 pb-8
+                max-w-[700px] my-5 flex gap-4 justify-between
+                w-full
             `}>
 			<div className="w-full flex flex-col justify-between">
 				<div>
 					<h1
 						dir={item.language === "he" ? "rtl" : "ltr"}
-						className="text-lg h-20 text-ellipsis overflow-hidden font-bold">
+						className="text-lg h-18 font-bold text-ellipsis overflow-hidden mb-3 line-clamp-2">
 						{item.title}
 					</h1>
 					<p
 						dir={item.language === "he" ? "rtl" : "ltr"}
-						className="text-sm h-20 text-ellipsis overflow-hidden mb-3">
+						className="text-sm h-16 text-ellipsis overflow-hidden mb-3 line-clamp-3">
 						{queryResult || item.description}
 					</p>
 				</div>
