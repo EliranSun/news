@@ -10,14 +10,7 @@ export const Buttons = ({ item, onRead, onQueryClick }) => {
 		<div
 			id={`buttons-${isRead ? "read" : "unread"}`}
 			className="flex gap-2 items-center justify-center w-full">
-			<Button
-				onClick={() => {
-					setIsRead(true);
-					onRead();
-					localStorage.setItem(item.link, "read");
-				}}>
-				✔️
-			</Button>
+			
 			<Button>
 				<a
 					href={item.link}
@@ -25,6 +18,14 @@ export const Buttons = ({ item, onRead, onQueryClick }) => {
 					rel="noopener noreferrer">
 					🔗
 				</a>
+			</Button>
+			<Button
+				onClick={() => {
+					setIsRead(true);
+					onRead();
+					localStorage.setItem(item.link, "read");
+				}}>
+				✔️
 			</Button>
 			<Button>
 				{item.diff.value}
