@@ -44,20 +44,10 @@ export const FeedItem = ({ item, onRead }) => {
 						{queryResult || item.description}
 					</p>
 				</div>
-				<div className="w-full flex gap-1">
-					<input
-						type="text"
-						placeholder="Question"
-						className="border border-gray-300 w-5/6 text-sm rounded-md p-1 h-8"
-						onChange={(e) => setQuestion(e.target.value)}
-					/>
-					<Button onClick={() => onQueryClick(question)}>?</Button>
-				</div>
-			</div>
-			<div>
 				<Buttons
 					item={item}
 					onRead={onRead}
+					onQueryClick={() => onQueryClick(question)}
 				/>
 			</div>
 		</div>
