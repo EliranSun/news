@@ -40,7 +40,7 @@ export const FeedItem = ({ item, onRead }) => {
 					</h1>
 					<p
 						dir={item.language === "he" ? "rtl" : "ltr"}
-						className="text-sm h-40 truncate overflow-y-auto mb-3">
+						className="text-sm h-40 w-full truncate overflow-y-auto mb-3">
 						{queryResult || item.description}
 					</p>
 				</div>
