@@ -35,7 +35,7 @@ export const FeedItem = ({ item, onRead }) => {
 				<div>
 					<h1
 						dir={item.language === "he" ? "rtl" : "ltr"}
-						className="text-lg h-32 text-ellipsis overflow-hidden font-bold">
+						className="text-lg h-20 text-ellipsis overflow-hidden font-bold">
 						{item.title}
 					</h1>
 					<p
