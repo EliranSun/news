@@ -9,7 +9,7 @@ export const Buttons = ({ item, onRead, onQueryClick }) => {
 	return (
 		<div
 			id={`buttons-${isRead ? "read" : "unread"}`}
-			className="flex gap-1 items-center justify-end w-full">
+			className="flex gap-2 items-center justify-center w-full">
 			<Button
 				onClick={() => {
 					setIsRead(true);
