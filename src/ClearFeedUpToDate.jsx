@@ -31,14 +31,14 @@ const ClearFeedUpToDate = ({ items = [] }) => {
 		<div
 			style={{
 				marginBottom: "20px",
-				display: "grid",
-				gridTemplateColumns: "repeat(4, 1fr)",
+				display: "flex",
 				gap: "10px",
 			}}>
-			<button onClick={() => handleClear(0)}>&#8734;</button>
 			<button onClick={() => handleClear(10 / 60)}>10m</button>
 			<button onClick={() => handleClear(1)}>1h</button>
 			<button onClick={() => handleClear(24)}>24h</button>
+									<button onClick={() => handleClear(4)}>4h</button>
+						<button onClick={() => handleClear(8)}>8h</button>
 		</div>
 	);
 };
