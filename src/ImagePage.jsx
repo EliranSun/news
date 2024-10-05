@@ -60,11 +60,11 @@ export const ImagePage = ({ imageID }) => {
 				alt="nofar"
 			/>
 			<p className="font-mono">Age: {pageData.age}</p>
-			<pre
-				className="text-right"
+			<p
+				className="w-[90vw] m-auto text-right"
 				dir="rtl">
 				{pageData.caption}
-			</pre>
+			</p>
 		</div>
 	);
 };
