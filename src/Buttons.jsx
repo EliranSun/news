@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "./Button.jsx";
 
-export const Buttons = ({ item, onRead }) => {
+export const Buttons = ({ item, onRead, onQueryClick }) => {
 	const [isRead, setIsRead] = useState(
 		localStorage.getItem(item.link) === "read" || false
 	);
@@ -9,7 +9,7 @@ export const Buttons = ({ item, onRead }) => {
 	return (
 		<div
 			id={`buttons-${isRead ? "read" : "unread"}`}
-			className="flex flex-col gap-1 items-center justify-end w-full">
+			className="flex gap-1 items-center justify-end w-full">
 			<Button
 				onClick={() => {
 					setIsRead(true);
@@ -30,6 +30,7 @@ export const Buttons = ({ item, onRead }) => {
 				{item.diff.value}
 				{item.diff.unit}
 			</Button>
+											<Button onClick={onQueryClick}>?</Button>
 		</div>
 	);
 };
