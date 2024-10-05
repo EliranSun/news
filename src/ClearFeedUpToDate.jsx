@@ -34,6 +34,7 @@ const ClearFeedUpToDate = ({ items = [] }) => {
 				display: "flex",
 				gap: "10px",
 			}}>
+						<button onClick={() => window.location.reload(true)}>🔄</button>
 			<button onClick={() => handleClear(10 / 60)}>10m</button>
 			<button onClick={() => handleClear(1)}>1h</button>
 			<button onClick={() => handleClear(24)}>24h</button>
