@@ -35,12 +35,12 @@ export const FeedItem = ({ item, onRead }) => {
 				<div>
 					<h1
 						dir={item.language === "he" ? "rtl" : "ltr"}
-						className="text-lg font-bold">
+						className="text-lg h-32 text-ellipsis overflow-hidden font-bold">
 						{item.title}
 					</h1>
 					<p
 						dir={item.language === "he" ? "rtl" : "ltr"}
-						className="text-sm h-40 text-ellipsis overflow-hidden mb-3">
+						className="text-sm h-20 text-ellipsis overflow-hidden mb-3">
 						{queryResult || item.description}
 					</p>
 				</div>
