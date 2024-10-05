@@ -30,6 +30,8 @@ const ClearFeedUpToDate = ({ items = [] }) => {
 	return (
 		<div
 			style={{
+			width: "100%",
+			flexWrap: "wrap",
 				marginBottom: "20px",
 				display: "flex",
 				gap: "10px",
