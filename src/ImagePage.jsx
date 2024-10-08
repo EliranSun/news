@@ -40,15 +40,15 @@ export const ImagePage = ({ imageID }) => {
 			case "12":
 				return {
 					src: Image7,
-					age: "28",
+					age: "27",
 					caption: `מאמנת את אלה במסירות ובהתמדה,\nכזאת היא דמותך, מעוררת השראה.\nאהבה אינסופית לחיות ולכלבים,\nזה מה שאני אוהב בך - תמיד דואגת לאחרים`,
 				};
 
 			case "11":
 				return {
 					src: Image8,
-					age: "29",
-					caption: `והנה אנחנו לקראת סוף המסע…\nאת מאכילה במביים בחיוך ובאהבה\n29 שנים חלפו להן כך במהירות ובזרימה,\nעכשיו כל שנותר זה… מתנה!`,
+					age: "28",
+					caption: `והנה אנחנו לקראת סוף המסע…\nאת מאכילה במביים בחיוך ובאהבה\n29 שנים חלפו להן כך במהירות ובזרימה,\nעכשיו כל שנותר זה… מתנה (כמעט)!`,
 				};
 		}
 	}, [imageID]);
@@ -60,11 +60,11 @@ export const ImagePage = ({ imageID }) => {
 				alt="nofar"
 			/>
 			<p className="font-mono">Age: {pageData.age}</p>
-			<pre
-				className="text-right"
+			<p
+				className="w-[90vw] m-auto text-right"
 				dir="rtl">
 				{pageData.caption}
-			</pre>
+			</p>
 		</div>
 	);
 };
