@@ -66,6 +66,16 @@ export const Chart = () => {
 			<div className="flex w-full mb-2">
 				<button
 					className="w-full"
+					onClick={() => setDataLimit(1000)}>
+					1000
+				</button>
+				<button
+					className="w-full"
+					onClick={() => setDataLimit(100)}>
+					100
+				</button>
+				<button
+					className="w-full"
 					onClick={() => setDataLimit(50)}>
 					50
 				</button>
