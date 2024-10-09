@@ -122,6 +122,7 @@ export const Chart = () => {
 							fill="#8884d8"
 						/>
 						<Line
+						dot={false}
 							type="natural"
 							dataKey="y"
 							data={data}
