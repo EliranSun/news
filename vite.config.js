@@ -1,22 +1,25 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import { VitePWA } from 'vite-plugin-pwa'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    VitePWA({
-      manifest: {
-        // Add your manifest configuration here
-        name: 'News 2',
-        short_name: 'News 2',
-        description: 'Up to Date & Full of Anxiety',
-        theme_color: '#ffffff',
-        icons: [
-          // Add your icon configurations here
-        ]
-      }
-    })
-  ],
-})
+	plugins: [
+		react(),
+		VitePWA({
+			manifest: {
+				name: "News",
+				short_name: "News",
+				description: "Up to Date & Full of Anxiety",
+				theme_color: "#ffffff",
+				icons: [
+					{
+						src: "/icon.jpeg",
+						sizes: "192x192",
+						type: "image/jpeg",
+					},
+				],
+			},
+		}),
+	],
+});
