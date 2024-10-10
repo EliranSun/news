@@ -8,7 +8,7 @@ import { useState } from "react";
 const currentHour = new Date().getHours();
 
 const RssFeedComponent = () => {
-	const [readButtonPosition, setReadButtonPosition] = useState(readButtonPosition === "right-0" ? "left-0" : "right-0");
+	const [readButtonPosition, setReadButtonPosition] = useState(	currentHour >= 18 ? "left-0" : "right-0");
 	const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 	const { feeds, setFeeds } = useRssFeed();
 
@@ -23,7 +23,7 @@ const RssFeedComponent = () => {
 				height: "100dvh",
 			}}>
 			<ClearFeedUpToDate 
-			onChangePosition={() => setReadButtonPosition(currentHour >= 18 ? "left-0" : "right-0")}
+			onChangePosition={() => setReadButtonPosition(readButtonPosition === "right-0" ? "left-0" : "right-0")}
 			items={feeds} />
 			<div className="mx-auto flex flex-col items-start w-full gap-1 pt-1 box-border">
 				{feeds.map((item, index) => {
