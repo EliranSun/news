@@ -46,8 +46,8 @@ const RssFeedComponent = () => {
 			</div>
 			<Button
 				className={`
-					shadow-lg fixed bottom-8 
-					${readButtonPosition} size-16 m-4 
+					shadow-lg fixed bottom-8 inset-x-0
+					size-16 my-4 mx-auto
 					rounded-full`}
 				onClick={() => {
 					localStorage.setItem(feeds[selectedItemIndex].link, "read");
