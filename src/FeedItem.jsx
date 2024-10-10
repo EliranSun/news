@@ -4,7 +4,7 @@ import { Button } from "./Button.jsx";
 
 const API_URL = "https://walak.vercel.app/api/rss";
 
-export const FeedItem = ({ item, onRead }) => {
+export const FeedItem = ({ item, onRead, onClick }) => {
 	const [queryResult, setQueryResult] = useState(null);
 	const [question, setQuestion] = useState("");
 
@@ -26,6 +26,7 @@ export const FeedItem = ({ item, onRead }) => {
 
 	return (
 		<div
+			onClick={onClick}
 			className={`
                 ${item.language.includes("he") ? "text-right" : "text-left"}
                 max-w-[700px] my-5 flex gap-4 justify-between
@@ -46,7 +47,6 @@ export const FeedItem = ({ item, onRead }) => {
 				</div>
 				<Buttons
 					item={item}
-					onRead={onRead}
 					onQueryClick={() => onQueryClick(question)}
 				/>
 			</div>

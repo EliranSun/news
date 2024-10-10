@@ -30,18 +30,18 @@ const ClearFeedUpToDate = ({ items = [] }) => {
 	return (
 		<div
 			style={{
-			width: "100%",
-			flexWrap: "wrap",
-				marginBottom: "20px",
+				width: "100%",
+				flexWrap: "wrap",
+				marginBottom: "10px",
 				display: "flex",
 				gap: "10px",
 			}}>
-						<button onClick={() => window.location.reload(true)}>🔄</button>
-			<button onClick={() => handleClear(10 / 60)}>10m</button>
+			<button onClick={() => window.location.reload(true)}>🔄</button>
+			{/* <button onClick={() => handleClear(10 / 60)}>10m</button> */}
 			<button onClick={() => handleClear(1)}>1h</button>
+			<button onClick={() => handleClear(4)}>4h</button>
+			<button onClick={() => handleClear(8)}>8h</button>
 			<button onClick={() => handleClear(24)}>24h</button>
-									<button onClick={() => handleClear(4)}>4h</button>
-						<button onClick={() => handleClear(8)}>8h</button>
 		</div>
 	);
 };

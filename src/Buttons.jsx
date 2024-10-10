@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button } from "./Button.jsx";
 
+const currentHour = new Date().getHours();
+
 export const Buttons = ({ item, onRead, onQueryClick }) => {
 	const [isRead, setIsRead] = useState(
 		localStorage.getItem(item.link) === "read" || false
@@ -9,21 +11,19 @@ export const Buttons = ({ item, onRead, onQueryClick }) => {
 	return (
 		<div
 			id={`buttons-${isRead ? "read" : "unread"}`}
-			className="flex gap-2 items-center justify-center w-full">
-			<Button>
+			className={`flex gap-2 items-center ${
+				currentHour > 18 ? "justify-end" : "justify-start"
+			} w-full`}>
+			<Button className="h-12 w-20">
 				{item.diff.value}
 				{item.diff.unit}
 			</Button>
 			<Button
-				onClick={() => {
-					setIsRead(true);
-					onRead();
-					localStorage.setItem(item.link, "read");
-				}}>
-				✔️
+				className="h-12 w-20"
+				onClick={onQueryClick}>
+				?
 			</Button>
-			<Button onClick={onQueryClick}>?</Button>
-			<Button>
+			<Button className="h-12 w-20">
 				<a
 					href={item.link}
 					target="_blank"
