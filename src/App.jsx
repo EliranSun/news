@@ -42,7 +42,7 @@ const RssFeedComponent = () => {
 				})}
 			</div>
 			<Button
-				className={`shadow-lg fixed bottom-10 ${
+				className={`shadow-lg fixed bottom-8 ${
 					currentHour > 18 ? "left-0" : "right-0"
 				} right-0 size-16 m-4 rounded-full`}
 				onClick={() => {
