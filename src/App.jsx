@@ -8,7 +8,7 @@ import { useState } from "react";
 const currentHour = new Date().getHours();
 
 const RssFeedComponent = () => {
-	const [readButtonPosition, setReadButtonPosition] = useState(currentHour >= 18 ? "left-0" : "right-0");
+	const [readButtonPosition, setReadButtonPosition] = useState(readButtonPosition === "right-0" ? "left-0" : "right-0");
 	const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 	const { feeds, setFeeds } = useRssFeed();
 
