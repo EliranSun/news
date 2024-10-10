@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ClearFeedUpToDate = ({ items = [] }) => {
+const ClearFeedUpToDate = ({ items = [], onChangePosition }) => {
 	const handleClear = (hours = 1) => {
 		const currentTime = new Date();
 		const clearTime = new Date(
@@ -36,7 +36,7 @@ const ClearFeedUpToDate = ({ items = [] }) => {
 				display: "flex",
 				gap: "10px",
 			}}>
-			<button onClick={() => window.location.reload(true)}>🔄</button>
+			<button onClick={() => onChangePosition()}>🔄</button>
 			{/* <button onClick={() => handleClear(10 / 60)}>10m</button> */}
 			<button onClick={() => handleClear(1)}>1h</button>
 			{/* <button onClick={() => handleClear(4)}>4h</button> */}
