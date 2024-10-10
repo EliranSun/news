@@ -41,7 +41,7 @@ export const FeedItem = ({ item, onRead, onClick }) => {
 					</h1>
 					<p
 						dir={item.language === "he" ? "rtl" : "ltr"}
-						className="text-sm h-16 text-ellipsis overflow-y-auto mb-3">
+						className="text-sm mb-3">
 						{queryResult || item.description}
 					</p>
 				</div>
