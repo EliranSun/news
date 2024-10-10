@@ -8,6 +8,7 @@ import { useState } from "react";
 const currentHour = new Date().getHours();
 
 const RssFeedComponent = () => {
+	const [readButtonPosition, setReadButtonPosition] = useState(currentHour >= 18 ? "left-0" : "right-0");
 	const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 	const { feeds, setFeeds } = useRssFeed();
 
@@ -42,9 +43,10 @@ const RssFeedComponent = () => {
 				})}
 			</div>
 			<Button
-				className={`shadow-lg fixed bottom-8 ${
-					currentHour > 18 ? "left-0" : "right-0"
-				} right-0 size-16 m-4 rounded-full`}
+				className={`
+					shadow-lg fixed bottom-8 
+					${readButtonPosition} size-16 m-4 
+					rounded-full`}
 				onClick={() => {
 					localStorage.setItem(feeds[selectedItemIndex].link, "read");
 					setFeeds(
