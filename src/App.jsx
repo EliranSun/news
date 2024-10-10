@@ -22,7 +22,9 @@ const RssFeedComponent = () => {
 				padding: "20px",
 				height: "100dvh",
 			}}>
-			<ClearFeedUpToDate items={feeds} />
+			<ClearFeedUpToDate 
+			onChangePosition={() => setReadButtonPosition(currentHour >= 18 ? "left-0" : "right-0")}
+			items={feeds} />
 			<div className="mx-auto flex flex-col items-start w-full gap-1 pt-1 box-border">
 				{feeds.map((item, index) => {
 					return (
