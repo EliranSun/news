@@ -32,13 +32,13 @@ const RssFeedComponent = () => {
 				}
 				items={feeds}
 			/>
-			<div className="mx-auto flex flex-col items-start w-screen gap-1 pt-1 box-border">
+			<div className="mx-auto flex flex-col items-start w-full gap-1 pt-1 box-border">
 				{feeds.map((item, index) => {
 					return (
 						<div
 							key={item.link + item.title}
 							className={`
-								p-2 rounded-md
+								p-2 rounded-md w-full
 								${index === selectedItemIndex ? "outline outline-1 outline-slate-300" : ""}`}>
 							<FeedItem
 								item={item}
