@@ -44,7 +44,9 @@ const View = (items = [], isSavedView, queryResult) => {
 		}
 		
 		if (isSavedView) {
-				return items.map((item) => (
+				return items
+				.filter(item => item.isSaved)
+				.map((item) => (
 						<FeedItem
 							key={item.link}
 							item={item}
@@ -55,7 +57,7 @@ const View = (items = [], isSavedView, queryResult) => {
 		
 		return (
 		<FeedItem
-						item={items[0]}
+						item={items.filter(item => !item.isSaved)[0]}
 						queryResult={queryResult}
 					/>
 		);
