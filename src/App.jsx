@@ -38,11 +38,36 @@ const NotificationBadge = ({ count }) => {
 	);
 };
 
+const View = (items = [], isSavedView, queryResult) => {
+	if (items.length === 0) {
+						return <Loader />;
+		}
+		
+		if (isSavedView) {
+				return items.map((item) => (
+						<FeedItem
+							key={item.link}
+							item={item}
+							onlyTitle
+						/>
+					))
+			}
+		
+		return (
+		<FeedItem
+						item={items[0]}
+						queryResult={queryResult}
+					/>
+		);
+		
+};
+
 const RssFeedComponent = () => {
-	const { feeds, setFeeds, isSavedView, setIsSavedView } = useRssFeed();
+	const { feeds, setFeeds } = useRssFeed();
 	const [queryResult, setQueryResult] = useState("");
 	const [isSweepDataView, setIsSweepDataView] = useState(false);
-
+ const [isSavedView, setIsSavedView] = useState(false);
+	
 	const onQueryClick = useCallback(async () => {
 		const body = {
 			question: feeds[0].title,
@@ -84,20 +109,10 @@ const RssFeedComponent = () => {
 				</h1>
 			</div>
 			<div className="w-full">
-				{isSavedView ? (
-					feeds.map((item) => (
-						<FeedItem
-							key={item.link}
-							item={item}
-							onlyTitle
-						/>
-					))
-				) : (
-					<FeedItem
-						item={feeds[0]}
-						queryResult={queryResult}
-					/>
-				)}
+				<View 
+				queryResults={queryResults}
+				items={feeds} 
+				isSavedView={isSavedView}/>
 			</div>
 			<div className="fixed bottom-8 inset-x-0 flex justify-center items-center gap-6">
 				<RoundButton onClick={() => window.open(feeds[0].link, "_blank")}>
@@ -119,6 +134,8 @@ const RssFeedComponent = () => {
 				<RoundButton
 					onClick={() => {
 						localStorage.setItem(feeds[0].link, "saved");
+						setFeeds(feeds.filter((feed) => feed.link !== feeds[0].link));
+						setQueryResult("");
 					}}>
 					<BookmarkSimple size={24} />
 				</RoundButton>
