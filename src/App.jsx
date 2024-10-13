@@ -87,6 +87,7 @@ const RssFeedComponent = () => {
 		const data = await res.json();
 		setQueryResult(data.answer);
 	}, [feeds]);
+	
 
 	return (
 		<section className="p-5 h-[100dvh] w-screen">
@@ -109,10 +110,7 @@ const RssFeedComponent = () => {
 				</h1>
 			</div>
 			<div className="w-full">
-				<View 
-				queryResults={queryResults}
-				items={feeds} 
-				isSavedView={isSavedView}/>
+				
 			</div>
 			<div className="fixed bottom-8 inset-x-0 flex justify-center items-center gap-6">
 				<RoundButton onClick={() => window.open(feeds[0].link, "_blank")}>
