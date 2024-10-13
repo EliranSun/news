@@ -56,10 +56,14 @@ const View = ({ items = [], isSavedView, queryResult }) => {
 						/>
 					));
 			}
+			
+			const nonSavedItems = items?.filter(item => !item.isSaved);
+		
+		if (!nonSavedItems) return null;
 		
 		return (
 		<FeedItem
-						item={items?.filter(item => !item.isSaved)?[0]}
+						item={nonSavedItems[0]}
 						queryResult={queryResult}
 					/>
 		);
