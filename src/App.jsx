@@ -20,7 +20,7 @@ const RoundButton = ({ children, onClick, big }) => {
 		<Button
 			className={classNames({
 				"size-16 text-[16px]": big,
-				"size-12 text-[8px]": !big,
+				"size-10 text-[8px]": !big,
 				"relative shadow-md rounded-full": true,
 			})}
 			onClick={onClick}>

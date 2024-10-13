@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import PropTypes from "prop-types";
 
 export const FeedItem = ({ item, onClick, queryResult }) => {
 	return (
@@ -21,7 +22,7 @@ export const FeedItem = ({ item, onClick, queryResult }) => {
 					</h1>
 					<p
 						dir={item.language === "he" ? "rtl" : "ltr"}
-						className="text-lg mb-3">
+						className="text-base mb-3">
 						{queryResult || item.description}
 					</p>
 				</div>
@@ -36,4 +37,18 @@ export const FeedItem = ({ item, onClick, queryResult }) => {
 			</div>
 		</div>
 	);
+};
+
+FeedItem.propTypes = {
+	onClick: PropTypes.func.isRequired,
+	queryResult: PropTypes.string,
+	item: PropTypes.shape({
+		language: PropTypes.string.isRequired,
+		title: PropTypes.string.isRequired,
+		description: PropTypes.string,
+		diff: PropTypes.shape({
+			value: PropTypes.number.isRequired,
+			unit: PropTypes.string.isRequired,
+		}).isRequired,
+	}).isRequired,
 };
