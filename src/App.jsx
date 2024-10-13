@@ -39,7 +39,7 @@ const NotificationBadge = ({ count }) => {
 };
 
 const RssFeedComponent = () => {
-	const { feeds, setFeeds } = useRssFeed();
+	const { feeds, setFeeds, isSavedView, setIsSavedView } = useRssFeed();
 	const [queryResult, setQueryResult] = useState("");
 	const [isSweepDataView, setIsSweepDataView] = useState(false);
 
@@ -65,13 +65,39 @@ const RssFeedComponent = () => {
 
 	return (
 		<section className="p-5 h-[100dvh] w-screen">
-			{/*  className="animate-pulse" */}
+			<div className="mb-4 flex justify-between">
+				<h1
+					className={classNames({
+						"text-sm font-bold border-b border-slate-300": true,
+						"opacity-50": isSavedView,
+					})}
+					onClick={() => setIsSavedView(false)}>
+					Feed
+				</h1>
+				<h1
+					className={classNames({
+						"text-sm font-bold border-b border-slate-300": true,
+						"opacity-50": !isSavedView,
+					})}
+					onClick={() => setIsSavedView(true)}>
+					Saved
+				</h1>
+			</div>
 			<div className="w-full">
-				<FeedItem
-					item={feeds[0]}
-					listLength={feeds.length}
-					queryResult={queryResult}
-				/>
+				{isSavedView ? (
+					feeds.map((item) => (
+						<FeedItem
+							key={item.link}
+							item={item}
+							onlyTitle
+						/>
+					))
+				) : (
+					<FeedItem
+						item={feeds[0]}
+						queryResult={queryResult}
+					/>
+				)}
 			</div>
 			<div className="fixed bottom-8 inset-x-0 flex justify-center items-center gap-6">
 				<RoundButton onClick={() => window.open(feeds[0].link, "_blank")}>

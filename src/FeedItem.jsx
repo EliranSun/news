@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
-export const FeedItem = ({ item, onClick, queryResult }) => {
+export const FeedItem = ({ item, onClick, queryResult, onlyTitle }) => {
 	return (
 		<div
 			onClick={onClick}
@@ -18,13 +18,15 @@ export const FeedItem = ({ item, onClick, queryResult }) => {
 							"merriweather-bold": item.language.includes("en"),
 							"heebo-900": !item.language.includes("en"),
 						})}>
-						{item.title}...
+						{item.title}
 					</h1>
-					<p
-						dir={item.language === "he" ? "rtl" : "ltr"}
-						className="text-base mb-3">
-						{queryResult || item.description}
-					</p>
+					{onlyTitle ? null : (
+						<p
+							dir={item.language === "he" ? "rtl" : "ltr"}
+							className="text-base mb-3">
+							{queryResult || item.description}
+						</p>
+					)}
 				</div>
 				<p className="text-sm font-mono">
 					{item.diff.value}
