@@ -35,7 +35,7 @@ export const FeedItem = ({ position, listLength, item, onRead, onClick }) => {
 				<div>
 					<h1
 						dir={item.language === "he" ? "rtl" : "ltr"}
-						className="text-lg h-18 font-bold mb-3">
+						className="text-lg h-18 font-bold mb-3 w-full">
 						{item.title}
 					</h1>
 					<p

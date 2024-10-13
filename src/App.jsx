@@ -32,7 +32,7 @@ const RssFeedComponent = () => {
 				}
 				items={feeds}
 			/>
-			<div className="mx-auto flex flex-col items-start w-full gap-1 pt-1 box-border">
+			<div className="mx-auto flex flex-col items-start w-screen gap-1 pt-1 box-border">
 				{feeds.map((item, index) => {
 					return (
 						<div
