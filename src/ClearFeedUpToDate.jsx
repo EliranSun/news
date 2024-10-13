@@ -1,6 +1,6 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 
-const ClearFeedUpToDate = ({ items = [], isActive = false }) => {
+export const ClearFeedUpToDate = ({ items = [], isActive = false }) => {
 	const handleClear = useCallback(
 		(hours = 1) => {
 			const currentTime = new Date();
@@ -32,5 +32,3 @@ const ClearFeedUpToDate = ({ items = [], isActive = false }) => {
 		</div>
 	);
 };
-
-export default ClearFeedUpToDate;
