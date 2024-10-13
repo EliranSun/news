@@ -28,10 +28,9 @@ export const FeedItem = ({ position, listLength, item, onRead, onClick }) => {
 		<div
 			onClick={onClick}
 			className={`
-                ${item.language.includes("he") ? "text-right" : "text-left"}
-                max-w-[700px] my-5 flex gap-4 justify-between
-                w-full
-            `}>
+				${item.language.includes("he") ? "text-right" : "text-left"}
+				my-5 flex gap-4 justify-between w-full
+			`}>
 			<div className="w-full flex flex-col justify-between">
 				<div>
 					<h1
