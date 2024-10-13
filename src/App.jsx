@@ -4,6 +4,7 @@ import { Loader } from "./Loader.jsx";
 import { FeedItem } from "./FeedItem.jsx";
 import { Button } from "./Button.jsx";
 import { ClearFeedUpToDate } from "./ClearFeedUpToDate.jsx";
+import classNames from "classnames";
 import {
 	CheckFat,
 	BookmarkSimple,
@@ -17,9 +18,11 @@ const API_URL = "https://walak.vercel.app/api/rss";
 const RoundButton = ({ children, onClick, big }) => {
 	return (
 		<Button
-			className={`relative shadow-md size-${big ? 16 : 12} rounded-full text-[${
-				big ? 16 : 8
-			}px]`}
+			className={classNames({
+				"size-16 text-[16px]": big,
+				"size-12 text-[8px]": !big,
+				"relative shadow-md rounded-full": true,
+			})}
 			onClick={onClick}>
 			{children}
 		</Button>
@@ -61,9 +64,9 @@ const RssFeedComponent = () => {
 	}
 
 	return (
-		<section className="p-5 h-[100dvh]">
+		<section className="p-5 h-[100dvh] w-screen">
 			{/*  className="animate-pulse" */}
-			<div>
+			<div className="w-full">
 				<FeedItem
 					item={feeds[0]}
 					listLength={feeds.length}

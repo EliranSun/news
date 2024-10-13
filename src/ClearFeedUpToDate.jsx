@@ -25,19 +25,19 @@ export const ClearFeedUpToDate = ({ items = [], isActive = false }) => {
 	if (!isActive) return null;
 
 	return (
-		<div className="absolute top-0 inset-x-0 flex flex-col w-fit mx-auto">
+		<div className="absolute bottom-10 flex flex-col w-fit">
 			<button
-				className="rounded-full"
+				className="rounded-full h-10"
 				onClick={() => handleClear(1)}>
 				1h
 			</button>
 			<button
-				className="rounded-full"
+				className="rounded-full h-10"
 				onClick={() => handleClear(8)}>
 				8h
 			</button>
 			<button
-				className="rounded-full"
+				className="rounded-full h-10"
 				onClick={() => handleClear(24)}>
 				24h
 			</button>
