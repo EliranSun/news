@@ -1,32 +1,28 @@
 import { useState } from "react";
 import { Button } from "./Button.jsx";
 
-const currentHour = new Date().getHours();
-
-export const Buttons = ({ item, position, onRead, onQueryClick }) => {
-	const [isRead, setIsRead] = useState(
+export const Buttons = ({ item, position, listLength, onQueryClick }) => {
+	const [isRead] = useState(
 		localStorage.getItem(item.link) === "read" || false
 	);
 
 	return (
 		<div
 			id={`buttons-${isRead ? "read" : "unread"}`}
-			className={`flex gap-2 items-center ${
-				currentHour > 18 ? "justify-end" : "justify-start"
-			} w-full`}>
-			<Button className="h-12 w-20">
-				{position}
+			className={`flex gap-2 items-center justify-evenly w-full`}>
+			<Button className="h-12">
+				{position} / {listLength}
 			</Button>
-			<Button className="h-12 w-20">
+			<Button className="h-12">
 				{item.diff.value}
 				{item.diff.unit}
 			</Button>
 			<Button
-				className="h-12 w-20"
+				className="h-12"
 				onClick={onQueryClick}>
 				?
 			</Button>
-			<Button className="h-12 w-20">
+			<Button className="h-12">
 				<a
 					href={item.link}
 					target="_blank"
