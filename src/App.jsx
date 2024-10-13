@@ -35,6 +35,7 @@ const RssFeedComponent = () => {
 								${index === selectedItemIndex ? "outline outline-1 outline-slate-300" : ""}`}>
 							<FeedItem
 								item={item}
+								position={index + 1}
 								onClick={() => setSelectedItemIndex(index)}
 								onRead={() => {
 									setFeeds(feeds.filter((feed) => feed.link !== item.link));
