@@ -39,6 +39,8 @@ const NotificationBadge = ({ count }) => {
 };
 
 const View = ({ items = [], isSavedView, queryResult }) => {
+	alert(JSON.stringify(items));
+	
 	if (items.length === 0) {
 						return <Loader />;
 		}
@@ -55,7 +57,12 @@ const View = ({ items = [], isSavedView, queryResult }) => {
 					));
 			}
 		
-		return "heello";
+		return return (
+		<FeedItem
+						item={items?.filter(item => !item.isSaved)?[0]}
+						queryResult={queryResult}
+					/>
+		);
 		
 };
 
