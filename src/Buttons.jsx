@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "./Button.jsx";
 
-export const Buttons = ({ item, position, listLength, onQueryClick }) => {
+export const Buttons = ({ item, onQueryClick }) => {
 	const [isRead] = useState(
 		localStorage.getItem(item.link) === "read" || false
 	);

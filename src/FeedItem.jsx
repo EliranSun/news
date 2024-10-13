@@ -4,7 +4,7 @@ import { Button } from "./Button.jsx";
 
 const API_URL = "https://walak.vercel.app/api/rss";
 
-export const FeedItem = ({ position, listLength, item, onRead, onClick }) => {
+export const FeedItem = ({ item, onClick }) => {
 	const [queryResult, setQueryResult] = useState(null);
 	const [question, setQuestion] = useState("");
 
@@ -46,8 +46,6 @@ export const FeedItem = ({ position, listLength, item, onRead, onClick }) => {
 				</div>
 				<Buttons
 					item={item}
-					position={position}
-					listLength={listLength}
 					onQueryClick={() => onQueryClick(question)}
 				/>
 			</div>

@@ -33,7 +33,13 @@ const RssFeedComponent = () => {
 				items={feeds}
 			/>
 			<div className="mx-auto flex flex-col items-start w-full gap-1 pt-1 box-border">
-				{feeds.map((item, index) => {
+				<div className="p-2 rounded-md w-full">
+					<FeedItem
+						item={feeds[0]}
+						listLength={feeds.length}
+					/>
+				</div>
+				{/* {feeds.map((item, index) => {
 					return (
 						<div
 							key={item.link + item.title}
@@ -51,7 +57,7 @@ const RssFeedComponent = () => {
 							/>
 						</div>
 					);
-				})}
+				})} */}
 			</div>
 			<Button
 				className={`
