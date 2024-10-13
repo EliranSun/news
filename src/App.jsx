@@ -65,7 +65,7 @@ const RssFeedComponent = () => {
 
 	return (
 		<section className="p-5 h-[100dvh] w-screen">
-			<div className="mb-4 flex justify-between">
+			<div className="mb-4 flex justify-center gap-4">
 				<h1
 					className={classNames({
 						"text-sm font-bold border-b border-slate-300": true,
