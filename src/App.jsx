@@ -52,17 +52,10 @@ const View = ({ items = [], isSavedView, queryResult }) => {
 							item={item}
 							onlyTitle
 						/>
-					))
+					));
 			}
 		
-		alert(JSON.stringify(items));
-		
-		return (
-		<FeedItem
-						item={items.filter(item => !item.isSaved)[0]}
-						queryResult={queryResult}
-					/>
-		);
+		return "heello";
 		
 };
 
