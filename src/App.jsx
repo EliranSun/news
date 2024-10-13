@@ -57,7 +57,7 @@ const View = ({ items = [], isSavedView, queryResult }) => {
 					));
 			}
 		
-		return return (
+		return (
 		<FeedItem
 						item={items?.filter(item => !item.isSaved)?[0]}
 						queryResult={queryResult}
