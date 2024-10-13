@@ -11,9 +11,6 @@ export const Buttons = ({ item, position, listLength, onQueryClick }) => {
 			id={`buttons-${isRead ? "read" : "unread"}`}
 			className={`flex gap-2 items-center justify-evenly w-full`}>
 			<Button className="h-12 w-full">
-				{position} / {listLength}
-			</Button>
-			<Button className="h-12 w-full">
 				{item.diff.value}
 				{item.diff.unit}
 			</Button>
