@@ -42,7 +42,7 @@ export const useRssFeed = () => {
 		} catch (error) {
 			console.error("Error fetching and parsing feeds:", error);
 		}
-	}, [isSavedView]);
+	}, []);
 
 	useEffect(() => {
 		fetchAndParseFeeds();
