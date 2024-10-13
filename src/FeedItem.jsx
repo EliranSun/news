@@ -18,7 +18,7 @@ export const FeedItem = ({ item, onClick, queryResult }) => {
 							"merriweather-bold": item.language.includes("en"),
 							"heebo-900": !item.language.includes("en"),
 						})}>
-						{item.title}
+						{item.title}!
 					</h1>
 					<p
 						dir={item.language === "he" ? "rtl" : "ltr"}
