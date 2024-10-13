@@ -14,7 +14,7 @@ export const Buttons = ({ item, onQueryClick }) => {
 				{item.diff.value}
 				{item.diff.unit}
 			</Button>
-			<Button
+			{/* <Button
 				className="h-12 w-full"
 				onClick={onQueryClick}>
 				?
@@ -26,7 +26,7 @@ export const Buttons = ({ item, onQueryClick }) => {
 					rel="noopener noreferrer">
 					🔗
 				</a>
-			</Button>
+			</Button> */}
 		</div>
 	);
 };

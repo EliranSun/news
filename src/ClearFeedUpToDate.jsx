@@ -1,45 +1,32 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
-const ClearFeedUpToDate = ({ items = [], onChangePosition }) => {
-	const handleClear = (hours = 1) => {
-		const currentTime = new Date();
-		const clearTime = new Date(
-			currentTime.getTime() - hours * 60 * 60 * 1000
-		).getTime();
+const ClearFeedUpToDate = ({ items = [], isActive = false }) => {
+	const handleClear = useCallback(
+		(hours = 1) => {
+			const currentTime = new Date();
+			const clearTime = new Date(
+				currentTime.getTime() - hours * 60 * 60 * 1000
+			).getTime();
 
-		const clearedItems = items.filter((item) => {
-			const itemTime = new Date(item.date).getTime();
-			console.log({
-				itemTime,
-				clearTime,
+			const clearedItems = items.filter((item) => {
+				const itemTime = new Date(item.date).getTime();
+				return itemTime <= clearTime;
 			});
-			return itemTime <= clearTime;
-		});
 
-		console.log({
-			clearedItems,
-		});
+			clearedItems.forEach((item) => {
+				localStorage.setItem(item.link, "read");
+			});
 
-		clearedItems.forEach((item) => {
-			localStorage.setItem(item.link, "read");
-		});
+			window.location.reload();
+		},
+		[items]
+	);
 
-		window.location.reload();
-	};
+	if (!isActive) return null;
 
 	return (
-		<div
-			style={{
-				width: "100%",
-				flexWrap: "wrap",
-				marginBottom: "10px",
-				display: "flex",
-				gap: "10px",
-			}}>
-			<button onClick={() => onChangePosition()}>🔄</button>
-			{/* <button onClick={() => handleClear(10 / 60)}>10m</button> */}
+		<div className="flex flex-col">
 			<button onClick={() => handleClear(1)}>1h</button>
-			{/* <button onClick={() => handleClear(4)}>4h</button> */}
 			<button onClick={() => handleClear(8)}>8h</button>
 			<button onClick={() => handleClear(24)}>24h</button>
 		</div>

@@ -1,89 +1,105 @@
-import ClearFeedUpToDate from "./ClearFeedUpToDate";
+import { useState, useCallback } from "react";
 import { useRssFeed } from "./useRssFeed.js";
 import { Loader } from "./Loader.jsx";
 import { FeedItem } from "./FeedItem.jsx";
 import { Button } from "./Button.jsx";
-import { useState } from "react";
+import { ClearFeedUpToDate } from "./ClearFeedUpToDate.jsx";
+import {
+	CheckFat,
+	BookmarkSimple,
+	Broom,
+	Link,
+	Robot,
+} from "@phosphor-icons/react";
 
-const currentHour = new Date().getHours();
+const API_URL = "https://walak.vercel.app/api/rss";
+
+const RoundButton = ({ children, onClick, big }) => {
+	return (
+		<Button
+			className={`relative shadow-md size-${big ? 16 : 12} rounded-full text-[${
+				big ? 16 : 8
+			}px]`}
+			onClick={onClick}>
+			{children}
+		</Button>
+	);
+};
+
+const NotificationBadge = ({ count }) => {
+	return (
+		<Button
+			className={`absolute -right-2 -top-2 shadow-md size-7 mx-auto border border-slate-300 rounded-full text-[8px]`}>
+			{count}
+		</Button>
+	);
+};
 
 const RssFeedComponent = () => {
-	const [readButtonPosition, setReadButtonPosition] = useState(
-		currentHour >= 18 ? "left-0" : "right-0"
-	);
-	const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 	const { feeds, setFeeds } = useRssFeed();
+	const [queryResult, setQueryResult] = useState("");
+	const [isSweepDataView, setIsSweepDataView] = useState(false);
+
+	const onQueryClick = useCallback(async () => {
+		const body = {
+			question: feeds[0].title,
+			link: feeds[0].link,
+			title: feeds[0].title,
+		};
+
+		const res = await fetch(API_URL, {
+			method: "POST",
+			body: JSON.stringify(body),
+		});
+
+		const data = await res.json();
+		setQueryResult(data.answer);
+	}, [feeds]);
 
 	if (feeds.length === 0) {
 		return <Loader />;
 	}
 
 	return (
-		<section
-			style={{
-				padding: "20px",
-				height: "100dvh",
-			}}>
-			<ClearFeedUpToDate
-				onChangePosition={() =>
-					setReadButtonPosition(
-						readButtonPosition === "right-0" ? "left-0" : "right-0"
-					)
-				}
-				items={feeds}
-			/>
-			<div className="mx-auto flex flex-col items-start w-full gap-1 pt-1 box-border">
-				<div className="p-2 rounded-md w-full">
-					<FeedItem
-						item={feeds[0]}
-						listLength={feeds.length}
-					/>
-				</div>
-				{/* {feeds.map((item, index) => {
-					return (
-						<div
-							key={item.link + item.title}
-							className={`
-								p-2 rounded-md w-full
-								${index === selectedItemIndex ? "outline outline-1 outline-slate-300" : ""}`}>
-							<FeedItem
-								item={item}
-								position={index + 1}
-								listLength={feeds.length}
-								onClick={() => setSelectedItemIndex(index)}
-								onRead={() => {
-									setFeeds(feeds.filter((feed) => feed.link !== item.link));
-								}}
-							/>
-						</div>
-					);
-				})} */}
+		<section className="p-5 h-[100dvh]">
+			{/*  className="animate-pulse" */}
+			<div>
+				<FeedItem
+					item={feeds[0]}
+					listLength={feeds.length}
+					queryResult={queryResult}
+				/>
 			</div>
-			<Button
-				className={`
-					shadow-lg fixed bottom-8 inset-x-0
-					size-16 my-4 mx-auto border-slate-300
-					rounded-full`}
-				onClick={() => {
-					localStorage.setItem(feeds[selectedItemIndex].link, "read");
-					setFeeds(
-						feeds.filter((feed) => feed.link !== feeds[selectedItemIndex].link)
-					);
-				}}>
-				✔️
-				<Button
-					className={`absolute -right-2 -top-2 shadow-md
-					size-7 mx-auto border border-slate-300
-					rounded-full text-[8px]`}>
-					{feeds.length}
-				</Button>
-			</Button>
-			<Button
-					className={`fixed right-10 shadow-md
-					size-12 my-4 bottom-8 mx-auto border border-slate-300
-					rounded-full text-[8px]`}>
-					☆
-				</Button>
+			<div className="fixed bottom-8 inset-x-0 flex justify-center items-center gap-6">
+				<RoundButton onClick={() => window.open(feeds[0].link, "_blank")}>
+					<Link size={24} />
+				</RoundButton>
+				<RoundButton onClick={onQueryClick}>
+					<Robot size={24} />
+				</RoundButton>
+				<RoundButton
+					big
+					onClick={() => {
+						localStorage.setItem(feeds[0].link, "read");
+						setFeeds(feeds.filter((feed) => feed.link !== feeds[0].link));
+					}}>
+					<CheckFat size={24} />
+					<NotificationBadge count={feeds.length} />
+				</RoundButton>
+				<RoundButton
+					onClick={() => {
+						localStorage.setItem(feeds[0].link, "saved");
+					}}>
+					<BookmarkSimple size={24} />
+				</RoundButton>
+				<RoundButton onClick={() => setIsSweepDataView(!isSweepDataView)}>
+					<ClearFeedUpToDate
+						items={feeds}
+						isActive={isSweepDataView}
+					/>
+					<Broom size={24} />
+				</RoundButton>
+			</div>
 		</section>
 	);
 };
