@@ -68,8 +68,8 @@ const RssFeedComponent = () => {
 			</Button>
 			<Button
 				className={`
-					shadow-lg fixed bottom-10 left-10
-					size-8 my-4 mx-auto
+					shadow-lg fixed bottom-12 left-10
+					size-8 my-4 mx-auto border
 					rounded-full`}
 				>
 				{feeds.length}
