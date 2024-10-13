@@ -3,7 +3,6 @@ import { getDiffTime, removeUnicode, sanitizeText } from "./utils.js";
 
 export const useRssFeed = () => {
 	const [feeds, setFeeds] = useState([]);
-	const [isSavedView, setIsSavedView] = useState(false);
 
 	const fetchAndParseFeeds = useCallback(async () => {
 		try {
@@ -26,11 +25,11 @@ export const useRssFeed = () => {
 					language: item.language,
 					diff: getDiffTime(item.pubDate),
 					date: item.pubDate,
+					isRead,
+					isSaved,
 				};
 
-				if (isSavedView) {
-					if (isSaved) items.push(props);
-				} else if (!isItemExist && !isRead) {
+				if (!isItemExist && !isRead) {
 					items.push(props);
 				}
 			});
@@ -54,5 +53,5 @@ export const useRssFeed = () => {
 		}, 5 * 60 * 1000);
 	}, [fetchAndParseFeeds]);
 
-	return { feeds, setFeeds, isSavedView, setIsSavedView };
+	return { feeds, setFeeds };
 };
