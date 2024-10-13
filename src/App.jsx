@@ -86,10 +86,6 @@ const RssFeedComponent = () => {
 		setQueryResult(data.answer);
 	}, [feeds]);
 
-	if (feeds.length === 0) {
-		return <Loader />;
-	}
-
 	return (
 		<section className="p-5 h-[100dvh] w-screen">
 			<div className="mb-4 flex justify-center gap-4">
