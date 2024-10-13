@@ -55,6 +55,8 @@ const View = (items = [], isSavedView, queryResult) => {
 					))
 			}
 		
+		alert(JSON.stringify(items));
+		
 		return (
 		<FeedItem
 						item={items.filter(item => !item.isSaved)[0]}
