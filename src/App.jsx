@@ -56,7 +56,7 @@ const RssFeedComponent = () => {
 			<Button
 				className={`
 					shadow-lg fixed bottom-8 inset-x-0
-					size-16 my-4 mx-auto
+					size-16 my-4 mx-auto border-slate-300
 					rounded-full`}
 				onClick={() => {
 					localStorage.setItem(feeds[selectedItemIndex].link, "read");
@@ -65,14 +65,12 @@ const RssFeedComponent = () => {
 					);
 				}}>
 				✔️
-			</Button>
-			<Button
-				className={`
-					shadow-lg fixed bottom-12 left-10
-					size-8 my-4 mx-auto border
-					rounded-full`}
-				>
-				{feeds.length}
+				<Button
+					className={`absolute -right-2 -top-2 shadow-md
+					size-7 mx-auto border border-slate-300
+					rounded-full text-[10px]`}>
+					{feeds.length}
+				</Button>
 			</Button>
 		</section>
 	);
