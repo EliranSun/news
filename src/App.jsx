@@ -85,6 +85,7 @@ const RssFeedComponent = () => {
 					onClick={() => {
 						localStorage.setItem(feeds[0].link, "read");
 						setFeeds(feeds.filter((feed) => feed.link !== feeds[0].link));
+						setQueryResult("");
 					}}>
 					<CheckFat size={24} />
 					<NotificationBadge count={feeds.length} />
