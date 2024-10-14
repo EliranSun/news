@@ -6,6 +6,7 @@ export const FeedItem = ({ item, onClick, queryResult, onlyTitle }) => {
 		<div
 			onClick={onClick}
 			className={`
+				${onlyTitle ? "pb-0" : "pb-32"}
 				${item.language.includes("he") ? "text-right" : "text-left"}
 				mt-4 flex gap-4 justify-between w-full 
 			`}>
