@@ -12,6 +12,7 @@ import {
 	Link,
 	Robot,
 } from "@phosphor-icons/react";
+import PropTypes from 'prop-types';
 
 const API_URL = "https://walak.vercel.app/api/rss";
 
@@ -29,6 +30,12 @@ const RoundButton = ({ children, onClick, big }) => {
 	);
 };
 
+RoundButton.propTypes = {
+	children: PropTypes.node,
+	onClick: PropTypes.func.isRequired,
+	big: PropTypes.bool,
+};
+
 const NotificationBadge = ({ count }) => {
 	return (
 		<Button
@@ -36,6 +43,10 @@ const NotificationBadge = ({ count }) => {
 			{count}
 		</Button>
 	);
+};
+
+NotificationBadge.propTypes = {
+	count: PropTypes.number.isRequired,
 };
 
 const View = ({ items = [], isSavedView, queryResult }) => {
@@ -70,6 +81,13 @@ const View = ({ items = [], isSavedView, queryResult }) => {
 		/>
 	);
 
+};
+
+// Add prop types validation
+View.propTypes = {
+	items: PropTypes.array,
+	isSavedView: PropTypes.bool,
+	queryResult: PropTypes.string,
 };
 
 const RssFeedComponent = () => {

@@ -46,6 +46,7 @@ export const FeedItem = ({ item, onClick, queryResult, onlyTitle }) => {
 FeedItem.propTypes = {
 	onClick: PropTypes.func.isRequired,
 	queryResult: PropTypes.string,
+	onlyTitle: PropTypes.bool,
 	item: PropTypes.shape({
 		language: PropTypes.string.isRequired,
 		title: PropTypes.string.isRequired,
@@ -54,5 +55,6 @@ FeedItem.propTypes = {
 			value: PropTypes.number.isRequired,
 			unit: PropTypes.string.isRequired,
 		}).isRequired,
+		isSaved: PropTypes.bool.isRequired,
 	}).isRequired,
 };
