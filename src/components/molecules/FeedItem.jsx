@@ -8,7 +8,7 @@ export const FeedItem = ({ item, onClick = () => {}, queryResult, onlyTitle }) =
             className={`
 				${onlyTitle ? "pb-0" : "pb-32"}
 				${item.language.includes("he") ? "text-right" : "text-left"}
-				mt-4 flex gap-4 justify-between w-full 
+				mt-4 flex gap-4 justify-between w-full
 			`}>
             <div className="w-full flex flex-col justify-between">
                 <div>
@@ -23,7 +23,7 @@ export const FeedItem = ({ item, onClick = () => {}, queryResult, onlyTitle }) =
                         })}>
                         {item.title}
                     </h1>
-                    {onlyTitle ? null : (
+                    {(!queryResult && (onlyTitle || item.title.length >= 90)) ? null : (
                         <p
                             dir={item.language === "he" ? "rtl" : "ltr"}
                             className="text-sm mb-3">

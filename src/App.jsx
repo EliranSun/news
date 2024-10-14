@@ -1,187 +1,35 @@
-import { useState, useCallback, useMemo } from "react";
-import { useRssFeed } from "./useRssFeed.js";
-import { Loader } from "./Loader.jsx";
-import { FeedItem } from "./FeedItem.jsx";
-import { Button } from "./Button.jsx";
-import { ClearFeedUpToDate } from "./ClearFeedUpToDate.jsx";
-import classNames from "classnames";
-import {
-	CheckFat,
-	BookmarkSimple,
-	Broom,
-	Link,
-	Robot,
-} from "@phosphor-icons/react";
-import PropTypes from 'prop-types';
+import { useState } from "react";
+import { useRssFeed } from "./hooks/useRssFeed.js";
+import { View } from "./components/organisms/View.jsx";
+import { ActionButtons } from "./components/molecules/ActionButtons.jsx";
+import { PageNavigationHeader } from "./components/molecules/PageNavigationHeader.jsx";
+import { useQueryAI } from "./hooks/useQueryAI.js";
 
-const API_URL = "https://walak.vercel.app/api/rss";
-
-const RoundButton = ({ children, onClick, big }) => {
-	return (
-		<Button
-			className={classNames({
-				"size-16 text-[16px]": big,
-				"size-10 text-[8px]": !big,
-				"relative shadow-md rounded-full": true,
-			})}
-			onClick={onClick}>
-			{children}
-		</Button>
-	);
-};
-
-RoundButton.propTypes = {
-	children: PropTypes.node,
-	onClick: PropTypes.func.isRequired,
-	big: PropTypes.bool,
-};
-
-const NotificationBadge = ({ count }) => {
-	return (
-		<Button
-			className={`absolute -right-2 -top-2 shadow-md size-7 mx-auto border border-slate-300 rounded-full text-[8px]`}>
-			{count}
-		</Button>
-	);
-};
-
-NotificationBadge.propTypes = {
-	count: PropTypes.number.isRequired,
-};
-
-const View = ({ items = [], isSavedView, queryResult }) => {
-	if (items.length === 0) {
-		return <Loader />;
-	}
-
-	if (isSavedView) {
-		return (
-			<div className="pb-40">
-				{items
-					.filter(item => item.isSaved)
-					.map((item) => (
-						<FeedItem
-							key={item.link}
-							item={item}
-							onlyTitle
-						/>
-					))}
-			</div>
-		)
-	}
-
-	const nonSavedItems = items?.filter(item => !item.isSaved);
-
-	if (!nonSavedItems) return null;
-
-	return (
-		<FeedItem
-			item={nonSavedItems[0]}
-			queryResult={queryResult}
-		/>
-	);
-
-};
-
-// Add prop types validation
-View.propTypes = {
-	items: PropTypes.array,
-	isSavedView: PropTypes.bool,
-	queryResult: PropTypes.string,
-};
 
 const RssFeedComponent = () => {
-	const { feeds, setFeeds } = useRssFeed();
-	const [queryResult, setQueryResult] = useState("");
-	const [isSweepDataView, setIsSweepDataView] = useState(false);
-	const [isSavedView, setIsSavedView] = useState(false);
-	const savedItems = useMemo(() => feeds.filter(feed => feed.isSaved), [feeds]);
-	const nonSavedItems = useMemo(() => feeds.filter(feed => !feed.isSaved), [feeds]);
-	const contextualItems = useMemo(() => {
-		if (isSavedView) {
-			return savedItems;
-		}
-		return nonSavedItems;
-	}, [isSavedView, savedItems, nonSavedItems]);
-
-	const onQueryClick = useCallback(async () => {
-		const body = {
-			question: contextualItems[0].title,
-			link: contextualItems[0].link,
-			title: contextualItems[0].title,
-		};
-
-		const res = await fetch(API_URL, {
-			method: "POST",
-			body: JSON.stringify(body),
-		});
-
-		const data = await res.json();
-		setQueryResult(data.answer);
-	}, [contextualItems]);
-
-
-	return (
-		<section className="p-5 h-[100dvh] w-screen">
-			<div className="mb-4 flex justify-center gap-4">
-				<h1
-					className={classNames({
-						"text-sm font-bold border-b border-slate-300": true,
-						"opacity-50": isSavedView,
-					})}
-					onClick={() => setIsSavedView(false)}>
-					Feed
-				</h1>
-				<h1
-					className={classNames({
-						"text-sm font-bold border-b border-slate-300": true,
-						"opacity-50": !isSavedView,
-					})}
-					onClick={() => setIsSavedView(true)}>
-					Saved
-				</h1>
-			</div>
-			<div className="w-full">
-				<View
-					queryResult={queryResult}
-					items={contextualItems}
-					isSavedView={isSavedView} />
-			</div>
-			<div className="fixed bottom-8 inset-x-0 flex justify-center items-center gap-6">
-				<RoundButton onClick={() => window.open(contextualItems[0].link, "_blank")}>
-					<Link size={24} />
-				</RoundButton>
-				<RoundButton onClick={onQueryClick}>
-					<Robot size={24} />
-				</RoundButton>
-				<RoundButton
-					big
-					onClick={() => {
-						localStorage.setItem(contextualItems[0].link, "read");
-						setFeeds(contextualItems.filter((feed) => feed.link !== contextualItems[0].link));
-						setQueryResult("");
-					}}>
-					<CheckFat size={24} />
-					<NotificationBadge count={contextualItems.length} />
-				</RoundButton>
-				<RoundButton
-					onClick={() => {
-						localStorage.setItem(contextualItems[0].link, "saved");
-						setFeeds(contextualItems.filter((feed) => feed.link !== contextualItems[0].link));
-						setQueryResult("");
-					}}>
-					<BookmarkSimple size={24} />
-				</RoundButton>
-				<RoundButton onClick={() => setIsSweepDataView(!isSweepDataView)}>
-					<ClearFeedUpToDate
-						items={contextualItems}
-						isActive={isSweepDataView}
-					/>
-					<Broom size={24} />
-				</RoundButton>
-			</div>
-		</section>
-	);
+    const [isSavedView, setIsSavedView] = useState(false);
+    const [isSweepDataView, setIsSweepDataView] = useState(false);
+    const { items, setFeeds } = useRssFeed(isSavedView);
+    const { queryResult, onQueryClick, setQueryResult } = useQueryAI(items);
+    
+    return (
+        <section className="p-5 h-[100dvh] w-screen">
+            <PageNavigationHeader
+                isSavedView={isSavedView}
+                setIsSavedView={setIsSavedView}/>
+            <View
+                queryResult={queryResult}
+                items={items}
+                isSavedView={isSavedView}/>
+            <ActionButtons
+                contextualItems={items}
+                setFeeds={setFeeds}
+                setQueryResult={setQueryResult}
+                isSweepDataView={isSweepDataView}
+                setIsSweepDataView={setIsSweepDataView}
+                onQueryClick={onQueryClick}/>
+        </section>
+    );
 };
 
 export default RssFeedComponent;

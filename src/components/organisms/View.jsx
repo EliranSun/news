@@ -1,5 +1,6 @@
-import { Loader } from "../../Loader.jsx";
-import { FeedItem } from "../../FeedItem.jsx";
+import { Loader } from "../atoms/Loader.jsx";
+import { FeedItem } from "../molecules/FeedItem.jsx";
+import PropTypes from "prop-types";
 
 export const View = ({ items = [], isSavedView, queryResult }) => {
     if (items.length === 0) {
@@ -8,7 +9,7 @@ export const View = ({ items = [], isSavedView, queryResult }) => {
     
     if (isSavedView) {
         return (
-            <div className="pb-40">
+            <div className="pt-12 pb-40 w-full">
                 {items
                     .filter(item => item.isSaved)
                     .map((item) => (
@@ -27,10 +28,17 @@ export const View = ({ items = [], isSavedView, queryResult }) => {
     if (!nonSavedItems) return null;
     
     return (
-        <FeedItem
-            item={nonSavedItems[0]}
-            queryResult={queryResult}
-        />
+        <div className="w-full pt-12">
+            <FeedItem
+                item={nonSavedItems[0]}
+                queryResult={queryResult}
+            />
+        </div>
     );
-    
+};
+
+View.propTypes = {
+    items: PropTypes.array,
+    isSavedView: PropTypes.bool,
+    queryResult: PropTypes.string,
 };

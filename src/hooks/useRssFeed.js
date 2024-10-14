@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { getDiffTime, removeUnicode, sanitizeText } from "./utils.js";
+import { getDiffTime, removeUnicode, sanitizeText } from "../utils.js";
 
 export const useRssFeed = (isSavedView) => {
     const [feeds, setFeeds] = useState([]);
@@ -42,7 +42,7 @@ export const useRssFeed = (isSavedView) => {
         } catch (error) {
             console.error("Error fetching and parsing feeds:", error);
         }
-    }, []);
+    }, [isSavedView]);
     
     useEffect(() => {
         fetchAndParseFeeds();
