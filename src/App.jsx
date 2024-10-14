@@ -33,7 +33,7 @@ const RssFeedComponent = () => {
 	}, []);
 
 	return (
-		<section className="p-5 h-[100dvh] w-screen">
+		<section className="h-[100dvh] w-screen">
 			<PageNavigationHeader
 				isSavedView={isSavedView}
 				setIsSavedView={setIsSavedView}
