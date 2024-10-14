@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
-export const FeedItem = ({ item, onClick = () => {}, queryResult, onlyTitle }) => {
+export const FeedItem = ({ item, onClick = () => { }, queryResult, onlyTitle }) => {
     return (
         <div
             onClick={onClick}
@@ -16,7 +16,7 @@ export const FeedItem = ({ item, onClick = () => {}, queryResult, onlyTitle }) =
                         dir={item.language === "he" ? "rtl" : "ltr"}
                         className={classNames({
                             "text-2xl": onlyTitle,
-                            "text-5xl": !onlyTitle,
+                            "text-[2.7rem]": !onlyTitle,
                             "h-18 font-bold mb-3 w-full": true,
                             "merriweather-bold": item.language.includes("en"),
                             "heebo-900": !item.language.includes("en"),
@@ -26,7 +26,7 @@ export const FeedItem = ({ item, onClick = () => {}, queryResult, onlyTitle }) =
                     {(!queryResult && (onlyTitle || item.title.length >= 90)) ? null : (
                         <p
                             dir={item.language === "he" ? "rtl" : "ltr"}
-                            className="text-sm mb-3">
+                            className="text-xs mb-3">
                             {queryResult || item.description}
                         </p>
                     )}

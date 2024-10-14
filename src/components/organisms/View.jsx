@@ -9,7 +9,7 @@ export const View = ({ items = [], isSavedView, queryResult }) => {
 
     if (isSavedView) {
         return (
-            <div className="pt-12 pb-40 w-full px-5">
+            <div className="pt-16 pb-40 w-full px-5">
                 {items
                     .filter(item => item.isSaved)
                     .map((item) => (
@@ -28,7 +28,7 @@ export const View = ({ items = [], isSavedView, queryResult }) => {
     if (!nonSavedItems) return null;
 
     return (
-        <div className="w-full pt-12 px-5">
+        <div className="w-full pt-16 px-5">
             <FeedItem
                 item={nonSavedItems[0]}
                 queryResult={queryResult}
