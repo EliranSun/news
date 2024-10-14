@@ -39,7 +39,7 @@ const CustomTooltip = ({ active, payload }) => {
 	return null;
 };
 
-export const Chart = () => {
+export const OnePieceLastEpisodesChart = () => {
 	const [sortBy, setScoreBy] = useState("score");
 	const [dataLimit, setDataLimit] = useState(10);
 	const [data, setData] = useState([]);
@@ -181,4 +181,4 @@ export const Chart = () => {
 	);
 };
 
-export default Chart;
+export default OnePieceLastEpisodesChart;
