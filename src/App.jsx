@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useRssFeed } from "./useRssFeed.js";
 import { Loader } from "./Loader.jsx";
 import { FeedItem } from "./FeedItem.jsx";
@@ -39,48 +39,58 @@ const NotificationBadge = ({ count }) => {
 };
 
 const View = ({ items = [], isSavedView, queryResult }) => {
-	alert(JSON.stringify(items));
-	
 	if (items.length === 0) {
-						return <Loader />;
-		}
-		
-		if (isSavedView) {
-				return items
-				.filter(item => item.isSaved)
-				.map((item) => (
+		return <Loader />;
+	}
+
+	if (isSavedView) {
+		return (
+			<div className="pb-40">
+				{items
+					.filter(item => item.isSaved)
+					.map((item) => (
 						<FeedItem
 							key={item.link}
 							item={item}
 							onlyTitle
 						/>
-					));
-			}
-			
-			const nonSavedItems = items?.filter(item => !item.isSaved);
-		
-		if (!nonSavedItems) return null;
-		
-		return (
+					))}
+			</div>
+		)
+	}
+
+	const nonSavedItems = items?.filter(item => !item.isSaved);
+
+	if (!nonSavedItems) return null;
+
+	return (
 		<FeedItem
-						item={nonSavedItems[0]}
-						queryResult={queryResult}
-					/>
-		);
-		
+			item={nonSavedItems[0]}
+			queryResult={queryResult}
+		/>
+	);
+
 };
 
 const RssFeedComponent = () => {
 	const { feeds, setFeeds } = useRssFeed();
 	const [queryResult, setQueryResult] = useState("");
 	const [isSweepDataView, setIsSweepDataView] = useState(false);
- const [isSavedView, setIsSavedView] = useState(false);
-	
+	const [isSavedView, setIsSavedView] = useState(false);
+	const savedItems = useMemo(() => feeds.filter(feed => feed.isSaved), [feeds]);
+	const nonSavedItems = useMemo(() => feeds.filter(feed => !feed.isSaved), [feeds]);
+	const contextualItems = useMemo(() => {
+		if (isSavedView) {
+			return savedItems;
+		}
+		return nonSavedItems;
+	}, [isSavedView, savedItems, nonSavedItems]);
+
 	const onQueryClick = useCallback(async () => {
 		const body = {
-			question: feeds[0].title,
-			link: feeds[0].link,
-			title: feeds[0].title,
+			question: contextualItems[0].title,
+			link: contextualItems[0].link,
+			title: contextualItems[0].title,
 		};
 
 		const res = await fetch(API_URL, {
@@ -90,8 +100,8 @@ const RssFeedComponent = () => {
 
 		const data = await res.json();
 		setQueryResult(data.answer);
-	}, [feeds]);
-	
+	}, [contextualItems]);
+
 
 	return (
 		<section className="p-5 h-[100dvh] w-screen">
@@ -114,13 +124,13 @@ const RssFeedComponent = () => {
 				</h1>
 			</div>
 			<div className="w-full">
-				<View 
-				queryResults={queryResults}
-				items={feeds} 
-				isSavedView={isSavedView}/>
+				<View
+					queryResult={queryResult}
+					items={contextualItems}
+					isSavedView={isSavedView} />
 			</div>
 			<div className="fixed bottom-8 inset-x-0 flex justify-center items-center gap-6">
-				<RoundButton onClick={() => window.open(feeds[0].link, "_blank")}>
+				<RoundButton onClick={() => window.open(contextualItems[0].link, "_blank")}>
 					<Link size={24} />
 				</RoundButton>
 				<RoundButton onClick={onQueryClick}>
@@ -129,24 +139,24 @@ const RssFeedComponent = () => {
 				<RoundButton
 					big
 					onClick={() => {
-						localStorage.setItem(feeds[0].link, "read");
-						setFeeds(feeds.filter((feed) => feed.link !== feeds[0].link));
+						localStorage.setItem(contextualItems[0].link, "read");
+						setFeeds(contextualItems.filter((feed) => feed.link !== contextualItems[0].link));
 						setQueryResult("");
 					}}>
 					<CheckFat size={24} />
-					<NotificationBadge count={feeds.length} />
+					<NotificationBadge count={contextualItems.length} />
 				</RoundButton>
 				<RoundButton
 					onClick={() => {
-						localStorage.setItem(feeds[0].link, "saved");
-						setFeeds(feeds.filter((feed) => feed.link !== feeds[0].link));
+						localStorage.setItem(contextualItems[0].link, "saved");
+						setFeeds(contextualItems.filter((feed) => feed.link !== contextualItems[0].link));
 						setQueryResult("");
 					}}>
 					<BookmarkSimple size={24} />
 				</RoundButton>
 				<RoundButton onClick={() => setIsSweepDataView(!isSweepDataView)}>
 					<ClearFeedUpToDate
-						items={feeds}
+						items={contextualItems}
 						isActive={isSweepDataView}
 					/>
 					<Broom size={24} />
