@@ -16,7 +16,7 @@ export const FeedItem = ({ item, onClick = () => { }, queryResult, onlyTitle }) 
                         dir={item.language === "he" ? "rtl" : "ltr"}
                         className={classNames({
                             "text-2xl": onlyTitle,
-                            "text-[2.7rem]": !onlyTitle,
+                            "text-[2.4rem]": !onlyTitle,
                             "h-18 font-bold mb-3 w-full": true,
                             "merriweather-bold": item.language.includes("en"),
                             "heebo-900": !item.language.includes("en"),
