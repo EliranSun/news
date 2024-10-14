@@ -7,6 +7,10 @@ export default defineConfig({
 	plugins: [
 		react(),
 		VitePWA({
+			registerType: "autoUpdate",
+			devOptions: {
+				enabled: true,
+			},
 			manifest: {
 				name: "News",
 				short_name: "News",
@@ -30,7 +34,6 @@ export default defineConfig({
 				clientsClaim: true,
 				cleanupOutdatedCaches: true, // Cleans old caches
 			},
-			registerType: "autoUpdate", // Ensures service worker updates automatically
 		}),
 	],
 });
