@@ -46,7 +46,7 @@ export const TenThousandHours = () => {
                         ? `${10 * 365}px`
                         : `${numberOfColumns * 12 + numberOfColumns * 4}px`
                 }}
-                className="relative flex items-center justify-start flex-wrap">
+                className="relative overflow-x-auto flex items-start justify-start flex-wrap">
                 {new Array(Math.round(isCondensed ? rowsCount : rowsCount / 50)).fill(0).map((_, index) => (
                     <h2
                         key={index}
@@ -65,7 +65,7 @@ export const TenThousandHours = () => {
                         className={classNames({
                             "size-3 m-0.5": !isCondensed,
                             "size-2 m-px": isCondensed,
-                            "bg-red-500": index % 52 === 0,
+                            "bg-red-500": index % 365 === 0,
                             "bg-green-500": index % 7 === 0,
                             "bg-slate-700": index < hours && index % 52 !== 0 && index % 7 !== 0,
                             "bg-slate-400": index >= hours && index % 52 !== 0 && index % 7 !== 0
