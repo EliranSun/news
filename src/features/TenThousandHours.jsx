@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useState } from "react";
 
-const BLOCK_COUNT = 1000;
+const BLOCK_COUNT = 10000;
 const tenThousandHoursArray = new Array(BLOCK_COUNT).fill(0);
 
 export const TenThousandHours = () => {
