@@ -65,10 +65,10 @@ export const TenThousandHours = () => {
                         className={classNames({
                             "size-3 m-0.5": !isCondensed,
                             "size-2 m-px": isCondensed,
-                            "bg-slate-700": index < hours,
-                            "bg-slate-400": index >= hours,
                             "bg-red-500": index % 52 === 0,
                             "bg-green-500": index % 7 === 0,
+                            "bg-slate-700": index < hours,
+                            "bg-slate-400": index >= hours,
                         })}
                     />
                 ))}
