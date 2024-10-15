@@ -67,8 +67,8 @@ export const TenThousandHours = () => {
                             "size-2 m-px": isCondensed,
                             "bg-red-500": index % 52 === 0,
                             "bg-green-500": index % 7 === 0,
-                            "bg-slate-700": index < hours,
-                            "bg-slate-400": index >= hours,
+                            "bg-slate-700": index < hours && index % 52 !== 0 && index % 7 !== 0,
+                            "bg-slate-400": index >= hours && index % 52 !== 0 && index % 7 !== 0
                         })}
                     />
                 ))}
