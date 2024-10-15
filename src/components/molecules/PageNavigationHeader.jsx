@@ -10,14 +10,16 @@ export const PageNavigationHeader = ({
                 className={classNames({
                     "text-sm font-bold w-20 text-center": true,
                     "opacity-50": isSavedView,
+                    "border-b border-slate-300": !isSavedView,
                 })}
                 onClick={() => setIsSavedView(false)}>
                 Feed
             </h1>
             <h1
                 className={classNames({
-                    "text-sm font-bold border-b border-slate-300 w-20 text-center": true,
+                    "text-sm font-bold w-20 text-center": true,
                     "opacity-50": !isSavedView,
+                    "border-b border-slate-300": isSavedView,
                 })}
                 onClick={() => setIsSavedView(true)}>
                 Saved
