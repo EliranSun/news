@@ -3,29 +3,35 @@ import FireRekindle from "./features/FireRekindle.jsx";
 import BirthdayQrCodes from "./features/BirthdayQrCodes.jsx";
 import { BirthdayImagePage } from "./features/BirthdayImagePage.jsx";
 import OnePieceLastEpisodesChart from "./features/OnePieceLastEpisodesChart.jsx";
+import { TenThousandHours } from "./features/TenThousandHours.jsx";
 
 const path = window.location.pathname;
 const firePage = path === "/fire";
 const qrPage = path === "/qr";
 const chartPage = path === '/chart';
+const tenThousandHoursPage = path === '/ten';
 const imagePage = new URLSearchParams(window.location.search).get("image_id");
 
 export const MainPage = () => {
     if (qrPage) {
-        return <BirthdayQrCodes/>;
+        return <BirthdayQrCodes />;
     }
-    
+
     if (firePage) {
-        return <FireRekindle/>;
+        return <FireRekindle />;
     }
-    
+
     if (imagePage) {
-        return <BirthdayImagePage imageID={imagePage}/>;
+        return <BirthdayImagePage imageID={imagePage} />;
     }
-    
+
     if (chartPage) {
-        return <OnePieceLastEpisodesChart/>;
+        return <OnePieceLastEpisodesChart />;
     }
-    
-    return <News/>;
+
+    if (tenThousandHoursPage) {
+        return <TenThousandHours />;
+    }
+
+    return <News />;
 };
