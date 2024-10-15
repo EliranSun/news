@@ -43,7 +43,7 @@ export const TenThousandHours = () => {
             <div
                 style={{
                     width: isCondensed
-                        ? `${numberOfColumns * 52 + numberOfColumns * 4}px`
+                        ? `${10 * 365}px`
                         : `${numberOfColumns * 12 + numberOfColumns * 4}px`
                 }}
                 className="relative flex items-center justify-start flex-wrap">
