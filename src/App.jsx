@@ -6,7 +6,7 @@ import { PageNavigationHeader } from "./components/molecules/PageNavigationHeade
 import { useQueryAI } from "./hooks/useQueryAI.js";
 
 const RssFeedComponent = () => {
-	const [isSavedView, setIsSavedView] = useState(false);
+	const [view, setView] = useState("feed");
 	const [isSweepDataView, setIsSweepDataView] = useState(false);
 	const { items, setFeeds } = useRssFeed(isSavedView);
 	const { queryResult, onQueryClick, setQueryResult } = useQueryAI(items);
@@ -35,13 +35,13 @@ const RssFeedComponent = () => {
 	return (
 		<section className="h-[100dvh] w-screen">
 			<PageNavigationHeader
-				isSavedView={isSavedView}
-				setIsSavedView={setIsSavedView}
+				view={view}
+				setView={setView}
 			/>
 			<View
 				queryResult={queryResult}
 				items={items}
-				isSavedView={isSavedView}
+				view={view}
 			/>
 			<ActionButtons
 				contextualItems={items}
