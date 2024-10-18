@@ -6,13 +6,6 @@ import axios from "axios";
 // "https://www.geektime.co.il/feed/",
 // "https://www.geektime.co.il/tag/vmware/feed/"
 
-try {
-    const geekTimeFeed = await axios.get("https://www.geektime.co.il/feed/");
-    console.log({ geekTimeFeed });
-} catch (error) {
-    console.error("Error fetching and parsing feeds:", error);
-}
-
 export const useRssFeed = (isSavedView) => {
     const [feeds, setFeeds] = useState([]);
 
@@ -24,6 +17,12 @@ export const useRssFeed = (isSavedView) => {
             const items = [];
 
 
+            try {
+                const geekTimeFeed = await axios.get("https://www.geektime.co.il/feed/");
+                console.log({ geekTimeFeed });
+            } catch (error) {
+                console.error("Error fetching and parsing feeds:", error);
+            }
 
             data.forEach((item) => {
                 const isRead = localStorage.getItem(item.link) === "read";
