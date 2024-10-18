@@ -9,7 +9,7 @@ export const PageNavigationHeader = ({
             <h1
                 className={classNames({
                     "text-sm font-bold w-20 text-center": true,
-                    "opacity-50": isSavedView,
+                    "opacity-50": view !== "feed",
                     "border-b border-slate-300": view === "feed"
                 })}
                 onClick={() => setView("feed")}>
@@ -18,7 +18,7 @@ export const PageNavigationHeader = ({
             <h1
                 className={classNames({
                     "text-sm font-bold w-20 text-center": true,
-                    "opacity-50": isSavedView,
+                    "opacity-50": view !== "feeds",
                     "border-b border-slate-300": view === "feeds"
                 })}
                 onClick={() => setView("feeds")}>
@@ -27,7 +27,7 @@ export const PageNavigationHeader = ({
             <h1
                 className={classNames({
                     "text-sm font-bold w-20 text-center": true,
-                    "opacity-50": !isSavedView,
+                    "opacity-50": view !== "saved",
                     "border-b border-slate-300": view === "saved",
                 })}
                 onClick={() => setView("saved")}>

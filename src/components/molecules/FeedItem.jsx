@@ -1,27 +1,41 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
-export const FeedItem = ({ item, onClick = () => { }, queryResult, onlyTitle }) => {
+export const FeedItem = ({ item, onClick = () => { }, queryResult, onlyTitle, compact }) => {
     return (
         <div
             onClick={onClick}
-            className={`
-				${onlyTitle ? "pb-0" : "pb-32"}
-				${item.language.includes("he") ? "text-right" : "text-left"}
-				mt-4 flex gap-4 justify-between w-full
-			`}>
+            className={classNames({
+                'pb-0': onlyTitle,
+                'pb-32': !onlyTitle,
+                'text-right': item.language.includes("he"),
+                'text-left': !item.language.includes("he"),
+                'mt-4 flex justify-between w-full': true,
+            })}>
             <div className="w-full flex flex-col justify-between">
                 <div>
                     <h1
                         dir={item.language === "he" ? "rtl" : "ltr"}
                         className={classNames({
+                            "flex-inline text-base leading-none": compact,
                             "text-2xl": onlyTitle,
                             "text-[2.4rem]": !onlyTitle,
                             "h-18 font-bold mb-3 w-full": true,
                             "merriweather-bold": item.language.includes("en"),
                             "heebo-900": !item.language.includes("en"),
                         })}>
-                        {item.title}
+                        {item.title} {compact ?
+                            <>-{' '}
+                                <span
+                                    className={classNames({
+                                        "inline-flex gap-1 text-xs font-mono font-light": true,
+                                        "flex-row-reverse": item.language.includes("he"),
+                                        "flex-row": !item.language.includes("he"),
+                                    })}>
+                                    <span>{item.diff.value}{item.diff.unit}</span>
+                                    <span>{item.language === "he" ? "לפני" : "ago"}</span>
+                                </span>
+                            </> : null}
                     </h1>
                     {(!queryResult && (onlyTitle || item.title.length >= 90)) ? null : (
                         <p
@@ -31,10 +45,15 @@ export const FeedItem = ({ item, onClick = () => { }, queryResult, onlyTitle }) 
                         </p>
                     )}
                 </div>
-                <p className="text-sm font-mono">
+                {compact ? null : <p className={classNames("font-mono", {
+                    "text-right": item.language.includes("he"),
+                    "text-left": !item.language.includes("he"),
+                    "leading-none text-xs": compact,
+                    "leading-none text-sm": !compact,
+                })}>
                     {item.diff.value}
                     {item.diff.unit} ago
-                </p>
+                </p>}
             </div>
         </div>
     );

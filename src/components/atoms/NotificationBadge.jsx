@@ -1,10 +1,15 @@
 import { Button } from "./Button.jsx";
 import PropTypes from "prop-types";
 
-export const NotificationBadge = ({ count }) => {
+export const NotificationBadge = ({ count, size = 24 }) => {
     return (
         <Button
-            className={`absolute -right-2 -top-2 shadow-md size-7 mx-auto border border-slate-300 rounded-full text-[8px]`}>
+            style={{
+                width: size,
+                height: size,
+            }}
+            className={`absolute -right-2 -top-2 shadow-md 
+        mx-auto border border-slate-300 rounded-full text-[8px]`}>
             {count}
         </Button>
     );
