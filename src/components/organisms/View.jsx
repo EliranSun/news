@@ -5,11 +5,35 @@ import { useMemo } from "react";
 
 const MultipleFeedsView = ({ items = [] }) => {
     const itemsPerFeed = useMemo(() => {
-        
+        const feeds = {};
+        items.forEach((item) => {
+            feeds[item.feedName] = [
+                ...(feeds[item.feedName] || []),
+                item
+            ];
+        });
     }, [items]);
+    
+    return (
+            <div className="flex flex-col gap-2 pt-16 pb-40 w-full px-5">
+                {itemsPerFeed
+                    .map((feed) => (
+                        <FeedItem
+                            key={feed[0].link}
+                            item={feed[0]}
+                            onlyTitle
+                        />
+                    ))}
+            </div>
+        )
 };
 
-export const View = ({ items = [], isSavedView, queryResult }) => {
+export const View = ({ 
+items = [], 
+isSavedView, 
+isMultipleFeedsView,
+queryResult 
+}) => {
     if (items.length === 0) {
         return <Loader />;
     }
@@ -29,6 +53,11 @@ export const View = ({ items = [], isSavedView, queryResult }) => {
             </div>
         )
     }
+    
+    if (isMultipleFeedsView) {
+        return (
+        <MultipleFeedsView items={items} />
+        }
 
     const nonSavedItems = items?.filter(item => !item.isSaved);
 
