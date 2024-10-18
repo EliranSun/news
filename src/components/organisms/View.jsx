@@ -30,15 +30,14 @@ const MultipleFeedsView = ({ items = [] }) => {
 
 export const View = ({ 
 items = [], 
-isSavedView, 
-isMultipleFeedsView,
+view,
 queryResult 
 }) => {
     if (items.length === 0) {
         return <Loader />;
     }
 
-    if (isSavedView) {
+    if (view === "saved") {
         return (
             <div className="pt-16 pb-40 w-full px-5">
                 {items
@@ -54,14 +53,17 @@ queryResult
         )
     }
     
-    if (isMultipleFeedsView) {
-        return (
-        <MultipleFeedsView items={items} />
-        }
+    
 
     const nonSavedItems = items?.filter(item => !item.isSaved);
 
     if (!nonSavedItems) return null;
+    
+    if (view === "feeds") {
+        return (
+        <MultipleFeedsView items={nonSavedItems} />
+        );
+        }
 
     return (
         <div className="w-full pt-16 px-5">
