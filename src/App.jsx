@@ -5,11 +5,6 @@ import { ActionButtons } from "./components/molecules/ActionButtons.jsx";
 import { PageNavigationHeader } from "./components/molecules/PageNavigationHeader.jsx";
 import { useQueryAI } from "./hooks/useQueryAI.js";
 
-
-// TODO: Client side fetch using axios for 
-// "https://www.geektime.co.il/feed/",
-// "https://www.geektime.co.il/tag/vmware/feed/"
-
 const RssFeedComponent = () => {
 	const [view, setView] = useState("feed");
 	const [isSweepDataView, setIsSweepDataView] = useState(false);

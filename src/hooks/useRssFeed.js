@@ -1,5 +1,17 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getDiffTime, removeUnicode, sanitizeText } from "../utils.js";
+import axios from "axios";
+
+// TODO: Client side fetch using axios for 
+// "https://www.geektime.co.il/feed/",
+// "https://www.geektime.co.il/tag/vmware/feed/"
+
+try {
+    const geekTimeFeed = await axios.get("https://www.geektime.co.il/feed/");
+    console.log({ geekTimeFeed });
+} catch (error) {
+    console.error("Error fetching and parsing feeds:", error);
+}
 
 export const useRssFeed = (isSavedView) => {
     const [feeds, setFeeds] = useState([]);
@@ -10,6 +22,8 @@ export const useRssFeed = (isSavedView) => {
             const response = await fetch(url);
             const data = (await response.json()) || [];
             const items = [];
+
+
 
             data.forEach((item) => {
                 const isRead = localStorage.getItem(item.link) === "read";
