@@ -1,6 +1,13 @@
 import { Loader } from "../atoms/Loader.jsx";
 import { FeedItem } from "../molecules/FeedItem.jsx";
 import PropTypes from "prop-types";
+import { useMemo } from "react";
+
+const MultipleFeedsView = ({ items = [] }) => {
+    const itemsPerFeed = useMemo(() => {
+        
+    }, [items]);
+};
 
 export const View = ({ items = [], isSavedView, queryResult }) => {
     if (items.length === 0) {
