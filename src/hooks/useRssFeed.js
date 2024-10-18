@@ -18,7 +18,32 @@ export const useRssFeed = (isSavedView) => {
 
 
             try {
-                const geekTimeFeed = await axios.get("https://www.geektime.co.il/feed/");
+                const geekTimeFeed = await axios.get("https://www.geektime.co.il/feed/", {
+                    headers: {
+                        "strict-transport-security": "max-age=31536000; includeSubDomains; preload",
+                        "referrer-policy": "no-referrer",
+                        "Cache-Control": "max-age=14400",
+                        "Content-Encoding": "br",
+                        "cf-cache-status": "DYNAMIC",
+                        // "Report-To": "{\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v3?s=...\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+                        // "NEL": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+                        // "Server": "cloudflare",
+                        // "CF-RAY": "XXXXXXXXXXXXX-YYY",
+                        // "Date": "Fri, 18 Oct 2024 10:24:31 GMT",
+                        "Content-Type": "application/rss+xml; charset=UTF-8",
+                        Accept: "application/rss+xml",
+                        // "Transfer-Encoding": "chunked",
+                        // "Connection": "keep-alive",
+                        // "vary": "Accept-Encoding",
+                        // "last-modified": "Fri, 18 Oct 2024 10:24:31 GMT",
+                        // "etag": "\"e123456789abcdef\"",
+                        // "link": "<https://example.com>; rel=\"preload\"",
+                        // "x-cache-status": "HIT",
+                        // "x-xss-protection": "1; mode=block",
+                        // "x-content-type-options": "nosniff",
+                        // "x-frame-options": "SAMEORIGIN"
+                    },
+                });
                 console.log({ geekTimeFeed });
             } catch (error) {
                 console.error("Error fetching and parsing feeds:", error);
