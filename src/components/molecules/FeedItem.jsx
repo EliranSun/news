@@ -17,7 +17,7 @@ export const FeedItem = ({ item, onClick = () => { }, queryResult, onlyTitle, co
                     <h1
                         dir={item.language === "he" ? "rtl" : "ltr"}
                         className={classNames({
-                            "flex-inline text-base leading-none": compact,
+                            "flex-inline text-sm leading-none": compact,
                             "text-2xl": onlyTitle,
                             "text-[2.4rem]": !onlyTitle,
                             "h-18 font-bold mb-3 w-full": true,
