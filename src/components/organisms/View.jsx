@@ -31,7 +31,12 @@ const MultipleFeedsView = ({ items = [], onItemRead }) => {
             {Object.entries(itemsPerFeed)
                 .sort((a, b) => b[0].localeCompare(a[0]))
                 .map(([feedName, feed]) => (
-                    <div key={feedName} className="flex items-center flex-row-reverse gap-8 h-20 
+                    <div key={feedName}
+                        onClick={() => {
+                                localStorage.setItem(feed[0].link, "read");
+                                onItemRead(feed[0].link);
+                            }}
+                        className="flex items-center flex-row-reverse gap-8 h-20 
                     border border-gray-200 rounded-md px-4">
                         <FeedItem
                             key={feed[0].link}
@@ -45,10 +50,7 @@ const MultipleFeedsView = ({ items = [], onItemRead }) => {
                         <Button
                             big
                             className="h-10 relative rounded-full"
-                            onClick={() => {
-                                localStorage.setItem(feed[0].link, "read");
-                                onItemRead(feed[0].link);
-                            }}>
+                            >
                             <CheckFat size={24} />
                             <NotificationBadge size={20} count={feed.length} />
                         </Button>
