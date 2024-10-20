@@ -12,12 +12,12 @@ export const ActionButtons = ({
     onQueryClick,
 }) => {
     return (
-        <div className="fixed bottom-8 inset-x-0 flex justify-center items-center gap-6">
+        <div className="fixed bottom-0 pt-4 pb-8 border-t border-gray-200 inset-x-0 flex justify-center items-center gap-6 bg-white dark:bg-gray-900">
             <RoundButton onClick={() => window.open(contextualItems[0].link, "_blank")}>
-                <Link size={24}/>
+                <Link size={24} />
             </RoundButton>
             <RoundButton onClick={onQueryClick}>
-                <Robot size={24}/>
+                <Robot size={24} />
             </RoundButton>
             <RoundButton
                 big
@@ -26,8 +26,8 @@ export const ActionButtons = ({
                     setFeeds(contextualItems.filter((feed) => feed.link !== contextualItems[0].link));
                     setQueryResult("");
                 }}>
-                <CheckFat size={24}/>
-                <NotificationBadge count={contextualItems.length}/>
+                <CheckFat size={24} />
+                <NotificationBadge count={contextualItems.length} />
             </RoundButton>
             <RoundButton
                 onClick={() => {
@@ -35,14 +35,14 @@ export const ActionButtons = ({
                     setFeeds(contextualItems.filter((feed) => feed.link !== contextualItems[0].link));
                     setQueryResult("");
                 }}>
-                <BookmarkSimple size={24}/>
+                <BookmarkSimple size={24} />
             </RoundButton>
             <RoundButton onClick={() => setIsSweepDataView(!isSweepDataView)}>
                 <ClearFeedUpToDate
                     items={contextualItems}
                     isActive={isSweepDataView}
                 />
-                <Broom size={24}/>
+                <Broom size={24} />
             </RoundButton>
         </div>
     );

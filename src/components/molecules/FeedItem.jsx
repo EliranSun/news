@@ -20,7 +20,7 @@ export const FeedItem = ({ item, onClick = () => { }, queryResult, onlyTitle, co
                             "flex-inline text-base": compact,
                             "text-2xl": onlyTitle,
                             "text-[2.4rem]": !onlyTitle,
-                            "h-fit font-bold mb-3 w-full": true,
+                            "font-bold mb-3 w-full": true,
                             "merriweather-bold": item.language.includes("en"),
                             "heebo-900": !item.language.includes("en"),
                         })}>

@@ -2,9 +2,6 @@ import { Loader } from "../atoms/Loader.jsx";
 import { FeedItem } from "../molecules/FeedItem.jsx";
 import PropTypes from "prop-types";
 import { useMemo } from "react";
-import { RoundButton } from "../atoms/RoundButton.jsx";
-import { CheckFat } from "@phosphor-icons/react";
-import { NotificationBadge } from "../atoms/NotificationBadge.jsx";
 import { Button } from "../atoms/Button.jsx";
 
 const MultipleFeedsView = ({ items = [], onItemRead }) => {
@@ -33,10 +30,10 @@ const MultipleFeedsView = ({ items = [], onItemRead }) => {
                 .map(([feedName, feed]) => (
                     <div key={feedName}
                         onClick={() => {
-                                localStorage.setItem(feed[0].link, "read");
-                                onItemRead(feed[0].link);
-                            }}
-                        className="flex items-center flex-row-reverse gap-8 h-20 
+                            localStorage.setItem(feed[0].link, "read");
+                            onItemRead(feed[0].link);
+                        }}
+                        className="flex items-center flex-row-reverse gap-8 h-fit 
                     border border-gray-200 rounded-md px-4">
                         <FeedItem
                             key={feed[0].link}
@@ -47,12 +44,8 @@ const MultipleFeedsView = ({ items = [], onItemRead }) => {
                             onlyTitle
                             compact
                         />
-                        <Button
-                            big
-                            className="h-10 relative rounded-full"
-                            >
-                            <CheckFat size={24} />
-                            <NotificationBadge size={20} count={feed.length} />
+                        <Button className="size-10 rounded-lg">
+                            {feed.length}
                         </Button>
                     </div>
                 ))}
