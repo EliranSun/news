@@ -3,6 +3,9 @@
   "include": [
     "src"
   ],
+  "types": [
+    "vite-plugin-pwa/client"
+  ],
   "references": [
     {
       "path": "./tsconfig.app.json"
