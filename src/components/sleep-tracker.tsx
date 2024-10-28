@@ -32,18 +32,18 @@ import {
 } from "recharts";
 
 const tags = [
-   {label: "No screen 1 hour", emoji: "📵"},
-   {label: "No food 2 hours", emoji: "🍽️"},
-   {label: "No water 3 hours", emoji: "💧"},
-   {label: "8 hours sleep", emoji: "⏰"},
+   {label: "No screen 1h", emoji: "📵"},
+   {label: "No food 2h", emoji: "🍽️"},
+   {label: "No water 3s", emoji: "💧"},
+   {label: "8 hours", emoji: "⏰"},
    {label: "Magnesium", emoji: "💊"},
-   {label: "Late train", emoji: "🚂"},
+   {label: "Late train", emoji: "💪"},
    {label: "Poop before", emoji: "💩"},
    {label: "Shower before", emoji: "🚿"},
    {label: "Dreams", emoji: "💭"},
    {label: "Mind at ease", emoji: "🧘"},
    {label: "Snoring", emoji: "😴"},
-   {label: "Same schedule", emoji: "📅"},
+   {label: "On schedule", emoji: "📅"},
    {label: "Late coffee", emoji: "☕"},
    {label: "Alcohol", emoji: "🍷"},
 ];
