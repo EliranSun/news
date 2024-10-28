@@ -160,7 +160,7 @@ export function SleepTrackerComponent() {
    };
 
    return (
-      <div className="container mx-auto space-y-6 p-1 w-full">
+      <div className="container mx-auto space-y-6 p-1 w-full fixed inset-0">
          <div className="container flex items-center justify-between mb-1 w-full">
             <Button
                variant="outline"
