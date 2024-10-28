@@ -161,41 +161,6 @@ export function SleepTrackerComponent() {
 
    return (
       <div className="container m-0 p-0 w-full fixed inset-0">
-         <div className="container flex items-center justify-between mb-1 w-full">
-            <Button
-               variant="outline"
-               onClick={() => handleDateChange(subDays(date, 1))}>
-               <ChevronLeft className="h-4 w-4"/>
-            </Button>
-            <Popover>
-               <PopoverTrigger asChild>
-                  <Button variant="outline">
-                     <CalendarIcon className="mr-2 h-4 w-4"/>
-                     {format(date, "PPP")}
-                  </Button>
-               </PopoverTrigger>
-               <PopoverContent className="w-auto p-0">
-                  <Calendar
-                     mode="single"
-                     selected={date}
-                     onSelect={handleDateChange}
-                     initialFocus
-                  />
-               </PopoverContent>
-            </Popover>
-            <Button
-               variant="outline"
-               onClick={() => handleDateChange(addDays(date, 1))}>
-               <ChevronRight className="h-4 w-4"/>
-            </Button>
-            <Button
-               variant="secondary"
-               onClick={() => setView(view === "analysis" ? "tracker" : "analysis")}>
-               {view === "tracker"
-                  ? <ChartBar className="h-4 w-4"/>
-                  : <CalendarIcon className="h-4 w-4"/>}
-            </Button>
-         </div>
          <Card className={view === "tracker" ? "block" : "hidden"}>
             <CardContent>
                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
@@ -297,7 +262,6 @@ export function SleepTrackerComponent() {
                </div>
             </CardContent>
          </Card>
-
          <Card className={view === "analysis" ? "block" : "hidden"}>
             <CardHeader>
                <CardTitle>Sleep Analysis</CardTitle>
@@ -340,6 +304,42 @@ export function SleepTrackerComponent() {
                </ResponsiveContainer>
             </CardContent>
          </Card>
+
+         <div className="container flex items-center justify-between mb-1 w-full">
+            <Button
+               variant="outline"
+               onClick={() => handleDateChange(subDays(date, 1))}>
+               <ChevronLeft className="h-4 w-4"/>
+            </Button>
+            <Popover>
+               <PopoverTrigger asChild>
+                  <Button variant="outline">
+                     <CalendarIcon className="mr-2 h-4 w-4"/>
+                     {format(date, "PPP")}
+                  </Button>
+               </PopoverTrigger>
+               <PopoverContent className="w-auto p-0">
+                  <Calendar
+                     mode="single"
+                     selected={date}
+                     onSelect={handleDateChange}
+                     initialFocus
+                  />
+               </PopoverContent>
+            </Popover>
+            <Button
+               variant="outline"
+               onClick={() => handleDateChange(addDays(date, 1))}>
+               <ChevronRight className="h-4 w-4"/>
+            </Button>
+            <Button
+               variant="secondary"
+               onClick={() => setView(view === "analysis" ? "tracker" : "analysis")}>
+               {view === "tracker"
+                  ? <ChartBar className="h-4 w-4"/>
+                  : <CalendarIcon className="h-4 w-4"/>}
+            </Button>
+         </div>
       </div>
    );
 }
