@@ -38,10 +38,10 @@ const tags = [
    {label: "8 hours", emoji: "⏰"},
    {label: "Magnesium", emoji: "💊"},
    {label: "Late train", emoji: "💪"},
-   {label: "Poop before", emoji: "💩"},
-   {label: "Shower before", emoji: "🚿"},
+   {label: "Poop", emoji: "💩"},
+   {label: "Shower", emoji: "🚿"},
    {label: "Dreams", emoji: "💭"},
-   {label: "Mind at ease", emoji: "🧘"},
+   {label: "At ease", emoji: "🧘"},
    {label: "Snoring", emoji: "😴"},
    {label: "On schedule", emoji: "📅"},
    {label: "Late coffee", emoji: "☕"},
@@ -162,7 +162,7 @@ export function SleepTrackerComponent() {
       <div className="container mx-auto space-y-6 p-1">
          <Card className={view === "tracker" ? "block" : "hidden"}>
             <CardContent>
-               <div className="flex items-center justify-between mb-4">
+               <div className="flex items-center justify-between mb-2">
                   <Button
                      variant="outline"
                      onClick={() => handleDateChange(subDays(date, 1))}>
@@ -191,7 +191,7 @@ export function SleepTrackerComponent() {
                   </Button>
                </div>
 
-               <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
+               <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
                   <div className="space-y-1">
                      <Label htmlFor="rem">REM (%)</Label>
                      <Input
