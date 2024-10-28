@@ -4,34 +4,40 @@ import BirthdayQrCodes from "./features/BirthdayQrCodes.jsx";
 import { BirthdayImagePage } from "./features/BirthdayImagePage.jsx";
 import OnePieceLastEpisodesChart from "./features/OnePieceLastEpisodesChart.jsx";
 import { TenThousandHours } from "./features/TenThousandHours.jsx";
+import { SleepTrackerComponent } from "./components/sleep-tracker.tsx";
 
 const path = window.location.pathname;
 const firePage = path === "/fire";
 const qrPage = path === "/qr";
-const chartPage = path === '/chart';
-const tenThousandHoursPage = path === '/ten';
+const chartPage = path === "/chart";
+const tenThousandHoursPage = path === "/ten";
+const sleepPage = path === "/sleep";
 const imagePage = new URLSearchParams(window.location.search).get("image_id");
 
 export const MainPage = () => {
     if (qrPage) {
-        return <BirthdayQrCodes />;
+        return <BirthdayQrCodes/>;
     }
-
+    
     if (firePage) {
-        return <FireRekindle />;
+        return <FireRekindle/>;
     }
-
+    
     if (imagePage) {
-        return <BirthdayImagePage imageID={imagePage} />;
+        return <BirthdayImagePage imageID={imagePage}/>;
     }
-
+    
     if (chartPage) {
-        return <OnePieceLastEpisodesChart />;
+        return <OnePieceLastEpisodesChart/>;
     }
-
+    
+    if (sleepPage) {
+        return <SleepTrackerComponent/>;
+    }
+    
     if (tenThousandHoursPage) {
-        return <TenThousandHours />;
+        return <TenThousandHours/>;
     }
-
-    return <News />;
+    
+    return <News/>;
 };
