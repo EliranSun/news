@@ -4,6 +4,7 @@ import {
    Calendar as CalendarIcon,
    ChevronLeft,
    ChevronRight,
+   ChartBar
 } from "lucide-react";
 import {Button} from "./ui/button";
 import {Calendar} from "./ui/calendar";
@@ -159,38 +160,44 @@ export function SleepTrackerComponent() {
    };
 
    return (
-      <div className="container mx-auto space-y-6 p-1">
+      <div className="container mx-auto space-y-6 p-1 w-full">
+         <div className="container flex items-center justify-between mb-1 w-full">
+            <Button
+               variant="outline"
+               onClick={() => handleDateChange(subDays(date, 1))}>
+               <ChevronLeft className="h-4 w-4"/>
+            </Button>
+            <Popover>
+               <PopoverTrigger asChild>
+                  <Button variant="outline">
+                     <CalendarIcon className="mr-2 h-4 w-4"/>
+                     {format(date, "PPP")}
+                  </Button>
+               </PopoverTrigger>
+               <PopoverContent className="w-auto p-0">
+                  <Calendar
+                     mode="single"
+                     selected={date}
+                     onSelect={handleDateChange}
+                     initialFocus
+                  />
+               </PopoverContent>
+            </Popover>
+            <Button
+               variant="outline"
+               onClick={() => handleDateChange(addDays(date, 1))}>
+               <ChevronRight className="h-4 w-4"/>
+            </Button>
+            <Button
+               variant="secondary"
+               onClick={() => setView(view === "analysis" ? "tracker" : "analysis")}>
+               {view === "tracker"
+                  ? <ChartBar className="h-4 w-4"/>
+                  : <CalendarIcon className="h-4 w-4"/>}
+            </Button>
+         </div>
          <Card className={view === "tracker" ? "block" : "hidden"}>
             <CardContent>
-               <div className="flex items-center justify-between mb-2">
-                  <Button
-                     variant="outline"
-                     onClick={() => handleDateChange(subDays(date, 1))}>
-                     <ChevronLeft className="h-4 w-4"/>
-                  </Button>
-                  <Popover>
-                     <PopoverTrigger asChild>
-                        <Button variant="outline">
-                           <CalendarIcon className="mr-2 h-4 w-4"/>
-                           {format(date, "PPP")}
-                        </Button>
-                     </PopoverTrigger>
-                     <PopoverContent className="w-auto p-0">
-                        <Calendar
-                           mode="single"
-                           selected={date}
-                           onSelect={handleDateChange}
-                           initialFocus
-                        />
-                     </PopoverContent>
-                  </Popover>
-                  <Button
-                     variant="outline"
-                     onClick={() => handleDateChange(addDays(date, 1))}>
-                     <ChevronRight className="h-4 w-4"/>
-                  </Button>
-               </div>
-
                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
                   <div className="space-y-1">
                      <Label htmlFor="rem">REM (%)</Label>
@@ -297,8 +304,8 @@ export function SleepTrackerComponent() {
             </CardHeader>
             <CardContent>
                <ResponsiveContainer
-                  width="100%"
-                  height={400}>
+                  width={window.innerWidth - 100}
+                  height={window.innerHeight - 200}>
                   <ComposedChart data={graphData}>
                      <CartesianGrid strokeDasharray="3 3"/>
                      <XAxis dataKey="date"/>
