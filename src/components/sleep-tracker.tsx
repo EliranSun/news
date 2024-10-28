@@ -33,9 +33,9 @@ import {
 } from "recharts";
 
 const tags = [
-   {label: "No screen 1h", emoji: "📵"},
-   {label: "No food 2h", emoji: "🍽️"},
-   {label: "No water 3s", emoji: "💧"},
+   {label: "Screen 1h", emoji: "📵"},
+   {label: "Food 2h", emoji: "🍽️"},
+   {label: "Water 3s", emoji: "💧"},
    {label: "8 hours", emoji: "⏰"},
    {label: "Magnesium", emoji: "💊"},
    {label: "Late train", emoji: "💪"},
@@ -44,7 +44,7 @@ const tags = [
    {label: "Dreams", emoji: "💭"},
    {label: "At ease", emoji: "🧘"},
    {label: "Snoring", emoji: "😴"},
-   {label: "On schedule", emoji: "📅"},
+   {label: "Schedule", emoji: "📅"},
    {label: "Late coffee", emoji: "☕"},
    {label: "Alcohol", emoji: "🍷"},
 ];
@@ -160,7 +160,7 @@ export function SleepTrackerComponent() {
    };
 
    return (
-      <div className="container mx-auto space-y-6 p-1 w-full fixed inset-0">
+      <div className="container m-0 p-0 w-full fixed inset-0">
          <div className="container flex items-center justify-between mb-1 w-full">
             <Button
                variant="outline"
