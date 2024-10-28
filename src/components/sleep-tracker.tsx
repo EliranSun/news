@@ -160,7 +160,7 @@ export function SleepTrackerComponent() {
    };
 
    return (
-      <div className="container m-0 p-0 w-full fixed inset-0">
+      <div className="container m-0 px-1 w-full fixed inset-0">
          <Card className={view === "tracker" ? "block" : "hidden"}>
             <CardContent>
                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
@@ -304,8 +304,7 @@ export function SleepTrackerComponent() {
                </ResponsiveContainer>
             </CardContent>
          </Card>
-
-         <div className="container flex items-center justify-between mb-1 w-full">
+         <div className="container flex items-center justify-between mt-1 w-full">
             <Button
                variant="outline"
                onClick={() => handleDateChange(subDays(date, 1))}>
