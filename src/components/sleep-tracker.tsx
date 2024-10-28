@@ -159,11 +159,8 @@ export function SleepTrackerComponent() {
    };
 
    return (
-      <div className="container mx-auto p-1 space-y-6">
+      <div className="container mx-auto space-y-6 p-1">
          <Card className={view === "tracker" ? "block" : "hidden"}>
-            <CardHeader>
-               <CardTitle>Sleep Tracker</CardTitle>
-            </CardHeader>
             <CardContent>
                <div className="flex items-center justify-between mb-4">
                   <Button
@@ -194,7 +191,7 @@ export function SleepTrackerComponent() {
                   </Button>
                </div>
 
-               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+               <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4">
                   <div className="space-y-1">
                      <Label htmlFor="rem">REM (%)</Label>
                      <Input
@@ -269,7 +266,7 @@ export function SleepTrackerComponent() {
                      </SelectContent>
                   </Select>
                </div>
-               <div className="mt-6">
+               <div className="mt-2">
                   <Label>Tags</Label>
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-2">
                      {tags.map((tag) => (
@@ -283,7 +280,8 @@ export function SleepTrackerComponent() {
                            />
                            <label
                               htmlFor={tag.label}
-                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                              className="text-xs font-medium leading-none 
+                              peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                               {tag.emoji} {tag.label}
                            </label>
                         </div>
