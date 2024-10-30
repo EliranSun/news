@@ -34,7 +34,7 @@ export const MainNavBar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	return (
-		<div className="fixed top-3 right-3 z-20">
+		<div className="fixed bottom-6 right-3 z-20">
 			<div
 				className="bg-gray-50 shadow-md rounded-full p-2 cursor-pointer size-10
 					transition-transform hover:scale-105 active:scale-95">

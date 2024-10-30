@@ -163,52 +163,10 @@ export function SleepTrackerComponent() {
 	};
 
 	return (
-		<div className="container m-0 px-4 w-full fixed inset-0">
-			<div className="container flex items-center my-4 w-full">
-				<div>
-					<Button
-						variant="outline"
-						className="w-4"
-						onClick={() =>
-							setView(view === "analysis" ? "tracker" : "analysis")
-						}>
-						{view === "tracker" ? <ChartBar /> : <CalendarIcon />}
-					</Button>
-					<Button
-						variant="outline"
-						className="w-2"
-						onClick={() => handleDateChange(subDays(date, 1))}>
-						<ChevronLeft />
-					</Button>
-					<Button
-						variant="outline"
-						className="w-2"
-						onClick={() => handleDateChange(addDays(date, 1))}>
-						<ChevronRight />
-					</Button>
-				</div>
-				<Popover>
-					<PopoverTrigger asChild>
-						<Button
-							variant="outline"
-							className="mr-2 w-fit">
-							<CalendarIcon />
-							{format(date, "PP")}
-						</Button>
-					</PopoverTrigger>
-					<PopoverContent className="w-auto p-0">
-						<Calendar
-							mode="single"
-							selected={date}
-							onSelect={handleDateChange}
-							initialFocus
-						/>
-					</PopoverContent>
-				</Popover>
-			</div>
+		<div className="container py-2 px-4 w-full fixed inset-0">
 			<Card className={view === "tracker" ? "block" : "hidden"}>
 				<CardContent>
-					<div className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-2">
+					<div className="grid grid-cols-2 md:grid-cols-4 gap-2 my-2">
 						<div className="space-y-1">
 							<Label htmlFor="rem">REM (%)</Label>
 							<Input
@@ -315,7 +273,7 @@ export function SleepTrackerComponent() {
 				<CardHeader>
 					<CardTitle>Sleep Analysis</CardTitle>
 				</CardHeader>
-				{/* <CardContent>
+				<CardContent>
 					<ResponsiveContainer
 						width={window.innerWidth - 100}
 						height={window.innerHeight - 200}>
@@ -351,8 +309,50 @@ export function SleepTrackerComponent() {
 							/>
 						</ComposedChart>
 					</ResponsiveContainer>
-				</CardContent> */}
+				</CardContent>
 			</Card>
+
+			<div className="container flex items-center my-4 w-full">
+				<div>
+					<Button
+						variant="outline"
+						className="w-4"
+						onClick={() =>
+							setView(view === "analysis" ? "tracker" : "analysis")
+						}>
+						{view === "tracker" ? <ChartBar /> : <CalendarIcon />}
+					</Button>
+					<Button
+						variant="outline"
+						className="w-2"
+						onClick={() => handleDateChange(subDays(date, 1))}>
+						<ChevronLeft />
+					</Button>
+					<Button
+						variant="outline"
+						className="w-2"
+						onClick={() => handleDateChange(addDays(date, 1))}>
+						<ChevronRight />
+					</Button>
+				</div>
+				<Popover>
+					<PopoverTrigger asChild>
+						<Button
+							variant="outline"
+							className="mr-2 w-fit">
+							<CalendarIcon />
+							{format(date, "PP")}
+						</Button>
+					</PopoverTrigger>
+					<PopoverContent className="w-auto p-0">
+						<Calendar
+							mode="single"
+							selected={date}
+							onSelect={handleDateChange}
+						/>
+					</PopoverContent>
+				</Popover>
+			</div>
 		</div>
 	);
 }
