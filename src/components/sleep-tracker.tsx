@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { format, addDays, subDays } from "date-fns";
 import {
 	Calendar as CalendarIcon,
@@ -18,7 +18,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "./ui/select";
-import { Checkbox } from "./ui/checkbox";
+// import { Checkbox } from "./ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import {
 	Line,
@@ -31,6 +31,7 @@ import {
 	Legend,
 	ResponsiveContainer,
 } from "recharts";
+import classNames from "classnames";
 
 const tags = [
 	{ label: "Screen 1h", emoji: "📵" },
@@ -76,7 +77,9 @@ export function SleepTrackerComponent() {
 			setProtein(parsedData.protein ?? 0);
 			setCarbs(parsedData.carbs ?? 0);
 			setFat(parsedData.fat ?? 0);
-			setSelectedTags(parsedData.selectedTags ?? []);
+			setSelectedTags(
+				parsedData.selectedTags.length > 0 ? parsedData.selectedTags : []
+			);
 			setFeeling(parsedData.feeling ?? "");
 		}
 	}, [date]); // Only depends on date changes now
@@ -142,14 +145,14 @@ export function SleepTrackerComponent() {
 
 	const handleDateChange = (newDate) => {
 		// reset all metrics
-		setRem(0);
-		setDeep(0);
-		setCalories(0);
-		setProtein(0);
-		setCarbs(0);
-		setFat(0);
-		setSelectedTags([]);
-		setFeeling("");
+		// setRem(0);
+		// setDeep(0);
+		// setCalories(0);
+		// setProtein(0);
+		// setCarbs(0);
+		// setFat(0);
+		// setSelectedTags([]);
+		// setFeeling("");
 		setDate(newDate);
 	};
 
@@ -161,17 +164,36 @@ export function SleepTrackerComponent() {
 
 	return (
 		<div className="container m-0 px-4 w-full fixed inset-0">
-			<div className="container flex items-center justify-between my-4 w-full">
-				<Button
-					variant="outline"
-					onClick={() => handleDateChange(subDays(date, 1))}>
-					<ChevronLeft className="h-4 w-4" />
-				</Button>
+			<div className="container flex items-center my-4 w-full">
+				<div>
+					<Button
+						variant="outline"
+						className="w-4"
+						onClick={() =>
+							setView(view === "analysis" ? "tracker" : "analysis")
+						}>
+						{view === "tracker" ? <ChartBar /> : <CalendarIcon />}
+					</Button>
+					<Button
+						variant="outline"
+						className="w-2"
+						onClick={() => handleDateChange(subDays(date, 1))}>
+						<ChevronLeft />
+					</Button>
+					<Button
+						variant="outline"
+						className="w-2"
+						onClick={() => handleDateChange(addDays(date, 1))}>
+						<ChevronRight />
+					</Button>
+				</div>
 				<Popover>
 					<PopoverTrigger asChild>
-						<Button variant="outline">
-							<CalendarIcon className="mr-2 h-4 w-4" />
-							{format(date, "PPP")}
+						<Button
+							variant="outline"
+							className="mr-2 w-fit">
+							<CalendarIcon />
+							{format(date, "PP")}
 						</Button>
 					</PopoverTrigger>
 					<PopoverContent className="w-auto p-0">
@@ -183,20 +205,6 @@ export function SleepTrackerComponent() {
 						/>
 					</PopoverContent>
 				</Popover>
-				<Button
-					variant="outline"
-					onClick={() => handleDateChange(addDays(date, 1))}>
-					<ChevronRight className="h-4 w-4" />
-				</Button>
-				<Button
-					variant="secondary"
-					onClick={() => setView(view === "analysis" ? "tracker" : "analysis")}>
-					{view === "tracker" ? (
-						<ChartBar className="h-4 w-4" />
-					) : (
-						<CalendarIcon className="h-4 w-4" />
-					)}
-				</Button>
 			</div>
 			<Card className={view === "tracker" ? "block" : "hidden"}>
 				<CardContent>
@@ -205,54 +213,54 @@ export function SleepTrackerComponent() {
 							<Label htmlFor="rem">REM (%)</Label>
 							<Input
 								id="rem"
-								type="number"
+								type="text"
 								value={rem}
-								onChange={(e) => setRem(Number(e.target.value))}
+								onChange={(e) => setRem(e.target.value)}
 							/>
 						</div>
 						<div className="space-y-1">
 							<Label htmlFor="deep">Deep (%)</Label>
 							<Input
 								id="deep"
-								type="number"
+								type="text"
 								value={deep}
-								onChange={(e) => setDeep(Number(e.target.value))}
+								onChange={(e) => setDeep(e.target.value)}
 							/>
 						</div>
 						<div className="space-y-1">
 							<Label htmlFor="calories">Calories Net</Label>
 							<Input
 								id="calories"
-								type="number"
+								type="text"
 								value={calories}
-								onChange={(e) => setCalories(Number(e.target.value))}
+								onChange={(e) => setCalories(e.target.value)}
 							/>
 						</div>
 						<div className="space-y-1">
 							<Label htmlFor="protein">Protein (g)</Label>
 							<Input
 								id="protein"
-								type="number"
+								type="text"
 								value={protein}
-								onChange={(e) => setProtein(Number(e.target.value))}
+								onChange={(e) => setProtein(e.target.value)}
 							/>
 						</div>
 						<div className="space-y-1">
 							<Label htmlFor="carbs">Carbs (g)</Label>
 							<Input
 								id="carbs"
-								type="number"
+								type="text"
 								value={carbs}
-								onChange={(e) => setCarbs(Number(e.target.value))}
+								onChange={(e) => setCarbs(e.target.value)}
 							/>
 						</div>
 						<div className="space-y-1">
 							<Label htmlFor="fat">Fat (g)</Label>
 							<Input
 								id="fat"
-								type="number"
+								type="text"
 								value={fat}
-								onChange={(e) => setFat(Number(e.target.value))}
+								onChange={(e) => setFat(e.target.value)}
 							/>
 						</div>
 					</div>
@@ -277,16 +285,20 @@ export function SleepTrackerComponent() {
 					</div>
 					<div className="mt-2">
 						<Label>Tags</Label>
-						<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-2">
+						<div className="flex flex-wrap gap-1 mt-2">
 							{tags.map((tag) => (
 								<div
 									key={tag.label}
-									className="flex items-center space-x-2">
-									<Checkbox
+									onClick={() => handleTagChange(tag.label)}
+									className={classNames({
+										"flex items-center border rounded-md p-1": true,
+										"bg-black text-white": selectedTags.includes(tag.label),
+									})}>
+									{/* <Checkbox
 										id={tag.label}
 										checked={selectedTags.includes(tag.label)}
 										onCheckedChange={() => handleTagChange(tag.label)}
-									/>
+									/> */}
 									<label
 										htmlFor={tag.label}
 										className="text-xs font-medium leading-none 
@@ -303,7 +315,7 @@ export function SleepTrackerComponent() {
 				<CardHeader>
 					<CardTitle>Sleep Analysis</CardTitle>
 				</CardHeader>
-				<CardContent>
+				{/* <CardContent>
 					<ResponsiveContainer
 						width={window.innerWidth - 100}
 						height={window.innerHeight - 200}>
@@ -339,7 +351,7 @@ export function SleepTrackerComponent() {
 							/>
 						</ComposedChart>
 					</ResponsiveContainer>
-				</CardContent>
+				</CardContent> */}
 			</Card>
 		</div>
 	);
