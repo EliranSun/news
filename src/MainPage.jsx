@@ -6,38 +6,28 @@ import OnePieceLastEpisodesChart from "./features/OnePieceLastEpisodesChart.jsx"
 import { TenThousandHours } from "./features/TenThousandHours.jsx";
 import { SleepTrackerComponent } from "./components/sleep-tracker.tsx";
 
-const path = window.location.pathname;
-const firePage = path === "/fire";
-const qrPage = path === "/qr";
-const chartPage = path === "/chart";
-const tenThousandHoursPage = path === "/ten";
-const sleepPage = path === "/sleep";
-const imagePage = new URLSearchParams(window.location.search).get("image_id");
+export const MainPage = ({ savedPath }) => {
+	// Use savedPath if provided, otherwise use current path
+	const currentPath = savedPath || window.location.pathname;
+	const imagePage = new URLSearchParams(window.location.search).get("image_id");
 
-export const MainPage = () => {
-    if (qrPage) {
-        return <BirthdayQrCodes/>;
-    }
-    
-    if (firePage) {
-        return <FireRekindle/>;
-    }
-    
-    if (imagePage) {
-        return <BirthdayImagePage imageID={imagePage}/>;
-    }
-    
-    if (chartPage) {
-        return <OnePieceLastEpisodesChart/>;
-    }
-    
-    if (sleepPage) {
-        return <SleepTrackerComponent/>;
-    }
-    
-    if (tenThousandHoursPage) {
-        return <TenThousandHours/>;
-    }
-    
-    return <News/>;
+	// Handle image page separately since it's a query parameter
+	if (imagePage) {
+		return <BirthdayImagePage imageID={imagePage} />;
+	}
+
+	switch (currentPath) {
+		case "/qr":
+			return <BirthdayQrCodes />;
+		case "/fire":
+			return <FireRekindle />;
+		case "/chart":
+			return <OnePieceLastEpisodesChart />;
+		case "/sleep":
+			return <SleepTrackerComponent />;
+		case "/ten":
+			return <TenThousandHours />;
+		default:
+			return <News />;
+	}
 };
