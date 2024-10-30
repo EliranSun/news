@@ -4,7 +4,7 @@ import { SleepDayTracker } from "./sleep-day-tracker";
 import { SleepGraph } from "./sleep-graph";
 import { SleepMetricTracker } from "./sleep-metric-tracker";
 
-const ViewName = {
+export const ViewName = {
 	DAY: "day",
 	METRIC: "metric",
 	ANALYSIS: "analysis",

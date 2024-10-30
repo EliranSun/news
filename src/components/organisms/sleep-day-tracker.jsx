@@ -31,18 +31,27 @@ const tags = [
 const feelings = ["Foggy", "Exhausted", "Tired", "Refreshed"];
 
 export const SleepDayTracker = ({ date }) => {
-	const [rem, setRem] = useState(0);
-	const [deep, setDeep] = useState(0);
-	const [calories, setCalories] = useState(0);
-	const [protein, setProtein] = useState(0);
-	const [carbs, setCarbs] = useState(0);
-	const [fat, setFat] = useState(0);
-	const [selectedTags, setSelectedTags] = useState([]);
-	const [feeling, setFeeling] = useState("");
+	const [data, setData] = useState({
+		rem: 0,
+		deep: 0,
+		calories: 0,
+		protein: 0,
+		carbs: 0,
+		fat: 0,
+		selectedTags: [],
+		feeling: "",
+	});
 
 	const handleTagChange = (tag) => {
-		setSelectedTags((prev) =>
-			prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+		setData((prev) => ({
+			...prev,
+			selectedTags: prev.selectedTags.includes(tag)
+				? prev.selectedTags.filter((t) => t !== tag)
+				: [...prev.selectedTags, tag],
+		}));
+		localStorage.setItem(
+			`sleep-tracker:${date.toISOString().split("T")[0]}`,
+			JSON.stringify(data)
 		);
 	};
 
@@ -51,18 +60,31 @@ export const SleepDayTracker = ({ date }) => {
 		const data = localStorage.getItem(`sleep-tracker:${dateKey}`);
 		if (data) {
 			const parsedData = JSON.parse(data);
-			setRem(parsedData.rem ?? 0);
-			setDeep(parsedData.deep ?? 0);
-			setCalories(parsedData.calories ?? 0);
-			setProtein(parsedData.protein ?? 0);
-			setCarbs(parsedData.carbs ?? 0);
-			setFat(parsedData.fat ?? 0);
-			setSelectedTags(
-				parsedData.selectedTags.length > 0 ? parsedData.selectedTags : []
-			);
-			setFeeling(parsedData.feeling ?? "");
+			setData((prev) => ({
+				...prev,
+				rem: parsedData.rem ?? 0,
+				deep: parsedData.deep ?? 0,
+				calories: parsedData.calories ?? 0,
+				protein: parsedData.protein ?? 0,
+				carbs: parsedData.carbs ?? 0,
+				fat: parsedData.fat ?? 0,
+				selectedTags:
+					parsedData.selectedTags.length > 0 ? parsedData.selectedTags : [],
+				feeling: parsedData.feeling ?? "",
+			}));
 		}
 	}, [date]);
+
+	const setValue = (key, value) => {
+		setData((prev) => ({
+			...prev,
+			[key]: value,
+		}));
+
+		const storageKey = `sleep-tracker:${date.toISOString().split("T")[0]}`;
+		const newData = { ...data, [key]: value };
+		localStorage.setItem(storageKey, JSON.stringify(newData));
+	};
 
 	return (
 		<Card>
@@ -73,8 +95,8 @@ export const SleepDayTracker = ({ date }) => {
 						<Input
 							id="rem"
 							type="text"
-							value={rem}
-							onChange={(e) => setRem(e.target.value)}
+							value={data.rem}
+							onChange={(e) => setValue("rem", e.target.value)}
 						/>
 					</div>
 					<div className="space-y-1">
@@ -82,8 +104,8 @@ export const SleepDayTracker = ({ date }) => {
 						<Input
 							id="deep"
 							type="text"
-							value={deep}
-							onChange={(e) => setDeep(e.target.value)}
+							value={data.deep}
+							onChange={(e) => setValue("deep", e.target.value)}
 						/>
 					</div>
 					<div className="space-y-1">
@@ -91,8 +113,8 @@ export const SleepDayTracker = ({ date }) => {
 						<Input
 							id="calories"
 							type="text"
-							value={calories}
-							onChange={(e) => setCalories(e.target.value)}
+							value={data.calories}
+							onChange={(e) => setValue("calories", e.target.value)}
 						/>
 					</div>
 					<div className="space-y-1">
@@ -100,8 +122,8 @@ export const SleepDayTracker = ({ date }) => {
 						<Input
 							id="protein"
 							type="text"
-							value={protein}
-							onChange={(e) => setProtein(e.target.value)}
+							value={data.protein}
+							onChange={(e) => setValue("protein", e.target.value)}
 						/>
 					</div>
 					<div className="space-y-1">
@@ -109,8 +131,8 @@ export const SleepDayTracker = ({ date }) => {
 						<Input
 							id="carbs"
 							type="text"
-							value={carbs}
-							onChange={(e) => setCarbs(e.target.value)}
+							value={data.carbs}
+							onChange={(e) => setValue("carbs", e.target.value)}
 						/>
 					</div>
 					<div className="space-y-1">
@@ -118,16 +140,16 @@ export const SleepDayTracker = ({ date }) => {
 						<Input
 							id="fat"
 							type="text"
-							value={fat}
-							onChange={(e) => setFat(e.target.value)}
+							value={data.fat}
+							onChange={(e) => setValue("fat", e.target.value)}
 						/>
 					</div>
 				</div>
 				<div className="space-y-1">
 					<Label>How do I feel?</Label>
 					<Select
-						value={feeling}
-						onValueChange={setFeeling}>
+						value={data.feeling}
+						onValueChange={(value) => setValue("feeling", value)}>
 						<SelectTrigger>
 							<SelectValue placeholder="Select how you feel" />
 						</SelectTrigger>
@@ -151,7 +173,7 @@ export const SleepDayTracker = ({ date }) => {
 								onClick={() => handleTagChange(tag.label)}
 								className={classNames({
 									"flex items-center border rounded-md p-1": true,
-									"bg-black text-white": selectedTags.includes(tag.label),
+									"bg-black text-white": data.selectedTags.includes(tag.label),
 								})}>
 								<label
 									htmlFor={tag.label}

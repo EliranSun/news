@@ -3,21 +3,33 @@ import {
 	ChevronLeft,
 	ChevronRight,
 	ChartBar,
+	Fingerprint,
+	LineChart,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { format, addDays, subDays } from "date-fns";
+import { ViewName } from "../organisms/sleep-tracker";
+import { useState } from "react";
 
 export const SleepNavigation = ({ view, setView, date, handleDateChange }) => {
+	const viewArray = Object.values(ViewName);
+	const [index, setIndex] = useState(viewArray.indexOf(view));
+
 	return (
 		<div className="container flex items-center fixed bottom-6 left-3 w-full">
 			<div>
 				<Button
 					variant="outline"
 					className="w-4"
-					onClick={() => setView(view === "analysis" ? "tracker" : "analysis")}>
-					{view === "tracker" ? <ChartBar /> : <CalendarIcon />}
+					onClick={() => {
+						setIndex((prev) => (prev + 1) % viewArray.length);
+						setView(viewArray[index]);
+					}}>
+					{view === ViewName.DAY ? <ChartBar /> : null}
+					{view === ViewName.METRIC ? <Fingerprint /> : null}
+					{view === ViewName.ANALYSIS ? <LineChart /> : null}
 				</Button>
 				<Button
 					variant="outline"

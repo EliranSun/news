@@ -13,7 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { useState, useEffect } from "react";
 import { subDays } from "date-fns";
 
-export const SleepGraph = ({ view, date }) => {
+export const SleepGraph = ({ date }) => {
 	const [graphData, setGraphData] = useState([]);
 
 	// Add new effect to load graph data
@@ -46,7 +46,7 @@ export const SleepGraph = ({ view, date }) => {
 	}, [date]);
 
 	return (
-		<Card className={view === "analysis" ? "block" : "hidden"}>
+		<Card>
 			<CardHeader>
 				<CardTitle>Sleep Analysis</CardTitle>
 			</CardHeader>
