@@ -4,7 +4,7 @@ import BirthdayQrCodes from "./features/BirthdayQrCodes.jsx";
 import { BirthdayImagePage } from "./features/BirthdayImagePage.jsx";
 import OnePieceLastEpisodesChart from "./features/OnePieceLastEpisodesChart.jsx";
 import { TenThousandHours } from "./features/TenThousandHours.jsx";
-import { SleepTrackerComponent } from "./components/sleep-tracker.tsx";
+import { SleepTrackerComponent } from "./components/organisms/sleep-tracker.tsx";
 
 export const MainPage = ({ savedPath }) => {
 	// Use savedPath if provided, otherwise use current path
