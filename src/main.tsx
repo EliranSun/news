@@ -2,9 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { MainPage } from "./MainPage.jsx";
 import { Bed, Rss, Skull } from "lucide-react";
-// import {registerSW} from 'virtual:pwa-register'
+import { registerSW } from "virtual:pwa-register";
 
-// registerSW({immediate: true});
+registerSW({ immediate: true });
 
 import "./index.css";
 
