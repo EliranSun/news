@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SleepNavigation } from "./../molecules/SleepNavigation";
 import { SleepDayTracker } from "./sleep-day-tracker";
 import { SleepGraph } from "./sleep-graph";
@@ -23,9 +23,30 @@ const View = ({ view, ...rest }) => {
 	}
 };
 
+const fetchDayData = (date) => {
+		const date = new Date();
+		const year = date.getFullYear();
+		const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+		const day = String(date.getDate()).padStart(2, '0');
+
+		const formattedDate = `${year}-${month}-${day}`;
+		const url = `https://walak.vercel.app/api/sleep-track?date=${encodeURIComponent(formattedDate)}`;
+
+		fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    alert(JSON.stringify(data, null, 2));
+  })
+  .catch(error => console.error('Error:', error));
+}
+
 export function SleepTrackerComponent() {
 	const [view, setView] = useState(ViewName.DAY);
 	const [date, setDate] = useState(new Date());
+
+	useEffect(() => {
+    fetchDayData(date);
+  }, [date]);
 
 	const handleDateChange = (newDate) => {
 		// reset all metrics
