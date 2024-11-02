@@ -63,6 +63,7 @@ const [dayData, setDayData] = useState({});
 			<View
 				view={view}
 				date={date}
+data={dayData}
 			/>
 <button onClick={async () => {
 const data = fetchDayData(date);
