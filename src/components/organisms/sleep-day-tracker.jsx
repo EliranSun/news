@@ -96,7 +96,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 						<Input
 							id="rem"
 							type="text"
-							value={data.rem}
+							value={initData.rem}
 							onChange={(e) => setValue("rem", e.target.value)}
 						/>
 					</div>
@@ -105,7 +105,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 						<Input
 							id="deep"
 							type="text"
-							value={data.deep}
+							value={initData.deep}
 							onChange={(e) => setValue("deep", e.target.value)}
 						/>
 					</div>
@@ -123,7 +123,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 						<Input
 							id="protein"
 							type="text"
-							value={data.protein}
+							value={initData.protein}
 							onChange={(e) => setValue("protein", e.target.value)}
 						/>
 					</div>
@@ -132,7 +132,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 						<Input
 							id="carbs"
 							type="text"
-							value={data.carbs}
+							value={initData.carbs}
 							onChange={(e) => setValue("carbs", e.target.value)}
 						/>
 					</div>
@@ -141,7 +141,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 						<Input
 							id="fat"
 							type="text"
-							value={data.fat}
+							value={initData.fat}
 							onChange={(e) => setValue("fat", e.target.value)}
 						/>
 					</div>
