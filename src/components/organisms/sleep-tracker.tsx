@@ -73,6 +73,7 @@ fetch date data
 			<SleepNavigation
 				view={view}
 				setView={setView}
+			date={date}
 				data={dayData}
 				handleDateChange={handleDateChange}
 			/>
