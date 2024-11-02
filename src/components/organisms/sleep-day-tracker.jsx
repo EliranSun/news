@@ -30,14 +30,14 @@ const tags = [
 
 const feelings = ["Foggy", "Exhausted", "Tired", "Refreshed"];
 
-export const SleepDayTracker = ({ date }) => {
+export const SleepDayTracker = ({ date, data: initData }) => {
 	const [data, setData] = useState({
-		rem: 0,
-		deep: 0,
+		rem: initData.rem,
+		deep: initData.deep,
 		calories: 0,
-		protein: 0,
-		carbs: 0,
-		fat: 0,
+		protein: initData.protein,
+		carbs: initData.carbs,
+		fat: initData.fat,
 		selectedTags: [],
 		feeling: "",
 	});
@@ -58,7 +58,8 @@ export const SleepDayTracker = ({ date }) => {
 	useEffect(() => {
 		const dateKey = date.toISOString().split("T")[0];
 		const data = localStorage.getItem(`sleep-tracker:${dateKey}`);
-		if (data) {
+		
+		if (false) { // data
 			const parsedData = JSON.parse(data);
 			setData((prev) => ({
 				...prev,
