@@ -31,11 +31,11 @@ const fetchDayData = (date) => {
 		const formattedDate = `${year}-${month}-${day}`;
 		const url = `https://walak.vercel.app/api/sleep-track?date=${encodeURIComponent(formattedDate)}`;
 
-alert(url);
 		fetch(url)
   .then(response => response.json())
   .then(data => {
-    alert(JSON.stringify(data, null, 2));
+				alert(JSON.stringify(data));
+    return data.data[0];
   })
   .catch(error => alert(error.message));
 }
@@ -43,6 +43,7 @@ alert(url);
 export function SleepTrackerComponent() {
 	const [view, setView] = useState(ViewName.DAY);
 	const [date, setDate] = useState(new Date());
+const [dayData, setDayData] = useState({});
 
 	const handleDateChange = (newDate) => {
 		// reset all metrics
@@ -63,7 +64,10 @@ export function SleepTrackerComponent() {
 				view={view}
 				date={date}
 			/>
-<button onClick={() => fetchDayData(date)}>
+<button onClick={async () => {
+const data = fetchDayData(date);
+setDayData(data);
+}}>
 fetch date data
 </button>
 			<SleepNavigation
