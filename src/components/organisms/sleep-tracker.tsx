@@ -37,7 +37,7 @@ const fetchDayData = (date) => {
   .then(data => {
     alert(JSON.stringify(data, null, 2));
   })
-  .catch(error => console.error('Error:', error));
+  .catch(error => console.error(error));
 }
 
 export function SleepTrackerComponent() {
