@@ -72,7 +72,6 @@ fetch date data
 </button>
 			<SleepNavigation
 				view={view}
-data={data}
 				setView={setView}
 				data={dayData}
 				handleDateChange={handleDateChange}
