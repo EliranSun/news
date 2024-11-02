@@ -31,6 +31,7 @@ const fetchDayData = (date) => {
 		const formattedDate = `${year}-${month}-${day}`;
 		const url = `https://walak.vercel.app/api/sleep-track?date=${encodeURIComponent(formattedDate)}`;
 
+alert(url);
 		fetch(url)
   .then(response => response.json())
   .then(data => {
