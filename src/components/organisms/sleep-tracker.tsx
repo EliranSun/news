@@ -43,10 +43,6 @@ export function SleepTrackerComponent() {
 	const [view, setView] = useState(ViewName.DAY);
 	const [date, setDate] = useState(new Date());
 
-	useEffect(() => {
-    fetchDayData(date);
-  }, [date]);
-
 	const handleDateChange = (newDate) => {
 		// reset all metrics
 		// setRem(0);
@@ -66,6 +62,9 @@ export function SleepTrackerComponent() {
 				view={view}
 				date={date}
 			/>
+<button onClick={() => fetchDayData(date)}>
+fetch date data
+</button>
 			<SleepNavigation
 				view={view}
 				setView={setView}
