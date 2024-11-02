@@ -32,12 +32,12 @@ const feelings = ["Foggy", "Exhausted", "Tired", "Refreshed"];
 
 export const SleepDayTracker = ({ date, data: initData }) => {
 	const [data, setData] = useState({
-		rem: initData.rem,
-		deep: initData.deep,
+		rem: initData?.rem,
+		deep: initData?.deep,
 		calories: 0,
-		protein: initData.protein,
-		carbs: initData.carbs,
-		fat: initData.fat,
+		protein: initData?.protein,
+		carbs: initData?.carbs,
+		fat: initData?.fat,
 		selectedTags: [],
 		feeling: "",
 	});
