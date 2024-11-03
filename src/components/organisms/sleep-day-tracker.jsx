@@ -113,7 +113,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 	}, [data.date]);
 
 	return (
-		<Card className="w-[20%] shrink-0">
+		<Card className="w-full md:w-[20%] shrink-0">
 			<CardContent>
 				<div className="flex flex-col gap-2">
 					<div className="text-xs font-medium">
