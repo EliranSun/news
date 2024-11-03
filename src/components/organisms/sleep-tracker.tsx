@@ -30,7 +30,7 @@ const View = ({ view, data = [], date, ...rest }) => {
 							);
 						})}
 					</div>
-					<div className="hidden md:block">
+					<div className="">
 						<SleepGraph
 							data={data}
 							date={date}
