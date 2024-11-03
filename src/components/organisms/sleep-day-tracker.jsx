@@ -139,16 +139,16 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 							/>
 						</div>
 					</div>
+					<div className="space-y-1">
+						<Label htmlFor="calories">Calories</Label>
+						<Input
+							id="calories"
+							type="text"
+							value={data.calories}
+							onChange={(e) => setValue("calories", e.target.value)}
+						/>
+					</div>
 					<div className="flex gap-2 items-center">
-						<div className="space-y-1">
-							<Label htmlFor="calories">Calories</Label>
-							<Input
-								id="calories"
-								type="text"
-								value={data.calories}
-								onChange={(e) => setValue("calories", e.target.value)}
-							/>
-						</div>
 						<div className="space-y-1">
 							<Label htmlFor="protein">Protein</Label>
 							<Input
