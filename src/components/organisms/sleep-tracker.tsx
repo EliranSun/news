@@ -15,7 +15,7 @@ const View = ({ view, data = [], date, ...rest }) => {
 	switch (view) {
 		case ViewName.DAY:
 			return (
-				<div className="flex gap-4 w-screen overflow-x-auto">
+				<div className="flex-col md:flex-row flex gap-4 w-screen overflow-x-auto">
 					{data.map((dayData) => {
 						if (!dayData || !dayData.id) return null;
 
