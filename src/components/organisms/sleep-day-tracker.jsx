@@ -9,10 +9,9 @@ import {
 	SelectValue,
 } from "../ui/select";
 import { Card, CardContent } from "../ui/card";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { SleepTags } from "../molecules/SleepTags";
 import { format } from "date-fns";
-
-import classNames from "classnames";
 const tags = [
 	{ label: "Screen 1h", emoji: "📵" },
 	{ label: "Food 2h", emoji: "🍽️" },
@@ -30,7 +29,9 @@ const tags = [
 	{ label: "Alcohol", emoji: "🍷" },
 ];
 
-const feelings = ["Foggy", "Exhausted", "Tired", "Refreshed"];
+const feelings = ["Foggy", "Exhausted", "Tired", "Refreshed", "Sharp"];
+
+const FEELING_API_URL = "https://walak.vercel.app/api/sleep-track/feeling";
 
 export const SleepDayTracker = ({ date, data: initData }) => {
 	const [data, setData] = useState({
@@ -43,19 +44,6 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 		selectedTags: [],
 		feeling: "",
 	});
-
-	const handleTagChange = (tag) => {
-		setData((prev) => ({
-			...prev,
-			selectedTags: prev.selectedTags.includes(tag)
-				? prev.selectedTags.filter((t) => t !== tag)
-				: [...prev.selectedTags, tag],
-		}));
-		localStorage.setItem(
-			`sleep-tracker:${date.toISOString().split("T")[0]}`,
-			JSON.stringify(data)
-		);
-	};
 
 	useEffect(() => {
 		// const dateKey = date.toISOString().split("T")[0];
@@ -91,12 +79,16 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 	useEffect(() => {
 		setData((prev) => ({
 			...prev,
+			id: initData?.id,
 			date: initData?.created_at,
+			duration: initData?.duration ?? 0,
 			rem: initData?.rem ?? 0,
 			deep: initData?.deep ?? 0,
 			protein: initData?.protein ?? 0,
 			carbs: initData?.carbs ?? 0,
 			fat: initData?.fat ?? 0,
+			tags: initData?.tags ?? [],
+			feeling: initData?.feeling ?? "",
 		}));
 	}, [initData]);
 
@@ -111,26 +103,44 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 		localStorage.setItem(storageKey, JSON.stringify(newData));
 	};
 
+	const dayName = useMemo(() => {
+		if (!data.date) return "";
+		const dateString = data.date?.slice(0, 10);
+		const day = dateString.split("-")[2];
+		const month = dateString.split("-")[1];
+		const year = dateString.split("-")[0];
+		return format(new Date(`${year}-${month}-${day}`), "EEEE");
+	}, [data.date]);
+
 	return (
-		<Card className="w-[14%] shrink-0">
+		<Card className="w-[20%] shrink-0">
 			<CardContent>
 				<div className="flex flex-col gap-2">
-					<div className="text-xs">
+					<div className="text-xs font-medium">
 						{/* {format(new Date(data.date), "MMM dd")} */}
-						{data.date?.slice(0, 10)}
+						{dayName} {data.date?.slice(0, 10)}
 					</div>
 					<div className="flex gap-2 items-center">
 						<div className="space-y-1">
-							<Label htmlFor="rem">REM (%)</Label>
+							<Label htmlFor="rem">Duration</Label>
 							<Input
 								id="rem"
 								type="text"
-								value={data.rem}
+								value={data.duration?.slice(0, 4)}
+								onChange={(e) => setValue("duration", e.target.value)}
+							/>
+						</div>
+						<div className="space-y-1">
+							<Label htmlFor="rem">REM</Label>
+							<Input
+								id="rem"
+								type="text"
+								value={((data.rem / 60 / data.duration) * 100)?.toFixed(2)}
 								onChange={(e) => setValue("rem", e.target.value)}
 							/>
 						</div>
 						<div className="space-y-1">
-							<Label htmlFor="deep">Deep (%)</Label>
+							<Label htmlFor="deep">Deep</Label>
 							<Input
 								id="deep"
 								type="text"
@@ -139,7 +149,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 							/>
 						</div>
 					</div>
-					<div className="space-y-1">
+					{/* <div className="space-y-1">
 						<Label htmlFor="calories">Calories</Label>
 						<Input
 							id="calories"
@@ -147,7 +157,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 							value={data.calories}
 							onChange={(e) => setValue("calories", e.target.value)}
 						/>
-					</div>
+					</div> */}
 					<div className="flex gap-2 items-center">
 						<div className="space-y-1">
 							<Label htmlFor="protein">Protein</Label>
@@ -178,11 +188,20 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 						</div>
 					</div>
 				</div>
-				{/* <div className="space-y-1">
+				<div className="space-y-1">
 					<Label>How do I feel?</Label>
 					<Select
 						value={data.feeling}
-						onValueChange={(value) => setValue("feeling", value)}>
+						onValueChange={(value) => {
+							setValue("feeling", value);
+							fetch(FEELING_API_URL, {
+								method: "POST",
+								body: JSON.stringify({
+									id: data.id,
+									feeling: value,
+								}),
+							});
+						}}>
 						<SelectTrigger>
 							<SelectValue placeholder="Select how you feel" />
 						</SelectTrigger>
@@ -196,27 +215,13 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 							))}
 						</SelectContent>
 					</Select>
-				</div> */}
+				</div>
 				{/* <div className="mt-2">
-					<Label>Tags</Label>
-					<div className="flex flex-wrap gap-1 mt-2">
-						{tags.map((tag) => (
-							<div
-								key={tag.label}
-								onClick={() => handleTagChange(tag.label)}
-								className={classNames({
-									"flex items-center border rounded-md p-1": true,
-									"bg-black text-white": data.selectedTags.includes(tag.label),
-								})}>
-								<label
-									htmlFor={tag.label}
-									className="text-xs font-medium leading-none 
-                      peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-									{tag.emoji} {tag.label}
-								</label>
-							</div>
-						))}
-					</div>
+					<SleepTags
+						id={data.id}
+						tags={tags}
+						selectedTags={data.tags}
+					/>
 				</div> */}
 			</CardContent>
 		</Card>

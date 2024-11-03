@@ -15,19 +15,28 @@ const View = ({ view, data = [], date, ...rest }) => {
 	switch (view) {
 		case ViewName.DAY:
 			return (
-				<div className="flex-col md:flex-row flex gap-4 w-screen overflow-x-auto">
-					{data.map((dayData) => {
-						if (!dayData || !dayData.id) return null;
+				<div>
+					<div className="flex-col md:flex-row flex gap-4 w-screen overflow-x-auto">
+						{data.map((dayData) => {
+							if (!dayData || !dayData.id) return null;
 
-						return (
-							<SleepDayTracker
-								key={dayData.id}
-								date={date}
-								data={dayData}
-								{...rest}
-							/>
-						);
-					})}
+							return (
+								<SleepDayTracker
+									key={dayData.id}
+									date={date}
+									data={dayData}
+									{...rest}
+								/>
+							);
+						})}
+					</div>
+					<div className="hidden md:block">
+						<SleepGraph
+							data={data}
+							date={date}
+							{...rest}
+						/>
+					</div>
 				</div>
 			);
 
@@ -35,6 +44,7 @@ const View = ({ view, data = [], date, ...rest }) => {
 			return (
 				<SleepMetricTracker
 					data={data}
+					date={date}
 					{...rest}
 				/>
 			);
@@ -43,6 +53,7 @@ const View = ({ view, data = [], date, ...rest }) => {
 			return (
 				<SleepGraph
 					data={data}
+					date={date}
 					{...rest}
 				/>
 			);

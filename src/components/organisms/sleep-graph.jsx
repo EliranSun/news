@@ -13,76 +13,84 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { useState, useEffect } from "react";
 import { subDays } from "date-fns";
 
-export const SleepGraph = ({ date }) => {
+export const SleepGraph = ({ date, data = [] }) => {
 	const [graphData, setGraphData] = useState([]);
 
 	// Add new effect to load graph data
 	useEffect(() => {
-		const last7Days = Array.from({ length: 7 }, (_, i) => {
-			const d = subDays(date, 6 - i);
-			return d.toISOString().split("T")[0];
-		});
-
-		const newGraphData = last7Days.map((dateStr) => {
-			const savedData = localStorage.getItem(`sleep-tracker:${dateStr}`);
-			if (savedData) {
-				const parsed = JSON.parse(savedData);
-				return {
-					date: dateStr,
-					rem: parsed.rem || 0,
-					deep: parsed.deep || 0,
-					tags: parsed.selectedTags?.length || 0,
-				};
-			}
+		const newGraphData = data.map((item) => {
 			return {
-				date: dateStr,
-				rem: 0,
-				deep: 0,
-				tags: 0,
+				date: item.date,
+				rem: (item.rem / 60 / item.duration) * 100 || 0,
+				deep: (item.deep / 60 / item.duration) * 100 || 0,
+				carbs: item.carbs || 0,
+				protein: item.protein || 0,
+				fat: item.fat || 0,
+				tags: item.tags?.length || 0,
 			};
 		});
 
 		setGraphData(newGraphData);
-	}, [date]);
+	}, [date, data]);
 
 	return (
-		<Card>
+		<Card className="w-full h-96">
 			<CardHeader>
 				<CardTitle>Sleep Analysis</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<ResponsiveContainer
-					width={window.innerWidth - 100}
-					height={window.innerHeight - 200}>
-					<ComposedChart data={graphData}>
-						<CartesianGrid strokeDasharray="3 3" />
+				<ResponsiveContainer aspect={6}>
+					<ComposedChart
+						data={graphData}
+						className="py-8">
+						{/* <CartesianGrid strokeDasharray="3 3" /> */}
 						<XAxis dataKey="date" />
-						<YAxis yAxisId="left" />
+						<YAxis
+							yAxisId="left"
+							domain={[0, "dataMax + 10"]}
+						/>
 						<YAxis
 							yAxisId="right"
 							orientation="right"
+							domain={[0, "dataMax + 10"]}
 						/>
 						<Tooltip />
 						<Legend />
-						<Line
+						<Bar
 							yAxisId="left"
-							type="monotone"
-							dataKey="rem"
-							stroke="#8884d8"
-							name="REM %"
-						/>
-						<Line
-							yAxisId="left"
-							type="monotone"
 							dataKey="deep"
-							stroke="#82ca9d"
+							stackId="sleep"
+							fill="#82ca9d"
 							name="Deep %"
 						/>
 						<Bar
+							yAxisId="left"
+							dataKey="rem"
+							stackId="sleep"
+							fill="#8884d8"
+							name="REM %"
+						/>
+
+						<Line
 							yAxisId="right"
-							dataKey="tags"
-							fill="#ffc658"
-							name="Tags"
+							type="monotone"
+							dataKey="carbs"
+							stroke="#ffc658"
+							name="Carbs"
+						/>
+						<Line
+							yAxisId="right"
+							type="monotone"
+							dataKey="protein"
+							stroke="#82ca9d"
+							name="Protein"
+						/>
+						<Line
+							yAxisId="right"
+							type="monotone"
+							dataKey="fat"
+							stroke="#8884d8"
+							name="Fat"
 						/>
 					</ComposedChart>
 				</ResponsiveContainer>
