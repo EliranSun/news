@@ -58,8 +58,9 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 	useEffect(() => {
 		const dateKey = date.toISOString().split("T")[0];
 		const data = localStorage.getItem(`sleep-tracker:${dateKey}`);
-		
-		if (false) { // data
+
+		if (false) {
+			// data
 			const parsedData = JSON.parse(data);
 			setData((prev) => ({
 				...prev,
@@ -88,7 +89,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 	};
 
 	return (
-		<Card>
+		<Card className="max-w-sm">
 			<CardContent>
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-2 my-2">
 					<div className="space-y-1">
@@ -132,7 +133,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 						<Input
 							id="carbs"
 							type="text"
-							value={initData?.carbs  || 0}
+							value={initData?.carbs || 0}
 							onChange={(e) => setValue("carbs", e.target.value)}
 						/>
 					</div>
@@ -141,7 +142,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 						<Input
 							id="fat"
 							type="text"
-							value={initData?.fat  || 0}
+							value={initData?.fat || 0}
 							onChange={(e) => setValue("fat", e.target.value)}
 						/>
 					</div>
