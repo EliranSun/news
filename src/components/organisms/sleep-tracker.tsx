@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SleepNavigation } from "./../molecules/SleepNavigation";
 import { SleepDayTracker } from "./sleep-day-tracker";
 import { SleepGraph } from "./sleep-graph";
 import { SleepMetricTracker } from "./sleep-metric-tracker";
+import { addDays } from "date-fns";
 
 export const ViewName = {
 	DAY: "day",
@@ -10,16 +11,41 @@ export const ViewName = {
 	ANALYSIS: "analysis",
 };
 
-const View = ({ view, ...rest }) => {
+const View = ({ view, data = [], date, ...rest }) => {
 	switch (view) {
 		case ViewName.DAY:
-			return <SleepDayTracker {...rest} />;
+			return (
+				<div className="flex gap-4 w-screen overflow-x-auto">
+					{data.map((dayData) => {
+						if (!dayData || !dayData.id) return null;
+
+						return (
+							<SleepDayTracker
+								key={dayData.id}
+								date={date}
+								data={dayData}
+								{...rest}
+							/>
+						);
+					})}
+				</div>
+			);
 
 		case ViewName.METRIC:
-			return <SleepMetricTracker {...rest} />;
+			return (
+				<SleepMetricTracker
+					data={data}
+					{...rest}
+				/>
+			);
 
 		case ViewName.ANALYSIS:
-			return <SleepGraph {...rest} />;
+			return (
+				<SleepGraph
+					data={data}
+					{...rest}
+				/>
+			);
 	}
 };
 
@@ -33,11 +59,16 @@ const fetchDayData = (date) => {
 		formattedDate
 	)}`;
 
-	fetch(url)
+	return fetch(url)
 		.then((response) => response.json())
-		.then((data) => {
-			alert(JSON.stringify(data));
-			return data.data[0];
+		.then((results) => {
+			console.log({ results });
+			return results.data.sort((a, b) => {
+				if (!a.created_at || !b.created_at) return 0;
+				return (
+					new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+				);
+			});
 		})
 		.catch((error) => alert(error.message));
 };
@@ -45,32 +76,41 @@ const fetchDayData = (date) => {
 export function SleepTrackerComponent() {
 	const [view, setView] = useState(ViewName.DAY);
 	const [date, setDate] = useState(new Date());
-	const [dayData, setDayData] = useState({});
+	const [dayData, setDayData] = useState([
+		{
+			rem: "0",
+			deep: "0",
+			protein: "0",
+			carbs: "0",
+			fat: "0",
+			selectedTags: [],
+			feeling: "",
+		},
+	]);
 
 	const handleDateChange = (newDate) => {
 		setDate(newDate);
 	};
 
+	useEffect(() => {
+		fetchDayData(date).then((data) => {
+			setDayData(data);
+		});
+	}, [date]);
+
 	return (
 		<div className="container py-2 px-4 w-full fixed inset-0">
-			<View
-				view={view}
-				date={date}
-				data={dayData}
-			/>
-			<button
-				onClick={async () => {
-					const data = await fetchDayData(date);
-					setDayData(data);
-				}}>
-				fetch date data
-			</button>
 			<SleepNavigation
 				view={view}
 				setView={setView}
 				date={date}
 				data={dayData}
 				handleDateChange={handleDateChange}
+			/>
+			<View
+				view={view}
+				date={date}
+				data={dayData}
 			/>
 		</div>
 	);

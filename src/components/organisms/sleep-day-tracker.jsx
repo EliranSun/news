@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import {
@@ -9,6 +10,7 @@ import {
 } from "../ui/select";
 import { Card, CardContent } from "../ui/card";
 import { useState, useEffect } from "react";
+import { format } from "date-fns";
 
 import classNames from "classnames";
 const tags = [
@@ -32,12 +34,12 @@ const feelings = ["Foggy", "Exhausted", "Tired", "Refreshed"];
 
 export const SleepDayTracker = ({ date, data: initData }) => {
 	const [data, setData] = useState({
-		rem: initData?.rem,
-		deep: initData?.deep,
+		rem: Number(initData?.rem),
+		deep: Number(initData?.deep),
+		protein: Number(initData?.protein),
+		carbs: Number(initData?.carbs),
+		fat: Number(initData?.fat),
 		calories: 0,
-		protein: initData?.protein,
-		carbs: initData?.carbs,
-		fat: initData?.fat,
 		selectedTags: [],
 		feeling: "",
 	});
@@ -56,26 +58,47 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 	};
 
 	useEffect(() => {
-		const dateKey = date.toISOString().split("T")[0];
-		const data = localStorage.getItem(`sleep-tracker:${dateKey}`);
+		// const dateKey = date.toISOString().split("T")[0];
+		// const data = localStorage.getItem(`sleep-tracker:${dateKey}`);
 
-		if (false) {
-			// data
-			const parsedData = JSON.parse(data);
-			setData((prev) => ({
-				...prev,
-				rem: parsedData.rem ?? 0,
-				deep: parsedData.deep ?? 0,
-				calories: parsedData.calories ?? 0,
-				protein: parsedData.protein ?? 0,
-				carbs: parsedData.carbs ?? 0,
-				fat: parsedData.fat ?? 0,
-				selectedTags:
-					parsedData.selectedTags.length > 0 ? parsedData.selectedTags : [],
-				feeling: parsedData.feeling ?? "",
-			}));
-		}
+		// if (data) {
+		// 	const parsedData = JSON.parse(data);
+		// 	setData((prev) => ({
+		// 		...prev,
+		// 		rem: parsedData.rem ?? 0,
+		// 		deep: parsedData.deep ?? 0,
+		// 		calories: parsedData.calories ?? 0,
+		// 		protein: parsedData.protein ?? 0,
+		// 		carbs: parsedData.carbs ?? 0,
+		// 		fat: parsedData.fat ?? 0,
+		// 		selectedTags:
+		// 			parsedData.selectedTags.length > 0 ? parsedData.selectedTags : [],
+		// 		feeling: parsedData.feeling ?? "",
+		// 	}));
+		// }
+
+		setData({
+			rem: 0,
+			deep: 0,
+			protein: 0,
+			carbs: 0,
+			fat: 0,
+			selectedTags: [],
+			feeling: "",
+		});
 	}, [date]);
+
+	useEffect(() => {
+		setData((prev) => ({
+			...prev,
+			date: initData?.created_at,
+			rem: initData?.rem ?? 0,
+			deep: initData?.deep ?? 0,
+			protein: initData?.protein ?? 0,
+			carbs: initData?.carbs ?? 0,
+			fat: initData?.fat ?? 0,
+		}));
+	}, [initData]);
 
 	const setValue = (key, value) => {
 		setData((prev) => ({
@@ -89,65 +112,73 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 	};
 
 	return (
-		<Card className="max-w-sm">
+		<Card className="w-[14%] shrink-0">
 			<CardContent>
-				<div className="grid grid-cols-2 md:grid-cols-4 gap-2 my-2">
-					<div className="space-y-1">
-						<Label htmlFor="rem">REM (%)</Label>
-						<Input
-							id="rem"
-							type="text"
-							value={initData?.rem || 0}
-							onChange={(e) => setValue("rem", e.target.value)}
-						/>
+				<div className="flex flex-col gap-2">
+					<div className="text-xs">
+						{/* {format(new Date(data.date), "MMM dd")} */}
+						{data.date?.slice(0, 10)}
 					</div>
-					<div className="space-y-1">
-						<Label htmlFor="deep">Deep (%)</Label>
-						<Input
-							id="deep"
-							type="text"
-							value={initData?.deep || 0}
-							onChange={(e) => setValue("deep", e.target.value)}
-						/>
+					<div className="flex gap-2 items-center">
+						<div className="space-y-1">
+							<Label htmlFor="rem">REM (%)</Label>
+							<Input
+								id="rem"
+								type="text"
+								value={data.rem}
+								onChange={(e) => setValue("rem", e.target.value)}
+							/>
+						</div>
+						<div className="space-y-1">
+							<Label htmlFor="deep">Deep (%)</Label>
+							<Input
+								id="deep"
+								type="text"
+								value={data.deep}
+								onChange={(e) => setValue("deep", e.target.value)}
+							/>
+						</div>
 					</div>
-					<div className="space-y-1">
-						<Label htmlFor="calories">Calories Net</Label>
-						<Input
-							id="calories"
-							type="text"
-							value={data.calories}
-							onChange={(e) => setValue("calories", e.target.value)}
-						/>
-					</div>
-					<div className="space-y-1">
-						<Label htmlFor="protein">Protein (g)</Label>
-						<Input
-							id="protein"
-							type="text"
-							value={initData?.protein || 0}
-							onChange={(e) => setValue("protein", e.target.value)}
-						/>
-					</div>
-					<div className="space-y-1">
-						<Label htmlFor="carbs">Carbs (g)</Label>
-						<Input
-							id="carbs"
-							type="text"
-							value={initData?.carbs || 0}
-							onChange={(e) => setValue("carbs", e.target.value)}
-						/>
-					</div>
-					<div className="space-y-1">
-						<Label htmlFor="fat">Fat (g)</Label>
-						<Input
-							id="fat"
-							type="text"
-							value={initData?.fat || 0}
-							onChange={(e) => setValue("fat", e.target.value)}
-						/>
+					<div className="flex gap-2 items-center">
+						<div className="space-y-1">
+							<Label htmlFor="calories">Calories</Label>
+							<Input
+								id="calories"
+								type="text"
+								value={data.calories}
+								onChange={(e) => setValue("calories", e.target.value)}
+							/>
+						</div>
+						<div className="space-y-1">
+							<Label htmlFor="protein">Protein</Label>
+							<Input
+								id="protein"
+								type="text"
+								value={data.protein}
+								onChange={(e) => setValue("protein", e.target.value)}
+							/>
+						</div>
+						<div className="space-y-1">
+							<Label htmlFor="carbs">Carbs</Label>
+							<Input
+								id="carbs"
+								type="text"
+								value={data.carbs}
+								onChange={(e) => setValue("carbs", e.target.value)}
+							/>
+						</div>
+						<div className="space-y-1">
+							<Label htmlFor="fat">Fat</Label>
+							<Input
+								id="fat"
+								type="text"
+								value={data.fat}
+								onChange={(e) => setValue("fat", e.target.value)}
+							/>
+						</div>
 					</div>
 				</div>
-				<div className="space-y-1">
+				{/* <div className="space-y-1">
 					<Label>How do I feel?</Label>
 					<Select
 						value={data.feeling}
@@ -165,8 +196,8 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 							))}
 						</SelectContent>
 					</Select>
-				</div>
-				<div className="mt-2">
+				</div> */}
+				{/* <div className="mt-2">
 					<Label>Tags</Label>
 					<div className="flex flex-wrap gap-1 mt-2">
 						{tags.map((tag) => (
@@ -186,8 +217,21 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 							</div>
 						))}
 					</div>
-				</div>
+				</div> */}
 			</CardContent>
 		</Card>
 	);
+};
+
+SleepDayTracker.propTypes = {
+	date: PropTypes.instanceOf(Date).isRequired,
+	data: PropTypes.shape({
+		rem: PropTypes.string,
+		deep: PropTypes.string,
+		protein: PropTypes.string,
+		carbs: PropTypes.string,
+		fat: PropTypes.string,
+		selectedTags: PropTypes.arrayOf(PropTypes.string),
+		feeling: PropTypes.string,
+	}),
 };

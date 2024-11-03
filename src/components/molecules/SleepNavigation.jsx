@@ -18,7 +18,7 @@ export const SleepNavigation = ({ view, setView, date, handleDateChange }) => {
 	const [index, setIndex] = useState(viewArray.indexOf(view));
 
 	return (
-		<div className="container flex items-center fixed bottom-6 left-3 w-full">
+		<div className="container flex items-center w-full">
 			<div>
 				<Button
 					variant="outline"
