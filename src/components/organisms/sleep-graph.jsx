@@ -34,12 +34,12 @@ export const SleepGraph = ({ date, data = [] }) => {
 	}, [date, data]);
 
 	return (
-		<Card className="w-full h-96">
+		<Card className="w-full h-screen">
 			<CardHeader>
 				<CardTitle>Sleep Analysis</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<ResponsiveContainer aspect={6}>
+				<ResponsiveContainer>
 					<ComposedChart
 						data={graphData}
 						className="py-8">
