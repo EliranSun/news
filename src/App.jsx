@@ -33,7 +33,7 @@ const RssFeedComponent = () => {
 	}, []);
 
 	return (
-		<section className="h-[100dvh] w-screen">
+		<section className="h-[100dvh] w-screen dark:bg-black dark:text-white">
 			<PageNavigationHeader
 				view={view}
 				setView={setView}
