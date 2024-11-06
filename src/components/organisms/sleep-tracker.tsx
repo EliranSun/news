@@ -16,7 +16,7 @@ const View = ({ view, data = [], date, ...rest }) => {
 		case ViewName.DAY:
 			return (
 				<div>
-					<div className="flex-col md:flex-row flex gap-4 w-full h-screen md:h-fit overflow-y-auto md:overflow-x-auto">
+					<div className="flex-col md:flex-row pb-40 flex gap-4 w-full h-screen md:h-fit overflow-y-auto md:overflow-x-auto">
 						{data.map((dayData) => {
 							if (!dayData || !dayData.id) return null;
 
@@ -28,7 +28,7 @@ const View = ({ view, data = [], date, ...rest }) => {
 									{...rest}
 								/>
 							);
-						})}
+						}).reverse()}
 					</div>
 					<div className="">
 						<SleepGraph
