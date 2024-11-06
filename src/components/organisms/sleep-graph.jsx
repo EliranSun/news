@@ -152,7 +152,7 @@ export const SleepGraph = ({ date, data = [] }) => {
 									yAxisId="right"
 									type="monotone"
 									dataKey={(data) =>
-										data.tags.includes(tag) ? index + 0.5 : 0
+										data.tags.includes(tag) ? index + 0.25 : 0
 									}
 									stroke={`hsl(${(index * 360) / uniqueTags.length}, 70%, 50%)`}
 									name={tag}
