@@ -52,7 +52,7 @@ export const SleepGraph = ({ date, data = [] }) => {
 				<CardContent className="px-0">
 					<ResponsiveContainer
 						width="100%"
-						height={(window.innerHeight * 1) / 3}>
+						height={(window.innerHeight * 1) / 2}>
 						<ComposedChart
 							data={graphData}
 							className="py-8 mx-auto">
@@ -116,7 +116,7 @@ export const SleepGraph = ({ date, data = [] }) => {
 				<CardContent className="px-0">
 					<ResponsiveContainer
 						width="100%"
-						height={(window.innerHeight * 2) / 3}>
+						height={(window.innerHeight * 1) / 2}>
 						<ComposedChart
 							data={graphData}
 							className="py-8 mx-auto">
