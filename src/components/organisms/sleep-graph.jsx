@@ -10,6 +10,7 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { useState, useEffect } from "react";
+import { tags } from "./sleep-day-tracker";
 
 export const SleepGraph = ({ date, data = [] }) => {
 	const [graphData, setGraphData] = useState([]);
@@ -34,7 +35,12 @@ export const SleepGraph = ({ date, data = [] }) => {
 
 		const allTags = new Set();
 		newGraphData.forEach((item) => {
-			item.tags.forEach((tag) => allTags.add(tag));
+			item.tags.forEach((tag) =>
+				allTags.add({
+					label: tag,
+					emoji: tags.find((t) => t.label === tag)?.emoji,
+				})
+			);
 		});
 
 		setUniqueTags(Array.from(allTags));
@@ -52,7 +58,7 @@ export const SleepGraph = ({ date, data = [] }) => {
 				<CardContent className="px-0">
 					<ResponsiveContainer
 						width="100%"
-						height={(window.innerHeight * 2) / 3}>
+						height={window.innerHeight / 2}>
 						<ComposedChart
 							data={graphData}
 							className="py-8 mx-auto">
@@ -68,7 +74,10 @@ export const SleepGraph = ({ date, data = [] }) => {
 								domain={[0, 350]}
 							/>
 							<Tooltip />
-							<Legend />
+							<Legend
+								iconType="circle"
+								iconSize={4}
+							/>
 							<Bar
 								yAxisId="left"
 								dataKey="deep"
@@ -116,7 +125,7 @@ export const SleepGraph = ({ date, data = [] }) => {
 				<CardContent className="px-0">
 					<ResponsiveContainer
 						width="100%"
-						height={(window.innerHeight * 2) / 3}>
+						height={window.innerHeight / 2}>
 						<ComposedChart
 							data={graphData}
 							className="py-8 mx-auto">
@@ -131,7 +140,10 @@ export const SleepGraph = ({ date, data = [] }) => {
 								domain={[0, uniqueTags.length]}
 							/>
 							<Tooltip />
-							<Legend />
+							<Legend
+								iconType="circle"
+								iconSize={4}
+							/>
 							<Bar
 								yAxisId="left"
 								dataKey="deep"
@@ -148,19 +160,31 @@ export const SleepGraph = ({ date, data = [] }) => {
 							/>
 							{uniqueTags.map((tag, index) => (
 								<Line
-									key={tag}
+									key={tag.label}
 									yAxisId="right"
 									type="monotone"
-									dataKey={(data) =>
-										data.tags.includes(tag) ? index + 0.5 : 0
-									}
-									stroke={`hsl(${(index * 360) / uniqueTags.length}, 70%, 50%)`}
-									name={tag}
-									dot={{
-										fill: `hsl(${(index * 360) / uniqueTags.length}, 70%, 50%)`,
-										r: 4,
-									}}
+									name={`${tag.emoji} ${tag.label}`}
 									strokeWidth={0}
+									stroke={`hsl(${(index * 360) / uniqueTags.length}, 70%, 50%)`}
+									dataKey={(data) =>
+										data.tags.includes(tag.label) ? index + 0.5 : 0
+									}
+									dot={(props) => {
+										const show = props.payload.tags.includes(tag.label);
+										if (!show) return null;
+
+										const emoji = tag.emoji || "•";
+										return (
+											<text
+												x={props.cx}
+												y={props.cy}
+												textAnchor="middle"
+												dominantBaseline="middle"
+												fontSize="12">
+												{emoji}
+											</text>
+										);
+									}}
 								/>
 							))}
 						</ComposedChart>

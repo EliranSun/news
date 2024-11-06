@@ -12,7 +12,8 @@ import { Card, CardContent } from "../ui/card";
 import { useState, useEffect, useMemo } from "react";
 import { SleepTags } from "../molecules/SleepTags";
 import { format } from "date-fns";
-const tags = [
+
+export const tags = [
 	{ label: "Screen 1h", emoji: "📵" },
 	{ label: "Food 2h", emoji: "🍽️" },
 	{ label: "Water 3s", emoji: "💧" },
