@@ -3,7 +3,6 @@ import { SleepNavigation } from "./../molecules/SleepNavigation";
 import { SleepDayTracker } from "./sleep-day-tracker";
 import { SleepGraph } from "./sleep-graph";
 import { SleepMetricTracker } from "./sleep-metric-tracker";
-import { addDays } from "date-fns";
 
 export const ViewName = {
 	DAY: "day",
@@ -17,18 +16,20 @@ const View = ({ view, data = [], date, ...rest }) => {
 			return (
 				<div>
 					<div className="flex-col md:flex-row pt-8 pb-40 flex gap-4 w-full h-screen md:h-fit overflow-y-auto md:overflow-x-auto">
-						{data.map((dayData) => {
-							if (!dayData || !dayData.id) return null;
+						{data
+							.map((dayData) => {
+								if (!dayData || !dayData.id) return null;
 
-							return (
-								<SleepDayTracker
-									key={dayData.id}
-									date={date}
-									data={dayData}
-									{...rest}
-								/>
-							);
-						}).reverse()}
+								return (
+									<SleepDayTracker
+										key={dayData.id}
+										date={date}
+										data={dayData}
+										{...rest}
+									/>
+								);
+							})
+							.reverse()}
 					</div>
 					<div className="">
 						<SleepGraph

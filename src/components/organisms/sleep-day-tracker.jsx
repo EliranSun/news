@@ -216,13 +216,13 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 						</SelectContent>
 					</Select>
 				</div>
-				{/* <div className="mt-2">
+				<div className="mt-2">
 					<SleepTags
 						id={data.id}
 						tags={tags}
 						selectedTags={data.tags}
 					/>
-				</div> */}
+				</div>
 			</CardContent>
 		</Card>
 	);
