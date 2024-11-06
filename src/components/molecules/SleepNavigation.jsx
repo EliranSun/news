@@ -11,37 +11,28 @@ import { Calendar } from "../ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { format, addDays, subDays } from "date-fns";
 import { ViewName } from "../organisms/sleep-tracker";
-import { useState } from "react";
 
 export const SleepNavigation = ({ view, setView, date, handleDateChange }) => {
-	const viewArray = Object.values(ViewName);
-	const [index, setIndex] = useState(viewArray.indexOf(view));
-
 	return (
 		<div className="container flex items-center w-full">
 			<div>
 				<Button
 					variant="outline"
 					className="w-4"
-					onClick={() => {
-						setIndex((prev) => (prev + 1) % viewArray.length);
-						setView(viewArray[index]);
-					}}>
-					{view === ViewName.DAY ? <ChartBar /> : null}
-					{view === ViewName.METRIC ? <Fingerprint /> : null}
-					{view === ViewName.ANALYSIS ? <LineChart /> : null}
+					onClick={() => setView(ViewName.DAY)}>
+					<ChartBar />
 				</Button>
 				<Button
 					variant="outline"
-					className="w-2"
-					onClick={() => handleDateChange(subDays(date, 1))}>
-					<ChevronLeft />
+					className="w-4"
+					onClick={() => setView(ViewName.METRIC)}>
+					<Fingerprint />
 				</Button>
 				<Button
 					variant="outline"
-					className="w-2"
-					onClick={() => handleDateChange(addDays(date, 1))}>
-					<ChevronRight />
+					className="w-4"
+					onClick={() => setView(ViewName.ANALYSIS)}>
+					<LineChart />
 				</Button>
 			</div>
 			<Popover>
@@ -61,6 +52,18 @@ export const SleepNavigation = ({ view, setView, date, handleDateChange }) => {
 					/>
 				</PopoverContent>
 			</Popover>
+			<Button
+				variant="outline"
+				className="w-2"
+				onClick={() => handleDateChange(subDays(date, 1))}>
+				<ChevronLeft />
+			</Button>
+			<Button
+				variant="outline"
+				className="w-2"
+				onClick={() => handleDateChange(addDays(date, 1))}>
+				<ChevronRight />
+			</Button>
 		</div>
 	);
 };
