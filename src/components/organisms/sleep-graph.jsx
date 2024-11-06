@@ -86,21 +86,21 @@ export const SleepGraph = ({ date, data = [] }) => {
 
 							<Line
 								yAxisId="right"
-								type="monotone"
+								type="natural"
 								dataKey="carbs"
 								stroke="#ffc658"
 								name="Carbs"
 							/>
 							<Line
 								yAxisId="right"
-								type="monotone"
+								type="natural"
 								dataKey="protein"
 								stroke="#82ca9d"
 								name="Protein"
 							/>
 							<Line
 								yAxisId="right"
-								type="monotone"
+								type="natural"
 								dataKey="fat"
 								stroke="#d88884"
 								name="Fat"
