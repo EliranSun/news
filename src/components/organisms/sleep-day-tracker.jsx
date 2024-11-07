@@ -41,6 +41,8 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 		protein: Number(initData?.protein),
 		carbs: Number(initData?.carbs),
 		fat: Number(initData?.fat),
+		sleepStart: initData?.sleep_start,
+		sleepEnd: initData?.sleep_end,
 		calories: 0,
 		selectedTags: [],
 		feeling: "",
@@ -72,6 +74,8 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 			protein: 0,
 			carbs: 0,
 			fat: 0,
+			sleepStart: "",
+			sleepEnd: "",
 			selectedTags: [],
 			feeling: "",
 		});
@@ -88,6 +92,8 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 			protein: initData?.protein ?? 0,
 			carbs: initData?.carbs ?? 0,
 			fat: initData?.fat ?? 0,
+			sleepStart: initData?.sleep_start ?? "",
+			sleepEnd: initData?.sleep_end ?? "",
 			tags: initData?.tags ?? [],
 			feeling: initData?.feeling ?? "",
 		}));
@@ -122,6 +128,24 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 						{dayName} {data.date?.slice(0, 10)}
 					</div>
 					<div className="flex gap-2 items-center">
+						<div className="space-y-1">
+							<Label htmlFor="rem">Start</Label>
+							<Input
+								id="start"
+								type="text"
+								value={data.sleepStart}
+								onChange={(e) => setValue("sleepStart", e.target.value)}
+							/>
+						</div>
+						<div className="space-y-1">
+							<Label htmlFor="rem">End</Label>
+							<Input
+								id="end"
+								type="text"
+								value={data.sleepEnd}
+								onChange={(e) => setValue("sleepEnd", e.target.value)}
+							/>
+						</div>
 						<div className="space-y-1">
 							<Label htmlFor="rem">Duration</Label>
 							<Input
