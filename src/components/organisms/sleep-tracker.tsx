@@ -124,7 +124,7 @@ export function SleepTrackerComponent() {
 				date={date}
 				data={dayData}
 			/>
-		<pre>{JSON.stringify(dayData, null, 2)}</pre>
+		<p>{JSON.stringify(dayData, null, 2)}</p>
 		</div>
 	);
 }
