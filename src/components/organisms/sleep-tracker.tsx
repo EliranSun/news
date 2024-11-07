@@ -111,7 +111,7 @@ export function SleepTrackerComponent() {
 	}, [date]);
 
 	return (
-		<div className="container py-2 px-4 w-full fixed inset-0">
+		<div className="container py-2 px-4">
 			<SleepNavigation
 				view={view}
 				setView={setView}
