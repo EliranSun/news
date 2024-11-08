@@ -5,26 +5,35 @@ import { useState } from "react";
 const API_URL = "https://walak.vercel.app/api/sleep-track/tags";
 
 function reduceTime(timeStr, minutesToReduce) {
-  // Split the hour and minute from the input string
-  const [hours, minutes] = timeStr.split(":").map(Number);
-  
-  if (!hours || !minutes) return NaN;
-  
-  // Convert the time into total minutes
-  let totalMinutes = hours * 60 + minutes;
-  
-  // Reduce the minutes
-  totalMinutes -= minutesToReduce;
-  
-  // Handle any negative minute values (wrap around)
-  if (totalMinutes < 0) {
-    totalMinutes = (24 * 60 + totalMinutes) % (24 * 60);
+  // Validate the input time string format
+  if (!/^\d{2}:\d{2}$/.test(timeStr)) {
+    throw new Error("Invalid time format. Please use 'HH:MM' format.");
   }
   
+  // Split hours and minutes and parse them as numbers
+  let [hours, minutes] = timeStr.split(":").map(Number);
+  
+  // Validate the range of hours and minutes
+  if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59) {
+    throw new Error("Invalid time values. Hours should be 0-23 and minutes 0-59.");
+  }
+  
+  // Validate the minutes to reduce
+  if (typeof minutesToReduce !== "number" || minutesToReduce < 0) {
+    throw new Error("Minutes to reduce should be a non-negative number.");
+  }
+
+  // Convert the time into total minutes
+  let totalMinutes = hours * 60 + minutes;
+
+  // Reduce the minutes, wrapping around 24-hour format if needed
+  totalMinutes = (totalMinutes - minutesToReduce) % (24 * 60);
+  if (totalMinutes < 0) totalMinutes += 24 * 60; // handle underflow
+
   // Calculate the new hours and minutes
   const newHours = Math.floor(totalMinutes / 60).toString().padStart(2, "0");
   const newMinutes = (totalMinutes % 60).toString().padStart(2, "0");
-  
+
   // Return the formatted time string
   return `${newHours}:${newMinutes}`;
 }
@@ -35,7 +44,8 @@ console.log(reduceTime("00:00", 90)); // "22:30"
 const Tag = ({ id, label, emoji, sleepStart, selectedTags = [] }) => {
 	const [isSelected, setIsSelected] = useState(selectedTags.includes(label));
 	let modifiedLabel = label;
-	if (label.toLowerCase().includes("water")) {
+	try {
+  if (label.toLowerCase().includes("water")) {
 		const time = reduceTime(sleepStart, 180);
     if (time) modifiedLabel = `water by ${time}`;
 		}
@@ -49,6 +59,9 @@ const Tag = ({ id, label, emoji, sleepStart, selectedTags = [] }) => {
 		const time = reduceTime(sleepStart, 60);
     if (time) modifiedLabel = `screen by ${time}`;
 		}
+    
+  } catch (error) {}
+  
 	return (
 		<div
 			onClick={async () => {
