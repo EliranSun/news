@@ -36,10 +36,19 @@ const Tag = ({ id, label, emoji, sleepStart, selectedTags = [] }) => {
 	const [isSelected, setIsSelected] = useState(selectedTags.includes(label));
 	let modifiedLabel = label;
 	if (label.toLowerCase().includes("water")) {
-		const time = reduceTime(sleepStart, 90);
+		const time = reduceTime(sleepStart, 180);
     if (time) modifiedLabel = `water by ${time}`;
 		}
 		
+    if (label.toLowerCase().includes("food")) {
+		const time = reduceTime(sleepStart, 120);
+    if (time) modifiedLabel = `food by ${time}`;
+		}
+    
+    if (label.toLowerCase().includes("screen")) {
+		const time = reduceTime(sleepStart, 60);
+    if (time) modifiedLabel = `screen by ${time}`;
+		}
 	return (
 		<div
 			onClick={async () => {
