@@ -8,6 +8,8 @@ function reduceTime(timeStr, minutesToReduce) {
   // Split the hour and minute from the input string
   const [hours, minutes] = timeStr.split(":").map(Number);
   
+  if (!hours || !minutes) return NaN;
+  
   // Convert the time into total minutes
   let totalMinutes = hours * 60 + minutes;
   
@@ -35,7 +37,7 @@ const Tag = ({ id, label, emoji, sleepStart, selectedTags = [] }) => {
 	let modifiedLabel = label;
 	if (label.toLowerCase().includes("water")) {
 		const time = reduceTime(sleepStart, 90);
-		modifiedLabel = `water by ${time}`;
+    if (time) modifiedLabel = `water by ${time}`;
 		}
 		
 	return (
