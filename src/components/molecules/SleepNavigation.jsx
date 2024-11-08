@@ -14,8 +14,8 @@ import { ViewName } from "../organisms/sleep-tracker";
 
 export const SleepNavigation = ({ view, setView, date, handleDateChange }) => {
 	return (
-		<div className="container flex items-center w-full">
-			<div>
+		<div className="container flex justify-between items-center w-full">
+			<div className="flex items-center gap-px">
 				<Button
 					variant="outline"
 					className="w-4"
@@ -35,35 +35,37 @@ export const SleepNavigation = ({ view, setView, date, handleDateChange }) => {
 					<LineChart />
 				</Button>
 			</div>
-			<Popover>
-				<PopoverTrigger asChild>
-					<Button
-						variant="outline"
-						className="mr-2 w-fit">
-						<CalendarIcon />
-						{format(date, "PP")}
-					</Button>
-				</PopoverTrigger>
-				<PopoverContent className="w-auto p-0">
-					<Calendar
-						mode="single"
-						selected={date}
-						onSelect={handleDateChange}
-					/>
-				</PopoverContent>
-			</Popover>
-			<Button
-				variant="outline"
-				className="w-2"
-				onClick={() => handleDateChange(subDays(date, 1))}>
-				<ChevronLeft />
-			</Button>
-			<Button
-				variant="outline"
-				className="w-2"
-				onClick={() => handleDateChange(addDays(date, 1))}>
-				<ChevronRight />
-			</Button>
+			<div className="flex items-center gap-px">
+				<Popover>
+					<PopoverTrigger asChild>
+						<Button
+							variant="outline"
+							className="mr-2 w-fit">
+							<CalendarIcon />
+							{format(date, "MMM d")}
+						</Button>
+					</PopoverTrigger>
+					<PopoverContent className="w-auto p-0">
+						<Calendar
+							mode="single"
+							selected={date}
+							onSelect={handleDateChange}
+						/>
+					</PopoverContent>
+				</Popover>
+				<Button
+					variant="outline"
+					className="w-2"
+					onClick={() => handleDateChange(subDays(date, 1))}>
+					<ChevronLeft />
+				</Button>
+				<Button
+					variant="outline"
+					className="w-2"
+					onClick={() => handleDateChange(addDays(date, 1))}>
+					<ChevronRight />
+				</Button>
+			</div>
 		</div>
 	);
 };
