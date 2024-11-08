@@ -249,6 +249,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 					<SleepTags
 						id={data.id}
 						tags={tags}
+						sleepStart={data.sleepStart}
 						selectedTags={data.tags}
 					/>
 				</div>
