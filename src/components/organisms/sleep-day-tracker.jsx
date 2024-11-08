@@ -46,6 +46,10 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 		calories: 0,
 		selectedTags: [],
 		feeling: "",
+		id: "",
+		date: "",
+		duration: "",
+		wristTemp: "",
 	});
 
 	useEffect(() => {
@@ -78,6 +82,10 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 			sleepEnd: "",
 			selectedTags: [],
 			feeling: "",
+			id: "",
+			date: "",
+			duration: "",
+			wristTemp: "",
 		});
 	}, [date]);
 
@@ -96,6 +104,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 			sleepEnd: initData?.sleep_end ?? "",
 			tags: initData?.tags ?? [],
 			feeling: initData?.feeling ?? "",
+			wristTemp: initData?.wrist_temperature ?? "-",
 		}));
 	}, [initData]);
 
@@ -181,7 +190,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 								<Input
 									id="wrist-temp"
 									type="text"
-									value={data.wristTemp ?? "-"}
+									value={data.wristTemp}
 									onChange={(e) => setValue("wristTemp", e.target.value)}
 								/>
 							</div>
