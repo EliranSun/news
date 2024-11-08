@@ -130,52 +130,61 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 					<div className="flex flex-col gap-2 items-center">
 						<div className="flex gap-2 items-center">
 							<div className="space-y-1">
-							<Label htmlFor="rem">Start</Label>
-							<Input
-								id="start"
-								type="text"
-								value={data.sleepStart}
-								onChange={(e) => setValue("sleepStart", e.target.value)}
-							/>
-						</div>
-						<div className="space-y-1">
-							<Label htmlFor="rem">End</Label>
-							<Input
-								id="end"
-								type="text"
-								value={data.sleepEnd}
-								onChange={(e) => setValue("sleepEnd", e.target.value)}
-							/>
-						</div>
+								<Label htmlFor="rem">Duration</Label>
+								<Input
+									id="duration"
+									type="text"
+									value={data.duration?.slice(0, 4)}
+									onChange={(e) => setValue("duration", e.target.value)}
+								/>
+							</div>
+							<div className="space-y-1">
+								<Label htmlFor="rem">Start</Label>
+								<Input
+									id="start"
+									type="text"
+									value={data.sleepStart}
+									onChange={(e) => setValue("sleepStart", e.target.value)}
+								/>
+							</div>
+							<div className="space-y-1">
+								<Label htmlFor="rem">End</Label>
+								<Input
+									id="end"
+									type="text"
+									value={data.sleepEnd}
+									onChange={(e) => setValue("sleepEnd", e.target.value)}
+								/>
+							</div>
 						</div>
 						<div className="flex gap-2 items-center">
-						<div className="space-y-1">
-							<Label htmlFor="rem">Duration</Label>
-							<Input
-								id="rem"
-								type="text"
-								value={data.duration?.slice(0, 4)}
-								onChange={(e) => setValue("duration", e.target.value)}
-							/>
-						</div>
-						<div className="space-y-1">
-							<Label htmlFor="rem">REM</Label>
-							<Input
-								id="rem"
-								type="text"
-								value={((data.rem / 60 / data.duration) * 100)?.toFixed(2)}
-								onChange={(e) => setValue("rem", e.target.value)}
-							/>
-						</div>
-						<div className="space-y-1">
-							<Label htmlFor="deep">Deep</Label>
-							<Input
-								id="deep"
-								type="text"
-								value={data.deep}
-								onChange={(e) => setValue("deep", e.target.value)}
-							/>
-						</div>
+							<div className="space-y-1">
+								<Label htmlFor="rem">REM</Label>
+								<Input
+									id="rem"
+									type="text"
+									value={((data.rem / 60 / data.duration) * 100)?.toFixed(2)}
+									onChange={(e) => setValue("rem", e.target.value)}
+								/>
+							</div>
+							<div className="space-y-1">
+								<Label htmlFor="deep">Deep</Label>
+								<Input
+									id="deep"
+									type="text"
+									value={data.deep}
+									onChange={(e) => setValue("deep", e.target.value)}
+								/>
+							</div>
+							<div className="space-y-1">
+								<Label htmlFor="rem">Wrist temp</Label>
+								<Input
+									id="wrist-temp"
+									type="text"
+									value={data.wristTemp ?? "-"}
+									onChange={(e) => setValue("wristTemp", e.target.value)}
+								/>
+							</div>
 						</div>
 					</div>
 					{/* <div className="space-y-1">
