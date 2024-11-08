@@ -104,7 +104,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 			sleepEnd: initData?.sleep_end ?? "",
 			tags: initData?.tags ?? [],
 			feeling: initData?.feeling ?? "",
-			wristTemp: initData?.wrist_temperature ?? "-",
+			wristTemp: initData?.wrist_temperature?.toFixed(4) ?? "-",
 		}));
 	}, [initData]);
 
