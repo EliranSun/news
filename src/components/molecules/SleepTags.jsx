@@ -38,20 +38,17 @@ function reduceTime(timeStr, minutesToReduce) {
   return `${newHours}:${newMinutes}`;
 }
 
-// Example usage:
-console.log(reduceTime("00:00", 90)); // "22:30"
-
 const Tag = ({ id, label, emoji, sleepStart, selectedTags = [] }) => {
 	const [isSelected, setIsSelected] = useState(selectedTags.includes(label));
 	let modifiedLabel = label;
 	try {
   if (label.toLowerCase().includes("water")) {
-		const time = reduceTime(sleepStart, 180);
+		const time = reduceTime(sleepStart, 120);
     if (time) modifiedLabel = `water by ${time}`;
 		}
 		
     if (label.toLowerCase().includes("food")) {
-		const time = reduceTime(sleepStart, 120);
+		const time = reduceTime(sleepStart, 180);
     if (time) modifiedLabel = `food by ${time}`;
 		}
     
