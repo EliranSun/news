@@ -127,8 +127,9 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 						{/* {format(new Date(data.date), "MMM dd")} */}
 						{dayName} {data.date?.slice(0, 10)}
 					</div>
-					<div className="flex gap-2 items-center">
-						<div className="space-y-1">
+					<div className="flex flex-col gap-2 items-center">
+						<div className="flex gap-2 items-center">
+							<div className="space-y-1">
 							<Label htmlFor="rem">Start</Label>
 							<Input
 								id="start"
@@ -146,6 +147,8 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 								onChange={(e) => setValue("sleepEnd", e.target.value)}
 							/>
 						</div>
+						</div>
+						<div className="flex gap-2 items-center">
 						<div className="space-y-1">
 							<Label htmlFor="rem">Duration</Label>
 							<Input
@@ -172,6 +175,7 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 								value={data.deep}
 								onChange={(e) => setValue("deep", e.target.value)}
 							/>
+						</div>
 						</div>
 					</div>
 					{/* <div className="space-y-1">
