@@ -99,7 +99,7 @@ export const SleepGraph = ({ date, data = [] }) => {
 								type="natural"
 								dataKey="wristTemp"
 								stroke="#ffc658"
-								name="Carbs"
+								name="wrist temp"
 							/>
 							<Line
 								yAxisId="right"
@@ -121,6 +121,57 @@ export const SleepGraph = ({ date, data = [] }) => {
 								dataKey="fat"
 								stroke="#d88884"
 								name="Fat"
+							/>
+						</ComposedChart>
+					</ResponsiveContainer>
+				</CardContent>
+			</Card>
+					<Card className="">
+				<CardHeader>
+					<CardTitle>Temperature & Sleep</CardTitle>
+				</CardHeader>
+				<CardContent className="px-0">
+					<ResponsiveContainer
+						width="100%"
+						height={window.innerHeight / 2}>
+						<ComposedChart
+							data={graphData}
+							className="py-8 mx-auto">
+							<XAxis dataKey="date" />
+							<YAxis
+								yAxisId="left"
+								domain={[0, 100]}
+							/>
+							<YAxis
+								yAxisId="right"
+								orientation="right"
+								domain={[0, 40]}
+							/>
+							<Tooltip />
+							<Legend
+								iconType="circle"
+								iconSize={4}
+							/>
+							<Bar
+								yAxisId="left"
+								dataKey="deep"
+								stackId="sleep"
+								fill="#b0e0e6"
+								name="Deep %"
+							/>
+							<Bar
+								yAxisId="left"
+								dataKey="rem"
+								stackId="sleep"
+								fill="#9370db"
+								name="REM %"
+							/>
+<Line
+								yAxisId="right"
+								type="natural"
+								dataKey="wristTemp"
+								stroke="#ffc658"
+								name="wrist temp"
 							/>
 						</ComposedChart>
 					</ResponsiveContainer>
