@@ -28,7 +28,7 @@ export const SleepGraph = ({ date, data = [] }) => {
 					deep: item.deep ? (item.deep / 60 / item.duration) * 100 : 0,
 					carbs: item.carbs || 0,
 					protein: item.protein || 0,
-					wristTemp: item.wristTemp || 0,
+					wristTemp: item.wrist_temperature || 0,
 					fat: item.fat || 0,
 					tags: item.tags || [],
 				};
