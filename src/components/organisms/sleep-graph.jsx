@@ -93,14 +93,6 @@ export const SleepGraph = ({ date, data = [] }) => {
 								fill="#9370db"
 								name="REM %"
 							/>
-
-<Line
-								yAxisId="right"
-								type="natural"
-								dataKey="wristTemp"
-								stroke="#ffc658"
-								name="wrist temp"
-							/>
 							<Line
 								yAxisId="right"
 								type="natural"
@@ -145,7 +137,7 @@ export const SleepGraph = ({ date, data = [] }) => {
 							<YAxis
 								yAxisId="right"
 								orientation="right"
-								domain={[0, 40]}
+								domain={[35, 40]}
 							/>
 							<Tooltip />
 							<Legend
