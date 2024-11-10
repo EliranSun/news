@@ -137,7 +137,7 @@ export const SleepGraph = ({ date, data = [] }) => {
 							<YAxis
 								yAxisId="right"
 								orientation="right"
-								domain={[35, 40]}
+								domain={[34, 38]}
 							/>
 							<Tooltip />
 							<Legend
