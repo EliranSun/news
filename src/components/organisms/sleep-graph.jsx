@@ -15,7 +15,8 @@ import { tags } from "./sleep-day-tracker";
 export const SleepGraph = ({ date, data = [] }) => {
 	const [graphData, setGraphData] = useState([]);
 	const [uniqueTags, setUniqueTags] = useState([]);
-
+	const [hideTags, setHideTags] = useState(true);
+	
 	useEffect(() => {
 		const newGraphData = data
 			.filter((item) => {
@@ -169,11 +170,15 @@ export const SleepGraph = ({ date, data = [] }) => {
 					</ResponsiveContainer>
 				</CardContent>
 			</Card>
-			<Card className="">
+			<Card 
+				onClick={() => setHideTags(!hideTags)}
+				className="">
 				<CardHeader>
 					<CardTitle>Tags & Sleep</CardTitle>
 				</CardHeader>
-				<CardContent className="px-0">
+				<CardContent 
+					
+					className="px-0">
 					<ResponsiveContainer
 						width="100%"
 						height={window.innerHeight / 2}>
@@ -191,10 +196,10 @@ export const SleepGraph = ({ date, data = [] }) => {
 								domain={[0, uniqueTags.length]}
 							/>
 							<Tooltip />
-							<Legend
+							{hideTags ? null :<Legend
 								iconType="circle"
 								iconSize={4}
-							/>
+							/>}
 							<Bar
 								yAxisId="left"
 								dataKey="deep"
