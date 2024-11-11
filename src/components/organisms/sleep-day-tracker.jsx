@@ -1,4 +1,6 @@
+import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import {
@@ -8,31 +10,11 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "../ui/select";
-import { Card, CardContent } from "../ui/card";
-import { useState, useEffect, useMemo } from "react";
+import { ProgressBar } from "../ui/progress-bar";
 import { SleepTags } from "../molecules/SleepTags";
 import { format } from "date-fns";
 
-export const tags = [
-	{ label: "Screen 1h", emoji: "📵" },
-	{ label: "Food 2h", emoji: "🍽️" },
-	{ label: "Water 3s", emoji: "💧" },
-	{ label: "8 hours", emoji: "⏰" },
-	{ label: "Magnesium", emoji: "💊" },
-	{ label: "Late train", emoji: "💪" },
-	{ label: "Poop", emoji: "💩" },
-	{ label: "Shower", emoji: "🚿" },
-	{ label: "Dreams", emoji: "💭" },
-	{ label: "At ease", emoji: "🧘" },
-	{ label: "Snoring", emoji: "😴" },
-	{ label: "Schedule", emoji: "📅" },
-	{ label: "Late coffee", emoji: "☕" },
-	{ label: "Alcohol", emoji: "🍷" },
-];
-
 const feelings = ["Foggy", "Exhausted", "Tired", "Refreshed", "Sharp"];
-
-const FEELING_API_URL = "https://walak.vercel.app/api/sleep-track/feeling";
 
 export const SleepDayTracker = ({ date, data: initData }) => {
 	const [data, setData] = useState({
@@ -121,152 +103,92 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 
 	const dayName = useMemo(() => {
 		if (!data.date) return "";
-		const dateString = data.date?.slice(0, 10);
-		const day = dateString.split("-")[2];
-		const month = dateString.split("-")[1];
-		const year = dateString.split("-")[0];
-		return format(new Date(`${year}-${month}-${day}`), "EEEE");
+		const dateString = data.date.slice(0, 10);
+		const [year, month, day] = dateString.split("-");
+		return format(new Date(`${year}-${month}-${day}`), "EEEE, MMM dd");
 	}, [data.date]);
 
 	return (
-		<Card className="w-full md:w-[20%] shrink-0">
-			<CardContent>
-				<div className="flex flex-col gap-2">
-					<div className="text-xs font-medium">
-						{/* {format(new Date(data.date), "MMM dd")} */}
-						{dayName} {data.date?.slice(0, 10)}
-					</div>
-					<div className="flex flex-col gap-2 items-center">
-						<div className="flex gap-2 items-center">
-							<div className="space-y-1">
-								<Label htmlFor="rem">Duration</Label>
-								<Input
-									id="duration"
-									type="text"
-									value={data.duration?.slice(0, 4)}
-									onChange={(e) => setValue("duration", e.target.value)}
-								/>
-							</div>
-							<div className="space-y-1">
-								<Label htmlFor="rem">Start</Label>
-								<Input
-									id="start"
-									type="text"
-									value={data.sleepStart}
-									onChange={(e) => setValue("sleepStart", e.target.value)}
-								/>
-							</div>
-							<div className="space-y-1">
-								<Label htmlFor="rem">End</Label>
-								<Input
-									id="end"
-									type="text"
-									value={data.sleepEnd}
-									onChange={(e) => setValue("sleepEnd", e.target.value)}
-								/>
-							</div>
-						</div>
-						<div className="flex gap-2 items-center">
-							<div className="space-y-1">
-								<Label htmlFor="rem">REM</Label>
-								<Input
-									id="rem"
-									type="text"
-									value={((data.rem / 60 / data.duration) * 100)?.toFixed(2)}
-									onChange={(e) => setValue("rem", e.target.value)}
-								/>
-							</div>
-							<div className="space-y-1">
-								<Label htmlFor="deep">Deep</Label>
-								<Input
-									id="deep"
-									type="text"
-									value={data.deep}
-									onChange={(e) => setValue("deep", e.target.value)}
-								/>
-							</div>
-							<div className="space-y-1">
-								<Label htmlFor="rem">Wrist temp</Label>
-								<Input
-									id="wrist-temp"
-									type="text"
-									value={data.wristTemp}
-									onChange={(e) => setValue("wristTemp", e.target.value)}
-								/>
-							</div>
-						</div>
-					</div>
-					{/* <div className="space-y-1">
-						<Label htmlFor="calories">Calories</Label>
+		<Card className="w-full md:w-1/3 shadow-lg rounded-xl overflow-hidden">
+			<CardHeader className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-4">
+				<CardTitle className="text-xl font-semibold">{dayName}</CardTitle>
+			</CardHeader>
+			<CardContent className="p-6">
+				<div className="space-y-6">
+					<div>
+						<Label htmlFor="duration">Sleep Duration (hrs)</Label>
 						<Input
-							id="calories"
-							type="text"
-							value={data.calories}
-							onChange={(e) => setValue("calories", e.target.value)}
+							id="duration"
+							type="number"
+							value={data.duration}
+							onChange={(e) => setValue("duration", e.target.value)}
+							placeholder="e.g., 8"
 						/>
-					</div> */}
-					<div className="flex gap-2 items-center">
-						<div className="space-y-1">
-							<Label htmlFor="protein">Protein</Label>
+					</div>
+					<div>
+						<Label>Sleep Stages</Label>
+						<ProgressBar
+							label="REM Sleep"
+							value={(data.rem / (data.duration * 60)) * 100}
+							color="bg-purple-500"
+						/>
+						<ProgressBar
+							label="Deep Sleep"
+							value={(data.deep / (data.duration * 60)) * 100}
+							color="bg-blue-500"
+						/>
+					</div>
+					<div>
+						<Label>Daily Macros Intake</Label>
+						<div className="flex gap-4">
 							<Input
 								id="protein"
-								type="text"
+								type="number"
 								value={data.protein}
 								onChange={(e) => setValue("protein", e.target.value)}
+								placeholder="Protein (g)"
 							/>
-						</div>
-						<div className="space-y-1">
-							<Label htmlFor="carbs">Carbs</Label>
 							<Input
 								id="carbs"
-								type="text"
+								type="number"
 								value={data.carbs}
 								onChange={(e) => setValue("carbs", e.target.value)}
+								placeholder="Carbs (g)"
 							/>
-						</div>
-						<div className="space-y-1">
-							<Label htmlFor="fat">Fat</Label>
 							<Input
 								id="fat"
-								type="text"
+								type="number"
 								value={data.fat}
 								onChange={(e) => setValue("fat", e.target.value)}
+								placeholder="Fat (g)"
 							/>
 						</div>
 					</div>
-				</div>
-				<div className="space-y-1">
-					<Label>How do I feel?</Label>
-					<Select
-						value={data.feeling}
-						onValueChange={(value) => {
-							setValue("feeling", value);
-							fetch(FEELING_API_URL, {
-								method: "POST",
-								body: JSON.stringify({
-									id: data.id,
-									feeling: value,
-								}),
-							});
-						}}>
-						<SelectTrigger>
-							<SelectValue placeholder="Select how you feel" />
-						</SelectTrigger>
-						<SelectContent>
-							{feelings.map((f) => (
-								<SelectItem
-									key={f}
-									value={f}>
-									{f}
-								</SelectItem>
-							))}
-						</SelectContent>
-					</Select>
-				</div>
-				<div className="mt-2">
+					<div>
+						<Label>How do you feel today?</Label>
+						<Select
+							value={data.feeling}
+							onValueChange={(value) => {
+								setValue("feeling", value);
+								// Update feeling via API if necessary
+							}}>
+							<SelectTrigger>
+								<SelectValue placeholder="Select your feeling" />
+							</SelectTrigger>
+							<SelectContent>
+								{feelings.map((feeling) => (
+									<SelectItem
+										key={feeling}
+										value={feeling}>
+										{feeling}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+					</div>
 					<SleepTags
 						id={data.id}
-						tags={tags}
+						tags={data.tags}
 						sleepStart={data.sleepStart}
 						selectedTags={data.tags}
 					/>
@@ -278,13 +200,5 @@ export const SleepDayTracker = ({ date, data: initData }) => {
 
 SleepDayTracker.propTypes = {
 	date: PropTypes.instanceOf(Date).isRequired,
-	data: PropTypes.shape({
-		rem: PropTypes.string,
-		deep: PropTypes.string,
-		protein: PropTypes.string,
-		carbs: PropTypes.string,
-		fat: PropTypes.string,
-		selectedTags: PropTypes.arrayOf(PropTypes.string),
-		feeling: PropTypes.string,
-	}),
+	data: PropTypes.object.isRequired,
 };

@@ -97,6 +97,7 @@ export function SleepTrackerComponent() {
 			fat: "0",
 			selectedTags: [],
 			feeling: "",
+			created_at: new Date(),
 		},
 	]);
 
@@ -111,7 +112,7 @@ export function SleepTrackerComponent() {
 	}, [date]);
 
 	return (
-		<div className="container py-2 px-4">
+		<div className="w-full overflow-hidden border py-2 px-4">
 			<SleepNavigation
 				view={view}
 				setView={setView}
@@ -124,7 +125,7 @@ export function SleepTrackerComponent() {
 				date={date}
 				data={dayData}
 			/>
-		<p>{JSON.stringify(dayData, null, 2)}</p>
+			<p>{JSON.stringify(dayData, null, 2)}</p>
 		</div>
 	);
 }

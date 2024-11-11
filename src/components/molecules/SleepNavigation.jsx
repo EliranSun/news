@@ -1,69 +1,51 @@
 import {
-	Calendar as CalendarIcon,
+	CalendarIcon,
+	ChartBar,
+	PieChart,
+	Sun,
+	Moon,
 	ChevronLeft,
 	ChevronRight,
-	ChartBar,
-	Fingerprint,
-	LineChart,
 } from "lucide-react";
 import { Button } from "../ui/button";
-import { Calendar } from "../ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { format, addDays, subDays } from "date-fns";
-import { ViewName } from "../organisms/sleep-tracker";
+import { useTheme } from "next-themes"; // If using next-themes or similar
+import { format } from "date-fns";
 
 export const SleepNavigation = ({ view, setView, date, handleDateChange }) => {
+	const { theme, setTheme } = useTheme();
+
 	return (
-		<div className="container flex justify-between items-center w-full">
-			<div className="flex items-center gap-px">
+		<div className="w-full flex-wrap flex justify-between items-center py-4">
+			<div className="flex items-center gap-2">
 				<Button
-					variant="outline"
-					className="w-4"
-					onClick={() => setView(ViewName.DAY)}>
-					<ChartBar />
+					variant={view === "day" ? "solid" : "ghost"}
+					onClick={() => setView("day")}>
+					<CalendarIcon className="mr-2" /> Day View
 				</Button>
 				<Button
-					variant="outline"
-					className="w-4"
-					onClick={() => setView(ViewName.METRIC)}>
-					<Fingerprint />
+					variant={view === "metric" ? "solid" : "ghost"}
+					onClick={() => setView("metric")}>
+					<ChartBar className="mr-2" /> Metrics
 				</Button>
 				<Button
-					variant="outline"
-					className="w-4"
-					onClick={() => setView(ViewName.ANALYSIS)}>
-					<LineChart />
+					variant={view === "analysis" ? "solid" : "ghost"}
+					onClick={() => setView("analysis")}>
+					<PieChart className="mr-2" /> Analysis
 				</Button>
 			</div>
-			<div className="flex items-center gap-px">
-				<Popover>
-					<PopoverTrigger asChild>
-						<Button
-							variant="outline"
-							className="mr-2 w-fit">
-							<CalendarIcon />
-							{format(date, "MMM d")}
-						</Button>
-					</PopoverTrigger>
-					<PopoverContent className="w-auto p-0">
-						<Calendar
-							mode="single"
-							selected={date}
-							onSelect={handleDateChange}
-						/>
-					</PopoverContent>
-				</Popover>
-				<Button
-					variant="outline"
-					className="w-2"
-					onClick={() => handleDateChange(subDays(date, 1))}>
+			<div className="flex items-center gap-2">
+				<Button onClick={() => handleDateChange(subDays(date, 1))}>
 					<ChevronLeft />
 				</Button>
-				<Button
-					variant="outline"
-					className="w-2"
-					onClick={() => handleDateChange(addDays(date, 1))}>
+				<Button variant="outline">
+					<CalendarIcon className="mr-2" />
+					{format(date, "MMM d, yyyy")}
+				</Button>
+				<Button onClick={() => handleDateChange(addDays(date, 1))}>
 					<ChevronRight />
+				</Button>
+				<Button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+					{theme === "light" ? <Moon /> : <Sun />}
 				</Button>
 			</div>
 		</div>
