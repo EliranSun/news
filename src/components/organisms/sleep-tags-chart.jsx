@@ -48,6 +48,8 @@ export const SleepTagsChart = ({ data, uniqueTags }) => {
 		setTags(newTags);
 	}, [uniqueTags]);
 
+	console.log({ selectedTags });
+
 	return (
 		<ChartCard
 			// title="Sleep Quality by Tags"
@@ -57,10 +59,10 @@ export const SleepTagsChart = ({ data, uniqueTags }) => {
 						console.log({ tag });
 						return (
 							<Button
-								key={tag.label}
+								key={tag}
 								size="sm"
-								variant={selectedTags.has(tag.label) ? "default" : "outline"}
-								onClick={() => toggleTag(tag.label)}
+								variant={selectedTags.has(tag) ? "default" : "outline"}
+								onClick={() => toggleTag(tag)}
 								className="px-3 py-1">
 								{tag}
 							</Button>
@@ -102,7 +104,8 @@ export const SleepTagsChart = ({ data, uniqueTags }) => {
 							if (name === "tags") {
 								return [props.payload.tags.join(", "), "Tags"];
 							}
-							return [value.toFixed(1) + "%", name];
+
+							return [`${String(value).slice(1)}%`, name];
 						}}
 					/>
 					<Legend
