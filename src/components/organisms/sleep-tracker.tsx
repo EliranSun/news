@@ -31,13 +31,6 @@ const View = ({ view, data = [], date, ...rest }) => {
 							})
 							.reverse()}
 					</div>
-					<div className="">
-						<SleepGraph
-							data={data}
-							date={date}
-							{...rest}
-						/>
-					</div>
 				</div>
 			);
 
@@ -86,7 +79,11 @@ const fetchDayData = (date) => {
 };
 
 export function SleepTrackerComponent() {
-	const [view, setView] = useState(ViewName.DAY);
+	// Use URLSearchParams to get the 'view' query parameter
+	const queryParams = new URLSearchParams(window.location.search);
+	const initialView = queryParams.get("view") || ViewName.DAY;
+
+	const [view, setView] = useState(initialView);
 	const [date, setDate] = useState(new Date());
 	const [dayData, setDayData] = useState([
 		{
@@ -124,7 +121,6 @@ export function SleepTrackerComponent() {
 				date={date}
 				data={dayData}
 			/>
-		<p>{JSON.stringify(dayData, null, 2)}</p>
 		</div>
 	);
 }
