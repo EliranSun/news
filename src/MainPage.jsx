@@ -6,6 +6,8 @@ import OnePieceLastEpisodesChart from "./features/OnePieceLastEpisodesChart.jsx"
 import { TenThousandHours } from "./features/TenThousandHours.jsx";
 import { SleepTrackerComponent } from "./components/organisms/sleep-tracker.tsx";
 import { CurriculumVitae } from "./components/organisms/cv.jsx";
+import { SimpleTracker } from "./components/organisms/simple-tracker.jsx";
+
 export const MainPage = ({ savedPath }) => {
 	// Use savedPath if provided, otherwise use current path
 	const currentPath = savedPath || window.location.pathname;
@@ -34,6 +36,10 @@ export const MainPage = ({ savedPath }) => {
 
 		case "/cv":
 			return <CurriculumVitae />;
+
+		case "/simple":
+			return <SimpleTracker />;
+
 		default:
 			return <News />;
 	}
