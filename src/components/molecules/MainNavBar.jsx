@@ -1,4 +1,4 @@
-import { Bed, Rss, Skull, Menu } from "lucide-react";
+import { Bed, Rss, Skull, Menu, Briefcase } from "lucide-react";
 import { useState } from "react";
 const savePath = (path) => {
 	localStorage.setItem("path", path);
@@ -8,7 +8,7 @@ const savePath = (path) => {
 const InnerMenu = () => {
 	return (
 		<div
-			className="flex flex-col gap-6 justify-center items-center w-full w-10 bg-gray-50 shadow-md rounded-xl p-4 mt-1
+			className="flex flex-col gap-6 justify-center items-center w-10 bg-gray-50 shadow-md rounded-xl p-4 mt-1
 			animate-in slide-in-from-top duration-200 ease-in-out
 			hover:scale-105 transition-transform">
 			<span
@@ -25,6 +25,11 @@ const InnerMenu = () => {
 				className="transition-transform hover:scale-110 active:scale-95 cursor-pointer"
 				onClick={() => savePath("/chart")}>
 				<Skull size={20} />
+			</span>
+			<span
+				className="transition-transform hover:scale-110 active:scale-95 cursor-pointer"
+				onClick={() => savePath("/simple")}>
+				<Briefcase size={20} />
 			</span>
 		</div>
 	);
