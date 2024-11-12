@@ -6,7 +6,32 @@ const today = new Date();
 const daysInMonth = getDaysInMonth(today);
 const daysList = new Array(daysInMonth).fill(0);
 
+const useThemeByTime = () => {
+    useEffect(() => {
+		const updateThemeColor = () => {
+			const hour = new Date().getHours();
+			const themeColor = hour >= 6 && hour < 18 ? "#FFFFFF" : "#000000"; // White during the day, black at night
+			const metaThemeColor = document.querySelector("meta[name=theme-color]");
+			if (metaThemeColor) {
+				metaThemeColor.setAttribute("content", themeColor);
+			} else {
+				const newMetaThemeColor = document.createElement("meta");
+				newMetaThemeColor.setAttribute("name", "theme-color");
+				newMetaThemeColor.setAttribute("content", themeColor);
+				document.head.appendChild(newMetaThemeColor);
+			}
+		};
+
+		updateThemeColor();
+		const intervalId = setInterval(updateThemeColor, 60 * 60 * 1000); // Update every hour
+
+		return () => clearInterval(intervalId); // Cleanup interval on component unmount
+	}, []);
+};
+
 export const SimpleTracker = () => {
+    useThemeByTime();
+    
     const [trackerData, setTrackerData] = useState(() => {
         // Load initial state from local storage or default to an empty array
         const savedData = localStorage.getItem("trackerData");
