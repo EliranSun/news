@@ -82,7 +82,7 @@ export const SimpleTracker = () => {
 
                     return (
                         <div key={index} className={classNames("flex items-center justify-center gap-2 px-2 py-px", {
-                            "bg-blue-100": isToday
+                            "border": isToday
                         })}>
                             <p className="w-4 h-8 font-mono dark:bg-gray-800 flex items-center">{index + 1}</p>
                             <p className="w-6 h-8 dark:bg-gray-800 flex items-center">{dayName}</p>
