@@ -59,8 +59,8 @@ export const SimpleTracker = () => {
                         <div key={index} className={classNames("flex items-center justify-center gap-2 px-2 py-px", {
                             "bg-blue-100": isToday
                         })}>
-                            <p className="w-8 h-8 font-mono bg-gray-100 flex items-center justify-center">{index + 1}</p>
-                            <p className="w-10 h-8 bg-gray-100 flex items-center justify-center">{dayName}</p>
+                            <p className="w-4 h-8 font-mono dark:bg-gray-800 flex items-center">{index + 1}</p>
+                            <p className="w-6 h-8 dark:bg-gray-800 flex items-center">{dayName}</p>
                             <input
                                 type="text"
                                 className="border w-1/2"
