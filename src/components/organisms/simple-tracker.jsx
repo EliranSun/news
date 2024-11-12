@@ -83,14 +83,14 @@ export const SimpleTracker = () => {
                     const dayName = format(currentDay, "EEEEEE");
 
                     return (
-                        <div key={index} className={classNames("flex items-center justify-center gap-2 px-2 py-px", {
+                        <div key={index} className={classNames("flex items-center w-full justify-center gap-2 px-2 py-px", {
                             "border": isToday
                         })}>
                             <p className="w-4 h-8 font-mono dark:bg-gray-800 flex items-center">{index + 1}</p>
                             <p className="w-6 h-8 dark:bg-gray-800 flex items-center">{dayName}</p>
                             <input
                                 type="text"
-                                className="border w-1/2"
+                                className="border w-2/3"
                                 value={trackerData[index].text}
                                 onChange={(e) => handleInputChange(index, "text", e.target.value)}
                             />
