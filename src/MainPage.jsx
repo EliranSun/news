@@ -5,7 +5,7 @@ import { BirthdayImagePage } from "./features/BirthdayImagePage.jsx";
 import OnePieceLastEpisodesChart from "./features/OnePieceLastEpisodesChart.jsx";
 import { TenThousandHours } from "./features/TenThousandHours.jsx";
 import { SleepTrackerComponent } from "./components/organisms/sleep-tracker.tsx";
-
+import { CurriculumVitae } from "./components/organisms/cv.jsx";
 export const MainPage = ({ savedPath }) => {
 	// Use savedPath if provided, otherwise use current path
 	const currentPath = savedPath || window.location.pathname;
@@ -19,14 +19,21 @@ export const MainPage = ({ savedPath }) => {
 	switch (currentPath) {
 		case "/qr":
 			return <BirthdayQrCodes />;
+
 		case "/fire":
 			return <FireRekindle />;
+
 		case "/chart":
 			return <OnePieceLastEpisodesChart />;
+
 		case "/sleep":
 			return <SleepTrackerComponent />;
+
 		case "/ten":
 			return <TenThousandHours />;
+
+		case "/cv":
+			return <CurriculumVitae />;
 		default:
 			return <News />;
 	}
