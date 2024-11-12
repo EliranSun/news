@@ -65,7 +65,9 @@ export const SimpleTracker = () => {
 
     return (
         <section className="relative merriweather-light">
-            <div className="w-screen z-20 top-0 pr-[26px] pt-5 flex justify-end items-end text-right text-xs">
+	           <h1>{format(today, "MMMM")}</h1>
+												
+													 <div className="w-screen z-20 top-0 pr-[26px] pt-5 flex justify-end items-end text-right text-xs">
                 <div className="flex flex-col items-start justify-center 
             gap-1 w-fit  -rotate-90">
                     <p>Screen != bed</p>
