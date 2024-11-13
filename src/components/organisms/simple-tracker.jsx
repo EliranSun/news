@@ -71,10 +71,10 @@ export const SimpleTracker = () => {
 
 	return (
 		<section className="relative merriweather-light">
-			<h1 className="text-3xl absolute top-4 left-0 py-4 px-1">
+			<h1 className="text-3xl absolute top-5 left-0 py-4 px-1">
 				{format(today, "MMMM")}
 			</h1>
-			<div className="w-screen z-20 top-0 pr-[26px] pt-5 flex justify-end items-end text-right text-xs">
+			<div className="w-screen z-20 top-0 pr-[23px] pt-5 flex justify-end items-end text-right text-xs">
 				<div
 					className="flex flex-col items-start justify-center 
             gap-1 w-fit  -rotate-90">
@@ -84,7 +84,7 @@ export const SimpleTracker = () => {
 				</div>
 				<p className="w-8 h-8 flex items-end justify-center">% fat</p>
 			</div>
-			<div className="flex flex-col items-center justify-center gap-1 merriweather-light w-screen text-xs py-2">
+			<div className="flex flex-col items-center justify-center gap-1 merriweather-light w-screen text-xs py-3">
 				{daysList.map((day, index) => {
 					const currentDay = addDays(firstDayOfMonth, index);
 					const isToday = isSameDay(today, currentDay);
