@@ -68,6 +68,7 @@ export const Clock = () => {
 
     return (
         <div className="h-screen flex flex-col justify-center items-center">
+            <h1 className="text-4xl font-bold space-grotesk-700 text-amber-400">CSS Demo</h1>
             <div
                 onClick={() => setFontName(fontName === "space-grotesk-700" ? "font-mono" : "space-grotesk-700")}
                 className={`font-extrabold ${fontName} text-[14rem]`}>
