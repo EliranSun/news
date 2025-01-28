@@ -65,8 +65,14 @@ export const Clock = () => {
 
     return (
         <div className="h-screen flex flex-col justify-center items-center">
-            <div className="font-extrabold font-mono text-9xl">
+            <div className="font-extrabold font-mono text-[12rem]">
                 {`${String(timeLeft.days).padStart(2, '0')}:${String(timeLeft.hours).padStart(2, '0')}:${String(timeLeft.minutes).padStart(2, '0')}`}
+            </div>
+            <div className="flex gap-1 w-20 flex-wrap -rotate-90 scale-x-[-1]">
+                {new Array(100).fill(null).map((_, index) => (
+                    <div key={index} className={`size-2 ${index < timeLeft.days ? 'bg-white/40' : 'bg-white'}`}>
+                    </div>
+                ))}
             </div>
             <input
                 defaultValue={date}
