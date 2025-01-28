@@ -64,6 +64,8 @@ export const Clock = () => {
         return () => clearInterval(interval);
     }, []);
 
+    console.log(timeLeft);
+
     return (
         <div className="h-screen flex flex-col justify-center items-center">
             <div
@@ -73,7 +75,9 @@ export const Clock = () => {
             </div>
             <div className="flex gap-1 w-20 flex-wrap -rotate-90 scale-x-[-1]">
                 {new Array(100).fill(null).map((_, index) => (
-                    <div key={index} className={`size-2 ${index < timeLeft.days ? 'bg-white/40' : 'bg-white'}`}>
+                    <div key={index} className={`size-2 ${index < (100 - timeLeft.days)
+                        ? 'bg-black dark:bg-white'
+                        : 'bg-black/40 dark:bg-white/40'}`}>
                     </div>
                 ))}
             </div>
