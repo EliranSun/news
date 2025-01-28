@@ -18,6 +18,7 @@ const getTimeLeft = (date) => {
 }
 
 export const Clock = () => {
+    const [fontName, setFontName] = useState("space-grotesk-700");
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
     const [date, setDate] = useState('');
 
@@ -65,7 +66,9 @@ export const Clock = () => {
 
     return (
         <div className="h-screen flex flex-col justify-center items-center">
-            <div className="font-extrabold font-mono text-[12rem]">
+            <div
+                onClick={() => setFontName(fontName === "space-grotesk-700" ? "font-mono" : "space-grotesk-700")}
+                className={`font-extrabold ${fontName} text-[12rem]`}>
                 {`${String(timeLeft.days).padStart(2, '0')}:${String(timeLeft.hours).padStart(2, '0')}:${String(timeLeft.minutes).padStart(2, '0')}`}
             </div>
             <div className="flex gap-1 w-20 flex-wrap -rotate-90 scale-x-[-1]">
