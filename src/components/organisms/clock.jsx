@@ -70,7 +70,7 @@ export const Clock = () => {
         <div className="h-screen flex flex-col justify-center items-center">
             <div
                 onClick={() => setFontName(fontName === "space-grotesk-700" ? "font-mono" : "space-grotesk-700")}
-                className={`font-extrabold ${fontName} text-[12rem]`}>
+                className={`font-extrabold ${fontName} text-[14rem]`}>
                 {`${String(timeLeft.days).padStart(2, '0')}:${String(timeLeft.hours).padStart(2, '0')}:${String(timeLeft.minutes).padStart(2, '0')}`}
             </div>
             <div className="flex gap-1 w-20 flex-wrap -rotate-90 scale-x-[-1]">
