@@ -1,5 +1,6 @@
-import { Bed, Rss, Skull, Menu, Briefcase } from "lucide-react";
+import { Bed, Rss, Skull, Menu, Briefcase, Clock } from "lucide-react";
 import { useState } from "react";
+
 const savePath = (path) => {
 	localStorage.setItem("path", path);
 	window.location.href = path;
@@ -30,6 +31,11 @@ const InnerMenu = () => {
 				className="transition-transform hover:scale-110 active:scale-95 cursor-pointer"
 				onClick={() => savePath("/simple")}>
 				<Briefcase size={20} />
+			</span>
+			<span
+				className="transition-transform hover:scale-110 active:scale-95 cursor-pointer"
+				onClick={() => savePath("/clock")}>
+				<Clock size={20} />
 			</span>
 		</div>
 	);
