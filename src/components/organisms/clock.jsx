@@ -34,7 +34,7 @@ export const Clock = () => {
 
     useEffect(() => {
         const query = new URLSearchParams(window.location.search);
-        const dateParam = query.get('date');
+        const dateParam = query.get('date') || "2025-03-31";
 
         if (dateParam) {
             setDate(dateParam);
@@ -71,7 +71,7 @@ export const Clock = () => {
             <h1 className="text-4xl font-bold space-grotesk-700 text-amber-400">CSS Demo</h1>
             <div
                 onClick={() => setFontName(fontName === "space-grotesk-700" ? "font-mono" : "space-grotesk-700")}
-                className={`font-extrabold ${fontName} text-[14rem]`}>
+                className={`font-extrabold ${fontName} text-[20vw] xl:text-[14rem]`}>
                 {`${String(timeLeft.days).padStart(2, '0')}:${String(timeLeft.hours).padStart(2, '0')}:${String(timeLeft.minutes).padStart(2, '0')}`}
             </div>
             <div className="flex gap-1 w-20 flex-wrap -rotate-90 scale-x-[-1]">

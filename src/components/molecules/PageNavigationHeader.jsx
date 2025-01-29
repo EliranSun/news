@@ -1,11 +1,12 @@
 import classNames from "classnames";
-
+import PropTypes from "prop-types";
 export const PageNavigationHeader = ({
     view,
     setView
 }) => {
     return (
-        <div className="mb-4 flex justify-center gap-4 fixed top-0 py-5 bg-white dark:bg-black w-full z-10">
+        <div className="mb-4 flex justify-start gap-4 fixed 
+        top-0 py-5 bg-white dark:bg-black w-full z-10">
             <h1
                 className={classNames({
                     "text-sm font-bold w-20 text-center": true,
@@ -35,4 +36,9 @@ export const PageNavigationHeader = ({
             </h1>
         </div>
     );
+};
+
+PageNavigationHeader.propTypes = {
+    view: PropTypes.string,
+    setView: PropTypes.func,
 };

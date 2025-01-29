@@ -19,7 +19,7 @@ export const FeedItem = ({ item, onClick = () => { }, queryResult, onlyTitle, co
                         className={classNames({
                             "flex-inline text-base": compact,
                             "text-2xl": onlyTitle,
-                            "text-[2.4rem]": !onlyTitle,
+                            "text-[2.8rem]": !onlyTitle,
                             "font-bold mb-3 w-full": true,
                             "merriweather-bold": item.language.includes("en"),
                             "heebo-900": !item.language.includes("en"),
@@ -40,7 +40,7 @@ export const FeedItem = ({ item, onClick = () => { }, queryResult, onlyTitle, co
                     {(!queryResult && (onlyTitle || item.title.length >= 90)) ? null : (
                         <p
                             dir={item.language === "he" ? "rtl" : "ltr"}
-                            className="text-xs mb-3">
+                            className="text-md mb-3">
                             {queryResult || item.description}
                         </p>
                     )}
@@ -63,6 +63,7 @@ FeedItem.propTypes = {
     onClick: PropTypes.func,
     queryResult: PropTypes.string,
     onlyTitle: PropTypes.bool,
+    compact: PropTypes.bool,
     item: PropTypes.shape({
         language: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,

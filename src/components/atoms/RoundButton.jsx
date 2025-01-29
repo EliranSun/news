@@ -6,9 +6,10 @@ export const RoundButton = ({ children, onClick, big }) => {
     return (
         <Button
             className={classNames({
+                "relative": true,
                 "size-16 text-[16px]": big,
                 "size-10 text-[8px]": !big,
-                "relative shadow-md rounded-full": true,
+                "rounded-full": true,
             })}
             onClick={onClick}>
             {children}
