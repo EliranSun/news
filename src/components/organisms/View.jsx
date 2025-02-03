@@ -40,7 +40,7 @@ const MultipleFeedsView = ({ items = [], onItemRead }) => {
                             onlyTitle
                             compact
                         />
-                        <div className="flex gap-2">
+                        
                         <Button 
                             onClick={() => {
                             localStorage.setItem(feed[0].link, "read");
