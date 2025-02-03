@@ -1,6 +1,8 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
+const TITLE_LENGTH_LIMIT = 50;
+
 export const FeedItem = ({ item, onClick = () => { },
  queryResult, onlyTitle, compact, feedName }) => {
     return (
@@ -26,8 +28,8 @@ export const FeedItem = ({ item, onClick = () => { },
                             "merriweather-bold": item.language.includes("en"),
                             "heebo-900": !item.language.includes("en"),
                         })}>
-                        {item.title.length > 40 
-                                ? `${item.title.slice(0, 40)}...`
+                        {item.title.length > TITLE_LENGTH_LIMIT 
+                                ? `${item.title.slice(0, TITLE_LENGTH_LIMIT)}...`
                                 : item.title} {compact ?
                             <div>
                                 <span
