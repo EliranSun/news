@@ -28,7 +28,9 @@ export const FeedItem = ({ item, onClick = () => { },
                             "merriweather-bold": item.language.includes("en"),
                             "heebo-900": !item.language.includes("en"),
                         })}>
-                            <div className="h-32">
+                            <div className={classNames({
+                                "h-32 overflow-y-auto": onlyTitle,
+                            })}>
                         {item.title}
                         </div>
                          {compact ?
