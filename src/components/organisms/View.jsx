@@ -24,7 +24,7 @@ const MultipleFeedsView = ({ items = [], onItemRead }) => {
     }
 
     return (
-        <div className="flex flex-col gap-2 py-56 w-full p-2">
+        <div className="flex flex-col gap-2 py-72 w-full p-2">
             {Object.entries(itemsPerFeed)
                 .sort((a, b) => b[0].localeCompare(a[0]))
                 .map(([feedName, feed]) => (
