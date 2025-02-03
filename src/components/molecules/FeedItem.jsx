@@ -19,7 +19,7 @@ export const FeedItem = ({ item, onClick = () => { }, queryResult, onlyTitle, co
                         onClick={() => window.open(item.link, "_blank")}
                         className={classNames({
                             "flex-inline": compact,
-                            "text-4xl": onlyTitle,
+                            "text-3xl": onlyTitle,
                             "text-[2.8rem]": !onlyTitle,
                             "font-bold mb-3 w-full": true,
                             "merriweather-bold": item.language.includes("en"),

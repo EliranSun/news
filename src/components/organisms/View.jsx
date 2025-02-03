@@ -46,7 +46,7 @@ const MultipleFeedsView = ({ items = [], onItemRead }) => {
                             localStorage.setItem(feed[0].link, "read");
                             onItemRead(feed[0].link);
                         }}
-                            className="size-12 rounded-lg">
+                            className="size-16 rounded-lg">
                             {feed.length}
                         </Button>
                     </div>
