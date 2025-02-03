@@ -29,10 +29,6 @@ const MultipleFeedsView = ({ items = [], onItemRead }) => {
                 .sort((a, b) => b[0].localeCompare(a[0]))
                 .map(([feedName, feed]) => (
                     <div key={feedName}
-                        onClick={() => {
-                            localStorage.setItem(feed[0].link, "read");
-                            onItemRead(feed[0].link);
-                        }}
                         className="flex items-center flex-row-reverse gap-8 h-fit 
                     border border-gray-200 rounded-md px-4">
                         <FeedItem
@@ -47,6 +43,12 @@ const MultipleFeedsView = ({ items = [], onItemRead }) => {
                         <Button className="size-10 rounded-lg">
                             {feed.length}
                         </Button>
+                        <Button onClick={() => {
+                            localStorage.setItem(feed[0].link, "read");
+                            onItemRead(feed[0].link);
+                        }}>
+                            v
+                            </Button>
                     </div>
                 ))}
         </div>
