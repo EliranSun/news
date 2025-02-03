@@ -1,7 +1,8 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
-export const FeedItem = ({ item, onClick = () => { }, queryResult, onlyTitle, compact }) => {
+export const FeedItem = ({ item, onClick = () => { },
+ queryResult, onlyTitle, compact, feedName }) => {
     return (
         <div
             onClick={onClick}
@@ -26,17 +27,18 @@ export const FeedItem = ({ item, onClick = () => { }, queryResult, onlyTitle, co
                             "heebo-900": !item.language.includes("en"),
                         })}>
                         {item.title} {compact ?
-                            <>-{' '}
+                            <div>
                                 <span
                                     className={classNames({
                                         "inline-flex gap-1 text-xs font-mono font-light": true,
                                         "flex-row-reverse": item.language.includes("he"),
                                         "flex-row": !item.language.includes("he"),
                                     })}>
+                                    <span>{feedName}, </span>
                                     <span>{item.diff.value}{item.diff.unit}</span>
                                     <span>{item.language === "he" ? "לפני" : "ago"}</span>
                                 </span>
-                            </> : null}
+                            </div> : null}
                     </h1>
                     {(!queryResult && (onlyTitle || item.title.length >= 90)) ? null : (
                         <p

@@ -33,9 +33,10 @@ const MultipleFeedsView = ({ items = [], onItemRead }) => {
                     border border-gray-200 rounded-md px-4">
                         <FeedItem
                             key={feed[0].link}
+                            feedName={feedName}
                             item={{
                                 ...feed[0],
-                                title: `${feedName}: ${feed[0].title}`
+                                title: `${feed[0].title}`
                             }}
                             onlyTitle
                             compact
@@ -74,6 +75,7 @@ export const View = ({
                         <FeedItem
                             key={item.link}
                             item={item}
+                            feedName={item.feedName}
                             onlyTitle
                         />
                     ))}
