@@ -28,7 +28,7 @@ export const FeedItem = ({ item, onClick = () => { },
                             "merriweather-bold": item.language.includes("en"),
                             "heebo-900": !item.language.includes("en"),
                         })}>
-                            <div className="h-48">
+                            <div className="h-32">
                         {item.title}
                         </div>
                          {compact ?
