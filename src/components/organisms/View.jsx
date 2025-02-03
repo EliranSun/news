@@ -40,15 +40,22 @@ const MultipleFeedsView = ({ items = [], onItemRead }) => {
                             onlyTitle
                             compact
                         />
+                        <div>
                         <Button className="size-10 rounded-lg">
                             {feed.length}
                         </Button>
                         <Button onClick={() => {
+                            window.open(feed[0].link, "_blank");
+                            }}>
+                            L
+                            </Button>
+                        <Button onClick={() => {
                             localStorage.setItem(feed[0].link, "read");
                             onItemRead(feed[0].link);
                         }}>
-                            v
+                            V
                             </Button>
+                            </div>
                     </div>
                 ))}
         </div>
