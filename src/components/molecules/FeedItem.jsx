@@ -16,6 +16,7 @@ export const FeedItem = ({ item, onClick = () => { }, queryResult, onlyTitle, co
                 <div>
                     <h1
                         dir={item.language === "he" ? "rtl" : "ltr"}
+                        onClick={() => window.open(item.link, "_blank")}
                         className={classNames({
                             "flex-inline text-base": compact,
                             "text-2xl": onlyTitle,
