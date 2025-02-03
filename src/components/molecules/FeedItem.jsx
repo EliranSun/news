@@ -28,9 +28,10 @@ export const FeedItem = ({ item, onClick = () => { },
                             "merriweather-bold": item.language.includes("en"),
                             "heebo-900": !item.language.includes("en"),
                         })}>
-                        {item.title.length > TITLE_LENGTH_LIMIT 
-                                ? `${item.title.slice(0, TITLE_LENGTH_LIMIT)}...`
-                                : item.title} {compact ?
+                            <div className="h-48">
+                        {item.title}
+                        </div>
+                         {compact ?
                             <div>
                                 <span
                                     className={classNames({
