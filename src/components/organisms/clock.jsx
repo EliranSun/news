@@ -75,17 +75,17 @@ export const Clock = () => {
                 className={`font-extrabold ${fontName} text-[20vw] xl:text-[14rem]`}>
                 {`${String(timeLeft.days).padStart(2, '0')}:${String(timeLeft.hours).padStart(2, '0')}:${String(timeLeft.minutes).padStart(2, '0')}`}
             </div>
-            <div className="flex gap-1 w-20 flex-wrap -rotate-90 scale-x-[-1]">
+            <div className="flex gap-1 w-20 flex-wrap -rotate-90">
                 {new Array(100).fill(null).map((_, index) => {
                     const dayOfMonth = sub(new Date(2025, 2, 31), { days: index + 1 });
                     const dayOfMonthNumber = Number(format(dayOfMonth, "d"));
 
                     return (
                         <div key={index} 
-                        className={`size-3 text-white text-[8px] -rotate-90 scale-x-[-1] 
+                        className={`size-3 text-white text-[8px] rotate-90 
                             ${isBefore(dayOfMonth, new Date())
-                                ? 'bg-black dark:bg-white'
-                                : 'bg-black/40 dark:bg-white/40'}`}>
+                                ? 'bg-black/40 dark:bg-white/40'
+                                : 'bg-black dark:bg-white'}`}>
                                 {dayOfMonthNumber}
                         </div>
                     );
