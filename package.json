@@ -30,7 +30,8 @@
     "recharts": "^2.13.0",
     "translate": "^2.0.2",
     "tailwind-merge": "^2.5.4",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "translate": "^3.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",
