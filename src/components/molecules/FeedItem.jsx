@@ -14,7 +14,9 @@ export const FeedItem = ({ item, onClick = () => { },
              translate(item.title, "he")
                 .then(results => setTitle(results))
                 .catch(error => console.error(error));
-        }
+        } else {
+            setTitle(item.title);
+            }
     }, [item]);
     
     return (
