@@ -1,16 +1,20 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import translate from "translate";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 
 const TITLE_LENGTH_LIMIT = 50;
 
 export const FeedItem = ({ item, onClick = () => { },
  queryResult, onlyTitle, compact, feedName }) => {
+    const [title, setTitle] = useState(item.title);
     
-    const translatedTitle = useMemo(async () => {
-        if (item.language === "he") return item.title;
-        return await translate(item.title, "he");
+    useEffect(() => {
+        if (item.language !== "he") {
+             translate(item.title, "he")
+                .then(results => setTitle(results))
+                .catch(error => console.error(error));
+        }
     }, [item]);
     
     return (
