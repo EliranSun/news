@@ -7,17 +7,17 @@ const TITLE_LENGTH_LIMIT = 50;
 
 export const FeedItem = ({ item, onClick = () => { },
  queryResult, onlyTitle, compact, feedName }) => {
-    const [title, setTitle] = useState(item.title);
+    // const [title, setTitle] = useState(item.title);
     
-    useEffect(() => {
-        if (item.language !== "he") {
-             translate(item.title, "he")
-                .then(results => setTitle(results))
-                .catch(error => console.error(error));
-        } else {
-            setTitle(item.title);
-            }
-    }, [item]);
+    // useEffect(() => {
+    //     if (item.language !== "he") {
+    //          translate(item.title, "he")
+    //             .then(results => setTitle(results))
+    //             .catch(error => console.error(error));
+    //     } else {
+    //         setTitle(item.title);
+    //         }
+    // }, [item]);
     
     return (
         <div
@@ -45,7 +45,7 @@ export const FeedItem = ({ item, onClick = () => { },
                             <div className={classNames({
                                 "h-32 overflow-y-auto": onlyTitle,
                             })}>
-                        {title}
+                        {item.title}
                         </div>
                          {compact ?
                             <div>
