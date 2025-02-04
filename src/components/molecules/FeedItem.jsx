@@ -43,7 +43,7 @@ export const FeedItem = ({ item, onClick = () => { },
                             <div className={classNames({
                                 "h-32 overflow-y-auto": onlyTitle,
                             })}>
-                        {translatedTitle}
+                        {title}
                         </div>
                          {compact ?
                             <div>
