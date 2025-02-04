@@ -77,7 +77,7 @@ export const Clock = () => {
             </div>
             <div className="flex gap-1 w-20 flex-wrap -rotate-90 scale-x-[-1]">
                 {new Array(100).fill(null).map((_, index) => (
-                    <div key={index} className={`size-2 text-xs ${index < (100 - timeLeft.days)
+                    <div key={index} className={`size-3 text-white text-[8px] rotate-90 ${index < (100 - timeLeft.days)
                         ? 'bg-black dark:bg-white'
                         : 'bg-black/40 dark:bg-white/40'}`}>
                             {format(sub(new Date(2025, 2, 31), { days: index + 1 }), "d")}
