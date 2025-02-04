@@ -1,10 +1,18 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import translate from "translate";
+import { useMemo } from "react";
 
 const TITLE_LENGTH_LIMIT = 50;
 
 export const FeedItem = ({ item, onClick = () => { },
  queryResult, onlyTitle, compact, feedName }) => {
+    
+    const translatedTitle = useMemo(async () => {
+        if (item.language === "he") return item.title;
+        return await translate(item.title, "he");
+    }, [item]);
+    
     return (
         <div
             onClick={onClick}
@@ -31,7 +39,7 @@ export const FeedItem = ({ item, onClick = () => { },
                             <div className={classNames({
                                 "h-32 overflow-y-auto": onlyTitle,
                             })}>
-                        {item.title}
+                        {translatedTitle}
                         </div>
                          {compact ?
                             <div>
