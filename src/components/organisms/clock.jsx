@@ -89,7 +89,7 @@ export const Clock = () => {
                                 {dayOfMonthNumber}
                         </div>
                     );
-                })}
+                }).reverse()}
             </div>
             <input
                 defaultValue={date}
