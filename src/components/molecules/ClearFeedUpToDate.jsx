@@ -14,7 +14,10 @@ export const ClearFeedUpToDate = ({ items = [], isActive = false }) => {
 			});
 
 			clearedItems.forEach((item) => {
-				localStorage.setItem(item.link, "read");
+				const isSaved = localStorage.getItem(item.link) === "saved";
+				if (!isSaved) {
+					localStorage.setItem(item.link, "read");
+				}
 			});
 
 			window.location.reload();

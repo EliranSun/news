@@ -75,8 +75,8 @@ export const FeedItem = ({ item, onClick = () => { },
                     "text-left": !item.language.includes("he"),
                     "leading-none text-sm flex w-full justify-between": true,
                 })}>
-                    <span>{item.feedName}, </span>
-                    <span>{item.diff.value} {item.diff.unit}</span>
+                    <span>{item.feedName}</span>
+                    <span>{item.diff.value}{item.diff.unit}</span>
                 </div>}
             </div>
         </div>
