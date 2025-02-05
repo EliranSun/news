@@ -75,7 +75,7 @@ export const FeedItem = ({ item, onClick = () => { },
                     "leading-none text-xs": compact,
                     "leading-none text-sm": !compact,
                 })}>
-                    <span>{feedName}, </span>
+                    <span>{item.feedName}, </span>
                     {item.diff.value}
                     {item.diff.unit} ago
                 </p>}
