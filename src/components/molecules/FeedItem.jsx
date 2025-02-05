@@ -48,17 +48,12 @@ export const FeedItem = ({ item, onClick = () => { },
                         {item.title}
                         </div>
                          {compact ?
-                            <div>
-                                <span
-                                    className={classNames({
-                                        "inline-flex gap-1 text-xs font-mono font-light": true,
-                                        "flex-row-reverse": item.language.includes("he"),
-                                        "flex-row": !item.language.includes("he"),
-                                    })}>
-                                    <span>{feedName}, </span>
-                                    <span>{item.diff.value}{item.diff.unit}</span>
-                                    <span>{item.language === "he" ? "לפני" : "ago"}</span>
-                                </span>
+                            <div 
+                            className={classNames({
+                                "flex justify-between w-full gap-1 text-xs font-mono font-light": true
+                            })}>
+                                <span>{feedName}</span>
+                                <span>{item.diff.value}{item.diff.unit}</span>
                             </div> : null}
                     </h1>
                     {(!queryResult && (onlyTitle || item.title.length >= 90)) ? null : (
