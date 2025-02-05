@@ -76,10 +76,7 @@ export const FeedItem = ({ item, onClick = () => { },
                     "leading-none text-sm flex w-full justify-between": true,
                 })}>
                     <span>{item.feedName}, </span>
-                    <span>
-                    {item.diff.value}
-                    {item.diff.unit} ago
-                    </span>
+                    <span>{item.diff.value} {item.diff.unit}</span>
                 </div>}
             </div>
         </div>
