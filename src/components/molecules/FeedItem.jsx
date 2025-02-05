@@ -69,16 +69,18 @@ export const FeedItem = ({ item, onClick = () => { },
                         </p>
                     )}
                 </div>
-                {compact ? null : <p className={classNames("font-mono", {
+                {compact ? null : 
+                <div className={classNames("font-mono", {
                     "text-right": item.language.includes("he"),
                     "text-left": !item.language.includes("he"),
-                    "leading-none text-xs": compact,
-                    "leading-none text-sm": !compact,
+                    "leading-none text-sm flex w-full justify-between": true,
                 })}>
                     <span>{item.feedName}, </span>
+                    <span>
                     {item.diff.value}
                     {item.diff.unit} ago
-                </p>}
+                    </span>
+                </div>}
             </div>
         </div>
     );
