@@ -9,7 +9,7 @@ const savePath = (path) => {
 const InnerMenu = () => {
 	return (
 		<div
-			className="flex flex-col gap-6 justify-center items-center w-10 bg-gray-50 shadow-md rounded-xl p-4 mt-1
+			className="flex flex-col gap-6 justify-center items-center w-10 shadow-md rounded-xl p-4 mt-1
 			animate-in slide-in-from-top duration-200 ease-in-out
 			hover:scale-105 transition-transform">
 			<span
@@ -47,7 +47,7 @@ export const MainNavBar = () => {
 	return (
 		<div className="fixed top-1 right-5 z-20">
 			<div
-				className="bg-gray-50 flex justify-center items-center
+				className="flex justify-center items-center
 				 shadow-md rounded-full p-2 cursor-pointer size-12
 					transition-transform hover:scale-105 active:scale-95">
 				<Menu onClick={() => setIsMenuOpen(!isMenuOpen)} />
