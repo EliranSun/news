@@ -6,7 +6,7 @@ export const PageNavigationHeader = ({
 }) => {
     return (
         <div className="mb-4 flex justify-start gap-4 fixed 
-        top-0 py-5 bg-white dark:bg-black w-full z-10">
+        top-0 py-5 w-full z-10">
             <h1
                 className={classNames({
                     "text-sm font-bold w-20 text-center": true,
