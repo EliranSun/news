@@ -43,7 +43,7 @@ export const FeedItem = ({ item, onClick = () => { },
                             "heebo-900": !item.language.includes("en"),
                         })}>
                             <div className={classNames({
-                                "h-32 overflow-y-auto": onlyTitle,
+                                "h-fit": onlyTitle,
                             })}>
                         {item.title}
                         </div>
