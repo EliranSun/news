@@ -36,7 +36,7 @@ export const FeedItem = ({ item, onClick = () => { },
                         onClick={() => window.open(item.link, "_blank")}
                         className={classNames({
                             "flex-inline": compact,
-                            "text-3xl": onlyTitle,
+                            "text-base": onlyTitle,
                             "text-[2.8rem]": !onlyTitle,
                             "font-bold mb-3 w-full": true,
                             "merriweather-bold": item.language.includes("en"),
