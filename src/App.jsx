@@ -53,7 +53,10 @@ const RssFeedComponent = () => {
 				setQueryResult={setQueryResult}
 				isSweepDataView={isSweepDataView}
 				setIsSweepDataView={setIsSweepDataView}
-				onQueryClick={onQueryClick}
+				onQueryClick={() => {
+					if (view === "feeds") onQueryClick(items);
+					else onQueryClick(items.slice(0, 1));
+				}}
 			/>
 		</section>
 	);

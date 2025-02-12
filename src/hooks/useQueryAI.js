@@ -6,11 +6,13 @@ export const useQueryAI = (items = []) => {
     const [queryResult, setQueryResult] = useState("");
     
     const onQueryClick = useCallback(async () => {
-        const body = {
-            question: items[0].title,
-            link: items[0].link,
-            title: items[0].title,
-        };
+        const body = items.map(item => {
+            return {
+                question: item.title,
+                link: item.link,
+                title: item.title,
+            };
+        });
         
         const res = await fetch(API_URL, {
             method: "POST",
