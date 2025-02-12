@@ -11,6 +11,8 @@ export const useQueryAI = (items = []) => {
                 question: item.title,
                 link: item.link,
                 title: item.title,
+                description: item.description,
+                source: item.feedName,
             };
         });
         
