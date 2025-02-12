@@ -56,13 +56,11 @@ export const FeedItem = ({ item, onClick = () => { },
                                 <span>{item.diff.value}{item.diff.unit}</span>
                             </div> : null}
                     </h1>
-                    {!queryResult ? null : (
                         <p
                             dir={item.language === "he" ? "rtl" : "ltr"}
                             className="text-md mb-3">
                             {queryResult || item.description}
                         </p>
-                    )}
                 </div>
                 {compact ? null : 
                 <div className={classNames("font-mono", {
