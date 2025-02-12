@@ -35,7 +35,7 @@ const MultipleFeedsView = ({
         <div className="flex flex-col gap-2 py-20 pb-40 w-full p-2">
             {queryResult &&
                 <p
-                    className="merriweather-bold"
+                    className="heebo-900"
                     dangerouslySetInnerHTML={{ __html: markdownQueryResult }} />}
             {Object.entries(itemsPerFeed)
                 .sort((a, b) => b[0].localeCompare(a[0]))
