@@ -9,7 +9,7 @@ const RssFeedComponent = () => {
 	const [view, setView] = useState("feed");
 	const [isSweepDataView, setIsSweepDataView] = useState(false);
 	const { items, setFeeds } = useRssFeed(view === "saved");
-	const { queryResult, onQueryClick, setQueryResult } = useQueryAI(items);
+	const { queryResult, onQueryClick, setQueryResult, isLoading, isError } = useQueryAI(items);
 
 	useEffect(() => {
 		const updateThemeColor = () => {
@@ -42,6 +42,10 @@ const RssFeedComponent = () => {
 				queryResult={queryResult}
 				items={items}
 				view={view}
+				aiQueryStatus={{
+					isLoading, 
+					isError,
+				}}
 				onItemRead={(itemLink) => {
 					setFeeds(items.filter((item) => item.link !== itemLink));
 					setQueryResult(null);
@@ -56,6 +60,10 @@ const RssFeedComponent = () => {
 				onQueryClick={() => {
 					if (view === "feeds") onQueryClick(items);
 					else onQueryClick(items.slice(0, 1));
+				}}
+				aiQueryStatus={{
+					isLoading, 
+					isError,
 				}}
 			/>
 		</section>

@@ -1,5 +1,5 @@
 import { RoundButton } from "../atoms/RoundButton.jsx";
-import { BookmarkSimple, Broom, CheckFat, Link, Robot } from "@phosphor-icons/react";
+import { BookmarkSimple, Broom, CheckFat, Link, Robot, Skull, Brain } from "@phosphor-icons/react";
 import { NotificationBadge } from "../atoms/NotificationBadge.jsx";
 import { ClearFeedUpToDate } from "./ClearFeedUpToDate.jsx";
 import PropTypes from "prop-types";
@@ -11,7 +11,10 @@ export const ActionButtons = ({
     isSweepDataView,
     setIsSweepDataView,
     onQueryClick,
+    aiQueryStatus = {}
 }) => {
+    cosnt AIQueryIcon = aiQueryStatus.isError ? Skull : aiQueryStatus.isLoading ? Brain : Robot;
+
     return (
         <div className="fixed bottom-0 pt-4 pb-8
          border-gray-200 bg-white dark:bg-black inset-x-0 flex justify-center items-center 
@@ -20,7 +23,7 @@ export const ActionButtons = ({
                 <Link size={24} />
             </RoundButton>
             <RoundButton big onClick={onQueryClick}>
-                <Robot size={24} />
+                <AIQueryIcon size={24} className={aiQueryStatus.isLoading ? "animate-pulse" : ""} />
             </RoundButton>
             <RoundButton
                 big

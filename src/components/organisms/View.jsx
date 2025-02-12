@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useMemo } from "react";
 import { Button } from "../atoms/Button.jsx";
 
-const MultipleFeedsView = ({ items = [], onItemRead, queryResult = "" }) => {
+const MultipleFeedsView = ({ items = [], onItemRead, queryResult = "", aiQueryStatus = {} }) => {
     const itemsPerFeed = useMemo(() => {
         const feeds = {};
         items.forEach((item) => {
