@@ -148,7 +148,7 @@ button:focus-visible {
 	font-weight: 900;
 	font-style: normal;
 }
-
+/*
 @layer base {
 	:root {
 		--background: 0 0% 100%;
@@ -215,3 +215,4 @@ button:focus-visible {
 		@apply bg-background text-foreground;
 	}
 }
+	*/
