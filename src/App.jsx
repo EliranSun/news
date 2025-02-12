@@ -26,7 +26,7 @@ const RssFeedComponent = () => {
 			}
 		};
 
-		updateThemeColor();
+		// updateThemeColor();
 		const intervalId = setInterval(updateThemeColor, 60 * 60 * 1000); // Update every hour
 
 		return () => clearInterval(intervalId); // Cleanup interval on component unmount
