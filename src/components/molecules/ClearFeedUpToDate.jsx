@@ -15,7 +15,7 @@ export const ClearFeedUpToDate = ({ items = [], isActive = false }) => {
 
 			clearedItems.forEach((item) => {
 				const isSaved = localStorage.getItem(item.link) === "saved";
-				if (!isSaved) {
+				if (isSaved) {
 					localStorage.setItem(item.link, "read");
 				}
 			});

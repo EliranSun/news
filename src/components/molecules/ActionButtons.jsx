@@ -1,5 +1,5 @@
 import { RoundButton } from "../atoms/RoundButton.jsx";
-import { BookmarkSimple, Broom, CheckFat, Link, Robot, Skull, Brain } from "@phosphor-icons/react";
+import { BookmarkSimple, Broom, CheckFat, Link, Robot, Skull, Brain, MagnifyingGlass } from "@phosphor-icons/react";
 import { NotificationBadge } from "../atoms/NotificationBadge.jsx";
 import { ClearFeedUpToDate } from "./ClearFeedUpToDate.jsx";
 import PropTypes from "prop-types";
@@ -19,11 +19,14 @@ export const ActionButtons = ({
         <div className="fixed bottom-0 pt-4 pb-8
          border-gray-200 bg-white dark:bg-black inset-x-0 flex justify-center items-center 
          gap-4">
-            <RoundButton big onClick={() => window.open(contextualItems[0].link, "_blank")}>
+            {/* <RoundButton big onClick={() => window.open(contextualItems[0].link, "_blank")}>
                 <Link size={24} />
-            </RoundButton>
+            </RoundButton> */}
             <RoundButton big onClick={onQueryClick}>
                 <AIQueryIcon size={24} className={aiQueryStatus.isLoading ? "animate-pulse" : ""} />
+            </RoundButton>
+            <RoundButton big>
+                <MagnifyingGlass size={24} />
             </RoundButton>
             <RoundButton
                 big
@@ -37,7 +40,11 @@ export const ActionButtons = ({
             </RoundButton>
             <RoundButton big
                 onClick={() => {
-                    localStorage.setItem(contextualItems[0].link, "saved");
+                    const savedItems = JSON.parse(localStorage.getItem("saved-links") || "[]");
+                    savedItems.push(contextualItems[0]);
+                    localStorage.setItem("saved-links", JSON.stringify(savedItems));
+                    localStorage.setItem(contextualItems[0].link, "read");
+
                     setFeeds(contextualItems.filter((feed) => feed.link !== contextualItems[0].link));
                     setQueryResult("");
                 }}>

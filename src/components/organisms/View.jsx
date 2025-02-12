@@ -77,28 +77,38 @@ export const View = ({
     queryResult,
     onItemRead,
 }) => {
-    if (items.length === 0) {
-        return <Loader />;
+    // get all items from local storage, then filter them by value "saved"
+    const savedItems = JSON.parse(localStorage.getItem("saved-links") || "[]");
+
+    console.log({ savedItems });
+
+    if (view === "saved" && savedItems.length === 0) {
+        return (
+            <div className="pt-16 pb-40 w-full px-5">
+                <h1 className="text-2xl font-bold">No saved items</h1>
+            </div>
+        );
     }
 
     if (view === "saved") {
         return (
             <div className="pt-16 pb-40 w-full px-5">
-                {items
-                    .filter(item => item.isSaved)
-                    .map((item) => (
-                        <FeedItem
-                            key={item.link}
-                            item={item}
-                            feedName={item.feedName}
-                            onlyTitle
-                        />
-                    ))}
+                {savedItems.map((item) => (
+                    <FeedItem
+                        key={item.link}
+                        item={{ ...item, description: "" }}
+                        feedName={item.feedName}
+                        onlyTitle
+                    />
+                ))}
             </div>
         )
     }
 
 
+    if (items.length === 0) {
+        return <Loader />;
+    }
 
     const nonSavedItems = items?.filter(item => !item.isSaved);
 
