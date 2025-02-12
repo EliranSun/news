@@ -25,19 +25,6 @@ export const ActionButtons = ({
             <RoundButton big onClick={onQueryClick}>
                 <AIQueryIcon size={24} className={aiQueryStatus.isLoading ? "animate-pulse" : ""} />
             </RoundButton>
-            <RoundButton big>
-                <MagnifyingGlass size={24} />
-            </RoundButton>
-            <RoundButton
-                big
-                onClick={() => {
-                    localStorage.setItem(contextualItems[0].link, "read");
-                    setFeeds(contextualItems.filter((feed) => feed.link !== contextualItems[0].link));
-                    setQueryResult("");
-                }}>
-                <CheckFat size={24} />
-                <NotificationBadge count={contextualItems.length} />
-            </RoundButton>
             <RoundButton big
                 onClick={() => {
                     const savedItems = JSON.parse(localStorage.getItem("saved-links") || "[]");
@@ -49,6 +36,19 @@ export const ActionButtons = ({
                     setQueryResult("");
                 }}>
                 <BookmarkSimple size={24} />
+            </RoundButton>
+            <RoundButton
+                big
+                onClick={() => {
+                    localStorage.setItem(contextualItems[0].link, "read");
+                    setFeeds(contextualItems.filter((feed) => feed.link !== contextualItems[0].link));
+                    setQueryResult("");
+                }}>
+                <CheckFat size={24} />
+                <NotificationBadge count={contextualItems.length} />
+            </RoundButton>
+            <RoundButton big>
+                <MagnifyingGlass size={24} />
             </RoundButton>
             <RoundButton big onClick={() => setIsSweepDataView(!isSweepDataView)}>
                 <ClearFeedUpToDate
