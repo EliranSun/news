@@ -53,10 +53,9 @@ const MultipleFeedsView = ({ items = [], onItemRead, queryResult = "", aiQuerySt
                         </Button>
                     </div>
                 ))}
-
-                <p>{queryResult}<p>
+                <p>{queryResult}</p>
         </div>
-    )
+    );
 };
 
 export const View = ({
