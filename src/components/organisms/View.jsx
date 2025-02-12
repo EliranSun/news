@@ -24,7 +24,11 @@ const MultipleFeedsView = ({
 
     const markdownQueryResult = useMemo(() => {
         if (!queryResult) return "";
-        return markdownit().render(queryResult);
+        return markdownit({
+            html: true,
+            linkify: true,
+            typographer: true
+        }).render(queryResult);
     }, [queryResult]);
 
     if (!itemsPerFeed || Object.keys(itemsPerFeed).length === 0) {
