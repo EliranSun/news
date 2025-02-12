@@ -43,6 +43,7 @@ const MultipleFeedsView = ({ items = [], onItemRead }) => {
                         />
                         
                         <Button 
+                            full
                             onClick={() => {
                             localStorage.setItem(feed[0].link, "read");
                             onItemRead(feed[0].link);
