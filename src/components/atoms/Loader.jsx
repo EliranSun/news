@@ -1,4 +1,4 @@
-import darkLoader from '../../assets/loader-dark.gif';
+// import darkLoader from '../../assets/loader-dark.gif';
 
 const LoaderImage = ({ src, className }) => {
     return (

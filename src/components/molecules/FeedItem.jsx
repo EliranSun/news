@@ -33,6 +33,7 @@ export const FeedItem = ({
                             "heebo-900": !item.language.includes("en"),
                         })}>
                         <div className={classNames({
+                            "dark:text-white/80": true,
                             "h-fit": onlyTitle,
                         })}>
                             {item.title}
@@ -48,7 +49,7 @@ export const FeedItem = ({
                     </h1>
                     <p
                         dir={item.language === "he" ? "rtl" : "ltr"}
-                        className="text-md mb-3">
+                        className="text-md mb-3 dark:text-white/70">
                         {queryResult || item.description}
                     </p>
                 </div>
