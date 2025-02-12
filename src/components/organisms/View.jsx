@@ -3,8 +3,13 @@ import { FeedItem } from "../molecules/FeedItem.jsx";
 import PropTypes from "prop-types";
 import { useMemo } from "react";
 import { Button } from "../atoms/Button.jsx";
+import { markdown } from "markdown";
 
-const MultipleFeedsView = ({ items = [], onItemRead, queryResult = "", aiQueryStatus = {} }) => {
+const MultipleFeedsView = ({
+    items = [],
+    onItemRead,
+    queryResult = "",
+}) => {
     const itemsPerFeed = useMemo(() => {
         const feeds = {};
         items.forEach((item) => {
@@ -17,7 +22,9 @@ const MultipleFeedsView = ({ items = [], onItemRead, queryResult = "", aiQuerySt
         return feeds;
     }, [items]);
 
-    console.log(items[0]);
+    const markdownQueryResult = useMemo(() => {
+        return markdown.toHTML(queryResult);
+    }, [queryResult]);
 
     if (!itemsPerFeed || Object.keys(itemsPerFeed).length === 0) {
         return <Loader />;
@@ -41,19 +48,19 @@ const MultipleFeedsView = ({ items = [], onItemRead, queryResult = "", aiQuerySt
                             onlyTitle
                             compact
                         />
-                        
-                        <Button 
+
+                        <Button
                             full
                             onClick={() => {
-                            localStorage.setItem(feed[0].link, "read");
-                            onItemRead(feed[0].link);
-                        }}
+                                localStorage.setItem(feed[0].link, "read");
+                                onItemRead(feed[0].link);
+                            }}
                             className="size-16 rounded-lg">
                             {feed.length}
                         </Button>
                     </div>
                 ))}
-                <p>{queryResult}</p>
+            <p dangerouslySetInnerHTML={{ __html: markdownQueryResult }} />
         </div>
     );
 };
@@ -93,9 +100,9 @@ export const View = ({
 
     if (view === "feeds") {
         return (
-            <MultipleFeedsView 
-                items={nonSavedItems} 
-                onItemRead={onItemRead} 
+            <MultipleFeedsView
+                items={nonSavedItems}
+                onItemRead={onItemRead}
                 queryResult={queryResult} />
         );
     }

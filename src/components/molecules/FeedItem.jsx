@@ -1,24 +1,14 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import translate from "translate";
-import { useEffect, useState } from "react";
 
-const TITLE_LENGTH_LIMIT = 50;
-
-export const FeedItem = ({ item, onClick = () => { },
- queryResult, onlyTitle, compact, feedName }) => {
-    // const [title, setTitle] = useState(item.title);
-    
-    // useEffect(() => {
-    //     if (item.language !== "he") {
-    //          translate(item.title, "he")
-    //             .then(results => setTitle(results))
-    //             .catch(error => console.error(error));
-    //     } else {
-    //         setTitle(item.title);
-    //         }
-    // }, [item]);
-    
+export const FeedItem = ({
+    item,
+    onClick = () => { },
+    queryResult,
+    onlyTitle,
+    compact,
+    feedName
+}) => {
     return (
         <div
             onClick={onClick}
@@ -42,35 +32,35 @@ export const FeedItem = ({ item, onClick = () => { },
                             "merriweather-bold": item.language.includes("en"),
                             "heebo-900": !item.language.includes("en"),
                         })}>
-                            <div className={classNames({
-                                "h-fit": onlyTitle,
-                            })}>
-                        {item.title}
+                        <div className={classNames({
+                            "h-fit": onlyTitle,
+                        })}>
+                            {item.title}
                         </div>
-                         {compact ?
-                            <div 
-                            className={classNames({
-                                "flex justify-between w-full gap-1 text-xs font-mono font-light": true
-                            })}>
+                        {compact ?
+                            <div
+                                className={classNames({
+                                    "flex justify-between w-full gap-1 text-xs font-mono font-light": true
+                                })}>
                                 <span>{feedName}</span>
                                 <span>{item.diff.value}{item.diff.unit}</span>
                             </div> : null}
                     </h1>
-                        <p
-                            dir={item.language === "he" ? "rtl" : "ltr"}
-                            className="text-md mb-3">
-                            {queryResult || item.description}
-                        </p>
+                    <p
+                        dir={item.language === "he" ? "rtl" : "ltr"}
+                        className="text-md mb-3">
+                        {queryResult || item.description}
+                    </p>
                 </div>
-                {compact ? null : 
-                <div className={classNames("font-mono", {
-                    "text-right": item.language.includes("he"),
-                    "text-left": !item.language.includes("he"),
-                    "leading-none text-sm flex w-full justify-between": true,
-                })}>
-                    <span>{item.feedName}</span>
-                    <span>{item.diff.value}{item.diff.unit}</span>
-                </div>}
+                {compact ? null :
+                    <div className={classNames("font-mono", {
+                        "text-right": item.language.includes("he"),
+                        "text-left": !item.language.includes("he"),
+                        "leading-none text-sm flex w-full justify-between": true,
+                    })}>
+                        <span>{item.feedName}</span>
+                        <span>{item.diff.value}{item.diff.unit}</span>
+                    </div>}
             </div>
         </div>
     );
