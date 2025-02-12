@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useMemo } from "react";
 import { Button } from "../atoms/Button.jsx";
 
-const MultipleFeedsView = ({ items = [], onItemRead }) => {
+const MultipleFeedsView = ({ items = [], onItemRead, queryResult = "" }) => {
     const itemsPerFeed = useMemo(() => {
         const feeds = {};
         items.forEach((item) => {
@@ -53,6 +53,8 @@ const MultipleFeedsView = ({ items = [], onItemRead }) => {
                         </Button>
                     </div>
                 ))}
+
+                <p>{queryResult}<p>
         </div>
     )
 };
@@ -92,7 +94,10 @@ export const View = ({
 
     if (view === "feeds") {
         return (
-            <MultipleFeedsView items={nonSavedItems} onItemRead={onItemRead} />
+            <MultipleFeedsView 
+                items={nonSavedItems} 
+                onItemRead={onItemRead} 
+                queryResult={queryResult} />
         );
     }
 
