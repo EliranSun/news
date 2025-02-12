@@ -17,7 +17,7 @@ export const ActionButtons = ({
 
     return (
         <div className="fixed bottom-0 pt-4 pb-8
-         border-gray-200 bg-white dark:bg-slate-800 inset-x-0 flex justify-center items-center 
+         border-gray-200 bg-white dark:bg-black inset-x-0 flex justify-center items-center 
          gap-4">
             <RoundButton big onClick={() => window.open(contextualItems[0].link, "_blank")}>
                 <Link size={24} />

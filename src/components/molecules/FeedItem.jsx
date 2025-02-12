@@ -17,7 +17,7 @@ export const FeedItem = ({
                 'pb-32': !onlyTitle,
                 'text-right': item.language.includes("he"),
                 'text-left': !item.language.includes("he"),
-                'mt-4 flex justify-between w-full': true,
+                'mt-4 flex justify-between w-full max-w-[700px]': true,
             })}>
             <div className="w-full flex flex-col justify-between">
                 <div>

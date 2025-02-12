@@ -33,7 +33,7 @@ const RssFeedComponent = () => {
 	}, []);
 
 	return (
-		<section className="h-[100dvh] w-screen dark:bg-black dark:text-white">
+		<section className="">
 			<PageNavigationHeader
 				view={view}
 				setView={setView}
@@ -43,7 +43,7 @@ const RssFeedComponent = () => {
 				items={items}
 				view={view}
 				aiQueryStatus={{
-					isLoading, 
+					isLoading,
 					isError,
 				}}
 				onItemRead={(itemLink) => {
@@ -62,7 +62,7 @@ const RssFeedComponent = () => {
 					else onQueryClick(items.slice(0, 1));
 				}}
 				aiQueryStatus={{
-					isLoading, 
+					isLoading,
 					isError,
 				}}
 			/>

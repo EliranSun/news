@@ -36,7 +36,7 @@ const MultipleFeedsView = ({
     }
 
     return (
-        <div className="flex flex-col gap-2 py-20 pb-40 w-full p-2">
+        <div className="flex flex-col gap-2 py-20 pb-40 w-full p-2 overflow-x-hidden">
             {queryResult &&
                 <div dangerouslySetInnerHTML={{ __html: markdownQueryResult }} />}
             {Object.entries(itemsPerFeed)
@@ -44,7 +44,7 @@ const MultipleFeedsView = ({
                 .map(([feedName, feed]) => (
                     <div key={feedName}
                         className="w-full flex items-center flex-col gap-2 h-fit 
-                     px-4">
+                     px-4 max-w-[700px] m-auto overflow-x-hidden">
                         <FeedItem
                             key={feed[0].link}
                             feedName={feedName}
@@ -114,7 +114,7 @@ export const View = ({
     }
 
     return (
-        <div className="w-full pt-16 px-5">
+        <div className="w-full max-w-[700px] m-auto pt-16 px-5">
             <FeedItem
                 item={nonSavedItems[0]}
                 queryResult={queryResult}

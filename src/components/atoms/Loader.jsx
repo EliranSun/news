@@ -15,11 +15,11 @@ export const Loader = () => {
         <div className="h-dvh w-full flex items-center justify-center">
             <LoaderImage
                 className="dark:hidden"
-                src="https://cdn.dribbble.com/users/4072391/screenshots/19660250/media/d31593551e019ea191d9cd69cc542792.gif"
+                src="https://media.tenor.com/A5RlBmmGOSQAAAAM/flosktchs-toilet-paper.gif"
             />
             <LoaderImage
                 className="hidden dark:block"
-                src={darkLoader}
+                src="https://media.tenor.com/A5RlBmmGOSQAAAAM/flosktchs-toilet-paper.gif"
             />
         </div>
     );
