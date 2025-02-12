@@ -3,7 +3,7 @@ import { FeedItem } from "../molecules/FeedItem.jsx";
 import PropTypes from "prop-types";
 import { useMemo } from "react";
 import { Button } from "../atoms/Button.jsx";
-import { markdown } from "markdown";
+import markdownit from 'markdown-it'
 
 const MultipleFeedsView = ({
     items = [],
@@ -24,7 +24,7 @@ const MultipleFeedsView = ({
 
     const markdownQueryResult = useMemo(() => {
         if (!queryResult) return "";
-        return markdown.toHTML(queryResult);
+        return markdownit().render(queryResult);
     }, [queryResult]);
 
     if (!itemsPerFeed || Object.keys(itemsPerFeed).length === 0) {
