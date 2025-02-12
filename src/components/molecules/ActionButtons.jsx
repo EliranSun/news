@@ -13,7 +13,7 @@ export const ActionButtons = ({
     onQueryClick,
     aiQueryStatus = {}
 }) => {
-    cosnt AIQueryIcon = aiQueryStatus.isError ? Skull : aiQueryStatus.isLoading ? Brain : Robot;
+    const AIQueryIcon = aiQueryStatus.isError ? Skull : aiQueryStatus.isLoading ? Brain : Robot;
 
     return (
         <div className="fixed bottom-0 pt-4 pb-8
