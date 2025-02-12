@@ -5,7 +5,7 @@ export const PageNavigationHeader = ({
     setView
 }) => {
     return (
-        <div className="mb-4 flex justify-start gap-4 fixed 
+        <div className="mb-4 flex justify-start gap-4 
         top-0 py-5 w-full bg-white dark:bg-slate-800 z-10">
             <h1
                 className={classNames({
