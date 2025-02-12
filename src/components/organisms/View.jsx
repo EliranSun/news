@@ -23,6 +23,7 @@ const MultipleFeedsView = ({
     }, [items]);
 
     const markdownQueryResult = useMemo(() => {
+        if (!queryResult) return "";
         return markdown.toHTML(queryResult);
     }, [queryResult]);
 
@@ -60,7 +61,8 @@ const MultipleFeedsView = ({
                         </Button>
                     </div>
                 ))}
-            <p dangerouslySetInnerHTML={{ __html: markdownQueryResult }} />
+            {queryResult &&
+                <p dangerouslySetInnerHTML={{ __html: markdownQueryResult }} />}
         </div>
     );
 };
