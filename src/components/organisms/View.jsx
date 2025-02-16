@@ -123,12 +123,20 @@ export const View = ({
         );
     }
 
-    return (
+        if (view === "page") {
+        return (
         <div className="w-full max-w-[700px] m-auto pt-16 px-5">
             <FeedItem
                 item={nonSavedItems[0]}
                 queryResult={queryResult}
             />
+        </div>
+        );
+    }
+    
+    return (
+        <div>
+            {nonSavedItems.map(item => <p>item.title</p>)}
         </div>
     );
 };
