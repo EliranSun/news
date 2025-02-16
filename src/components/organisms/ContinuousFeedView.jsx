@@ -22,13 +22,17 @@ const useCurrentItemScroll = (items = []) => {
             }
 
             localStorage.setItem(currentItem.link, "read");
-            currentIndex < newCurrentIndex && setCurrentIndex(newCurrentIndex);
+            
+            if (newCurrentIndex > currentIndex) {
+                setCurrentIndex(newCurrentIndex);
+            }
+
             setCurrentItem(items[newCurrentIndex]);
         };
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [items]);
+    }, [items, currentIndex]);
 
     return { currentItem, currentIndex };
 }
