@@ -46,7 +46,7 @@ export const ActionButtons = ({
                     setQueryResult("");
                 }}>
                 <BookmarkSimple size={24} />
-                <NotificationBadge count={savedLinks.length} />
+                <NotificationBadge count={savedLinks.length || 0} />
             </RoundButton>
             <RoundButton
                 big
@@ -56,7 +56,7 @@ export const ActionButtons = ({
                     setQueryResult("");
                 }}>
                 <CheckFat size={24} />
-                <NotificationBadge count={unreadItemsCount} />
+                <NotificationBadge count={unreadItemsCount || 0} />
             </RoundButton>
             <RoundButton big>
                 <MagnifyingGlass size={24} />

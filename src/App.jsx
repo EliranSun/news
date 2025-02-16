@@ -65,7 +65,7 @@ const RssFeedComponent = () => {
 			/>
 			<ActionButtons
 				contextualItems={items}
-				unreadItemsCount={items.length - scrolledItems.length}
+				unreadItemsCount={items.length - scrolledItems.length <= 0 ? 0 : items.length - scrolledItems.length}
 				setFeeds={setFeeds}
 				setQueryResult={setQueryResult}
 				isSweepDataView={isSweepDataView}
