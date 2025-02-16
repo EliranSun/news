@@ -2,7 +2,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 
-const useCurrentItemScroll = (items = []) => {
+const useCurrentItemScroll = (items = [], onItemRead = () => {}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentItem, setCurrentItem] = useState(items[0]);
 
@@ -28,6 +28,7 @@ const useCurrentItemScroll = (items = []) => {
             }
 
             setCurrentItem(items[newCurrentIndex]);
+            onItemRead();
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -37,8 +38,8 @@ const useCurrentItemScroll = (items = []) => {
     return { currentItem, currentIndex };
 }
 
-export default function ContinuousFeedView({ items = [] }) {
-    const { currentItem, currentIndex } = useCurrentItemScroll(items);
+export default function ContinuousFeedView({ items = [], onItemRead: () => {} }) {
+    const { currentItem, currentIndex } = useCurrentItemScroll(items, onItemRead);
 
     return (
         <div className="pt-24 pb-72 px-4 text-xl">

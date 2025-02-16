@@ -4,6 +4,13 @@ import { NotificationBadge } from "../atoms/NotificationBadge.jsx";
 import { ClearFeedUpToDate } from "./ClearFeedUpToDate.jsx";
 import PropTypes from "prop-types";
 
+let savedStorageItems = {};
+try {
+    savedStorageItems = JSON.parse(localStorage.getItems("saved-links") || "[]");
+} catch (error) {
+    console.error(error);
+}
+
 export const ActionButtons = ({
     contextualItems,
     setFeeds,
@@ -13,6 +20,7 @@ export const ActionButtons = ({
     onQueryClick,
     aiQueryStatus = {}
 }) => {
+    const [savedLinks, setSavedLinks] = useState(savedStorageItems || []);
     const AIQueryIcon = aiQueryStatus.isError ? Skull : aiQueryStatus.isLoading ? Brain : Robot;
 
     return (
@@ -27,15 +35,16 @@ export const ActionButtons = ({
             </RoundButton>
             <RoundButton big
                 onClick={() => {
-                    const savedItems = JSON.parse(localStorage.getItem("saved-links") || "[]");
-                    savedItems.push(contextualItems[0]);
-                    localStorage.setItem("saved-links", JSON.stringify(savedItems));
+                    const newSavedItems = [...savedItems].push(contextualItems[0]);
+                    localStorage.setItem("saved-links", JSON.stringify(newSavedItems));
                     localStorage.setItem(contextualItems[0].link, "read");
 
+                    setSavedLinks(newSavedItems);
                     setFeeds(contextualItems.filter((feed) => feed.link !== contextualItems[0].link));
                     setQueryResult("");
                 }}>
                 <BookmarkSimple size={24} />
+                <NotificationBadge count={savedLinks.length} />
             </RoundButton>
             <RoundButton
                 big

@@ -67,7 +67,7 @@ export const View = ({
         );
     }
 
-    return <ContinuousFeedView items={nonSavedItems} />
+    return <ContinuousFeedView items={nonSavedItems} onItemRead={onItemRead}/>
 };
 
 View.propTypes = {
