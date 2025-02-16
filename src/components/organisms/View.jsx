@@ -138,9 +138,9 @@ export const View = ({
         <div className="py-32 px-4  text-xl">
             <span>{nonSavedItems[0].diff.value}{nonSavedItems[0].diff.unit}</span>
             {nonSavedItems.map(item => <p 
-                dir={item.language === "en" ? "ltr" : "rtl"}
+                dir={item.language === "he" ? "rtl" : "ltr"}
                 className={`
-                py-4 ${item.language === "en" 
+                py-4 ${item.language !== "he" 
                 ? "merriweather-regular"
                 : "heebo-500"}
                 `}>{item.title};</p>)}
