@@ -1,3 +1,5 @@
+import { differenceInMinutes, differenceInHours, differenceInDays } from "date-fns";
+
 export const getDiffTime = (time) => {
 	// return diff in minutes, hours, days
 	const now = new Date();
@@ -8,14 +10,14 @@ export const getDiffTime = (time) => {
 	const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
 
 	if (diffMinutes < 60) {
-		return { value: diffMinutes, unit: "m", diffTime };
+		return { value: diffMinutes, unit: "m", diffTime, diffMinutes, diffHours };
 	}
 
 	if (diffHours < 24) {
-		return { value: diffHours, unit: "h", diffTime };
+		return { value: diffHours, unit: "h", diffTime, diffMinutes, diffHours };
 	}
 
-	return { value: diffDays, unit: "d", diffTime };
+	return { value: diffDays, unit: "d", diffTime, diffMinutes, diffHours };
 };
 
 export function removeUnicode(text) {

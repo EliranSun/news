@@ -1,75 +1,8 @@
 import { Loader } from "../atoms/Loader.jsx";
 import { FeedItem } from "../molecules/FeedItem.jsx";
 import PropTypes from "prop-types";
-import { useMemo } from "react";
-import { Button } from "../atoms/Button.jsx";
-import markdownit from 'markdown-it'
-
-const MultipleFeedsView = ({
-    items = [],
-    onItemRead,
-    queryResult = "",
-}) => {
-    const itemsPerFeed = useMemo(() => {
-        const feeds = {};
-        items.forEach((item) => {
-            feeds[item.feedName] = [
-                ...(feeds[item.feedName] || []),
-                item
-            ];
-        });
-
-        return feeds;
-    }, [items]);
-
-    const markdownQueryResult = useMemo(() => {
-        if (!queryResult) return "";
-        return markdownit({
-            html: true,
-            linkify: true,
-            typographer: true
-        }).render(queryResult);
-    }, [queryResult]);
-
-    if (!itemsPerFeed || Object.keys(itemsPerFeed).length === 0) {
-        return <Loader />;
-    }
-
-    return (
-        <div className="flex flex-col gap-2 py-20 pb-40 w-full p-2 overflow-x-hidden">
-            {queryResult &&
-                <div dangerouslySetInnerHTML={{ __html: markdownQueryResult }} />}
-            {Object.entries(itemsPerFeed)
-                .sort((a, b) => b[0].localeCompare(a[0]))
-                .map(([feedName, feed]) => (
-                    <div key={feedName}
-                        className="w-full flex items-center flex-col gap-2 h-fit 
-                     px-4 max-w-[700px] m-auto overflow-x-hidden">
-                        <FeedItem
-                            key={feed[0].link}
-                            feedName={feedName}
-                            item={{
-                                ...feed[0],
-                                title: `${feed[0].title}`
-                            }}
-                            onlyTitle
-                            compact
-                        />
-
-                        <Button
-                            full
-                            onClick={() => {
-                                localStorage.setItem(feed[0].link, "read");
-                                onItemRead(feed[0].link);
-                            }}
-                            className="size-16 rounded-lg">
-                            {feed.length}
-                        </Button>
-                    </div>
-                ))}
-        </div>
-    );
-};
+import ContinuousFeedView from "./ContinuousFeedView.jsx";
+import MultipleFeedsView from "./MultipleFeedsView.jsx";
 
 export const View = ({
     items = [],
@@ -123,29 +56,18 @@ export const View = ({
         );
     }
 
-        if (view === "page") {
+    if (view === "page") {
         return (
-        <div className="w-full max-w-[700px] m-auto pt-16 px-5">
-            <FeedItem
-                item={nonSavedItems[0]}
-                queryResult={queryResult}
-            />
-        </div>
+            <div className="w-full max-w-[700px] m-auto pt-16 px-5">
+                <FeedItem
+                    item={nonSavedItems[0]}
+                    queryResult={queryResult}
+                />
+            </div>
         );
     }
-    
-    return (
-        <div className="py-32 px-4  text-xl">
-            <span>{nonSavedItems[0].diff.value}{nonSavedItems[0].diff.unit}</span>
-            {nonSavedItems.map(item => <p 
-                dir={item.language === "he" ? "rtl" : "ltr"}
-                className={`
-                py-4 ${item.language !== "he" 
-                ? "merriweather-regular"
-                : "heebo-500"}
-                `}>{item.title};</p>)}
-        </div>
-    );
+
+    return <ContinuousFeedView items={nonSavedItems} />
 };
 
 View.propTypes = {
