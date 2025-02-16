@@ -46,6 +46,8 @@ const Item = ({ item, index, currentIndex }) => {
                     onClick={() => {
                         if (isDescriptionOpen)
                             window.open(item.link, "_blank");
+                        else 
+                            setIsDescriptionOpen(true);
                     }}
                     className={classNames("py-4 item", {
                         "opacity-20": index < currentIndex,
