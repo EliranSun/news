@@ -38,11 +38,15 @@ const useCurrentItemScroll = (items = [], onItemsScroll = () => { }) => {
     return { currentItem, currentIndex };
 }
 
+function hasHebrewCharacters(text) {
+    return /[\u0590-\u05FF]/.test(text);
+}
+
 const Item = ({ item, index, currentIndex }) => {
     const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
     return (
         <p
-                    dir={item.language === "he" ? "rtl" : "ltr"}
+                    dir={hasHebrewCharacters(item.title) ? "rtl" : "ltr"}
                     onClick={() => {
                         if (isDescriptionOpen)
                             window.open(item.link, "_blank");
