@@ -44,9 +44,11 @@ function hasHebrewCharacters(text) {
 
 const Item = ({ item, index, currentIndex }) => {
     const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
+    const isHebrew = hasHebrewCharacters(item.title);
+    
     return (
         <p
-                    dir={hasHebrewCharacters(item.title) ? "rtl" : "ltr"}
+                    dir={ isHebrew ? "rtl" : "ltr"}
                     onClick={() => {
                         if (isDescriptionOpen)
                             window.open(item.link, "_blank");
@@ -55,8 +57,8 @@ const Item = ({ item, index, currentIndex }) => {
                     }}
                     className={classNames("py-4 item", {
                         "opacity-20": index < currentIndex,
-                        "merriweather-regular": item.language !== "he",
-                        "heebo-500": item.language === "he"
+                        "merriweather-regular": !isHebrew,
+                        "heebo-500": isHebrew
                     })}>
                     {item.title}{isDescriptionOpen? `: ${item.description}` : ""}
                 </p>
