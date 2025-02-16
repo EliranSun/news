@@ -135,7 +135,7 @@ export const View = ({
     }
     
     return (
-        <div className="py-32">
+        <div className="py-32 px-4">
             {nonSavedItems.map(item => <p>{item.title}</p>)}
         </div>
     );
