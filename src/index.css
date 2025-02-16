@@ -150,6 +150,13 @@ button:focus-visible {
 	font-style: normal;
 }
 
+.heebo-500 {
+	font-family: "Heebo", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 500;
+	font-style: normal;
+}
+
 @layer base {
 	:root {
 		--background: 0 0% 100%;
