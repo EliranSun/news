@@ -38,6 +38,25 @@ const useCurrentItemScroll = (items = [], onItemsScroll = () => { }) => {
     return { currentItem, currentIndex };
 }
 
+const Item = ({ item, index, currentIndex }) => {
+    const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
+    return (
+        <p
+                    dir={item.language === "he" ? "rtl" : "ltr"}
+                    onClick={() => {
+                        if (isDescriptionOpen)
+                            window.open(item.link, "_blank");
+                    }}
+                    className={classNames("py-4 item", {
+                        "opacity-20": index < currentIndex,
+                        "merriweather-regular": item.language !== "he",
+                        "heebo-500": item.language === "he"
+                    })}>
+                    {item.title}{isDescriptionOpen? `:${item.description}` : ""}
+                </p>
+                );
+};
+
 export default function ContinuousFeedView({ items = [], onItemsScroll = () => { } }) {
     const { currentItem, currentIndex } = useCurrentItemScroll(items, onItemsScroll);
 
@@ -51,21 +70,11 @@ export default function ContinuousFeedView({ items = [], onItemsScroll = () => {
             fixed top-20 bg-white p-4">
                 {JSON.stringify({ currentIndex }, null, 2)}
             </span> */}
-            {items.map((item, index) =>
-                <p
-                    key={item.title}
-                    dir={item.language === "he" ? "rtl" : "ltr"}
-                    onClick={() => {
-                        window.open(item.link, "_blank");
-                    }}
-                    className={classNames("py-4 item", {
-                        "opacity-20": index < currentIndex,
-                        "merriweather-regular": item.language !== "he",
-                        "heebo-500": item.language === "he"
-                    })}>
-                    {item.title}
-                </p>)
-            }
+            {items.map((item, index) => <Item 
+                item={item}
+                index={index}
+                currentIndex={currentIndex}
+                key={item.title} />)}
         </div >
     );
 }
