@@ -135,8 +135,8 @@ export const View = ({
     }
     
     return (
-        <div className="py-32 px-4">
-            {nonSavedItems.map(item => <p>{item.title}</p>)}
+        <div className="py-32 px-4 merriweather-regular text-lg">
+            {nonSavedItems.map(item => <span>{item.title};; </span>)}
         </div>
     );
 };
