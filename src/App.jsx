@@ -34,7 +34,9 @@ const RssFeedComponent = () => {
 		return () => clearInterval(intervalId); // Cleanup interval on component unmount
 	}, []);
 
-	console.log({ itemsLength: items.length, scrolledItemsLength: scrolledItems.length });
+	useEffect(() => {
+		setScrolledItems(0);
+	}, [items]);
 
 	return (
 		<section className="dark:bg-black">
