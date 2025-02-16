@@ -136,7 +136,9 @@ export const View = ({
     
     return (
         <div className="py-32 px-4  text-xl">
-            {nonSavedItems.map(item => <p className={`
+            {nonSavedItems.map(item => <p 
+                dir={item.language === "en" ? "ltr" : "rtl"}
+                className={`
                 py-4 ${item.language === "en" 
                 ? "merriweather-regular"
                 : "heebo-500"}
