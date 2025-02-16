@@ -136,6 +136,7 @@ export const View = ({
     
     return (
         <div className="py-32 px-4  text-xl">
+            <span>{nonSavedItems[0].diff.value}{nonSavedItems[0].diff.unit}</span>
             {nonSavedItems.map(item => <p 
                 dir={item.language === "en" ? "ltr" : "rtl"}
                 className={`
