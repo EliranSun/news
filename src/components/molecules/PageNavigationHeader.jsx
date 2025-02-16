@@ -11,7 +11,7 @@ export const PageNavigationHeader = ({
                 className={classNames({
                     "text-sm font-bold w-20 text-center": true,
                     "opacity-50": view !== "feed",
-                    "border-b border-slate-300": view === "feed"
+                    "border-b border-slate-300": view === "page"
                 })}
                 onClick={() => setView("page")}>
                 Page
