@@ -38,7 +38,7 @@ const useCurrentItemScroll = (items = [], onItemRead = () => {}) => {
     return { currentItem, currentIndex };
 }
 
-export default function ContinuousFeedView({ items = [], onItemRead: () => {} }) {
+export default function ContinuousFeedView({ items = [], onItemRead = () => {} }) {
     const { currentItem, currentIndex } = useCurrentItemScroll(items, onItemRead);
 
     return (
