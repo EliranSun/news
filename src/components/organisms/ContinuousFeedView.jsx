@@ -54,7 +54,7 @@ const Item = ({ item, index, currentIndex }) => {
                         "merriweather-regular": item.language !== "he",
                         "heebo-500": item.language === "he"
                     })}>
-                    {item.title}{isDescriptionOpen? `:${item.description}` : ""}
+                    {item.title}{isDescriptionOpen? `: ${item.description}` : ""}
                 </p>
                 );
 };
