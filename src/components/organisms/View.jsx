@@ -135,8 +135,12 @@ export const View = ({
     }
     
     return (
-        <div className="py-32 px-4 merriweather-regular text-xl">
-            {nonSavedItems.map(item => <p>{item.title};</p>)}
+        <div className="py-32 px-4  text-xl">
+            {nonSavedItems.map(item => <p className={`
+                py-4 ${item.language === "en" 
+                ? "merriweather-regular"
+                : ""}
+                `}>{item.title};</p>)}
         </div>
     );
 };
