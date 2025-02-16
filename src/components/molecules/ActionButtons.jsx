@@ -1,12 +1,13 @@
 import { RoundButton } from "../atoms/RoundButton.jsx";
-import { BookmarkSimple, Broom, CheckFat, Link, Robot, Skull, Brain, MagnifyingGlass } from "@phosphor-icons/react";
+import { BookmarkSimple, Broom, CheckFat, Robot, Skull, Brain, MagnifyingGlass } from "@phosphor-icons/react";
 import { NotificationBadge } from "../atoms/NotificationBadge.jsx";
 import { ClearFeedUpToDate } from "./ClearFeedUpToDate.jsx";
 import PropTypes from "prop-types";
+import { useState } from "react";
 
-let savedStorageItems = {};
+let savedStorageItems = [];
 try {
-    savedStorageItems = JSON.parse(localStorage.getItems("saved-links") || "[]");
+    savedStorageItems = JSON.parse(localStorage.getItem("saved-links") || "[]");
 } catch (error) {
     console.error(error);
 }
@@ -18,7 +19,8 @@ export const ActionButtons = ({
     isSweepDataView,
     setIsSweepDataView,
     onQueryClick,
-    aiQueryStatus = {}
+    aiQueryStatus = {},
+    unreadItemsCount = 0,
 }) => {
     const [savedLinks, setSavedLinks] = useState(savedStorageItems || []);
     const AIQueryIcon = aiQueryStatus.isError ? Skull : aiQueryStatus.isLoading ? Brain : Robot;
@@ -35,7 +37,7 @@ export const ActionButtons = ({
             </RoundButton>
             <RoundButton big
                 onClick={() => {
-                    const newSavedItems = [...savedItems].push(contextualItems[0]);
+                    const newSavedItems = [...savedLinks].concat(contextualItems[0]);
                     localStorage.setItem("saved-links", JSON.stringify(newSavedItems));
                     localStorage.setItem(contextualItems[0].link, "read");
 
@@ -54,7 +56,7 @@ export const ActionButtons = ({
                     setQueryResult("");
                 }}>
                 <CheckFat size={24} />
-                <NotificationBadge count={contextualItems.length} />
+                <NotificationBadge count={unreadItemsCount} />
             </RoundButton>
             <RoundButton big>
                 <MagnifyingGlass size={24} />
@@ -76,4 +78,6 @@ ActionButtons.propTypes = {
     isSweepDataView: PropTypes.bool,
     setIsSweepDataView: PropTypes.func,
     onQueryClick: PropTypes.func,
+    aiQueryStatus: PropTypes.object,
+    unreadItemsCount: PropTypes.number,
 };

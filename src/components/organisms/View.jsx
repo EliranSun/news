@@ -9,11 +9,15 @@ export const View = ({
     view,
     queryResult,
     onItemRead,
+    onItemsScroll,
+    isLoadingFeeds = true,
 }) => {
     // get all items from local storage, then filter them by value "saved"
     const savedItems = JSON.parse(localStorage.getItem("saved-links") || "[]");
 
-    console.log({ savedItems });
+    if (isLoadingFeeds) {
+        return <Loader />;
+    }
 
     if (view === "saved" && savedItems.length === 0) {
         return (
@@ -40,7 +44,7 @@ export const View = ({
 
 
     if (items.length === 0) {
-        return <Loader />;
+        return <div className="h-dvh flex justify-center items-center">All done!</div>;
     }
 
     const nonSavedItems = items?.filter(item => !item.isSaved);
@@ -67,11 +71,13 @@ export const View = ({
         );
     }
 
-    return <ContinuousFeedView items={nonSavedItems} onItemRead={onItemRead}/>
+    return <ContinuousFeedView items={nonSavedItems} onItemsScroll={onItemsScroll} />
 };
 
 View.propTypes = {
     items: PropTypes.array,
     queryResult: PropTypes.string,
     view: PropTypes.string,
+    onItemRead: PropTypes.func,
+    onItemsScroll: PropTypes.func,
 };

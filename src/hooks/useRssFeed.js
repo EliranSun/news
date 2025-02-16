@@ -3,10 +3,12 @@ import { getDiffTime, removeUnicode, sanitizeText } from "../utils.js";
 
 
 export const useRssFeed = (isSavedView) => {
+    const [isLoading, setIsLoading] = useState(false);
     const [feeds, setFeeds] = useState([]);
 
     const fetchAndParseFeeds = useCallback(async () => {
         try {
+            setIsLoading(true);
             const url = "https://walak.vercel.app/api/rss";
             const response = await fetch(url);
             const data = (await response.json()) || [];
@@ -43,6 +45,8 @@ export const useRssFeed = (isSavedView) => {
             setFeeds(sortedItems);
         } catch (error) {
             console.error("Error fetching and parsing feeds:", error);
+        } finally {
+            setIsLoading(false);
         }
     }, [isSavedView]);
 
@@ -65,5 +69,5 @@ export const useRssFeed = (isSavedView) => {
         return nonSavedItems;
     }, [isSavedView, savedItems, nonSavedItems]);
 
-    return { items: contextualItems, setFeeds };
+    return { items: contextualItems, setFeeds, isLoading };
 };

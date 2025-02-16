@@ -2,7 +2,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 
-const useCurrentItemScroll = (items = [], onItemRead = () => {}) => {
+const useCurrentItemScroll = (items = [], onItemsScroll = () => { }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentItem, setCurrentItem] = useState(items[0]);
 
@@ -22,13 +22,13 @@ const useCurrentItemScroll = (items = [], onItemRead = () => {}) => {
             }
 
             localStorage.setItem(currentItem.link, "read");
-            
-            if (newCurrentIndex > currentIndex) {
+
+            if (newCurrentIndex >= currentIndex) {
                 setCurrentIndex(newCurrentIndex);
             }
 
             setCurrentItem(items[newCurrentIndex]);
-            onItemRead();
+            onItemsScroll(currentItem.link);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -38,11 +38,11 @@ const useCurrentItemScroll = (items = [], onItemRead = () => {}) => {
     return { currentItem, currentIndex };
 }
 
-export default function ContinuousFeedView({ items = [], onItemRead = () => {} }) {
-    const { currentItem, currentIndex } = useCurrentItemScroll(items, onItemRead);
+export default function ContinuousFeedView({ items = [], onItemsScroll = () => { } }) {
+    const { currentItem, currentIndex } = useCurrentItemScroll(items, onItemsScroll);
 
     return (
-        <div className="pt-24 pb-72 px-4 text-xl">
+        <div className="pt-24 pb-[50rem] px-4 text-xl">
             <span className="text-sm font-bold 
             bg-black text-white fixed left-1 top-16 p-2">
                 {currentItem?.diff?.value}{currentItem?.diff?.unit} ago
@@ -53,7 +53,7 @@ export default function ContinuousFeedView({ items = [], onItemRead = () => {} }
             </span> */}
             {items.map((item, index) =>
                 <p
-                    key={item.id}
+                    key={item.title}
                     dir={item.language === "he" ? "rtl" : "ltr"}
                     onClick={() => {
                         window.open(item.link, "_blank");
@@ -72,4 +72,5 @@ export default function ContinuousFeedView({ items = [], onItemRead = () => {} }
 
 ContinuousFeedView.propTypes = {
     items: PropTypes.array,
+    onItemsScroll: PropTypes.func,
 };
