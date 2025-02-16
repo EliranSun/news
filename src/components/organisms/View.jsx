@@ -139,7 +139,7 @@ export const View = ({
             {nonSavedItems.map(item => <p className={`
                 py-4 ${item.language === "en" 
                 ? "merriweather-regular"
-                : ""}
+                : "heebo-500"}
                 `}>{item.title};</p>)}
         </div>
     );
