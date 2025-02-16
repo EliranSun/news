@@ -38,8 +38,8 @@ export default function ContinuousFeedView({ items = [] }) {
 
     return (
         <div className="pt-24 pb-72 px-4 text-xl">
-            <span className="text-sm font-bold border-b-2 
-            border-black fixed left-0 top-14 bg-white p-4 pb-1">
+            <span className="text-sm font-bold 
+            bg-black text-white fixed left-1 top-16 p-2">
                 {currentItem?.diff?.value}{currentItem?.diff?.unit} ago
             </span>
             {/* <span className="text-sm font-bold border-b-2 border-black 
@@ -50,6 +50,9 @@ export default function ContinuousFeedView({ items = [] }) {
                 <p
                     key={item.id}
                     dir={item.language === "he" ? "rtl" : "ltr"}
+                    onClick={() => {
+                        window.open(item.link, "_blank");
+                    }}
                     className={classNames("py-4 item", {
                         "opacity-20": index < currentIndex,
                         "merriweather-regular": item.language !== "he",
