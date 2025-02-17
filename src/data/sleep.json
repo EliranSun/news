@@ -371,5 +371,26 @@
         "deep": "0:45",
         "awake": "0:30",
         "feeling": "tired"
-    }
+    },
+    {
+        "date": "2025-02-18",
+        "coffee": false,
+        "magnesium": true,
+        "alcohol": false,
+        "screen": true,
+        "workout": false,
+        "shower": false,
+        "poop": false,
+        "social": false,
+        "last_meal": "0:00",
+        "last_meal_description": [
+            "3 cake slice",
+        ],
+        "sleep_hour": "",
+        "wake_hour": "",
+        "REM": "",
+        "deep": "",
+        "awake": "",
+        "feeling": ""
+    },
 ]
