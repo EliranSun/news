@@ -381,7 +381,7 @@
         "workout": false,
         "shower": false,
         "poop": false,
-        "social": false,
+        "social": true,
         "last_meal": "0:00",
         "last_meal_description": [
             "3 cake slice",
