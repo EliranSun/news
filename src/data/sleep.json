@@ -1,5 +1,26 @@
 [
     {
+        "date": "2025-02-19",
+        "coffee": false,
+        "magnesium": null,
+        "alcohol": null,
+        "screen": null,
+        "workout": false,
+        "shower": null,
+        "poop": null,
+        "social": false,
+        "last_meal": "",
+        "last_meal_description": [
+            ""
+        ],
+        "sleep_hour": "",
+        "wake_hour": "",
+        "REM": "",
+        "deep": "",
+        "awake": "",
+        "feeling": ""
+    },
+    {
         "date": "2025-02-01",
         "coffee": true,
         "magnesium": true,
@@ -384,7 +405,7 @@
         "social": true,
         "last_meal": "0:00",
         "last_meal_description": [
-            "3 cake slice",
+            "3 cake slice"
         ],
         "sleep_hour": "00:40",
         "wake_hour": "7:00",
@@ -392,5 +413,5 @@
         "deep": "1:20",
         "awake": "0:05",
         "feeling": "tired"
-    },
+    }
 ]
