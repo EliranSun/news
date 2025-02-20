@@ -419,15 +419,15 @@
 
     {
         "date": "2025-02-20",
-        "coffee": null,
-        "magnesium": null,
-        "alcohol": null,
-        "screen": null,
-        "workout": null,
-        "shower": null,
-        "poop": null,
-        "social": null,
-        "last_meal": "",
+        "coffee": false,
+        "magnesium": true,
+        "alcohol": false,
+        "screen": true,
+        "workout": true,
+        "shower": true,
+        "poop": false,
+        "social": false,
+        "last_meal": "21:30",
         "last_meal_description": [
             "expired broccoli?",
             "non white flour pasta"
