@@ -432,11 +432,11 @@
             "expired broccoli?",
             "non white flour pasta"
         ],
-        "sleep_hour": "",
-        "wake_hour": "",
-        "REM": "",
-        "deep": "",
-        "awake": "",
+        "sleep_hour": "23:20",
+        "wake_hour": "07:15",
+        "REM": "1:30",
+        "deep": "0:30",
+        "awake": "0:15",
         "feeling": ""
     },
     {
