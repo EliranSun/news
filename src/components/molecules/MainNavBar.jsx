@@ -6,21 +6,23 @@ const savePath = (path) => {
 	window.location.href = path;
 };
 
+const today = new Date();
+
 const InnerMenu = () => {
 	return (
 		<div
 			className="flex flex-col gap-6 justify-center items-center w-10 shadow-md rounded-xl p-4 mt-1
 			animate-in slide-in-from-top duration-200 ease-in-out
-			hover:scale-105 transition-transform">
-			<span
-				className="transition-transform hover:scale-110 active:scale-95 cursor-pointer"
-				onClick={() => savePath("/sleep")}>
-				<Bed size={20} />
-			</span>
+			hover:scale-105 transition-transform bg-white dark:bg-black">
 			<span
 				className="transition-transform hover:scale-110 active:scale-95 cursor-pointer"
 				onClick={() => savePath("/")}>
 				<Rss size={20} />
+			</span>
+			<span
+				className="transition-transform hover:scale-110 active:scale-95 cursor-pointer"
+				onClick={() => savePath(`/sleep/add?date=${today.toISOString().split('T')[0]}`)}>
+				<Bed size={20} />
 			</span>
 			<span
 				className="transition-transform hover:scale-110 active:scale-95 cursor-pointer"
@@ -47,7 +49,7 @@ export const MainNavBar = () => {
 	return (
 		<div className="fixed top-1 right-5 z-20">
 			<div
-				className="flex justify-center items-center
+				className="flex justify-center items-center bg-white dark:bg-black
 				 shadow-md rounded-full p-2 cursor-pointer size-12
 					transition-transform hover:scale-105 active:scale-95">
 				<Menu onClick={() => setIsMenuOpen(!isMenuOpen)} />

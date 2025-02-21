@@ -21,35 +21,35 @@ export const MainPage = ({ savedPath }) => {
 		return <BirthdayImagePage imageID={imagePage} />;
 	}
 
-	switch (currentPath) {
-		case "/qr":
+	switch (true) {
+		case currentPath.includes("/qr"):
 			return <BirthdayQrCodes />;
 
-		case "/fire":
+		case currentPath.includes("/fire"):
 			return <FireRekindle />;
 
-		case "/chart":
+		case currentPath.includes("/chart"):
 			return <OnePieceLastEpisodesChart />;
 
-		case "/sleep":
-			return <SleepTrackerComponent />;
+		// case currentPath.includes("/sleep"):
+		// 	return <SleepTrackerComponent />;
 
-		case "/ten":
+		case currentPath.includes("/ten"):
 			return <TenThousandHours />;
 
-		case "/cv":
+		case currentPath.includes("/cv"):
 			return <CurriculumVitae />;
 
-		case "/simple":
+		case currentPath.includes("/simple"):
 			return <SimpleTracker />;
 
-		case "/clock":
+		case currentPath.includes("/clock"):
 			return <Clock />;
 
-		case "/sleep-graph":
+		case currentPath.includes("/sleep-graph"):
 			return <SleepGraph />;
 
-		case "/sleep/add":
+		case currentPath.includes("/sleep/add"):
 			return <SleepAdd />;
 
 		default:
