@@ -9,6 +9,7 @@ import { CurriculumVitae } from "./components/organisms/cv.jsx";
 import { SimpleTracker } from "./components/organisms/simple-tracker.jsx";
 import { Clock } from "./components/organisms/clock.jsx";
 import SleepGraph from "./pages/SleepGraph.jsx";
+import SleepAdd from "./pages/SleepAdd.jsx";
 
 export const MainPage = ({ savedPath }) => {
 	// Use savedPath if provided, otherwise use current path
@@ -47,6 +48,9 @@ export const MainPage = ({ savedPath }) => {
 
 		case "/sleep-graph":
 			return <SleepGraph />;
+
+		case "/sleep/add":
+			return <SleepAdd />;
 
 		default:
 			return <News />;
