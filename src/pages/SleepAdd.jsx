@@ -1,24 +1,24 @@
 import classNames from "classnames";
 import { motion } from "motion/react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 const States = {
-    Coffee: "Coffee",
-    Magnesium: "Magnesium",
-    Alcohol: "Alcohol",
-    Screen: "Screen",
-    Workout: "Workout",
-    Shower: "Shower",
-    Poop: "Poop",
-    Social: "Social",
-    LastMeal: "LastMeal",
-    LastMealDescription: "LastMealDescription",
-    SleepHour: "SleepHour",
-    WakeHour: "WakeHour",
-    REM: "REM",
-    Deep: "Deep",
-    Awake: "Awake",
-    Feeling: "Feeling",
+    Coffee: "coffee",
+    Magnesium: "magnesium",
+    Alcohol: "alcohol",
+    Screen: "screen",
+    Workout: "workout",
+    Shower: "shower",
+    Poop: "poop",
+    Social: "social",
+    LastMeal: "last_meal",
+    LastMealDescription: "last_meal_description",
+    SleepHour: "sleep_hour",
+    WakeHour: "wake_hour",
+    REM: "rem",
+    Deep: "deep",
+    Awake: "awake",
+    Feeling: "feeling",
 }
 
 const query = new URLSearchParams(window.location.search);
@@ -27,7 +27,7 @@ const state = query.get("state") || States.Coffee;
 
 const dateObject = new Date(date);
 
-const Button = ({ children, onClick, bgColor }) => {
+const Button = ({ children, onClick, bgColor, className }) => {
     return (
         <button
             className={classNames("active:bg-black active:text-white p-2 rounded-md", {
@@ -38,8 +38,7 @@ const Button = ({ children, onClick, bgColor }) => {
                 "bg-blue-500": bgColor === "blue",
                 "bg-cyan-500": bgColor === "cyan",
                 "text-white": bgColor,
-                "w-full": true,
-            })}
+            }, className)}
             onClick={onClick}>
             {children}
         </button>
@@ -216,17 +215,36 @@ const Options = ({ view, OnAnswer, bgColors }) => {
     )
 };
 
+const storedData = localStorage.getItem("sleep_data-" + dateObject.toISOString().split("T")[0]);
 export default function SleepAdd() {
     const [view, setView] = useState(state);
     const [animate, setAnimate] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
+    // TODO: THEN COPY
+    const [data, setData] = useState(storedData ? JSON.parse(storedData) : {
+        date: dateObject.toISOString().split("T")[0],
+    })
+
+    useEffect(() => {
+        console.log({ data });
+    }, [data]);
 
     const OnAnswer = useCallback((answer) => {
+        setData({
+            ...data,
+            [view.toLowerCase()]: answer === OptionType.YES
+                ? true
+                : answer === OptionType.NO
+                    ? false
+                    : answer
+        });
+
+        setIsVisible(false);
+
         if (StateQuestions[view].next) {
+            setAnimate(true);
             query.set("state", StateQuestions[view].next);
             window.history.pushState({}, "", window.location.pathname + "?" + query.toString());
-            setAnimate(true);
-            setIsVisible(false);
             setTimeout(() => {
                 setView(StateQuestions[view].next);
             }, 250);
@@ -234,44 +252,59 @@ export default function SleepAdd() {
     }, [view]);
 
     return (
-        <motion.div
-            className="py-4 px-8 w-screen h-dvh flex flex-col justify-center"
-            transition={{
-                type: "spring",
-                stiffness: 400,
-                damping: 30,
-                restSpeed: 100
-            }}
-            animate={{
-                opacity: isVisible ? 1 : 0,
-                x: animate ? -300 : 0
-            }}
-            onAnimationComplete={() => {
-                setAnimate(false);
-                setIsVisible(true);
-            }}
-        >
-            <h1 className="space-grotesk-700 font-bold text-base">
-                {dateObject.toLocaleDateString("en-GB", {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric'
-                })}
-            </h1>
-            <div className="merriweather-regular text-2xl space-y-4 w-full">
-                {StateQuestions[view] &&
-                    <>
-                        <div>{StateQuestions[view].question}</div>
-                        <div className={classNames("grid gap-2 w-full justify-center", {
-                            "grid-cols-2": !StateQuestions[view].cols,
-                            "grid-cols-3": StateQuestions[view].cols === 3,
-                            "grid-cols-4": StateQuestions[view].cols === 4,
-                            "grid-cols-1": StateQuestions[view].cols === 1,
-                        })}>
-                            <Options view={view} OnAnswer={OnAnswer} bgColors={StateQuestions[view].bgColors} />
-                        </div>
-                    </>}
-            </div>
-        </motion.div>
+        <div className="flex flex-col justify-center w-screen h-dvh py-4 px-8">
+            <motion.div
+                className=""
+                transition={{
+                    type: "spring",
+                    stiffness: 350,
+                    damping: 30,
+                    restSpeed: 0
+                }}
+                animate={{
+                    opacity: isVisible ? 1 : 0,
+                    x: animate ? -300 : 0
+                }}
+                onAnimationComplete={() => {
+                    setAnimate(false);
+                    setIsVisible(true);
+                }}
+            >
+                <h1 className="space-grotesk-700 font-bold text-base mb-8">
+                    {dateObject.toLocaleDateString("en-GB", {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    })}
+                </h1>
+                <div className="merriweather-regular text-2xl space-y-4 w-full">
+                    {StateQuestions[view] &&
+                        <>
+                            <div>{StateQuestions[view].question}</div>
+                            <div className={classNames("grid gap-2 w-full justify-center", {
+                                "grid-cols-2": !StateQuestions[view].cols,
+                                "grid-cols-3": StateQuestions[view].cols === 3,
+                                "grid-cols-4": StateQuestions[view].cols === 4,
+                                "grid-cols-1": StateQuestions[view].cols === 1,
+                            })}>
+                                <Options
+                                    view={view}
+                                    OnAnswer={OnAnswer}
+                                    bgColors={StateQuestions[view].bgColors} />
+                            </div>
+                        </>}
+                </div>
+            </motion.div>
+            <Button
+                className="fixed bottom-4 right-4 w-fit"
+                onClick={() => {
+                    const csvData = Object.values(data).join("\t");
+                    navigator.clipboard.writeText(csvData);
+                    const key = "sleep_data-" + dateObject.toISOString().split("T")[0];
+                    localStorage.setItem(key, csvData);
+                }}>
+                Copy data
+            </Button>
+        </div>
     );
 }
