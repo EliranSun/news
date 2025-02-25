@@ -10,6 +10,7 @@ import { SimpleTracker } from "./components/organisms/simple-tracker.jsx";
 import { Clock } from "./components/organisms/clock.jsx";
 import SleepGraph from "./pages/SleepGraph.jsx";
 import SleepAdd from "./pages/SleepAdd.jsx";
+import Orchuk from "./pages/Orchuk.jsx";
 
 export const MainPage = ({ savedPath }) => {
 	// Use savedPath if provided, otherwise use current path
@@ -51,6 +52,9 @@ export const MainPage = ({ savedPath }) => {
 
 		case currentPath.includes("/sleep/add"):
 			return <SleepAdd />;
+
+		case currentPath.includes("/orchuk"):
+			return <Orchuk />;
 
 		default:
 			return <News />;
