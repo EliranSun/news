@@ -1,219 +1,13 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import PropTypes from 'prop-types';
+import { colorSchemes } from "../features/orchuk/color-scheme";
+import { RoundedFloatingBox } from "../features/orchuk/rounding-floating-box";
+import { PrimaryButton } from "../features/orchuk/primary-button";
+import { CallToActionQuestion } from "../features/orchuk/call-to-action-question";
+import { CallToActionAnswer } from "../features/orchuk/call-to-action-answer";
+import { WaveDivider } from "../features/orchuk/wave-divider";
+import { Questions } from "../features/orchuk/constants";
 
-// Define color schemes
-const colorSchemes = {
-    default: {
-        primary: 'indigo',
-        secondary: 'blue',
-        accent: 'yellow',
-        text: {
-            dark: 'gray-700',
-            darker: 'gray-900',
-            light: 'white',
-        },
-        bg: {
-            gradient: 'from-blue-50 to-indigo-100',
-            section: 'bg-indigo-600',
-            highlight: 'bg-yellow-400',
-        }
-    },
-    modern: {
-        primary: 'blue',
-        secondary: 'orange',
-        accent: 'green',
-        text: {
-            dark: 'gray-800',
-            darker: 'gray-900',
-            light: 'white',
-        },
-        bg: {
-            gradient: 'from-blue-50 to-blue-100',
-            section: 'bg-blue-600',
-            highlight: 'bg-orange-400',
-        },
-        // Custom Tailwind colors for the modern scheme
-        custom: {
-            primary: '#4A90E2', // Soft medium blue
-            secondary: '#FF7F50', // Coral
-            accent: '#2ECC71', // Muted green
-            background: '#F5F5F5', // Light gray
-            text: '#333333', // Dark gray
-        }
-    }
-};
-
-const RoundedFloatingBox = ({ value, label, min, max, colors }) => {
-    const isModern = colors.custom !== undefined;
-
-    return (
-        <div className={`rounded-lg ${isModern ? 'bg-white' : 'bg-white'} p-4 shadow-lg mx-8`}
-            style={isModern ? { backgroundColor: colors.custom.background } : {}}>
-            <h3 className={isModern ? 'text-2xl font-bold' : `text-2xl font-bold text-${colors.primary}-700`}
-                style={isModern ? { color: colors.custom.primary } : {}}>
-                {min && max ? `${max}→${min}` : `${value}+`}
-            </h3>
-            <p className={isModern ? 'text-base' : `text-${colors.text.dark}`}
-                style={isModern ? { color: colors.custom.text } : {}}>
-                {label}
-            </p>
-        </div>
-    );
-};
-
-RoundedFloatingBox.propTypes = {
-    value: PropTypes.number,
-    label: PropTypes.string.isRequired,
-    min: PropTypes.number,
-    max: PropTypes.number,
-    colors: PropTypes.shape({
-        primary: PropTypes.string.isRequired,
-        text: PropTypes.shape({
-            dark: PropTypes.string.isRequired
-        }).isRequired,
-        custom: PropTypes.shape({
-            primary: PropTypes.string,
-            secondary: PropTypes.string,
-            accent: PropTypes.string,
-            background: PropTypes.string,
-            text: PropTypes.string
-        })
-    }).isRequired
-};
-
-const PrimaryButton = ({ children, inverse = false, colors }) => {
-    const isModern = colors.custom !== undefined;
-
-    if (isModern) {
-        return (
-            <button
-                className="font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 transform hover:scale-105"
-                style={{
-                    backgroundColor: inverse ? 'white' : colors.custom.primary,
-                    color: inverse ? colors.custom.primary : 'white',
-                }}
-                onMouseOver={(e) => {
-                    e.currentTarget.style.backgroundColor = inverse ? 'white' : '#3A80D2'; // Darker blue on hover
-                }}
-                onMouseOut={(e) => {
-                    e.currentTarget.style.backgroundColor = inverse ? 'white' : colors.custom.primary;
-                }}
-            >
-                {children}
-            </button>
-        );
-    }
-
-    return (
-        <button className={` hover:bg-${colors.primary}-700  
-        font-bold py-3 px-6 rounded-full shadow-lg transition duration-300 
-        transform hover:scale-105 ${inverse ? `bg-white text-${colors.primary}-600`
-                : `bg-${colors.primary}-600 text-white`}`}>
-            {children}
-        </button>
-    );
-};
-
-PrimaryButton.propTypes = {
-    children: PropTypes.node.isRequired,
-    inverse: PropTypes.bool,
-    colors: PropTypes.shape({
-        primary: PropTypes.string.isRequired,
-        custom: PropTypes.shape({
-            primary: PropTypes.string,
-            secondary: PropTypes.string
-        })
-    }).isRequired
-};
-
-const CallToActionQuestion = ({ children, type = "primary", colors }) => {
-    const isModern = colors.custom !== undefined;
-
-    if (isModern) {
-        return (
-            <h2 className="text-lg md:text-2xl lg:text-5xl font-bold leading-tight italic px-4"
-                style={{ color: type === "primary" ? colors.custom.text : 'white' }}>
-                {children}
-            </h2>
-        );
-    }
-
-    return (
-        <h2 className={`text-lg md:text-2xl lg:text-5xl
-        font-bold leading-tight italic px-4
-        ${type === "primary" ? `text-${colors.primary}-900` : "text-white"}`}>
-            {children}
-        </h2>
-    );
-};
-
-CallToActionQuestion.propTypes = {
-    children: PropTypes.node.isRequired,
-    type: PropTypes.string,
-    colors: PropTypes.shape({
-        primary: PropTypes.string.isRequired,
-        custom: PropTypes.shape({
-            text: PropTypes.string
-        })
-    }).isRequired
-};
-
-const CallToActionAnswer = ({ children, type = "primary", highlight = false, colors }) => {
-    const isModern = colors.custom !== undefined;
-
-    if (isModern) {
-        if (type === "primary" && highlight) {
-            return (
-                <h1 className="text-[3.15rem] mx-auto heebo-900 md:text-4xl font-semibold">
-                    <mark style={{ backgroundColor: colors.custom.secondary, textDecoration: 'underline', lineHeight: 'tight' }}>
-                        {children}
-                    </mark>
-                </h1>
-            );
-        }
-
-        return (
-            <h1 className="text-[3.15rem] mx-auto heebo-900 md:text-4xl font-semibold"
-                style={{ color: type === "primary" ? colors.custom.primary : 'white' }}>
-                {children}
-            </h1>
-        );
-    }
-
-    return (
-        <h1 className={`text-[3.15rem] mx-auto heebo-900 
-                        md:text-4xl font-semibold 
-                        ${type === "primary" ? `text-${colors.primary}-700` : "text-white"}`}>
-            {type === "primary" && highlight
-                ? <mark className={`${colors.bg.highlight} underline leading-tight`}>
-                    {children}
-                </mark> : children}
-        </h1>
-    );
-};
-
-CallToActionAnswer.propTypes = {
-    children: PropTypes.node.isRequired,
-    type: PropTypes.string,
-    highlight: PropTypes.bool,
-    colors: PropTypes.shape({
-        primary: PropTypes.string.isRequired,
-        bg: PropTypes.shape({
-            highlight: PropTypes.string.isRequired
-        }).isRequired,
-        custom: PropTypes.shape({
-            primary: PropTypes.string,
-            secondary: PropTypes.string
-        })
-    }).isRequired
-};
-
-const Questions = [
-    "הילד שלך משקיע בלימודים אבל לא רואה ציונים גבוהים?",
-    "הילד שלך מרגיש שהוא הולך לאיבוד בתוך כיתה של 30 תלמידים?",
-    "הילד שלך מתקשה להתרכז בשיעורים ומאבד עניין במהירות?",
-];
 
 export default function Orchuk() {
     const [questionIndex, setQuestionIndex] = useState(0);
@@ -241,12 +35,11 @@ export default function Orchuk() {
                 { background: `linear-gradient(to bottom right, ${colors.custom.background}, #E6F0FF)` } :
                 {}}>
             {/* Hero Section */}
-            <section className="h-[calc(100vh-10px)] container mx-auto px-8 py-8 md:py-24 
-            text-right relative overflow-hidden">
+            <section className="h-[calc(100vh-20px)] container mx-auto px-8 pt-8 md:py-24 
+            text-right relative overflow-hidden pb-20">
                 {/* Background Image - Positioned behind content but above background */}
-
-
-                <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+                <div className="flex flex-col md:flex-row items-center 
+                justify-between gap-8 relative z-10">
                     {/* Text Content */}
                     <div className="md:w-1/2 space-y-6">
                         <div className="flex items-center">
@@ -295,11 +88,24 @@ export default function Orchuk() {
                 <div className="absolute inset-0 z-0 bottom-0 flex justify-center items-end opacity-40">
                     <div className="w-full h-1/4 bg-gradient-to-t from-black to-transparent"></div>
                 </div>
+
+                {/* Wave divider at the bottom of hero section */}
+                <WaveDivider
+                    colors={colors}
+                    fillColor={colors.custom.primary}
+                    position="bottom"
+                    pattern="smooth"
+                    height={80}
+                    zIndex={5} />
             </section>
-            <section className={colors.custom ?
-                "container mx-auto px-4 pt-8 pb-16 space-y-8 shadow-inner md:py-24 text-center relative overflow-hidden" :
-                `container mx-auto px-4 pt-8 pb-16 ${colors.bg.section} space-y-8 shadow-inner md:py-24 text-center relative overflow-hidden`}
+
+            {/* Stats Section */}
+            <section
+                className={`container relative mx-auto px-4
+                     pt-8 pb-24 space-y-8 shadow-inner md:py-24 
+                     text-center ${colors.custom ? '' : colors.bg.section}`}
                 style={colors.custom ? { backgroundColor: colors.custom.primary } : {}}>
+                {/* <WaveDivider colors={colors} position="top" pattern="smooth" height={80} zIndex={5} /> */}
                 <h2 className="text-3xl font-bold text-white heebo-500">
                     נתונים מהשטח
                 </h2>
@@ -319,10 +125,16 @@ export default function Orchuk() {
                     label="שיפור ממוצע הציונים"
                     colors={colors}
                 />
+
+                {/* Wave divider at the bottom of stats section */}
+                <WaveDivider
+                    fillColor={colors.custom.background}
+                    position="bottom"
+                    pattern="smooth" height={80} zIndex={5} />
             </section>
-            <section className="container mx-auto py-8 
-         space-y-8 
-            md:py-24 text-right relative overflow-hidde px-8">
+
+            {/* Why Section */}
+            <section className="container mx-auto py-8 space-y-8 md:py-24 text-right relative overflow-hidden px-8 pb-24">
                 <h1 className="text-4xl heebo-500">
                     למה הילד שלך משקיע בלימודים אבל לא משיג את התוצאות שהוא רוצה?
                 </h1>
@@ -346,7 +158,12 @@ export default function Orchuk() {
                 <PrimaryButton colors={colors}>
                     אני רוצה ציונים כאלו לילד שלי
                 </PrimaryButton>
+
+                {/* Wave divider at the bottom of why section */}
+                <WaveDivider colors={colors} position="bottom" pattern="smooth" height={80} zIndex={5} />
             </section>
+
+            {/* How Section */}
             <section className={colors.custom ?
                 "container mx-auto px-8 pt-8 pb-16 space-y-8 shadow-inner text-white md:py-24 text-right relative overflow-hidden" :
                 `container mx-auto px-8 pt-8 pb-16 ${colors.bg.section} space-y-8 shadow-inner text-white md:py-24 text-right relative overflow-hidden`}
