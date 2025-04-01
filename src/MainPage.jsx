@@ -9,6 +9,8 @@ import { CurriculumVitae } from "./components/organisms/cv.jsx";
 import { SimpleTracker } from "./components/organisms/simple-tracker.jsx";
 import { Clock } from "./components/organisms/clock.jsx";
 import SleepGraph from "./pages/SleepGraph.jsx";
+import SleepAdd from "./pages/SleepAdd.jsx";
+import Orchuk from "./pages/Orchuk.jsx";
 
 export const MainPage = ({ savedPath }) => {
 	// Use savedPath if provided, otherwise use current path
@@ -20,33 +22,39 @@ export const MainPage = ({ savedPath }) => {
 		return <BirthdayImagePage imageID={imagePage} />;
 	}
 
-	switch (currentPath) {
-		case "/qr":
+	switch (true) {
+		case currentPath.includes("/qr"):
 			return <BirthdayQrCodes />;
 
-		case "/fire":
+		case currentPath.includes("/fire"):
 			return <FireRekindle />;
 
-		case "/chart":
+		case currentPath.includes("/chart"):
 			return <OnePieceLastEpisodesChart />;
 
-		case "/sleep":
-			return <SleepTrackerComponent />;
+		// case currentPath.includes("/sleep"):
+		// 	return <SleepTrackerComponent />;
 
-		case "/ten":
+		case currentPath.includes("/ten"):
 			return <TenThousandHours />;
 
-		case "/cv":
+		case currentPath.includes("/cv"):
 			return <CurriculumVitae />;
 
-		case "/simple":
+		case currentPath.includes("/simple"):
 			return <SimpleTracker />;
 
-		case "/clock":
+		case currentPath.includes("/clock"):
 			return <Clock />;
 
-		case "/sleep-graph":
+		case currentPath.includes("/sleep-graph"):
 			return <SleepGraph />;
+
+		case currentPath.includes("/sleep/add"):
+			return <SleepAdd />;
+
+		case currentPath.includes("/orchuk"):
+			return <Orchuk />;
 
 		default:
 			return <News />;

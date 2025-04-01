@@ -1,48 +1,5 @@
 [
     {
-        "date": "2025-02-20",
-        "coffee": false,
-        "magnesium": null,
-        "alcohol": null,
-        "screen": null,
-        "workout": false,
-        "shower": null,
-        "poop": null,
-        "social": false,
-        "last_meal": "",
-        "last_meal_description": [
-            ""
-        ],
-        "sleep_hour": "",
-        "wake_hour": "",
-        "REM": "",
-        "deep": "",
-        "awake": "",
-        "feeling": ""
-    },
-    {
-        "date": "2025-02-19",
-        "coffee": false,
-        "magnesium": true,
-        "alcohol": false,
-        "screen": true,
-        "workout": false,
-        "shower": false,
-        "poop": false,
-        "social": false,
-        "last_meal": "22:00",
-        "last_meal_description": [
-            "tofu balls",
-            "mayo"
-        ],
-        "sleep_hour": "",
-        "wake_hour": "",
-        "REM": "",
-        "deep": "",
-        "awake": "",
-        "feeling": ""
-    },
-    {
         "date": "2025-02-01",
         "coffee": true,
         "magnesium": true,
@@ -435,5 +392,284 @@
         "deep": "1:20",
         "awake": "0:05",
         "feeling": "tired"
+    },
+
+    {
+        "date": "2025-02-19",
+        "coffee": false,
+        "magnesium": null,
+        "alcohol": null,
+        "screen": null,
+        "workout": false,
+        "shower": null,
+        "poop": null,
+        "social": false,
+        "last_meal": "22:00",
+        "last_meal_description": [
+            "tofu balls",
+            "mayo"
+        ],
+        "sleep_hour": "00:15",
+        "wake_hour": "07:20",
+        "REM": "1:30",
+        "deep": "1:10",
+        "awake": "0:05",
+        "feeling": "tired"
+    },
+
+    {
+        "date": "2025-02-20",
+        "coffee": false,
+        "magnesium": true,
+        "alcohol": false,
+        "screen": true,
+        "workout": true,
+        "shower": true,
+        "poop": false,
+        "social": false,
+        "last_meal": "21:30",
+        "last_meal_description": [
+            "expired broccoli?",
+            "non white flour pasta"
+        ],
+        "sleep_hour": "23:20",
+        "wake_hour": "07:15",
+        "REM": "1:30",
+        "deep": "0:30",
+        "awake": "0:15",
+        "feeling": "tired"
+    },
+    {
+        "date": "2025-02-21",
+        "coffee": false,
+        "magnesium": true,
+        "alcohol": false,
+        "screen": true,
+        "workout": false,
+        "shower": false,
+        "poop": false,
+        "social": false,
+        "last_meal": "21:15",
+        "last_meal_description": [
+            "vegan hamburger",
+            "French fries",
+            "mayo"
+        ],
+        "sleep_hour": "",
+        "wake_hour": "",
+        "REM": "",
+        "deep": "",
+        "awake": "",
+        "feeling": ""
+    },
+    {
+        "date": "2025-02-22",
+        "coffee": false,
+        "magnesium": null,
+        "alcohol": null,
+        "screen": null,
+        "workout": false,
+        "shower": null,
+        "poop": null,
+        "social": false,
+        "last_meal": "",
+        "last_meal_description": [
+            ""
+        ],
+        "sleep_hour": "",
+        "wake_hour": "",
+        "REM": "",
+        "deep": "",
+        "awake": "",
+        "feeling": ""
+    },
+    {
+        "date": "2025-02-23",
+        "coffee": null,
+        "magnesium": null,
+        "alcohol": null,
+        "screen": null,
+        "workout": null,
+        "shower": null,
+        "poop": null,
+        "social": null,
+        "last_meal": "",
+        "last_meal_description": [
+            ""
+        ],
+        "sleep_hour": "",
+        "wake_hour": "",
+        "REM": "",
+        "deep": "",
+        "awake": "",
+        "feeling": ""
+    },
+    {
+        "date": "2025-02-24",
+        "coffee": false,
+        "magnesium": null,
+        "alcohol": null,
+        "screen": null,
+        "workout": false,
+        "shower": null,
+        "poop": null,
+        "social": false,
+        "last_meal": "",
+        "last_meal_description": [
+            ""
+        ],
+        "sleep_hour": "",
+        "wake_hour": "",
+        "REM": "",
+        "deep": "",
+        "awake": "",
+        "feeling": ""
+    },
+    {
+        "date": "2025-02-25",
+        "coffee": null,
+        "magnesium": null,
+        "alcohol": null,
+        "screen": null,
+        "workout": null,
+        "shower": null,
+        "poop": null,
+        "social": null,
+        "last_meal": "",
+        "last_meal_description": [
+            ""
+        ],
+        "sleep_hour": "",
+        "wake_hour": "",
+        "REM": "",
+        "deep": "",
+        "awake": "",
+        "feeling": ""
+    },
+    {
+        "date": "2025-02-26",
+        "coffee": null,
+        "magnesium": null,
+        "alcohol": null,
+        "screen": null,
+        "workout": null,
+        "shower": null,
+        "poop": null,
+        "social": null,
+        "last_meal": "",
+        "last_meal_description": [
+            ""
+        ],
+        "sleep_hour": "",
+        "wake_hour": "",
+        "REM": "",
+        "deep": "",
+        "awake": "",
+        "feeling": ""
+    },
+    {
+        "date": "2025-02-27",
+       "coffee": null,
+        "magnesium": null,
+        "alcohol": null,
+        "screen": null,
+        "workout": null,
+        "shower": null,
+        "poop": null,
+        "social": null,
+        "last_meal": "",
+        "last_meal_description": [
+            ""
+        ],
+        "sleep_hour": "",
+        "wake_hour": "",
+        "REM": "",
+        "deep": "",
+        "awake": "",
+        "feeling": ""
+    },
+    {
+        "date": "2025-02-28",
+       "coffee": null,
+        "magnesium": null,
+        "alcohol": null,
+        "screen": null,
+        "workout": null,
+        "shower": null,
+        "poop": null,
+        "social": null,
+        "last_meal": "",
+        "last_meal_description": [
+            ""
+        ],
+        "sleep_hour": "",
+        "wake_hour": "",
+        "REM": "",
+        "deep": "",
+        "awake": "",
+        "feeling": ""
+    },
+    {
+        "date": "2025-02-29",
+       "coffee": null,
+        "magnesium": null,
+        "alcohol": null,
+        "screen": null,
+        "workout": null,
+        "shower": null,
+        "poop": null,
+        "social": null,
+        "last_meal": "",
+        "last_meal_description": [
+            ""
+        ],
+        "sleep_hour": "",
+        "wake_hour": "",
+        "REM": "",
+        "deep": "",
+        "awake": "",
+        "feeling": ""
+    },
+    {
+        "date": "2025-02-30",
+       "coffee": null,
+        "magnesium": null,
+        "alcohol": null,
+        "screen": null,
+        "workout": null,
+        "shower": null,
+        "poop": null,
+        "social": null,
+        "last_meal": "",
+        "last_meal_description": [
+            ""
+        ],
+        "sleep_hour": "",
+        "wake_hour": "",
+        "REM": "",
+        "deep": "",
+        "awake": "",
+        "feeling": ""
+    },
+    {
+        "date": "2025-02-31",
+        "coffee": null,
+        "magnesium": null,
+        "alcohol": null,
+        "screen": null,
+        "workout": null,
+        "shower": null,
+        "poop": null,
+        "social": null,
+        "last_meal": "",
+        "last_meal_description": [
+            ""
+        ],
+        "sleep_hour": "",
+        "wake_hour": "",
+        "REM": "",
+        "deep": "",
+        "awake": "",
+        "feeling": ""
     }
 ]
