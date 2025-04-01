@@ -91,7 +91,10 @@ export default function Squares() {
                         {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>
                             <div
                                 key={index}
-                                onClick={() => setSelectedHour(index)}
+                                onClick={() => {
+                                    setSelectedHour(index);
+                                    setSelectedDate(date);
+                                }}
                                 className={classNames({
                                     "cursor-pointer": true,
                                     "bg-gray-100 h-6": true,
@@ -101,7 +104,7 @@ export default function Squares() {
                                     "bg-green-400": hours?.[index] === 4,
                                     "bg-blue-400": hours?.[index] === 5,
                                     "bg-red-400": hours?.[index] === 6,
-                                    "border border-black": selectedHour === index,
+                                    "border border-black": selectedHour === index && selectedDate === date
                                 })}></div>)}
                     </Column>
                 )}
