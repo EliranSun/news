@@ -100,8 +100,8 @@ export default function Squares() {
                                     setSelectedDate(date);
                                 }}
                                 className={classNames({
-                                    "cursor-pointer": true,
-                                    "bg-gray-100 h-6": true,
+                                    "cursor-pointer h-6": true,
+                                    "bg-gray-100": !hours?.[index],
                                     "bg-purple-400": hours?.[index] === 1,
                                     "bg-orange-400": hours?.[index] === 2,
                                     "bg-yellow-400": hours?.[index] === 3,
@@ -127,6 +127,7 @@ export default function Squares() {
                 {SquareMap.map((square) =>
                     <button
                         key={square.id}
+                        className="text-xs"
                         onClick={() => {
                             setData({
                                 ...data,
@@ -138,7 +139,7 @@ export default function Squares() {
 
                             setSelectedHour(selectedHour + 1);
                         }}>
-                        {square.color}
+                        {square.color} - {square.activity}
                     </button>)}
             </div>
             <button onClick={() => {
