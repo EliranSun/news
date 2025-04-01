@@ -1,0 +1,146 @@
+import { useState, useEffect } from "react";
+import classNames from "classnames";
+const SquareMap = [
+    {
+        "id": 1,
+        "activity": "coffee & chill",
+        "color": "🟪",
+    },
+    {
+        "id": 2,
+        "activity": "Bonella",
+        "color": "🟫",
+    },
+    {
+        "id": 3,
+        "activity": "CSS",
+        "color": "🟨",
+    },
+    {
+        "id": 4,
+        "activity": "Read",
+        "color": "🟩",
+    },
+    {
+        "id": 5,
+        "activity": "Media",
+        "color": "🟦",
+    },
+    {
+        "id": 6,
+        "activity": "Prep",
+        "color": "🟥",
+    },
+];
+
+const Hours = new Array(24 * 2).fill(0).map((_, index) => `${Math.floor(index / 2)}:${index % 2 === 0 ? '00' : '30'}`); // every 30 minutes
+const START_HOUR = 7 * 2;
+const END_HOUR = 19 * 2;
+
+const Column = ({ children }) => {
+    return (
+        <div className="flex flex-col border-r border-black w-14 text-center">
+            {children}
+        </div>
+    )
+};
+
+const saveData = (data) => {
+    localStorage.setItem('data', JSON.stringify(data));
+};
+
+const exportToEmojiText = (data) => {
+    return Object.entries(data).map(([date, hours]) => {
+        return `${date}: ${Object.entries(hours).map(([hour, id]) => SquareMap.find((square) => square.id === id)?.color).join('')}`;
+    }).join('\n');
+};
+
+
+export default function Squares() {
+    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+    const [selectedHour, setSelectedHour] = useState(0);
+    const [data, setData] = useState(JSON.parse(localStorage.getItem('data')) || {});
+
+    useEffect(() => {
+        saveData(data);
+        console.log(data);
+    }, [data]);
+
+    return (
+        <>
+            <div className="flex font-mono">
+                <Column>
+                    <div className="text-center border-b border-black h-8">Hours</div>
+                    {Hours.slice(START_HOUR, END_HOUR).map((hour, index) =>
+                        <div key={index} className="h-6">{hour}</div>)}
+                </Column>
+                {Object.entries(data).map(([date, hours]) =>
+                    <Column key={date}>
+                        <input
+                            type="date"
+                            value={date}
+                            onChange={(e) => {
+                                const date = e.target.value;
+                                setSelectedDate(date);
+                                setData({
+                                    ...data,
+                                    [date]: data[date] || {}
+                                })
+                            }}
+                            className="text-center border-b border-black h-8" />
+                        {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>
+                            <div
+                                key={index}
+                                onClick={() => setSelectedHour(index)}
+                                className={classNames({
+                                    "cursor-pointer": true,
+                                    "bg-gray-100 h-6": true,
+                                    "bg-purple-400": hours?.[index] === 1,
+                                    "bg-orange-400": hours?.[index] === 2,
+                                    "bg-yellow-400": hours?.[index] === 3,
+                                    "bg-green-400": hours?.[index] === 4,
+                                    "bg-blue-400": hours?.[index] === 5,
+                                    "bg-red-400": hours?.[index] === 6,
+                                    "border border-black": selectedHour === index,
+                                })}></div>)}
+                    </Column>
+                )}
+                <Column>
+                    <button onClick={() => {
+                        const lastWeek = new Date(Object.keys(data).at(-1));
+                        lastWeek.setDate(lastWeek.getDate() - 7);
+                        setData({
+                            ...data,
+                            [lastWeek.toISOString().split('T')[0]]: data[lastWeek.toISOString().split('T')[0]] || {}
+                        })
+                    }}>+</button>
+                </Column>
+            </div>
+            <div>
+                {SquareMap.map((square) =>
+                    <button
+                        key={square.id}
+                        onClick={() => {
+                            setData({
+                                ...data,
+                                [selectedDate]: {
+                                    ...data[selectedDate],
+                                    [selectedHour]: square.id
+                                }
+                            });
+
+                            setSelectedHour(selectedHour + 1);
+                        }}>
+                        {square.color}
+                    </button>)}
+            </div>
+            <button onClick={() => {
+                const emojiText = exportToEmojiText(data);
+                // copy to clipboard
+                navigator.clipboard.writeText(emojiText);
+            }}>
+                Export
+            </button>
+        </>
+    )
+}

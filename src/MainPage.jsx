@@ -11,7 +11,7 @@ import { Clock } from "./components/organisms/clock.jsx";
 import SleepGraph from "./pages/SleepGraph.jsx";
 import SleepAdd from "./pages/SleepAdd.jsx";
 import Orchuk from "./pages/Orchuk.jsx";
-
+import Squares from "./pages/Squares.jsx";
 export const MainPage = ({ savedPath }) => {
 	// Use savedPath if provided, otherwise use current path
 	const currentPath = savedPath || window.location.pathname;
@@ -55,6 +55,9 @@ export const MainPage = ({ savedPath }) => {
 
 		case currentPath.includes("/orchuk"):
 			return <Orchuk />;
+
+		case currentPath.includes("/squares"):
+			return <Squares />;
 
 		default:
 			return <News />;
