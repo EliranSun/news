@@ -39,7 +39,7 @@ const END_HOUR = 19 * 2;
 
 const Column = ({ children }) => {
     return (
-        <div className="flex flex-col border-r border-black w-14 text-center">
+        <div className="flex flex-col border-r border-black w-14 text-center overflow-hidden">
             {children}
         </div>
     )
