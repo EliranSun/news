@@ -74,18 +74,22 @@ export default function Squares() {
                     {Hours.slice(START_HOUR, END_HOUR).map((hour, index) =>
                         <div key={index} className="h-6">{hour}</div>)}
                 </Column>
-                {Object.entries(data).map(([date, hours]) =>
+                {Object.entries(data).sort((a, b) => new Date(b[0]) - new Date(a[0])).map(([date, hours]) =>
                     <Column key={date}>
                         <input
                             type="date"
                             value={date}
                             onChange={(e) => {
-                                const date = e.target.value;
-                                setSelectedDate(date);
-                                setData({
+                                const previousDate = date;
+                                const newDate = e.target.value;
+                                setSelectedDate(newDate);
+                                const newData = {
                                     ...data,
-                                    [date]: data[date] || {}
-                                })
+                                    [newDate]: previousDate ? data[previousDate] : {}
+                                };
+
+                                delete newData[previousDate];
+                                setData(newData);
                             }}
                             className="text-center border-b border-black h-8" />
                         {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>
