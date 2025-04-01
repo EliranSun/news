@@ -37,9 +37,13 @@ const Hours = new Array(24 * 2).fill(0).map((_, index) => `${Math.floor(index / 
 const START_HOUR = 7 * 2;
 const END_HOUR = 19 * 2;
 
-const Column = ({ children }) => {
+const Column = ({ children, size = "normal" }) => {
     return (
-        <div className="flex flex-col border-r border-black w-14 text-center overflow-hidden">
+        <div className={classNames({
+            "flex shrink-0 flex-col border-r border-black text-center overflow-hidden": true,
+            "w-14": size === "normal" || !size,
+            "w-10": size === "narrow",
+        })}>
             {children}
         </div>
     )
@@ -81,7 +85,7 @@ const DayHoursColumn = ({
     });
 
     return (
-        <Column key={date}>
+        <Column key={date} size="narrow">
             <input
                 type="date"
                 value={date}
@@ -114,7 +118,7 @@ const DayHoursColumn = ({
                             setSelectedDate(date);
                         }}
                         className={classNames({
-                            "cursor-pointer h-6": true,
+                            "cursor-pointer h-6 text-black": true,
                             "bg-gray-100": !hours?.[index],
                             "bg-purple-400": hours?.[index] === 1,
                             "bg-orange-400": hours?.[index] === 2,
@@ -122,8 +126,10 @@ const DayHoursColumn = ({
                             "bg-green-400": hours?.[index] === 4,
                             "bg-blue-400": hours?.[index] === 5,
                             "bg-red-400": hours?.[index] === 6,
-                            "border border-black": selectedHour === index && selectedDate === date
-                        })}></div>)}
+                            "border border-black":
+                                selectedHour === index && selectedDate === date
+                        })}>
+                    </div>)}
             <div>
                 {totalYellow * 0.5}h
             </div>
@@ -145,28 +151,32 @@ export default function Squares() {
 
     return (
         <>
-            <div className="flex font-mono">
+            <div className="flex font-mono p-4">
                 <Column>
                     <div className="text-center border-b border-black h-8">Hours</div>
                     {Hours.slice(START_HOUR, END_HOUR).map((hour, index) =>
-                        <div key={index} className="h-6">{hour}</div>)}
+                        <div key={index} className="h-6 text-xs">{hour}</div>)}
                 </Column>
-                {Object
-                    .entries(data)
-                    .sort((a, b) => {
-                        return new Date(b[0]) - new Date(a[0]);
-                    })
-                    .map(([date, hours]) =>
-                        <DayHoursColumn
-                            key={date}
-                            date={date}
-                            data={data}
-                            sortBy={sortBy}
-                            hours={hours}
-                            setSelectedDate={setSelectedDate}
-                            setSelectedHour={setSelectedHour}
-                            setData={setData} />
-                    )}
+                <div className="flex overflow-x-auto max-w-[60vw]">
+                    {Object
+                        .entries(data)
+                        .sort((a, b) => {
+                            return new Date(b[0]) - new Date(a[0]);
+                        })
+                        .map(([date, hours]) =>
+                            <DayHoursColumn
+                                key={date}
+                                date={date}
+                                data={data}
+                                sortBy={sortBy}
+                                hours={hours}
+                                selectedDate={selectedDate}
+                                selectedHour={selectedHour}
+                                setSelectedDate={setSelectedDate}
+                                setSelectedHour={setSelectedHour}
+                                setData={setData} />
+                        )}
+                </div>
                 <Column>
                     <button onClick={() => {
                         const lastWeek = new Date(Object.keys(data).at(-1));
