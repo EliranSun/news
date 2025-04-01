@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import classNames from "classnames";
 const SquareMap = [
     {
@@ -55,6 +55,63 @@ const exportToEmojiText = (data) => {
     }).join('\n');
 };
 
+const DayHoursColumn = ({
+    data,
+    date,
+    hours,
+    selectedDate,
+    selectedHour,
+    setSelectedDate,
+    setSelectedHour,
+    setData
+}) => {
+    const totalYellow = useMemo(() => {
+        return Object.values(hours).filter((hour) => hour === 3).length;
+    }, [hours]);
+
+    return (
+        <Column key={date}>
+            <input
+                type="date"
+                value={date}
+                onChange={(e) => {
+                    const previousDate = date;
+                    const newDate = e.target.value;
+                    setSelectedDate(newDate);
+                    const newData = {
+                        ...data,
+                        [newDate]: previousDate ? data[previousDate] : {}
+                    };
+
+                    delete newData[previousDate];
+                    setData(newData);
+                }}
+                className="text-center border-b border-black h-8" />
+            {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>
+                <div
+                    key={index}
+                    onClick={() => {
+                        setSelectedHour(index);
+                        setSelectedDate(date);
+                    }}
+                    className={classNames({
+                        "cursor-pointer h-6": true,
+                        "bg-gray-100": !hours?.[index],
+                        "bg-purple-400": hours?.[index] === 1,
+                        "bg-orange-400": hours?.[index] === 2,
+                        "bg-yellow-400": hours?.[index] === 3,
+                        "bg-green-400": hours?.[index] === 4,
+                        "bg-blue-400": hours?.[index] === 5,
+                        "bg-red-400": hours?.[index] === 6,
+                        "border border-black": selectedHour === index && selectedDate === date
+                    })}></div>)}
+            <div>
+                {totalYellow * 0.5}h
+            </div>
+        </Column>
+    )
+}
+
 
 export default function Squares() {
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
@@ -74,44 +131,19 @@ export default function Squares() {
                     {Hours.slice(START_HOUR, END_HOUR).map((hour, index) =>
                         <div key={index} className="h-6">{hour}</div>)}
                 </Column>
-                {Object.entries(data).sort((a, b) => new Date(b[0]) - new Date(a[0])).map(([date, hours]) =>
-                    <Column key={date}>
-                        <input
-                            type="date"
-                            value={date}
-                            onChange={(e) => {
-                                const previousDate = date;
-                                const newDate = e.target.value;
-                                setSelectedDate(newDate);
-                                const newData = {
-                                    ...data,
-                                    [newDate]: previousDate ? data[previousDate] : {}
-                                };
-
-                                delete newData[previousDate];
-                                setData(newData);
-                            }}
-                            className="text-center border-b border-black h-8" />
-                        {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>
-                            <div
-                                key={index}
-                                onClick={() => {
-                                    setSelectedHour(index);
-                                    setSelectedDate(date);
-                                }}
-                                className={classNames({
-                                    "cursor-pointer h-6": true,
-                                    "bg-gray-100": !hours?.[index],
-                                    "bg-purple-400": hours?.[index] === 1,
-                                    "bg-orange-400": hours?.[index] === 2,
-                                    "bg-yellow-400": hours?.[index] === 3,
-                                    "bg-green-400": hours?.[index] === 4,
-                                    "bg-blue-400": hours?.[index] === 5,
-                                    "bg-red-400": hours?.[index] === 6,
-                                    "border border-black": selectedHour === index && selectedDate === date
-                                })}></div>)}
-                    </Column>
-                )}
+                {Object
+                    .entries(data)
+                    .sort((a, b) => new Date(b[0]) - new Date(a[0]))
+                    .map(([date, hours]) =>
+                        <DayHoursColumn
+                            key={date}
+                            date={date}
+                            data={data}
+                            hours={hours}
+                            setSelectedDate={setSelectedDate}
+                            setSelectedHour={setSelectedHour}
+                            setData={setData} />
+                    )}
                 <Column>
                     <button onClick={() => {
                         const lastWeek = new Date(Object.keys(data).at(-1));
