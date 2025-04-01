@@ -70,6 +70,16 @@ const DayHoursColumn = ({
         return Object.values(hours).filter((hour) => hour === 3).length;
     }, [hours]);
 
+    const dataWithIndex = useMemo(() => {
+        return Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) => ({ hour, index }));
+    }, [hours]);
+
+    console.log({
+        dataWithIndex,
+        hours,
+        sortBy,
+    });
+
     return (
         <Column key={date}>
             <input
@@ -88,15 +98,15 @@ const DayHoursColumn = ({
                     setData(newData);
                 }}
                 className="text-center border-b border-black h-8" />
-            {Hours.slice(START_HOUR, END_HOUR + 1)
+            {dataWithIndex
                 .sort((a, b) => {
                     if (sortBy === 'hour') {
-                        return a - b;
+                        return a.hour - b.hour;
                     } else if (sortBy === 'color') {
-                        return b[1][selectedHour] - a[1][selectedHour];
+                        return hours[b.index] - hours[a.index];
                     }
                 })
-                .map((hour, index) =>
+                .map(({ hour, index }) =>
                     <div
                         key={index}
                         onClick={() => {
