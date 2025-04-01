@@ -114,6 +114,7 @@ const DayHoursColumn = ({
 
 
 export default function Squares() {
+    const [sortBy, setSortBy] = useState('hour');
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
     const [selectedHour, setSelectedHour] = useState(0);
     const [data, setData] = useState(JSON.parse(localStorage.getItem('data')) || {});
@@ -133,7 +134,13 @@ export default function Squares() {
                 </Column>
                 {Object
                     .entries(data)
-                    .sort((a, b) => new Date(b[0]) - new Date(a[0]))
+                    .sort((a, b) => {
+                        if (sortBy === 'hour') {
+                            return new Date(b[0]) - new Date(a[0]);
+                        } else if (sortBy === 'color') {
+                            return b[1][selectedHour] - a[1][selectedHour];
+                        }
+                    })
                     .map(([date, hours]) =>
                         <DayHoursColumn
                             key={date}
@@ -174,6 +181,11 @@ export default function Squares() {
                         {square.color} - {square.activity}
                     </button>)}
             </div>
+            <button onClick={() => {
+                setSortBy('color');
+            }}>
+                Sort by color
+            </button>
             <button onClick={() => {
                 const emojiText = exportToEmojiText(data);
                 // copy to clipboard
