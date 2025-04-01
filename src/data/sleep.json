@@ -1,6 +1,6 @@
 [
     {
-        "date": "2025-02-19",
+        "date": "2025-02-20",
         "coffee": false,
         "magnesium": null,
         "alcohol": null,
@@ -12,6 +12,28 @@
         "last_meal": "",
         "last_meal_description": [
             ""
+        ],
+        "sleep_hour": "",
+        "wake_hour": "",
+        "REM": "",
+        "deep": "",
+        "awake": "",
+        "feeling": ""
+    },
+    {
+        "date": "2025-02-19",
+        "coffee": false,
+        "magnesium": true,
+        "alcohol": false,
+        "screen": true,
+        "workout": false,
+        "shower": false,
+        "poop": false,
+        "social": false,
+        "last_meal": "22:00",
+        "last_meal_description": [
+            "tofu balls",
+            "mayo"
         ],
         "sleep_hour": "",
         "wake_hour": "",
