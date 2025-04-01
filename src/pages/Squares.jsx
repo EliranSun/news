@@ -63,7 +63,8 @@ const DayHoursColumn = ({
     selectedHour,
     setSelectedDate,
     setSelectedHour,
-    setData
+    setData,
+    sortBy
 }) => {
     const totalYellow = useMemo(() => {
         return Object.values(hours).filter((hour) => hour === 3).length;
@@ -87,24 +88,32 @@ const DayHoursColumn = ({
                     setData(newData);
                 }}
                 className="text-center border-b border-black h-8" />
-            {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>
-                <div
-                    key={index}
-                    onClick={() => {
-                        setSelectedHour(index);
-                        setSelectedDate(date);
-                    }}
-                    className={classNames({
-                        "cursor-pointer h-6": true,
-                        "bg-gray-100": !hours?.[index],
-                        "bg-purple-400": hours?.[index] === 1,
-                        "bg-orange-400": hours?.[index] === 2,
-                        "bg-yellow-400": hours?.[index] === 3,
-                        "bg-green-400": hours?.[index] === 4,
-                        "bg-blue-400": hours?.[index] === 5,
-                        "bg-red-400": hours?.[index] === 6,
-                        "border border-black": selectedHour === index && selectedDate === date
-                    })}></div>)}
+            {Hours.slice(START_HOUR, END_HOUR + 1)
+                .sort((a, b) => {
+                    if (sortBy === 'hour') {
+                        return a - b;
+                    } else if (sortBy === 'color') {
+                        return b[1][selectedHour] - a[1][selectedHour];
+                    }
+                })
+                .map((hour, index) =>
+                    <div
+                        key={index}
+                        onClick={() => {
+                            setSelectedHour(index);
+                            setSelectedDate(date);
+                        }}
+                        className={classNames({
+                            "cursor-pointer h-6": true,
+                            "bg-gray-100": !hours?.[index],
+                            "bg-purple-400": hours?.[index] === 1,
+                            "bg-orange-400": hours?.[index] === 2,
+                            "bg-yellow-400": hours?.[index] === 3,
+                            "bg-green-400": hours?.[index] === 4,
+                            "bg-blue-400": hours?.[index] === 5,
+                            "bg-red-400": hours?.[index] === 6,
+                            "border border-black": selectedHour === index && selectedDate === date
+                        })}></div>)}
             <div>
                 {totalYellow * 0.5}h
             </div>
@@ -135,17 +144,14 @@ export default function Squares() {
                 {Object
                     .entries(data)
                     .sort((a, b) => {
-                        if (sortBy === 'hour') {
-                            return new Date(b[0]) - new Date(a[0]);
-                        } else if (sortBy === 'color') {
-                            return b[1][selectedHour] - a[1][selectedHour];
-                        }
+                        return new Date(b[0]) - new Date(a[0]);
                     })
                     .map(([date, hours]) =>
                         <DayHoursColumn
                             key={date}
                             date={date}
                             data={data}
+                            sortBy={sortBy}
                             hours={hours}
                             setSelectedDate={setSelectedDate}
                             setSelectedHour={setSelectedHour}
