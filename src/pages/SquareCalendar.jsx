@@ -133,7 +133,8 @@ export default function SquareCalendar() {
                                             key={`month-${monthIndex}-day-${dayIndex}`}
                                             onClick={() => setSelectedDate(dayObj.date)}
                                             className={classNames({
-                                                "border border-black/70 size-4": true,
+                                                "size-4": true,
+                                                "border border-black/70": !dayObj.isPadding && !isToday,
                                                 "opacity-0": dayObj.isPadding,
                                                 "bg-gray-300": !isMatchingNegative && !isMatchingPositive,
                                                 "border-2 border-amber-500": !dayObj.isPadding && isToday,
