@@ -2,13 +2,13 @@ import classNames from "classnames";
 import { getDaysInMonth, subMonths, startOfMonth, getDay, addDays, subDays } from "date-fns";
 import { useCallback, useState, useEffect } from "react";
 
-const saveToStorage = (data) => {
-    localStorage.setItem('square-calendar', JSON.stringify(data));
+const saveToStorage = (key = "square-calendar", data) => {
+    localStorage.setItem(key, JSON.stringify(data));
 };
 
-const loadFromStorage = () => {
+const loadFromStorage = (key = "square-calendar") => {
     try {
-        const data = localStorage.getItem('square-calendar');
+        const data = localStorage.getItem(key);
         return data ? JSON.parse(data) : [];
     } catch (error) {
         console.error('Error loading data from storage:', error);
@@ -96,7 +96,10 @@ export default function SquareCalendar() {
 
     return (
         <div className="p-4 h-dvh space-y-8">
-            <h1 className="text-lg font-bold">🟨 CSS</h1>
+            <h1 className="text-lg font-bold flex gap-4">
+                <button>🟨 CSS</button>
+                <button>🟩 Read</button>
+                </h1>
             <div className="flex justify-center flex-wrap h-10/12">
                 {new Array(12).fill(0).map((_, monthIndex) => {
                     const month = new Date(selectedDate.getFullYear(), monthIndex, 1);
