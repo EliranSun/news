@@ -96,7 +96,7 @@ export default function SquareCalendar() {
 
     return (
         <div className="p-4 h-dvh space-y-8">
-            <h1 className="text-lg font-bold">CSS</h1>
+            <h1 className="text-lg font-bold">🟨 CSS</h1>
             <div className="flex justify-center flex-wrap h-10/12">
                 {new Array(12).fill(0).map((_, monthIndex) => {
                     const month = new Date(selectedDate.getFullYear(), monthIndex, 1);
