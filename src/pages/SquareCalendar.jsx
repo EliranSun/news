@@ -18,14 +18,14 @@ const loadFromStorage = () => {
 
 const ColorButton = ({ color, onClick }) => {
     return (
-        <button className="flex justify-center items-center bg-gray-200 rounded-md p-2" onClick={onClick}>{color}</button>
+        <button className="flex justify-center items-center bg-gray-200 rounded-full p-2" onClick={onClick}>{color}</button>
     )
 }
 
 const DateNavigationButton = ({ direction, currentDate, onClick }) => {
     return (
         <button
-            className="flex justify-center items-center bg-gray-200 hover:bg-gray-300 rounded-md p-2"
+            className="flex justify-center items-center bg-gray-200 hover:bg-gray-300 rounded-full p-2"
             onClick={() => {
                 let newDate = currentDate;
                 switch (direction) {
