@@ -16,6 +16,12 @@ const loadFromStorage = () => {
     }
 };
 
+const ColorButton = ({ color, onClick }) => {
+    return (
+        <button className="flex justify-center items-center bg-gray-200 rounded-md p-2" onClick={onClick}>{color}</button>
+    )
+}
+
 const DateNavigationButton = ({ direction, currentDate, onClick }) => {
     return (
         <button
@@ -117,42 +123,42 @@ export default function SquareCalendar() {
                         <div className="flex flex-col" key={`month-${monthIndex}`}>
                             <h2 className="text-xs">{month.toLocaleString('default', { month: 'short' })}</h2>
                             <div className="grid grid-cols-7 p-1.5">
-                                {allDays.map((dayObj, dayIndex) => (
-                                    <div
-                                        key={`month-${monthIndex}-day-${dayIndex}`}
-                                        className={classNames({
-                                            "border border-black/70 size-4": selectedDate.toDateString() !== dayObj.date.toDateString(),
-                                            "border-2 border-amber-500": !dayObj.isPadding && selectedDate.toDateString() === dayObj.date.toDateString(),
-                                            "bg-gray-200": dayObj.isPadding,
-                                            "bg-gray-500": !dayObj.isPadding && isDayMatchingColor(dayObj, 'black'),
-                                            "bg-yellow-500": !dayObj.isPadding && isDayMatchingColor(dayObj, 'yellow')
-                                        })}
-                                        onClick={() => setSelectedDate(dayObj.date)}
-                                    >
-                                    </div>
-                                ))}
+                                {allDays.map((dayObj, dayIndex) => {
+                                    const isMatchingNegative = !dayObj.isPadding && isDayMatchingColor(dayObj, 'black');
+                                    const isMatchingPositive = !dayObj.isPadding && isDayMatchingColor(dayObj, 'yellow');
+                                    const isToday = dayObj.date.toDateString() === selectedDate.toDateString();
+
+                                    return (
+                                        <div
+                                            key={`month-${monthIndex}-day-${dayIndex}`}
+                                            className={classNames({
+                                                "border border-black/70 size-4": true,
+                                                "bg-gray-200 dark:bg-gray-400": dayObj.isPadding,
+                                                "bg-gray-300": !isMatchingNegative && !isMatchingPositive,
+                                                "border-2 border-amber-500": !dayObj.isPadding && isToday,
+                                                "bg-gray-500": isMatchingNegative,
+                                                "bg-yellow-500": isMatchingPositive
+                                            })}
+                                            onClick={() => setSelectedDate(dayObj.date)}
+                                        >
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     )
                 })}
             </div>
-            <div className="flex">
-                <div className="flex gap-2 justify-center user-select-none h-20">
-                    <button onClick={() => updateColor('black')}>⬛️</button>
-                    <button onClick={() => updateColor('yellow')}>🟨</button>
-                    <button onClick={() => updateColor('clear')}>⬜️</button>
-                </div>
-                <div className="grid grid-cols-3 gap-2 w-full max-w-[150px] mx-auto my-2 user-select-none">
-                    <div></div>
-                    <DateNavigationButton direction="⬆️" currentDate={selectedDate} onClick={setSelectedDate} />
-                    <div></div>
-                    <DateNavigationButton direction="⬅️" currentDate={selectedDate} onClick={setSelectedDate} />
-                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2"></div>
-                    <DateNavigationButton direction="➡️" currentDate={selectedDate} onClick={setSelectedDate} />
-                    <div></div>
-                    <DateNavigationButton direction="⬇️" currentDate={selectedDate} onClick={setSelectedDate} />
-                    <div></div>
-                </div>
+            <div className="grid grid-cols-3 gap-2 w-full max-w-[150px] mx-auto my-2 user-select-none">
+                <ColorButton color="⬛️" onClick={() => updateColor('black')} />
+                <DateNavigationButton direction="⬆️" currentDate={selectedDate} onClick={setSelectedDate} />
+                <ColorButton color="🟨" onClick={() => updateColor('yellow')} />
+                <DateNavigationButton direction="⬅️" currentDate={selectedDate} onClick={setSelectedDate} />
+                <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-50"></div>
+                <DateNavigationButton direction="➡️" currentDate={selectedDate} onClick={setSelectedDate} />
+                <ColorButton color="⬜️" onClick={() => updateColor('clear')} />
+                <DateNavigationButton direction="⬇️" currentDate={selectedDate} onClick={setSelectedDate} />
+                <div></div>
             </div>
         </div>
     );
