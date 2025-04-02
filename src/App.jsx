@@ -14,8 +14,8 @@ const RssFeedComponent = () => {
 
 	useEffect(() => {
 		const updateThemeColor = () => {
-			const hour = new Date().getHours();
-			const themeColor = hour >= 6 && hour < 18 ? "#FFFFFF" : "#000000"; // White during the day, black at night
+			const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+			const themeColor = isDarkMode ? "#000000" : "#FFFFFF";
 			const metaThemeColor = document.querySelector("meta[name=theme-color]");
 			if (metaThemeColor) {
 				metaThemeColor.setAttribute("content", themeColor);
@@ -29,9 +29,14 @@ const RssFeedComponent = () => {
 
 		updateThemeColor();
 
-		const intervalId = setInterval(updateThemeColor, 60 * 60 * 1000); // Update every hour
+		// Listen for system theme changes
+		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+		const themeChangeHandler = () => updateThemeColor();
+		mediaQuery.addListener(themeChangeHandler);
 
-		return () => clearInterval(intervalId); // Cleanup interval on component unmount
+		return () => {
+			mediaQuery.removeListener(themeChangeHandler); // Cleanup listener on component unmount
+		};
 	}, []);
 
 	useEffect(() => {
