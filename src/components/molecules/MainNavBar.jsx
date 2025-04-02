@@ -16,6 +16,16 @@ const InnerMenu = () => {
 			hover:scale-105 transition-transform bg-white dark:bg-black">
 			<span
 				className="transition-transform hover:scale-110 active:scale-95 cursor-pointer"
+				onClick={() => savePath("/squares?hideNavBar=true")}>
+				Optimizing Monday
+			</span>
+			<span
+				className="transition-transform hover:scale-110 active:scale-95 cursor-pointer"
+				onClick={() => savePath("/square-calendar?hideNavBar=true")}>
+				CSS Calendar
+			</span>
+			<span
+				className="transition-transform hover:scale-110 active:scale-95 cursor-pointer"
 				onClick={() => savePath("/")}>
 				<Rss size={20} />
 			</span>
