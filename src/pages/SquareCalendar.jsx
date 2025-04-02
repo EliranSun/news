@@ -131,6 +131,7 @@ export default function SquareCalendar() {
                                     return (
                                         <div
                                             key={`month-${monthIndex}-day-${dayIndex}`}
+                                            onClick={() => setSelectedDate(dayObj.date)}
                                             className={classNames({
                                                 "border border-black/70 size-4": true,
                                                 "bg-gray-200 dark:bg-gray-400": dayObj.isPadding,
@@ -139,7 +140,6 @@ export default function SquareCalendar() {
                                                 "bg-gray-500": isMatchingNegative,
                                                 "bg-yellow-500": isMatchingPositive
                                             })}
-                                            onClick={() => setSelectedDate(dayObj.date)}
                                         >
                                         </div>
                                     );
