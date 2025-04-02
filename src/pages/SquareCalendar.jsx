@@ -95,7 +95,7 @@ export default function SquareCalendar() {
     }, [data]);
 
     return (
-        <div className="p-4 h-dvh space-y-8">
+        <div className="p-4 h-dvh user-select-none space-y-8">
             <h1 className="text-lg font-bold flex gap-4">
                 <button>🟨 CSS</button>
                 <button>🟩 Read</button>
