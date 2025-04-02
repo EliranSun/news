@@ -13,33 +13,6 @@ const RssFeedComponent = () => {
 	const { queryResult, onQueryClick, setQueryResult, isLoading: isLoadingAI, isError } = useQueryAI(items);
 
 	useEffect(() => {
-		const updateThemeColor = () => {
-			const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-			const themeColor = isDarkMode ? "#000000" : "#FFFFFF";
-			const metaThemeColor = document.querySelector("meta[name=theme-color]");
-			if (metaThemeColor) {
-				metaThemeColor.setAttribute("content", themeColor);
-			} else {
-				const newMetaThemeColor = document.createElement("meta");
-				newMetaThemeColor.setAttribute("name", "theme-color");
-				newMetaThemeColor.setAttribute("content", themeColor);
-				document.head.appendChild(newMetaThemeColor);
-			}
-		};
-
-		updateThemeColor();
-
-		// Listen for system theme changes
-		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-		const themeChangeHandler = () => updateThemeColor();
-		mediaQuery.addListener(themeChangeHandler);
-
-		return () => {
-			mediaQuery.removeListener(themeChangeHandler); // Cleanup listener on component unmount
-		};
-	}, []);
-
-	useEffect(() => {
 		setScrolledItems(0);
 	}, [items]);
 

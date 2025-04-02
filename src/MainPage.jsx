@@ -13,13 +13,40 @@ import SleepAdd from "./pages/SleepAdd.jsx";
 import Orchuk from "./pages/Orchuk.jsx";
 import Squares from "./pages/Squares.jsx";
 import SquareCalendar from "./pages/SquareCalendar.jsx";
+import { useEffect } from "react";
 
 export const MainPage = ({ savedPath }) => {
 	// Use savedPath if provided, otherwise use current path
 	const currentPath = savedPath || window.location.pathname;
 	const imagePage = new URLSearchParams(window.location.search).get("image_id");
 
-	// Handle image page separately since it's a query parameter
+	useEffect(() => {
+		const updateThemeColor = () => {
+			const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+			const themeColor = isDarkMode ? "#000000" : "#FFFFFF";
+			const metaThemeColor = document.querySelector("meta[name=theme-color]");
+			if (metaThemeColor) {
+				metaThemeColor.setAttribute("content", themeColor);
+			} else {
+				const newMetaThemeColor = document.createElement("meta");
+				newMetaThemeColor.setAttribute("name", "theme-color");
+				newMetaThemeColor.setAttribute("content", themeColor);
+				document.head.appendChild(newMetaThemeColor);
+			}
+		};
+
+		updateThemeColor();
+
+		// Listen for system theme changes
+		const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+		const themeChangeHandler = () => updateThemeColor();
+		mediaQuery.addListener(themeChangeHandler);
+
+		return () => {
+			mediaQuery.removeListener(themeChangeHandler); // Cleanup listener on component unmount
+		};
+	}, []);
+
 	if (imagePage) {
 		return <BirthdayImagePage imageID={imagePage} />;
 	}
