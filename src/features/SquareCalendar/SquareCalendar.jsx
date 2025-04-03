@@ -54,7 +54,7 @@ export default function SquareCalendar() {
 
     return (
         <div className="p-4 h-dvh user-select-none space-y-12">
-            <h1 className="text-base font-bold flex flex-nowrap w-60 overflow-x-auto gap-4">
+            <h1 className="text-base font-bold flex flex-nowrap w-[80vw] overflow-x-auto gap-4">
                 {Object.values(Calendars).map(item =>
                     <CalendarButton
                         key={item.key}
@@ -102,14 +102,19 @@ export default function SquareCalendar() {
                                         <div
                                             key={`month-${monthIndex}-day-${dayIndex}`}
                                             onClick={() => setSelectedDate(dayObj.date)}
+                                            style={{
+                                                backgroundColor: !dayObj.isPadding
+                                                    ? dayObj.color
+                                                    : 'transparent'
+                                            }}
                                             className={classNames({
-                                                "size-4 text-[8px]": true,
+                                                "size-4 text-[8px] flex justify-center items-center": true,
                                                 "border border-black/70": !dayObj.isPadding && !isToday,
                                                 "opacity-0": dayObj.isPadding,
-                                                "bg-gray-300": !isMatchingNegative && !isMatchingPositive,
+                                                // "bg-gray-300": !isMatchingNegative && !isMatchingPositive,
                                                 "border-2 border-amber-500": !dayObj.isPadding && isToday,
-                                                "bg-gray-500": isMatchingNegative,
-                                                "bg-yellow-500": isMatchingPositive
+                                                // "bg-gray-500": isMatchingNegative,
+                                                // "bg-yellow-500": isMatchingPositive
                                             })}
                                         >
                                             {(!dayObj.isPadding && isToday)
@@ -122,16 +127,31 @@ export default function SquareCalendar() {
                     )
                 })}
             </div>
-            <div className="grid grid-cols-3 gap-2 w-full max-w-[150px] mx-auto my-2 user-select-none">
-                <ColorButton color="⬛️" onClick={() => updateColor('black')} />
-                <DateNavigationButton direction="⬆️" currentDate={selectedDate} onClick={setSelectedDate} />
-                <ColorButton color="🟨" onClick={() => updateColor('yellow')} />
-                <DateNavigationButton direction="⬅️" currentDate={selectedDate} onClick={setSelectedDate} />
-                <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-50"></div>
-                <DateNavigationButton direction="➡️" currentDate={selectedDate} onClick={setSelectedDate} />
-                <ColorButton color="⬜️" onClick={() => updateColor('clear')} />
-                <DateNavigationButton direction="⬇️" currentDate={selectedDate} onClick={setSelectedDate} />
-                <div></div>
+            <div className="flex justify-between">
+                <div className="flex justify-center items-center gap-2">
+                    {
+                        calendar.colors.map(color =>
+                            <ColorButton
+                                key={color}
+                                color={color}
+                                onClick={() => updateColor(color)}
+                            />
+                        )
+                    }
+                    <ColorButton color="⬜️" onClick={() => updateColor('clear')} />
+                </div>
+
+                <div className="grid grid-cols-3 gap-2 w-full max-w-[150px] mx-auto my-2">
+                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
+                    <DateNavigationButton direction="⬆️" currentDate={selectedDate} onClick={setSelectedDate} />
+                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
+                    <DateNavigationButton direction="⬅️" currentDate={selectedDate} onClick={setSelectedDate} />
+                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-50"></div>
+                    <DateNavigationButton direction="➡️" currentDate={selectedDate} onClick={setSelectedDate} />
+                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
+                    <DateNavigationButton direction="⬇️" currentDate={selectedDate} onClick={setSelectedDate} />
+                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
+                </div>
             </div>
         </div>
     );
