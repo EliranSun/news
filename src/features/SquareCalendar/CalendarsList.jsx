@@ -2,13 +2,12 @@ import { Calendars } from "./constants";
 
 export const CalendarsList = ({ onClick }) => {
     // Group calendars by category
-    const groupedCalendars = Object.entries(Calendars).reduce((acc, [key, calendar]) => {
+    const groupedCalendars = Object.values(Calendars).reduce((acc, calendar) => {
         if (!acc[calendar.category]) {
             acc[calendar.category] = [];
         }
         acc[calendar.category].push({
             ...calendar,
-            key
         });
         return acc;
     }, {});
@@ -21,9 +20,7 @@ export const CalendarsList = ({ onClick }) => {
                 <div key={category}>
                     <h3 className="text-xl font-bold">{category}</h3>
                     {calendars.map((calendar) => (
-                        <div key={calendar.key} onClick={() => {
-                            onClick(calendar.key, calendar);
-                        }}>
+                        <div key={calendar.key} onClick={() => onClick(calendar)}>
                             {calendar.icon} {calendar.name}
                         </div>
                     ))}

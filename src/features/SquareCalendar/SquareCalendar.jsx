@@ -47,15 +47,17 @@ export default function SquareCalendar() {
         saveToStorage(calendar.key, data);
     }, [data]);
 
-    const onCalendarClick = useCallback((key, item) => {
+    const onCalendarClick = useCallback((item) => {
         const url = new URL(window.location.href);
-        url.searchParams.set('calendar', key);
+        url.searchParams.set('calendar', item.key);
         window.history.pushState({}, '', url);
 
         saveToStorage(calendar.key, data);
         setCalendar(item);
-        setData(loadFromStorage(item));
+        setData(loadFromStorage(item.key));
     }, [data, calendar]);
+
+    console.log({ calendar });
 
     return (
         <>
@@ -68,17 +70,19 @@ export default function SquareCalendar() {
             <div className="p-4 h-dvh user-select-none space-y-12">
                 <h1 className="text-base font-bold flex flex-nowrap w-[80vw] overflow-x-auto gap-4">
                     <button onClick={() => setIsCalendarMenuOpen(!isCalendarMenuOpen)}>🗓️</button>
-                    {Object.entries(Calendars)
-                        .sort((a, b) => {
-                            return a[0] === calendarKey ? -1 : b[0] === calendarKey ? 1 : 0;
-                        })
-                        .map(([key, item]) =>
+                    <CalendarButton
+                        key={calendar.key}
+                        isSelected={calendar.key === calendar.key}
+                        onClick={() => onCalendarClick(calendar)}>
+                        {calendar.icon} {calendar.name}
+                    </CalendarButton>
+                    {Object.values(Calendars)
+                        .filter((item) => item.key !== calendar.key)
+                        .map((item) =>
                             <CalendarButton
                                 key={item.key}
                                 isSelected={calendar.key === item.key}
-                                onClick={() => {
-                                    onCalendarClick(key, item);
-                                }}>
+                                onClick={() => onCalendarClick(item)}>
                                 {item.icon} {item.name}
                             </CalendarButton>
                         )}
