@@ -22,6 +22,9 @@ const ColorButton = ({ color, onClick }) => {
     )
 }
 
+const CalendarButton = ({ children }) => 
+    <button className="w-20 shrink-0">{children}</button>;
+    
 const DateNavigationButton = ({ direction, currentDate, onClick }) => {
     return (
         <button
@@ -97,10 +100,10 @@ export default function SquareCalendar() {
     return (
         <div className="p-4 h-dvh user-select-none space-y-12">
             <h1 className="text-base font-bold flex flex-nowrap w-2/3 overflow-x-auto gap-4">
-                <button>🟨 CSS</button>
-                <button>🟩 Read</button>
-                <button>🟦 Friends</button>
-                <button>🟥 Date</button>
+                <CalendarButton>🟨 CSS</CalendarButton>
+                <CalendarButton>🟩 Read</CalendarButton>
+                <CalendarButton>🟦 Friends</CalendarButton>
+                <CalendarButton>🟥 Date</CalendarButton>
                 </h1>
             <div className="flex justify-center flex-wrap h-10/12">
                 {new Array(12).fill(0).map((_, monthIndex) => {
