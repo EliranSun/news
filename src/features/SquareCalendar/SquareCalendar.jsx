@@ -3,14 +3,17 @@ import { getDaysInMonth, subMonths, startOfMonth, getDay, addDays } from "date-f
 import { useCallback, useState, useEffect } from "react";
 import { CalendarButton } from "./CalendarButton";
 import { ColorButton } from "./ColorButton";
-import { loadFromStorage, saveToStorage } from "./utils";
+import { loadFromStorage, saveToStorage, getColorsClassList } from "./utils";
 import { DateNavigationButton } from "./DateNavigationButton";
 import { Calendars } from "./constants";
 
+const url = new URL(window.location.href);
+const calendarKey = url.searchParams.get('calendar');
+
 export default function SquareCalendar() {
-    const [calendar, setCalendar] = useState(Calendars.Css);
+    const [calendar, setCalendar] = useState(Calendars[calendarKey] || Calendars.Css);
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [data, setData] = useState(loadFromStorage(Calendars.Css.key));
+    const [data, setData] = useState(loadFromStorage(Calendars[calendarKey]?.key || Calendars.Css.key));
 
     const updateColor = useCallback((color) => {
         if (color === 'clear') {
@@ -37,39 +40,29 @@ export default function SquareCalendar() {
         saveToStorage(calendar.key, data);
     }, [data]);
 
-    const isDayMatchingColor = useCallback((dateObject, color) => {
-        if (!data || data.length === 0) return false;
-
-        try {
-            const found = data.find(item => {
-                return new Date(item.date).toDateString() === new Date(dateObject.date).toDateString();
-            });
-
-            if (!found) return false;
-
-            return found.color === color;
-        } catch (error) {
-            console.error('Error finding day:', error);
-            return false;
-        }
-    }, [data]);
-
     return (
         <div className="p-4 h-dvh user-select-none space-y-12">
-            {JSON.stringify(data)}
             <h1 className="text-base font-bold flex flex-nowrap w-[80vw] overflow-x-auto gap-4">
-                {Object.values(Calendars).map(item =>
-                    <CalendarButton
-                        key={item.key}
-                        isSelected={calendar.key === item.key}
-                        onClick={() => {
-                            saveToStorage(calendar.key, data);
-                            setCalendar(item);
-                            setData(loadFromStorage(item.key));
-                        }}>
-                        {item.icon} {item.name}
-                    </CalendarButton>
-                )}
+                {Object.entries(Calendars)
+                    .sort((a, b) => {
+                        // sort by calendarKey from the URL
+                        return a[0] === calendarKey ? -1 : b[0] === calendarKey ? 1 : 0;
+                    })
+                    .map(([key, item]) =>
+                        <CalendarButton
+                            key={item.key}
+                            isSelected={calendar.key === item.key}
+                            onClick={() => {
+                                const url = new URL(window.location.href);
+                                url.searchParams.set('calendar', key);
+                                window.history.pushState({}, '', url);
+                                saveToStorage(calendar.key, data);
+                                setCalendar(item);
+                                setData(loadFromStorage(item.key));
+                            }}>
+                            {item.icon} {item.name}
+                        </CalendarButton>
+                    )}
             </h1>
             <div className="flex justify-center flex-wrap h-10/12">
                 {new Array(12).fill(0).map((_, monthIndex) => {
@@ -98,8 +91,6 @@ export default function SquareCalendar() {
                             <h2 className="text-xs">{month.toLocaleString('default', { month: 'short' })}</h2>
                             <div className="grid grid-cols-7 p-1.5">
                                 {allDays.map((dayObj, dayIndex) => {
-                                    // const isMatchingNegative = !dayObj.isPadding && isDayMatchingColor(dayObj, 'black');
-                                    // const isMatchingPositive = !dayObj.isPadding && isDayMatchingColor(dayObj, 'yellow');
                                     const isToday = dayObj.date.toDateString() === selectedDate.toDateString();
                                     const color = data.find(item => new Date(item.date).toDateString() === dayObj.date.toDateString())?.color;
 
@@ -107,28 +98,12 @@ export default function SquareCalendar() {
                                         <div
                                             key={`month-${monthIndex}-day-${dayIndex}`}
                                             onClick={() => setSelectedDate(dayObj.date)}
-                                            // style={{
-                                            //     backgroundColor: !dayObj.isPadding
-                                            //         ? dayObj.color
-                                            //         : 'transparent'
-                                            // }}
                                             className={classNames({
                                                 "size-4 text-[8px] flex justify-center items-center": true,
                                                 "border border-black/70": !dayObj.isPadding && !isToday,
                                                 "opacity-0": dayObj.isPadding,
-                                                // "bg-gray-300": !isMatchingNegative && !isMatchingPositive,
                                                 "border-2 border-amber-500": !dayObj.isPadding && isToday,
-                                                // "bg-gray-500": isMatchingNegative,
-                                                // "bg-yellow-500": isMatchingPositive
-                                                "bg-transparent": color === 'clear',
-                                                "bg-black": color === 'black',
-                                                "bg-red-500": color === 'red',
-                                                "bg-green-500": color === 'green',
-                                                "bg-blue-500": color === 'blue',
-                                                "bg-yellow-500": color === 'yellow',
-                                                "bg-purple-500": color === 'purple',
-                                                "bg-orange-500": color === 'orange',
-                                                "bg-pink-500": color === 'pink',
+                                                ...getColorsClassList(color)
                                             })}
                                         >
                                             {(!dayObj.isPadding && isToday)
@@ -141,8 +116,8 @@ export default function SquareCalendar() {
                     )
                 })}
             </div>
-            <div className="flex justify-between">
-                <div className="flex justify-center items-center gap-2">
+            <div className="flex justify-between items-center w-full">
+                <div className="grid grid-cols-3 gap-2">
                     {
                         calendar.colors.map(color =>
                             <ColorButton
