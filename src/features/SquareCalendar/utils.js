@@ -13,8 +13,8 @@ export const saveToStorage = (key = "square-calendar", data) => {
 
 export const getColorsClassList = (color) => {
     return {
-        "bg-transparent": color === Colors.Clear,
-        "bg-black": color === Colors.Black,
+        "bg-transparent border": color === Colors.Clear,
+        "bg-neutral-900": color === Colors.Black,
         "bg-red-500": color === Colors.Red,
         "bg-green-500": color === Colors.Green,
         "bg-blue-500": color === Colors.Blue,
