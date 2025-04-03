@@ -112,6 +112,8 @@ export default function SquareCalendar() {
                                                 "bg-yellow-500": isMatchingPositive
                                             })}
                                         >
+                                        {(!dayObj.isPadding && isToday) 
+                                            ? dayObj.date.toLocaleString('default', { day: 'numeric' }) : null}
                                         </div>
                                     );
                                 })}
