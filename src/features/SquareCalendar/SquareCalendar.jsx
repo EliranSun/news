@@ -15,9 +15,10 @@ export default function SquareCalendar() {
     const updateColor = useCallback((color) => {
         if (color === 'clear') {
             setData(data.filter(item => new Date(item.date).toDateString() !== new Date(selectedDate).toDateString()));
-            return;
         } else {
-            const existingEntry = data.find(item => new Date(item.date).toDateString() === new Date(selectedDate).toDateString());
+            const existingEntry = data.find(item =>
+                new Date(item.date).toDateString() === new Date(selectedDate).toDateString());
+
             if (existingEntry) {
                 setData(data.map(item =>
                     new Date(item.date).toDateString() === new Date(selectedDate).toDateString()
@@ -28,10 +29,11 @@ export default function SquareCalendar() {
                 setData([...data, { date: selectedDate, color }]);
             }
         }
+
+        setSelectedDate(addDays(selectedDate, 1));
     }, [selectedDate, data]);
 
     useEffect(() => {
-        setSelectedDate(addDays(selectedDate, 1));
         saveToStorage(calendar.key, data);
     }, [data]);
 
@@ -54,10 +56,12 @@ export default function SquareCalendar() {
 
     return (
         <div className="p-4 h-dvh user-select-none space-y-12">
+            {JSON.stringify(data)}
             <h1 className="text-base font-bold flex flex-nowrap w-[80vw] overflow-x-auto gap-4">
                 {Object.values(Calendars).map(item =>
                     <CalendarButton
                         key={item.key}
+                        isSelected={calendar.key === item.key}
                         onClick={() => {
                             saveToStorage(calendar.key, data);
                             setCalendar(item);
@@ -94,19 +98,20 @@ export default function SquareCalendar() {
                             <h2 className="text-xs">{month.toLocaleString('default', { month: 'short' })}</h2>
                             <div className="grid grid-cols-7 p-1.5">
                                 {allDays.map((dayObj, dayIndex) => {
-                                    const isMatchingNegative = !dayObj.isPadding && isDayMatchingColor(dayObj, 'black');
-                                    const isMatchingPositive = !dayObj.isPadding && isDayMatchingColor(dayObj, 'yellow');
+                                    // const isMatchingNegative = !dayObj.isPadding && isDayMatchingColor(dayObj, 'black');
+                                    // const isMatchingPositive = !dayObj.isPadding && isDayMatchingColor(dayObj, 'yellow');
                                     const isToday = dayObj.date.toDateString() === selectedDate.toDateString();
+                                    const color = data.find(item => new Date(item.date).toDateString() === dayObj.date.toDateString())?.color;
 
                                     return (
                                         <div
                                             key={`month-${monthIndex}-day-${dayIndex}`}
                                             onClick={() => setSelectedDate(dayObj.date)}
-                                            style={{
-                                                backgroundColor: !dayObj.isPadding
-                                                    ? dayObj.color
-                                                    : 'transparent'
-                                            }}
+                                            // style={{
+                                            //     backgroundColor: !dayObj.isPadding
+                                            //         ? dayObj.color
+                                            //         : 'transparent'
+                                            // }}
                                             className={classNames({
                                                 "size-4 text-[8px] flex justify-center items-center": true,
                                                 "border border-black/70": !dayObj.isPadding && !isToday,
@@ -115,6 +120,15 @@ export default function SquareCalendar() {
                                                 "border-2 border-amber-500": !dayObj.isPadding && isToday,
                                                 // "bg-gray-500": isMatchingNegative,
                                                 // "bg-yellow-500": isMatchingPositive
+                                                "bg-transparent": color === 'clear',
+                                                "bg-black": color === 'black',
+                                                "bg-red-500": color === 'red',
+                                                "bg-green-500": color === 'green',
+                                                "bg-blue-500": color === 'blue',
+                                                "bg-yellow-500": color === 'yellow',
+                                                "bg-purple-500": color === 'purple',
+                                                "bg-orange-500": color === 'orange',
+                                                "bg-pink-500": color === 'pink',
                                             })}
                                         >
                                             {(!dayObj.isPadding && isToday)
