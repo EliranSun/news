@@ -1,62 +1,11 @@
 import classNames from "classnames";
-import { getDaysInMonth, subMonths, startOfMonth, getDay, addDays, subDays } from "date-fns";
+import { getDaysInMonth, subMonths, startOfMonth, getDay, addDays } from "date-fns";
 import { useCallback, useState, useEffect } from "react";
-
-const saveToStorage = (key = "square-calendar", data) => {
-    localStorage.setItem(key, JSON.stringify(data));
-};
-
-const loadFromStorage = (key = "square-calendar") => {
-    try {
-        const data = localStorage.getItem(key);
-        return data ? JSON.parse(data) : [];
-    } catch (error) {
-        console.error('Error loading data from storage:', error);
-        return [];
-    }
-};
-
-const ColorButton = ({ color, onClick }) => {
-    return (
-        <button className="flex justify-center items-center bg-gray-200 rounded-full p-2" onClick={onClick}>{color}</button>
-    )
-}
-
-const CalendarButton = ({ children, ... rest }) => 
-    <button className="min-w-28 shrink-0" {...rest}>{children}</button>;
-    
-const DateNavigationButton = ({ direction, currentDate, onClick }) => {
-    return (
-        <button
-            className="flex justify-center items-center bg-gray-200 hover:bg-gray-300 rounded-full p-2"
-            onClick={() => {
-                let newDate = currentDate;
-                switch (direction) {
-                    case '⬆️':
-                        newDate = subDays(currentDate, 7);
-                        break;
-                    case '⬇️':
-                        newDate = addDays(currentDate, 7);
-                        break;
-                    case '⬅️':
-                        newDate = subDays(currentDate, 1);
-                        break;
-                    case '➡️':
-                        newDate = addDays(currentDate, 1);
-                        break;
-                }
-
-                onClick(newDate);
-            }}>
-            {direction}
-        </button>
-    )
-}
-
-const Calendars = {
-    Css: { name: "css", key: "css-square-calendar", color: "yellow", icon: "🟨" },
-    Read: { name: "read", key: "read-square-calendar", color: "green", icon: "🟩" },
-};
+import { CalendarButton } from "./CalendarButton";
+import { ColorButton } from "./ColorButton";
+import { loadFromStorage, saveToStorage } from "./utils";
+import { DateNavigationButton } from "./DateNavigationButton";
+import { Calendars } from "./constants";
 
 export default function SquareCalendar() {
     const [calendar, setCalendar] = useState(Calendars.Css);
@@ -107,13 +56,17 @@ export default function SquareCalendar() {
         <div className="p-4 h-dvh user-select-none space-y-12">
             <h1 className="text-base font-bold flex flex-nowrap w-60 overflow-x-auto gap-4">
                 {Object.values(Calendars).map(item =>
-                    <CalendarButton onClick ={() => {
-                        saveToStorage(calendar.key, data);
-                        setCalendar(item);
-                        setData(loadFromStorage(item.key));
-                    }}>{item.icon} {item.name}</CalendarButton>
-                    )}
-                </h1>
+                    <CalendarButton
+                        key={item.key}
+                        onClick={() => {
+                            saveToStorage(calendar.key, data);
+                            setCalendar(item);
+                            setData(loadFromStorage(item.key));
+                        }}>
+                        {item.icon} {item.name}
+                    </CalendarButton>
+                )}
+            </h1>
             <div className="flex justify-center flex-wrap h-10/12">
                 {new Array(12).fill(0).map((_, monthIndex) => {
                     const month = new Date(selectedDate.getFullYear(), monthIndex, 1);

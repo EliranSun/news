@@ -12,7 +12,7 @@ import SleepGraph from "./pages/SleepGraph.jsx";
 import SleepAdd from "./pages/SleepAdd.jsx";
 import Orchuk from "./pages/Orchuk.jsx";
 import Squares from "./pages/Squares.jsx";
-import SquareCalendar from "./pages/SquareCalendar.jsx";
+import SquareCalendar from "./features/SquareCalendar/SquareCalendar.jsx";
 import { useEffect } from "react";
 
 export const MainPage = ({ savedPath }) => {
