@@ -103,7 +103,7 @@ export default function SquareCalendar() {
                                             key={`month-${monthIndex}-day-${dayIndex}`}
                                             onClick={() => setSelectedDate(dayObj.date)}
                                             className={classNames({
-                                                "size-4": true,
+                                                "size-4 text-[8px]": true,
                                                 "border border-black/70": !dayObj.isPadding && !isToday,
                                                 "opacity-0": dayObj.isPadding,
                                                 "bg-gray-300": !isMatchingNegative && !isMatchingPositive,
@@ -112,8 +112,8 @@ export default function SquareCalendar() {
                                                 "bg-yellow-500": isMatchingPositive
                                             })}
                                         >
-                                        {(!dayObj.isPadding && isToday) 
-                                            ? dayObj.date.toLocaleString('default', { day: 'numeric' }) : null}
+                                            {(!dayObj.isPadding && isToday)
+                                                ? dayObj.date.toLocaleString('default', { day: 'numeric' }) : null}
                                         </div>
                                     );
                                 })}
