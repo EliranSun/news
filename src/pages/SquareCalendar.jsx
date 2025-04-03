@@ -53,7 +53,13 @@ const DateNavigationButton = ({ direction, currentDate, onClick }) => {
     )
 }
 
+const Calendars = {
+    CSS: "css", 
+    READ: "read"
+};
+
 export default function SquareCalendar() {
+    const [calendarName, setCalendarName] = useState(Calendars.CSS);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [data, setData] = useState(loadFromStorage());
 
