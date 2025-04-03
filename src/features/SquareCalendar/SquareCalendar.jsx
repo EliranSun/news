@@ -70,14 +70,7 @@ export default function SquareCalendar() {
             <div className="p-4 h-dvh user-select-none space-y-12">
                 <h1 className="text-base font-bold flex flex-nowrap w-[80vw] overflow-x-auto gap-4">
                     <button onClick={() => setIsCalendarMenuOpen(!isCalendarMenuOpen)}>🗓️</button>
-                    <CalendarButton
-                        key={calendar.key}
-                        isSelected={calendar.key === calendar.key}
-                        onClick={() => onCalendarClick(calendar)}>
-                        {calendar.icon} {calendar.name}
-                    </CalendarButton>
                     {Object.values(Calendars)
-                        .filter((item) => item.key !== calendar.key)
                         .map((item) =>
                             <CalendarButton
                                 key={item.key}
