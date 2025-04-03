@@ -51,7 +51,23 @@ export const Calendars = {
     Dad: { name: "dad", key: "dad-square-calendar", colors: [Colors.Navy, Colors.Black], icon: "👨", category: "social" }, // Man
     Grandma: { name: "grandma", key: "grandma-square-calendar", colors: [Colors.Plum, Colors.Black], icon: "👵", category: "social" }, // Elderly woman
     Friends: {
-        name: "friends", key: "friends-square-calendar", colors: [
+        icon: "👥",
+        category: "social",
+        name: "friends",
+        key: "friends-square-calendar",
+        legend: [
+            { name: "Ofir", color: Colors.Yellow },
+            { name: "Oded", color: Colors.Turquoise },
+            { name: "Yarden", color: Colors.Purple },
+            { name: "Liron", color: Colors.Rose },
+            { name: "Maya", color: Colors.Coral },
+            { name: "Rotem", color: Colors.Hotpink },
+            { name: "Nimrod", color: Colors.Forestgreen },
+            { name: "David", color: Colors.Skyblue },
+            { name: "Mika", color: Colors.Violet },
+            { name: "Noa", color: Colors.Orange },
+        ],
+        colors: [
             Colors.Yellow,
             Colors.Turquoise,
             Colors.Purple,
@@ -63,8 +79,8 @@ export const Calendars = {
             Colors.Violet,
             Colors.Orange,
             Colors.Black,
-        ], icon: "👥", category: "social"
-    }, // Group of people
+        ],
+    },
 
     // avoid - Using darker, muted colors to represent negative activities
     SocialMedia: {
