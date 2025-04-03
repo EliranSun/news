@@ -23,7 +23,7 @@ const ColorButton = ({ color, onClick }) => {
 }
 
 const CalendarButton = ({ children }) => 
-    <button className="w-20 shrink-0">{children}</button>;
+    <button className="w-40 shrink-0">{children}</button>;
     
 const DateNavigationButton = ({ direction, currentDate, onClick }) => {
     return (
