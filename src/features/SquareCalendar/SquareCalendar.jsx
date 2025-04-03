@@ -101,7 +101,7 @@ export default function SquareCalendar() {
                                             onClick={() => setSelectedDate(dayObj.date)}
                                             className={classNames({
                                                 "size-4 text-[8px] flex justify-center items-center": true,
-                                                "border border-black/70": !dayObj.isPadding && !isToday,
+                                                "border border-black/70 dark:border-white/70": !dayObj.isPadding && !isToday,
                                                 "opacity-0": dayObj.isPadding,
                                                 "border-2 border-amber-500": !dayObj.isPadding && isToday,
                                                 ...getColorsClassList(color)
