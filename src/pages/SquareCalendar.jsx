@@ -22,8 +22,8 @@ const ColorButton = ({ color, onClick }) => {
     )
 }
 
-const CalendarButton = ({ children }) => 
-    <button className="min-w-28 shrink-0">{children}</button>;
+const CalendarButton = ({ children, ... rest }) => 
+    <button className="min-w-28 shrink-0" {...rest}>{children}</button>;
     
 const DateNavigationButton = ({ direction, currentDate, onClick }) => {
     return (
@@ -54,14 +54,14 @@ const DateNavigationButton = ({ direction, currentDate, onClick }) => {
 }
 
 const Calendars = {
-    Css: { name: "css", color: "yellow", icon: "🟨" },
-    Read: { name: "read", color: "green", icon: "🟩" },
+    Css: { name: "css", key: "css-square-calendar", color: "yellow", icon: "🟨" },
+    Read: { name: "read", key: "read-square-calendar", color: "green", icon: "🟩" },
 };
 
 export default function SquareCalendar() {
-    const [calendar, setCalendar] = useState(Calendars.CSS);
+    const [calendar, setCalendar] = useState(Calendars.Css);
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [data, setData] = useState(loadFromStorage());
+    const [data, setData] = useState(loadFromStorage(Calendars.Css.key));
 
     const updateColor = useCallback((color) => {
         if (color === 'clear') {
@@ -83,7 +83,7 @@ export default function SquareCalendar() {
 
     useEffect(() => {
         setSelectedDate(addDays(selectedDate, 1));
-        saveToStorage(data);
+        saveToStorage(calendar.key, data);
     }, [data]);
 
     const isDayMatchingColor = useCallback((dateObject, color) => {
@@ -107,7 +107,11 @@ export default function SquareCalendar() {
         <div className="p-4 h-dvh user-select-none space-y-12">
             <h1 className="text-base font-bold flex flex-nowrap w-60 overflow-x-auto gap-4">
                 {Object.values(Calendars).map(item =>
-                    <CalendarButton>{item.icon} {item.name}</CalendarButton>
+                    <CalendarButton onClick ={() => {
+                        saveToStorage(calendar.key);
+                        setCalendar(item);
+                        setData(loadFromStorage(item.key));
+                    }}>{item.icon} {item.name}</CalendarButton>
                     )}
                 </h1>
             <div className="flex justify-center flex-wrap h-10/12">
