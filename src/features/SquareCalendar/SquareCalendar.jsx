@@ -116,8 +116,19 @@ export default function SquareCalendar() {
                     )
                 })}
             </div>
-            <div className="flex justify-between items-center w-full">
-                <div className="grid grid-cols-3 gap-2">
+            <div className="flex justify-between items-center w-full border-2 shadow px-4 rounded-lg">
+                <div className="grid grid-cols-3 gap-2 max-w-[150px] my-2 border rounded-lg p-2">
+                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
+                    <DateNavigationButton direction="⬆️" currentDate={selectedDate} onClick={setSelectedDate} />
+                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
+                    <DateNavigationButton direction="⬅️" currentDate={selectedDate} onClick={setSelectedDate} />
+                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-50"></div>
+                    <DateNavigationButton direction="➡️" currentDate={selectedDate} onClick={setSelectedDate} />
+                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
+                    <DateNavigationButton direction="⬇️" currentDate={selectedDate} onClick={setSelectedDate} />
+                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
+                </div>
+                <div className="grid grid-cols-3 gap-2 border rounded-lg p-2">
                     {
                         calendar.colors.map(color =>
                             <ColorButton
@@ -128,18 +139,6 @@ export default function SquareCalendar() {
                         )
                     }
                     <ColorButton color="⬜️" onClick={() => updateColor('clear')} />
-                </div>
-
-                <div className="grid grid-cols-3 gap-2 w-full max-w-[150px] mx-auto my-2">
-                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
-                    <DateNavigationButton direction="⬆️" currentDate={selectedDate} onClick={setSelectedDate} />
-                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
-                    <DateNavigationButton direction="⬅️" currentDate={selectedDate} onClick={setSelectedDate} />
-                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-50"></div>
-                    <DateNavigationButton direction="➡️" currentDate={selectedDate} onClick={setSelectedDate} />
-                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
-                    <DateNavigationButton direction="⬇️" currentDate={selectedDate} onClick={setSelectedDate} />
-                    <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
                 </div>
             </div>
         </div>
