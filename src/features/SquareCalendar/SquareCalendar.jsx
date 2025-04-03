@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { getDaysInMonth, subMonths, startOfMonth, getDay, addDays } from "date-fns";
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, useMemo } from "react";
 import { CalendarButton } from "./CalendarButton";
 import { ColorButton } from "./ColorButton";
 import { loadFromStorage, saveToStorage, getColorsClassList } from "./utils";
@@ -9,11 +9,15 @@ import { Calendars } from "./constants";
 import { FriendsLegend } from "./FriendsLegend";
 import { CalendarsList } from "./CalendarsList";
 
-const url = new URL(window.location.href);
-const calendarKey = url.searchParams.get('calendar');
 
 export default function SquareCalendar() {
     const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
+
+    const calendarKey = useMemo(() => {
+        const url = new URL(window.location.href);
+        return url.searchParams.get('calendar');
+    }, []);
+
     const [calendar, setCalendar] = useState(Calendars[calendarKey] || Calendars.Css);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [data, setData] = useState(loadFromStorage(Calendars[calendarKey]?.key || Calendars.Css.key));
@@ -50,15 +54,15 @@ export default function SquareCalendar() {
 
         saveToStorage(calendar.key, data);
         setCalendar(item);
-        setData(loadFromStorage(item.key));
+        setData(loadFromStorage(item));
     }, [data, calendar]);
 
     return (
         <>
             {isCalendarMenuOpen && (
-                <CalendarsList onClick={(calendarKey) => {
-                    console.log({ calendarKey });
-                    onCalendarClick(calendarKey, Calendars[calendarKey]);
+                <CalendarsList onClick={(...params) => {
+                    onCalendarClick(...params);
+                    setIsCalendarMenuOpen(false);
                 }} />
             )}
             <div className="p-4 h-dvh user-select-none space-y-12">
@@ -66,14 +70,15 @@ export default function SquareCalendar() {
                     <button onClick={() => setIsCalendarMenuOpen(!isCalendarMenuOpen)}>🗓️</button>
                     {Object.entries(Calendars)
                         .sort((a, b) => {
-                            // sort by calendarKey from the URL
                             return a[0] === calendarKey ? -1 : b[0] === calendarKey ? 1 : 0;
                         })
                         .map(([key, item]) =>
                             <CalendarButton
                                 key={item.key}
                                 isSelected={calendar.key === item.key}
-                                onClick={() => onCalendarClick(key, item)}>
+                                onClick={() => {
+                                    onCalendarClick(key, item);
+                                }}>
                                 {item.icon} {item.name}
                             </CalendarButton>
                         )}
