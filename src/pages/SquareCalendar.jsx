@@ -108,7 +108,7 @@ export default function SquareCalendar() {
             <h1 className="text-base font-bold flex flex-nowrap w-60 overflow-x-auto gap-4">
                 {Object.values(Calendars).map(item =>
                     <CalendarButton onClick ={() => {
-                        saveToStorage(calendar.key);
+                        saveToStorage(calendar.key, data);
                         setCalendar(item);
                         setData(loadFromStorage(item.key));
                     }}>{item.icon} {item.name}</CalendarButton>
