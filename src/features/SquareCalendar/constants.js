@@ -32,8 +32,8 @@ export const Calendars = {
     Colors.Yellow, 
     Colors.Orange,
     Colors.Crimson,
-    Colors.Maroon,
-    Colors.Lavendar
+    Colors.Skyblue,
+    Colors.Purple
     ], icon: "🎭", category: ""},
     Css: { name: "css", key: "css-square-calendar", colors: [Colors.Yellow, Colors.Black], icon: "💻", category: "self" }, // Code/programming
     Read: { name: "read", key: "read-square-calendar", colors: [Colors.Sage, Colors.Black], icon: "📚", category: "self" }, // Books
