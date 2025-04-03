@@ -54,12 +54,12 @@ const DateNavigationButton = ({ direction, currentDate, onClick }) => {
 }
 
 const Calendars = {
-    CSS: "css", 
-    READ: "read"
+    Css: { name: "css", color: "yellow", icon: "🟨" },
+    Read: { name: "read", color: "green", icon: "🟩" },
 };
 
 export default function SquareCalendar() {
-    const [calendarName, setCalendarName] = useState(Calendars.CSS);
+    const [calendar, setCalendar] = useState(Calendars.CSS);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [data, setData] = useState(loadFromStorage());
 
@@ -105,11 +105,10 @@ export default function SquareCalendar() {
 
     return (
         <div className="p-4 h-dvh user-select-none space-y-12">
-            <h1 className="text-base font-bold flex flex-nowrap w-48 overflow-x-auto gap-4">
-                <CalendarButton>🟨 CSS</CalendarButton>
-                <CalendarButton>🟩 Read</CalendarButton>
-                <CalendarButton>🟦 Friends</CalendarButton>
-                <CalendarButton>🟥 Date</CalendarButton>
+            <h1 className="text-base font-bold flex flex-nowrap w-60 overflow-x-auto gap-4">
+                {Object.values(Calendars).map(item =>
+                    <CalendarButton>{item.icon} {item.name}</CalendarButton>
+                    )}
                 </h1>
             <div className="flex justify-center flex-wrap h-10/12">
                 {new Array(12).fill(0).map((_, monthIndex) => {
