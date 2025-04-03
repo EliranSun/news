@@ -28,6 +28,13 @@ export const Colors = {
 
 export const Calendars = {
     // Self - Using vibrant, energetic colors for personal development
+    Mood: { name: "mood", key: "mood-square-tracker", colors: [
+    Colors.Yellow, 
+    Colors.Orange,
+    Colors.Crimson,
+    Colors.Maroon,
+    Colors.Lavendar
+    ], icon: "🎭", category: ""},
     Css: { name: "css", key: "css-square-calendar", colors: [Colors.Yellow, Colors.Black], icon: "💻", category: "self" }, // Code/programming
     Read: { name: "read", key: "read-square-calendar", colors: [Colors.Sage, Colors.Black], icon: "📚", category: "self" }, // Books
     Game: { name: "game", key: "game-square-calendar", colors: [Colors.Violet, Colors.Black], icon: "🎮", category: "self" }, // Gaming
