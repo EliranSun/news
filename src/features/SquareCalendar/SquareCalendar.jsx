@@ -18,9 +18,9 @@ export default function SquareCalendar() {
         return url.searchParams.get('calendar');
     }, []);
 
-    const [calendar, setCalendar] = useState(Calendars[calendarKey] || Calendars.Css);
+    const [calendar, setCalendar] = useState(Calendars[calendarKey] || Calendars.Mood);
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [data, setData] = useState(loadFromStorage(Calendars[calendarKey]?.key || Calendars.Css.key));
+    const [data, setData] = useState(loadFromStorage(Calendars[calendarKey]?.key || Calendars.Mood.key));
 
     const updateColor = useCallback((color) => {
         if (color === 'clear') {
@@ -81,7 +81,7 @@ export default function SquareCalendar() {
                         }}>
                         🗓️
                     </button>
-                    <h1 className="text-base font-bold flex flex-nowrap w-[75vw] overflow-x-auto gap-4">
+                    <h1 className="text-base font-bold flex flex-nowrap w-[calc(100vw-99px)] overflow-x-auto gap-4">
                         {Object.values(Calendars)
                             .map((item) =>
                                 <div key={item.key} className="h-fit" id={item.key}>
