@@ -65,7 +65,7 @@ export default function SquareCalendar() {
                     setIsCalendarMenuOpen(false);
                 }} />
             )}
-            <div className="p-4 h-dvh user-select-none space-y-12">
+            <div className="p-4 h-dvh user-select-none space-y-12 font-mono">
                 <h1 className="text-base font-bold flex flex-nowrap w-[80vw] overflow-x-auto gap-4">
                     <button onClick={() => setIsCalendarMenuOpen(!isCalendarMenuOpen)}>🗓️</button>
                     {Object.values(Calendars)

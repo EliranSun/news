@@ -10,12 +10,14 @@ const CalendarItem = ({ calendar, onClick }) => {
 
     return (
         <div
-            className="cursor-pointer grid grid-cols-4 gap-2 text-sm w-full"
+            className="cursor-pointer grid grid-cols-2 gap-2 text-sm w-full"
             onClick={() => onClick(calendar)}>
             <div className="">{calendar.icon} {calendar.name}</div>
-            {daysSinceLastEntry && <div className="">⌚{daysSinceLastEntry}d ago</div>}
-            {streak > 0 && <div className="">🔥 {streak}d</div>}
-            {highscore > 0 && <div className="">🏆 {highscore}d</div>}
+            <div className="grid grid-cols-3 gap-2 text-center">
+                {daysSinceLastEntry && <div className="">⌚ {daysSinceLastEntry}d</div>}
+                {streak > 0 && <div className="">🔥 {streak}d</div>}
+                {highscore > 0 && <div className="">🏆 {highscore}d</div>}
+            </div>
         </div>
     );
 };
@@ -34,12 +36,13 @@ export const CalendarsList = ({ onClick }) => {
 
     return (
         <div className={classNames({
+            "font-mono": true,
             "backdrop-brightness-50 backdrop-blur": true,
             "fixed top-0 left-0 flex justify-center items-center w-full z-10 h-full dark:bg-black": true,
             "flex-col": Object.keys(groupedCalendars).length > 1,
             "flex-row": Object.keys(groupedCalendars).length <= 1
         })}>
-            <div className="h-fit bg-white border space-y-2 rounded-lg border-black dark:border-white p-8 overflow-y-auto">
+            <div className="h-fit bg-white border space-y-2 rounded-lg border-black dark:border-white p-4 overflow-y-auto">
                 {Object.entries(groupedCalendars).map(([category, calendars]) => (
                     <div key={category}>
                         <h3 className="text-xl font-bold">{category}</h3>
