@@ -8,21 +8,19 @@ const CalendarItem = ({ calendar, onClick }) => {
     const streak = useMemo(() => getStreakCount(calendar.key), [calendar.key]);
     const highscore = useMemo(() => getHighestStreakCount(calendar.key), [calendar.key]);
 
-    console.log({ name: calendar.name, isToday: daysSinceLastEntry === 0, streak, highscore });
-
     return (
         <div
             className="cursor-pointer grid grid-cols-2 gap-2 text-sm w-full"
             onClick={() => onClick(calendar)}>
             <div className="">{calendar.icon} {calendar.name}</div>
-            <div className="grid grid-cols-3 gap-2 text-center">
-                {streak > 0 && <div className="">🔥 {streak}d</div>}
-                {highscore > 0 && <div className="">🏆 {highscore}d</div>}
+            <div className="grid grid-cols-3 gap-3 text-center">
+                <div className="">{streak > 0 && <span>🔥 {streak}d</span>}</div>
+                <div className="">{highscore > 0 && <span>🏆 {highscore}d</span>}</div>
                 {daysSinceLastEntry !== null &&
-                    <div className="w-18 flex gap-1">
+                    <div className="w-18 flex justify-between">
                         <span>🔄</span>
                         <span>{daysSinceLastEntry === 0
-                            ? "today"
+                            ? "↓"
                             : `${daysSinceLastEntry}d`}
                         </span>
                     </div>}
