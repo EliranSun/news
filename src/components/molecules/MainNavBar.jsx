@@ -57,7 +57,7 @@ export const MainNavBar = () => {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	return (
-		<div className="fixed top-1 right-5 z-20">
+		<div className="fixed bottom-5 right-5 z-20">
 			<div
 				className="flex justify-center items-center bg-white dark:bg-black
 				 shadow-md rounded-full p-2 cursor-pointer size-12
