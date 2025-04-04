@@ -14,7 +14,7 @@ const DaySquare = ({ dayObj, selectedDate, setSelectedDate, data, monthIndex, da
     const isToday = dayObj.date.toDateString() === selectedDate.toDateString();
     const colorClass = useMemo(() => {
         const color = data.find(item => new Date(item.date).toDateString() === dayObj.date.toDateString())?.color;
-        return getColorsClassList(color);
+        return color && getColorsClassList(color);
     }, [data, dayObj.date]);
 
     return (
@@ -23,12 +23,12 @@ const DaySquare = ({ dayObj, selectedDate, setSelectedDate, data, monthIndex, da
             onClick={() => setSelectedDate(dayObj.date)}
             className={classNames(colorClass, {
                 "size-4 text-[8px] flex justify-center items-center": true,
-                "bg-gray-100 dark:bg-gray-900": !dayObj.isPadding && !isToday,
-                "opacity-0": dayObj.isPadding,
-                "border-2 border-amber-500": !dayObj.isPadding && isToday,
+                "bg-gray-100 dark:bg-gray-900": !dayObj.previousMonth && !isToday && !colorClass,
+                "opacity-0": dayObj.previousMonth,
+                "border-2 border-amber-500": !dayObj.previousMonth && isToday,
             })}
         >
-            {(!dayObj.isPadding && isToday)
+            {(!dayObj.previousMonth && isToday)
                 ? dayObj.date.toLocaleString('default', { day: 'numeric' }) : null}
         </div>
     );
@@ -136,18 +136,18 @@ export default function SquareCalendar() {
                         const daysInPrevMonth = getDaysInMonth(prevMonth);
 
                         // Create array for previous month's padding days
-                        const paddingDays = Array.from({ length: startDay }, (_, i) => ({
+                        const previousMonthDays = Array.from({ length: startDay }, (_, i) => ({
                             date: new Date(prevMonth.getFullYear(), prevMonth.getMonth(), daysInPrevMonth - startDay + i + 1),
-                            isPadding: true
+                            previousMonth: true
                         }));
 
                         // Create array for current month's days
                         const currentMonthDays = Array.from({ length: daysInMonth }, (_, i) => ({
                             date: new Date(month.getFullYear(), month.getMonth(), i + 1),
-                            isPadding: false
+                            previousMonth: false
                         }));
 
-                        const allDays = [...paddingDays, ...currentMonthDays];
+                        const allDays = [...previousMonthDays, ...currentMonthDays];
 
                         return (
                             <div className="flex flex-col" key={`month-${monthIndex}`}>
