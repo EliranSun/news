@@ -91,7 +91,10 @@ export const MainPage = ({ savedPath }) => {
 		case currentPath.includes("/square-calendar"):
 			return <SquareCalendar />;
 
-		default:
+		case currentPath.includes("/news"):
 			return <News />;
+
+		default:
+			return <SquareCalendar />;
 	}
 };
