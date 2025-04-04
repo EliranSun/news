@@ -1,4 +1,4 @@
-import { Colors } from "./constants";
+import { Colors, Calendars } from "./constants";
 import { differenceInDays, isEqual, addDays, startOfDay } from "date-fns";
 
 export const getDaysSinceLastEntry = (key = "square-calendar") => {
@@ -33,8 +33,10 @@ export const getStreakCount = (key = "square-calendar") => {
         return 0; // No entries exist
     }
 
+    const isAvoid = Object.values(Calendars).find(calendar => calendar.key === key)?.avoid;
+
     // Filter out entries with "black" color
-    const validEntries = data.filter(item => item.avoid
+    const validEntries = data.filter(item => isAvoid
         ? item.color === Colors.Black
         : item.color !== Colors.Black);
 
@@ -87,8 +89,10 @@ export const getHighestStreakCount = (key = "square-calendar") => {
         return 0; // No entries exist
     }
 
+    const isAvoid = Object.values(Calendars).find(calendar => calendar.key === key)?.avoid;
+
     // Filter out entries with "black" color
-    const validEntries = data.filter(item => item.avoid
+    const validEntries = data.filter(item => isAvoid
         ? item.color === Colors.Black
         : item.color !== Colors.Black);
 
