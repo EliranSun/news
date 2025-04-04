@@ -8,7 +8,39 @@ import { DateNavigationButton } from "./DateNavigationButton";
 import { Calendars } from "./constants";
 import { FriendsLegend } from "./FriendsLegend";
 import { CalendarsList } from "./CalendarsList";
+import PropTypes from "prop-types";
 
+const DaySquare = ({ dayObj, selectedDate, setSelectedDate, data, monthIndex, dayIndex }) => {
+    const isToday = dayObj.date.toDateString() === selectedDate.toDateString();
+    const color = data.find(item => new Date(item.date).toDateString() === dayObj.date.toDateString())?.color;
+    const colors = useMemo(() => getColorsClassList(color), [color]);
+
+    return (
+        <div
+            key={`month-${monthIndex}-day-${dayIndex}`}
+            onClick={() => setSelectedDate(dayObj.date)}
+            className={classNames({
+                ...colors,
+                "size-4 text-[8px] flex justify-center items-center": true,
+                "bg-gray-100 dark:bg-gray-900": !dayObj.isPadding && !isToday,
+                "opacity-0": dayObj.isPadding,
+                "border-2 border-amber-500": !dayObj.isPadding && isToday,
+            })}
+        >
+            {(!dayObj.isPadding && isToday)
+                ? dayObj.date.toLocaleString('default', { day: 'numeric' }) : null}
+        </div>
+    );
+}
+
+DaySquare.propTypes = {
+    dayObj: PropTypes.object.isRequired,
+    selectedDate: PropTypes.object.isRequired,
+    setSelectedDate: PropTypes.func.isRequired,
+    data: PropTypes.array.isRequired,
+    monthIndex: PropTypes.number.isRequired,
+    dayIndex: PropTypes.number.isRequired,
+};
 
 export default function SquareCalendar() {
     const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
@@ -52,7 +84,7 @@ export default function SquareCalendar() {
                 calendarButton.scrollIntoView({ behavior: 'smooth' });
             }
         }, 100);
-    }, [data, calendar]);
+    }, [calendar]);
 
     const onCalendarClick = useCallback((item) => {
         const url = new URL(window.location.href);
@@ -121,25 +153,14 @@ export default function SquareCalendar() {
                                 <h2 className="text-xs">{month.toLocaleString('default', { month: 'short' })}</h2>
                                 <div className="grid grid-cols-7 p-1 gap-0.5">
                                     {allDays.map((dayObj, dayIndex) => {
-                                        const isToday = dayObj.date.toDateString() === selectedDate.toDateString();
-                                        const color = data.find(item => new Date(item.date).toDateString() === dayObj.date.toDateString())?.color;
-
-                                        return (
-                                            <div
-                                                key={`month-${monthIndex}-day-${dayIndex}`}
-                                                onClick={() => setSelectedDate(dayObj.date)}
-                                                className={classNames({
-                                                    "size-4 text-[8px] flex justify-center items-center": true,
-                                                    "bg-gray-100 dark:bg-gray-900": !dayObj.isPadding && !isToday,
-                                                    "opacity-0": dayObj.isPadding,
-                                                    "border-2 border-amber-500": !dayObj.isPadding && isToday,
-                                                    ...getColorsClassList(color)
-                                                })}
-                                            >
-                                                {(!dayObj.isPadding && isToday)
-                                                    ? dayObj.date.toLocaleString('default', { day: 'numeric' }) : null}
-                                            </div>
-                                        );
+                                        return <DaySquare
+                                            monthIndex={monthIndex}
+                                            dayIndex={dayIndex}
+                                            selectedDate={selectedDate}
+                                            setSelectedDate={setSelectedDate}
+                                            data={data}
+                                            key={`month-${monthIndex}-day-${dayIndex}`}
+                                            dayObj={dayObj} />
                                     })}
                                 </div>
                             </div>
@@ -149,13 +170,13 @@ export default function SquareCalendar() {
                 <div className="flex justify-between items-center w-full border-2 shadow px-4 rounded-lg">
                     <div className="grid grid-cols-3 gap-2 max-w-[150px] my-2 border rounded-lg p-2">
                         <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
-                        <DateNavigationButton direction="⬆️" currentDate={selectedDate} onClick={setSelectedDate} />
+                        <DateNavigationButton direction="↑" currentDate={selectedDate} onClick={setSelectedDate} />
                         <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
-                        <DateNavigationButton direction="⬅️" currentDate={selectedDate} onClick={setSelectedDate} />
+                        <DateNavigationButton direction="←" currentDate={selectedDate} onClick={setSelectedDate} />
                         <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-50"></div>
-                        <DateNavigationButton direction="➡️" currentDate={selectedDate} onClick={setSelectedDate} />
+                        <DateNavigationButton direction="→" currentDate={selectedDate} onClick={setSelectedDate} />
                         <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
-                        <DateNavigationButton direction="⬇️" currentDate={selectedDate} onClick={setSelectedDate} />
+                        <DateNavigationButton direction="↓" currentDate={selectedDate} onClick={setSelectedDate} />
                         <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
                     </div>
                     <div className="grid grid-cols-3 gap-2 border rounded-lg p-2">
