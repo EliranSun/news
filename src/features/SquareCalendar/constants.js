@@ -28,13 +28,15 @@ export const Colors = {
 
 export const Calendars = {
     // Self - Using vibrant, energetic colors for personal development
-    Mood: { name: "mood", key: "mood-square-tracker", colors: [
-    Colors.Yellow, 
-    Colors.Orange,
-    Colors.Crimson,
-    Colors.Skyblue,
-    Colors.Purple
-    ], icon: "🎭", category: ""},
+    Mood: {
+        name: "mood", key: "mood-square-tracker", colors: [
+            Colors.Yellow,
+            Colors.Orange,
+            Colors.Crimson,
+            Colors.Skyblue,
+            Colors.Purple
+        ], icon: "🎭", category: ""
+    },
     Css: { name: "css", key: "css-square-calendar", colors: [Colors.Yellow, Colors.Black], icon: "💻", category: "self" }, // Code/programming
     Read: { name: "read", key: "read-square-calendar", colors: [Colors.Sage, Colors.Black], icon: "📚", category: "self" }, // Books
     Game: { name: "game", key: "game-square-calendar", colors: [Colors.Violet, Colors.Black], icon: "🎮", category: "self" }, // Gaming
@@ -45,13 +47,13 @@ export const Calendars = {
     LaundryFold: { name: "laundry fold", key: "laundry-fold-square-calendar", colors: [Colors.Lightblue, Colors.Black], icon: "👕", category: "house" }, // Folded clothes
     Groceries: { name: "groceries", key: "groceries-square-calendar", colors: [Colors.Forestgreen, Colors.Black], icon: "🛒", category: "house" }, // Shopping cart
     Cooking: { name: "cooking", key: "cooking-square-calendar", colors: [Colors.Orange, Colors.Black], icon: "🍳", category: "house" }, // Cooking
-    ReplaceSheets: { name: "replace sheets", key: "replace-sheets-square-calendar", colors: [Colors.Lavender, Colors.Black], icon: "🛏️", category: "house" }, // Bed
+    ReplaceSheets: { name: "sheets", key: "replace-sheets-square-calendar", colors: [Colors.Lavender, Colors.Black], icon: "🛏️", category: "house" }, // Bed
 
     // Wife - Using romantic, warm colors
     Date: { name: "date", key: "date-square-calendar", colors: [Colors.Rose, Colors.Black], icon: "💑", category: "wife" }, // Couple
     Sex: { name: "sex", key: "sex-square-calendar", colors: [Colors.Hotpink, Colors.Black], icon: "❤️", category: "wife" }, // Heart
     Trip: { name: "trip", key: "trip-square-calendar", colors: [Colors.Turquoise, Colors.Black], icon: "🌲", category: "wife" }, // Travel
-    LittleThings: { name: "little things for wife", key: "little-things-square-calendar", colors: [Colors.Coral, Colors.Black], icon: "🎁", category: "wife" }, // Gift
+    LittleThings: { name: "small things", key: "little-things-square-calendar", colors: [Colors.Coral, Colors.Black], icon: "🎁", category: "wife" }, // Gift
 
     // Social - Using friendly, welcoming colors
     Mom: { name: "mom", key: "mom-square-calendar", colors: [Colors.Purple, Colors.Black], icon: "👩", category: "social" }, // Woman

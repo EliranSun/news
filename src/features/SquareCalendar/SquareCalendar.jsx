@@ -57,8 +57,6 @@ export default function SquareCalendar() {
         setData(loadFromStorage(item.key));
     }, [data, calendar]);
 
-    console.log({ calendar });
-
     return (
         <>
             {isCalendarMenuOpen && (

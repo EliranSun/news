@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import classNames from "classnames";
+
 const SquareMap = [
     {
         "id": 1,
