@@ -101,7 +101,7 @@ export const CalendarsList = ({ onClick }) => {
         <div className={classNames({
             "font-mono": true,
             "backdrop-brightness-50 backdrop-blur": true,
-            "fixed p-4 top-0 left-0 flex justify-center items-center w-full z-10 h-full dark:bg-black": true,
+            "fixed p-4 top-0 left-0 flex justify-center items-center w-full z-10 h-full ": true,
             "flex-col": Object.keys(groupedCalendars).length > 1,
             "flex-row": Object.keys(groupedCalendars).length <= 1
         })}>
