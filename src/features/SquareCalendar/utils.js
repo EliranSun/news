@@ -158,7 +158,7 @@ export const getColorsClassList = (color) => {
         "bg-fuchsia-400": color === Colors.Plum,
         "bg-teal-400": color === Colors.Turquoise,
         "bg-blue-900": color === Colors.Navy,
-        "bg-amber-800": color === Colors.Brown,
+        "bg-amber-700": color === Colors.Brown,
         "bg-green-200": color === Colors.Sage,
         "bg-violet-500": color === Colors.Violet,
         "bg-red-600": color === Colors.Crimson,
