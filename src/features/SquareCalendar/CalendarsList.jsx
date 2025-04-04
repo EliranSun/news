@@ -13,8 +13,10 @@ const CalendarItem = ({ calendar, onClick }) => {
             className="cursor-pointer grid grid-cols-2 gap-2 text-xl w-full"
             onClick={() => onClick(calendar)}>
             <div className={classNames({
-                "text-red-500": daysSinceLastEntry > 10,
-                })}>{calendar.icon} {calendar.name}</div>
+                "text-red-500": calendar.showColorStatus && (daysSinceLastEntry === null || daysSinceLastEntry > calendar.redAfter),
+                "text-yellow-500": calendar.showColorStatus && daysSinceLastEntry > calendar.yellowAfter,
+                "text-green-500": calendar.showColorStatus && daysSinceLastEntry <= calendar.yellowAfter,
+            })}>{calendar.icon} {calendar.name}</div>
             <div className="grid grid-cols-3 gap-3 text-center">
                 {daysSinceLastEntry !== null &&
                     <div className="w-fit flex gap-0">
@@ -28,7 +30,7 @@ const CalendarItem = ({ calendar, onClick }) => {
                     <><span className="w-10">{streak}d</span><span>🔥</span></>}</div>
                 <div className="w-fit flex gap-0">{highscore > 0 &&
                     <><span className="w-10">{highscore}d</span><span>🏆</span></>}</div>
-                
+
             </div>
         </div>
     );
