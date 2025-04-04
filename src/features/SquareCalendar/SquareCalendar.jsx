@@ -78,7 +78,9 @@ export default function SquareCalendar() {
 
     useEffect(() => {
         saveToStorage(calendar.key, data);
+    }, [calendar, data]);
 
+    useEffect(() => {
         setTimeout(() => {
             const calendarButton = document.getElementById(calendar.key);
             if (calendarButton) {
