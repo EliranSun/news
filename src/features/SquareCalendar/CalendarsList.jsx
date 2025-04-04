@@ -10,7 +10,7 @@ const CalendarItem = ({ calendar, onClick }) => {
 
     return (
         <div
-            className="cursor-pointer grid grid-cols-2 gap-2 text-sm w-full"
+            className="cursor-pointer grid grid-cols-2 gap-2 text-xl w-full"
             onClick={() => onClick(calendar)}>
             <div className="">{calendar.icon} {calendar.name}</div>
             <div className="grid grid-cols-3 gap-3 text-center">
@@ -55,7 +55,7 @@ export const CalendarsList = ({ onClick }) => {
             <div className="h-fit bg-white border space-y-2 rounded-lg border-black dark:border-white p-4 overflow-y-auto">
                 {Object.entries(groupedCalendars).map(([category, calendars]) => (
                     <div key={category}>
-                        <h3 className="text-xl font-bold">{category}</h3>
+                        <h3 className="text-2xl font-bold">{category}</h3>
                         {calendars.map((calendar) => (
                             <CalendarItem key={calendar.key} calendar={calendar} onClick={onClick} />
                         ))}
