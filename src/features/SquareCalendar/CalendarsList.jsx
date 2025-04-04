@@ -68,7 +68,8 @@ const CalendarItem = ({ calendar, onClick }) => {
     return (
         <div
             onClick={() => onClick(calendar)}
-            className="cursor-pointer grid grid-cols-2 gap-0 text-lg w-full px-4 overflow-hidden even:bg-gray-100 dark:even:bg-gray-900">
+            className="cursor-pointer grid grid-cols-2 gap-0 py-2
+            w-full px-4 overflow-hidden even:bg-gray-100 dark:even:bg-gray-900">
             <EntryName calendar={calendar} daysSinceLastEntry={daysSinceLastEntry} />
             <div className="grid grid-cols-3 gap-1 text-center items-center justify-center w-full">
                 <DaysSince daysSince={daysSinceLastEntry} />
@@ -106,7 +107,7 @@ export const CalendarsList = ({ onClick }) => {
         })}>
             <div className="h-fit bg-white border space-y-8 rounded-lg border-black dark:border-white p-4 overflow-y-auto">
                 {Object.entries(groupedCalendars).map(([category, calendars]) => (
-                    <div className="space-y-2" key={category}>
+                    <div className="" key={category}>
                         <h3 className="text-2xl font-bold">{category}</h3>
                         {calendars.map((calendar) => (
                             <CalendarItem key={calendar.key} calendar={calendar} onClick={onClick} />
