@@ -105,7 +105,7 @@ export const CalendarsList = ({ onClick }) => {
             "flex-col": Object.keys(groupedCalendars).length > 1,
             "flex-row": Object.keys(groupedCalendars).length <= 1
         })}>
-            <div className="h-fit bg-white border space-y-8 rounded-lg border-black dark:border-white p-4 overflow-y-auto">
+            <div className="h-fit bg-white dark:bg-black border space-y-8 rounded-lg border-black dark:border-white p-4 overflow-y-auto">
                 {Object.entries(groupedCalendars).map(([category, calendars]) => (
                     <div className="" key={category}>
                         <h3 className="text-2xl font-bold">{category}</h3>
