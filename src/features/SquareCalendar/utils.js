@@ -34,7 +34,9 @@ export const getStreakCount = (key = "square-calendar") => {
     }
 
     // Filter out entries with "black" color
-    const validEntries = data.filter(item => item.color !== Colors.Black);
+    const validEntries = data.filter(item => item.avoid
+        ? item.color === Colors.Black
+        : item.color !== Colors.Black);
 
     if (validEntries.length === 0) {
         return 0; // No valid entries exist
@@ -86,7 +88,9 @@ export const getHighestStreakCount = (key = "square-calendar") => {
     }
 
     // Filter out entries with "black" color
-    const validEntries = data.filter(item => item.color !== Colors.Black);
+    const validEntries = data.filter(item => item.avoid
+        ? item.color === Colors.Black
+        : item.color !== Colors.Black);
 
     if (validEntries.length === 0) {
         return 0; // No valid entries exist

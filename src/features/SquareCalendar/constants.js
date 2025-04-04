@@ -243,18 +243,21 @@ export const Calendars = {
         name: "social media", key: "social-media-square-calendar",
         colors: [Colors.Darkgray, Colors.Black],
         icon: "📱",
-        category: "avoid"
+        category: "avoid",
+        avoid: true,
     },
     Porn: {
         name: "porn", key: "porn-square-calendar",
         colors: [Colors.Maroon, Colors.Black],
         icon: "⛔",
-        category: "avoid"
+        category: "avoid",
+        avoid: true,
     }, // No entry
     Masturbate: {
         name: "masturbate", key: "masturbate-square-calendar",
         colors: [Colors.Brown, Colors.Black],
         icon: "🚫",
-        category: "avoid"
+        category: "avoid",
+        avoid: true,
     }, // Prohibited
 };
