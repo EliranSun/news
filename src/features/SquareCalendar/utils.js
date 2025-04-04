@@ -8,8 +8,15 @@ export const getDaysSinceLastEntry = (key = "square-calendar") => {
         return null; // No entries exist
     }
 
+    // Filter out entries with "black" color
+    const validEntries = data.filter(item => item.color !== Colors.Black);
+
+    if (validEntries.length === 0) {
+        return null; // No valid entries exist
+    }
+
     // Find the most recent date entry
-    const sortedDates = data
+    const sortedDates = validEntries
         .map(item => new Date(item.date))
         .sort((a, b) => b - a); // Sort in descending order (newest first)
 
@@ -26,9 +33,16 @@ export const getStreakCount = (key = "square-calendar") => {
         return 0; // No entries exist
     }
 
+    // Filter out entries with "black" color
+    const validEntries = data.filter(item => item.color !== Colors.Black);
+
+    if (validEntries.length === 0) {
+        return 0; // No valid entries exist
+    }
+
     // Convert all dates to Date objects (using startOfDay to normalize times)
     // and sort in descending order (newest first)
-    const dates = data.map(item => startOfDay(new Date(item.date)));
+    const dates = validEntries.map(item => startOfDay(new Date(item.date)));
 
     // Remove any duplicate dates (in case multiple entries on same day)
     const uniqueDates = [...new Set(dates.map(date => date.getTime()))]
@@ -71,8 +85,15 @@ export const getHighestStreakCount = (key = "square-calendar") => {
         return 0; // No entries exist
     }
 
+    // Filter out entries with "black" color
+    const validEntries = data.filter(item => item.color !== Colors.Black);
+
+    if (validEntries.length === 0) {
+        return 0; // No valid entries exist
+    }
+
     // Convert all dates to Date objects (using startOfDay to normalize times)
-    const dates = data.map(item => startOfDay(new Date(item.date)));
+    const dates = validEntries.map(item => startOfDay(new Date(item.date)));
 
     // Remove any duplicate dates (in case multiple entries on same day)
     const uniqueDates = [...new Set(dates.map(date => date.getTime()))]
