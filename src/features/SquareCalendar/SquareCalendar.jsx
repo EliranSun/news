@@ -12,15 +12,16 @@ import PropTypes from "prop-types";
 
 const DaySquare = ({ dayObj, selectedDate, setSelectedDate, data, monthIndex, dayIndex }) => {
     const isToday = dayObj.date.toDateString() === selectedDate.toDateString();
-    const color = data.find(item => new Date(item.date).toDateString() === dayObj.date.toDateString())?.color;
-    const colors = useMemo(() => getColorsClassList(color), [color]);
+    const colorClass = useMemo(() => {
+        const color = data.find(item => new Date(item.date).toDateString() === dayObj.date.toDateString())?.color;
+        return getColorsClassList(color);
+    }, [data, dayObj.date]);
 
     return (
         <div
             key={`month-${monthIndex}-day-${dayIndex}`}
             onClick={() => setSelectedDate(dayObj.date)}
-            className={classNames({
-                ...colors,
+            className={classNames(colorClass, {
                 "size-4 text-[8px] flex justify-center items-center": true,
                 "bg-gray-100 dark:bg-gray-900": !dayObj.isPadding && !isToday,
                 "opacity-0": dayObj.isPadding,

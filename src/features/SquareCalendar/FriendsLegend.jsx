@@ -9,9 +9,8 @@ export const FriendsLegend = ({ isActive }) => {
         <legend className="flex flex-wrap gap-2">
             {Calendars.Friends.legend.map((friend) => (
                 <div key={friend.name} className="flex items-center gap-2">
-                    <div className={classNames({
+                    <div className={classNames(getColorsClassList(friend.color), {
                         "size-4 rounded-md": true,
-                        ...getColorsClassList(friend.color),
                     })} />
                     <span>{friend.name}</span>
                 </div>

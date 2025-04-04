@@ -149,32 +149,34 @@ export const saveToStorage = (key = "square-calendar", data) => {
     }
 };
 
+const TailwindColorsMap = {
+    [Colors.Clear]: "bg-transparent border",
+    [Colors.Black]: "bg-neutral-700",
+    [Colors.Red]: "bg-red-500",
+    [Colors.Green]: "bg-green-500",
+    [Colors.Blue]: "bg-blue-500",
+    [Colors.Yellow]: "bg-yellow-500",
+    [Colors.Purple]: "bg-purple-500",
+    [Colors.Orange]: "bg-orange-500",
+    [Colors.Coral]: "bg-orange-300",
+    [Colors.Pink]: "bg-pink-500",
+    [Colors.Forestgreen]: "bg-emerald-800",
+    [Colors.Skyblue]: "bg-sky-400",
+    [Colors.Plum]: "bg-fuchsia-500",
+    [Colors.Turquoise]: "bg-teal-400",
+    [Colors.Navy]: "bg-blue-800",
+    [Colors.Brown]: "bg-amber-600",
+    [Colors.Sage]: "bg-green-400",
+    [Colors.Violet]: "bg-violet-500",
+    [Colors.Crimson]: "bg-red-600",
+    [Colors.Lightblue]: "bg-blue-200",
+    [Colors.Lavender]: "bg-purple-200",
+    [Colors.Rose]: "bg-rose-500",
+    [Colors.Hotpink]: "bg-pink-600",
+    [Colors.Darkgray]: "bg-gray-500",
+    [Colors.Maroon]: "bg-red-900",
+};
+
 export const getColorsClassList = (color) => {
-    return {
-        "bg-transparent border": color === Colors.Clear,
-        "bg-neutral-700": color === Colors.Black,
-        "bg-red-500": color === Colors.Red,
-        "bg-green-500": color === Colors.Green,
-        "bg-blue-500": color === Colors.Blue,
-        "bg-yellow-500": color === Colors.Yellow,
-        "bg-purple-500": color === Colors.Purple,
-        "bg-orange-500": color === Colors.Orange,
-        "bg-orange-300": color === Colors.Coral,
-        "bg-pink-500": color === Colors.Pink,
-        "bg-emerald-800": color === Colors.Forestgreen,
-        "bg-sky-400": color === Colors.Skyblue,
-        "bg-fuchsia-500": color === Colors.Plum,
-        "bg-teal-400": color === Colors.Turquoise,
-        "bg-blue-800": color === Colors.Navy,
-        "bg-amber-600": color === Colors.Brown,
-        "bg-green-400": color === Colors.Sage,
-        "bg-violet-500": color === Colors.Violet,
-        "bg-red-600": color === Colors.Crimson,
-        "bg-blue-200": color === Colors.Lightblue,
-        "bg-purple-200": color === Colors.Lavender,
-        "bg-rose-500": color === Colors.Rose,
-        "bg-pink-600": color === Colors.Hotpink,
-        "bg-gray-500": color === Colors.Darkgray,
-        "bg-red-900": color === Colors.Maroon,
-    }
+    return TailwindColorsMap[color] || "";
 };

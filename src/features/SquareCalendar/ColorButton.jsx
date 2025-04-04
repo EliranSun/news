@@ -6,9 +6,7 @@ export const ColorButton = ({ color, onClick }) => {
         <button
             onClick={onClick}
             className="flex justify-center items-center rounded-full p-2">
-            <div className={classNames("size-4", {
-                ...getColorsClassList(color)
-            })} />
+            <div className={classNames("size-4", getColorsClassList(color))} />
         </button>
     );
 };
