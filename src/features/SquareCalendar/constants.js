@@ -35,8 +35,8 @@ export const Calendars = {
             Colors.Yellow,
             Colors.Orange,
             Colors.Crimson,
-            Colors.Skyblue,
-            Colors.Purple
+            Colors.Blue,
+            Colors.Violet
         ],
         icon: "🎭",
         category: "self"
