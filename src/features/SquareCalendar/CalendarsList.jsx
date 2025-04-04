@@ -14,10 +14,6 @@ const CalendarItem = ({ calendar, onClick }) => {
             onClick={() => onClick(calendar)}>
             <div className="">{calendar.icon} {calendar.name}</div>
             <div className="grid grid-cols-3 gap-3 text-center">
-                <div className="w-fit flex gap-0">{streak > 0 &&
-                    <><span className="w-10">{streak}d</span><span>🔥</span></>}</div>
-                <div className="w-fit flex gap-0">{highscore > 0 &&
-                    <><span className="w-10">{highscore}d</span><span>🏆</span></>}</div>
                 {daysSinceLastEntry !== null &&
                     <div className="w-fit flex gap-0">
                         <span className="w-10">{daysSinceLastEntry === 0
@@ -26,6 +22,11 @@ const CalendarItem = ({ calendar, onClick }) => {
                         </span>
                         <span>🔄</span>
                     </div>}
+                <div className="w-fit flex gap-0">{streak > 0 &&
+                    <><span className="w-10">{streak}d</span><span>🔥</span></>}</div>
+                <div className="w-fit flex gap-0">{highscore > 0 &&
+                    <><span className="w-10">{highscore}d</span><span>🏆</span></>}</div>
+                
             </div>
         </div>
     );
