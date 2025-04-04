@@ -14,15 +14,15 @@ const CalendarItem = ({ calendar, onClick }) => {
             onClick={() => onClick(calendar)}>
             <div className="">{calendar.icon} {calendar.name}</div>
             <div className="grid grid-cols-3 gap-3 text-center">
-                <div className="">{streak > 0 && <span>🔥 {streak}d</span>}</div>
-                <div className="">{highscore > 0 && <span>🏆 {highscore}d</span>}</div>
+                <div className="">{streak > 0 && <span>{streak}d 🔥</span>}</div>
+                <div className="w-18">{highscore > 0 && <span>{highscore}d 🏆</span>}</div>
                 {daysSinceLastEntry !== null &&
                     <div className="w-18 flex justify-between">
-                        <span>🔄</span>
                         <span>{daysSinceLastEntry === 0
                             ? "↓"
                             : `${daysSinceLastEntry}d`}
                         </span>
+                        <span>🔄</span>
                     </div>}
             </div>
         </div>
