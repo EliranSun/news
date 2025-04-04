@@ -22,7 +22,7 @@ const CalendarItem = ({ calendar, onClick }) => {
                     <div className="w-fit flex gap-0">
                         <span className="w-10">{daysSinceLastEntry === 0
                             ? "↓"
-                            : `${daysSinceLastEntry}00d`}
+                            : `${daysSinceLastEntry}d`}
                         </span>
                         <span>🔄</span>
                     </div>}
