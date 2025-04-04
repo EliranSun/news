@@ -12,7 +12,9 @@ const CalendarItem = ({ calendar, onClick }) => {
         <div
             className="cursor-pointer grid grid-cols-2 gap-2 text-xl w-full"
             onClick={() => onClick(calendar)}>
-            <div className="">{calendar.icon} {calendar.name}</div>
+            <div className={classNames({
+                "text-red-500": daysSinceLastEntry > 10,
+                })}>{calendar.icon} {calendar.name}</div>
             <div className="grid grid-cols-3 gap-3 text-center">
                 {daysSinceLastEntry !== null &&
                     <div className="w-fit flex gap-0">
