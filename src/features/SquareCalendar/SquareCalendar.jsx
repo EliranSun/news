@@ -103,7 +103,7 @@ export default function SquareCalendar() {
                         return (
                             <div className="flex flex-col" key={`month-${monthIndex}`}>
                                 <h2 className="text-xs">{month.toLocaleString('default', { month: 'short' })}</h2>
-                                <div className="grid grid-cols-7 p-1.5">
+                                <div className="grid grid-cols-7 p-2 gap-0.5">
                                     {allDays.map((dayObj, dayIndex) => {
                                         const isToday = dayObj.date.toDateString() === selectedDate.toDateString();
                                         const color = data.find(item => new Date(item.date).toDateString() === dayObj.date.toDateString())?.color;
@@ -114,7 +114,7 @@ export default function SquareCalendar() {
                                                 onClick={() => setSelectedDate(dayObj.date)}
                                                 className={classNames({
                                                     "size-4 text-[8px] flex justify-center items-center": true,
-                                                    "border border-black/70 dark:border-white/70": !dayObj.isPadding && !isToday,
+                                                    "bg-gray-100 dark:bg-gray-900": !dayObj.isPadding && !isToday,
                                                     "opacity-0": dayObj.isPadding,
                                                     "border-2 border-amber-500": !dayObj.isPadding && isToday,
                                                     ...getColorsClassList(color)
