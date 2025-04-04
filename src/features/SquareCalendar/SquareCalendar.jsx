@@ -45,7 +45,14 @@ export default function SquareCalendar() {
 
     useEffect(() => {
         saveToStorage(calendar.key, data);
-    }, [data]);
+
+        setTimeout(() => {
+            const calendarButton = document.getElementById(calendar.key);
+            if (calendarButton) {
+                calendarButton.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 100);
+    }, [data, calendar]);
 
     const onCalendarClick = useCallback((item) => {
         const url = new URL(window.location.href);
@@ -66,18 +73,27 @@ export default function SquareCalendar() {
                 }} />
             )}
             <div className="p-4 h-dvh user-select-none space-y-12 font-mono">
-                <h1 className="text-base font-bold flex flex-nowrap w-[80vw] overflow-x-auto gap-4">
-                    <button onClick={() => setIsCalendarMenuOpen(!isCalendarMenuOpen)}>🗓️</button>
-                    {Object.values(Calendars)
-                        .map((item) =>
-                            <CalendarButton
-                                key={item.key}
-                                isSelected={calendar.key === item.key}
-                                onClick={() => onCalendarClick(item)}>
-                                {item.icon} {item.name}
-                            </CalendarButton>
-                        )}
-                </h1>
+                <div className="flex">
+                    <button
+                        className="h-fit mr-2"
+                        onClick={() => {
+                            setIsCalendarMenuOpen(!isCalendarMenuOpen);
+                        }}>
+                        🗓️
+                    </button>
+                    <h1 className="text-base font-bold flex flex-nowrap w-[75vw] overflow-x-auto gap-4">
+                        {Object.values(Calendars)
+                            .map((item) =>
+                                <div key={item.key} className="h-fit" id={item.key}>
+                                    <CalendarButton
+                                        isSelected={calendar.key === item.key}
+                                        onClick={() => onCalendarClick(item)}>
+                                        {item.icon}
+                                    </CalendarButton>
+                                </div>
+                            )}
+                    </h1>
+                </div>
                 <div className="flex justify-center flex-wrap h-10/12">
                     {new Array(12).fill(0).map((_, monthIndex) => {
                         const month = new Date(selectedDate.getFullYear(), monthIndex, 1);
