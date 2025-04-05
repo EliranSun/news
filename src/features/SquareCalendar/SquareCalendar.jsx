@@ -123,7 +123,7 @@ export default function SquareCalendar() {
                                     <CalendarButton
                                         isSelected={calendar.key === item.key}
                                         onClick={() => onCalendarClick(item)}>
-                                        {item.icon}
+                                        {item.icon} {item.name.slice(0,1)}
                                     </CalendarButton>
                                 </div>
                             )}
