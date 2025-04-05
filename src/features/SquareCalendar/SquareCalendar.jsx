@@ -6,7 +6,7 @@ import { ColorButton } from "./ColorButton";
 import { loadFromStorage, saveToStorage, getColorsClassList } from "./utils";
 import { DateNavigationButton } from "./DateNavigationButton";
 import { Calendars } from "./constants";
-import { FriendsLegend } from "./FriendsLegend";
+import { CalendarLegend } from "./CalendarLegend";
 import { CalendarsList } from "./CalendarsList";
 import PropTypes from "prop-types";
 
@@ -107,7 +107,7 @@ export default function SquareCalendar() {
                     setIsCalendarMenuOpen(false);
                 }} />
             )}
-            <div className="p-4 overflow-hidden h-dvh user-select-none space-y-12 font-mono">
+            <div className="p-4 overflow-x-hidden h-dvh user-select-none space-y-12 font-mono">
                 <div className="flex">
                     <button
                         className="h-fit mr-2"
@@ -123,7 +123,7 @@ export default function SquareCalendar() {
                                     <CalendarButton
                                         isSelected={calendar.key === item.key}
                                         onClick={() => onCalendarClick(item)}>
-                                        {item.icon} {item.name.slice(0,1)}
+                                        {item.icon} {item.name.slice(0, 1)}
                                     </CalendarButton>
                                 </div>
                             )}
@@ -195,7 +195,9 @@ export default function SquareCalendar() {
                         <ColorButton color="⬜️" onClick={() => updateColor('clear')} />
                     </div>
                 </div>
-                <FriendsLegend isActive={calendar.key === Calendars.Friends.key} />
+                <CalendarLegend
+                    isActive={calendar.key === Calendars.Friends.key}
+                    legend={Calendars.Friends.legend} />
             </div>
         </>
     );
