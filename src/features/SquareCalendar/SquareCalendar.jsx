@@ -198,6 +198,9 @@ export default function SquareCalendar() {
                 <CalendarLegend
                     isActive={calendar.key === Calendars.Friends.key}
                     legend={Calendars.Friends.legend} />
+                <CalendarLegend
+                    isActive={calendar.key === Calendars.Weight.key}
+                    legend={Calendars.Weight.legend} />
             </div>
         </>
     );

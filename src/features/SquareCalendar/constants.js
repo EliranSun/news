@@ -155,6 +155,27 @@ export const Calendars = {
         icon: "❤️",
         category: "wife"
     }, // Heart
+    Weight: {
+        showColorStatus: false,
+        name: "weight",
+        key: "weight-square-calendar",
+        colors: [
+            Colors.Red,
+            Colors.Orange,
+            Colors.Yellow,
+            Colors.Green,
+            Colors.Blue
+        ],
+        icon: "💪",
+        category: "self",
+        legend: [
+            { name: "70-71", color: Colors.Blue },
+            { name: "72-73", color: Colors.Green },
+            { name: "74-75", color: Colors.Yellow },
+            { name: "76-77", color: Colors.Orange },
+            { name: "78-79", color: Colors.Red },
+        ],
+    },
     Trip: {
         showColorStatus: true,
         yellowAfter: 14,
