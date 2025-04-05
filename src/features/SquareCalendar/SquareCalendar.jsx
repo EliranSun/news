@@ -108,7 +108,7 @@ export default function SquareCalendar() {
                 }} />
             )}
             <div className="p-4 overflow-x-hidden h-dvh user-select-none space-y-12 font-mono">
-                <div className="flex">
+                <div className="flex w-full">
                     <button
                         className="h-fit mr-2"
                         onClick={() => {
@@ -116,7 +116,7 @@ export default function SquareCalendar() {
                         }}>
                         🗓️
                     </button>
-                    <h1 className="text-base font-bold flex flex-nowrap w-[calc(100vw-99px)] overflow-x-auto gap-4">
+                    <h1 className="text-base font-bold flex flex-nowrap w-[calc(99vw-99px)] overflow-x-auto gap-4">
                         {Object.values(Calendars)
                             .map((item) =>
                                 <div key={item.key} className="h-fit" id={item.key}>
