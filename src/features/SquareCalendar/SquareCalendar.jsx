@@ -3,7 +3,7 @@ import { getDaysInMonth, subMonths, startOfMonth, getDay, addDays } from "date-f
 import { useCallback, useState, useEffect, useMemo } from "react";
 import { CalendarButton } from "./CalendarButton";
 import { ColorButton } from "./ColorButton";
-import { loadFromStorage, saveToStorage, getColorsClassList } from "./utils";
+import { loadFromStorage, saveToStorage, getColorsClassList, exportCalendarData, importCalendarData } from "./utils";
 import { DateNavigationButton } from "./DateNavigationButton";
 import { Calendars } from "./constants";
 import { CalendarLegend } from "./CalendarLegend";
@@ -201,6 +201,14 @@ export default function SquareCalendar() {
                 <CalendarLegend
                     isActive={calendar.key === Calendars.Weight.key}
                     legend={Calendars.Weight.legend} />
+                <div className="flex gap-2 w-1/3">
+                    <button onClick={exportCalendarData}>
+                        EXPORT
+                    </button>
+                    <button onClick={importCalendarData}>
+                        IMPORT
+                    </button>
+                </div>
             </div>
         </>
     );

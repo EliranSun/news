@@ -180,3 +180,97 @@ const TailwindColorsMap = {
 export const getColorsClassList = (color) => {
     return TailwindColorsMap[color] || "";
 };
+
+export const exportCalendarData = () => {
+    // Create an object to hold all calendar data
+    const allData = {};
+
+    // For each calendar in Calendars, get its data from localStorage
+    Object.values(Calendars).forEach(calendar => {
+        const key = calendar.key;
+        const data = loadFromStorage(key);
+        allData[key] = data;
+    });
+
+    // Convert to JSON string with pretty formatting
+    const dataString = JSON.stringify(allData, null, 2);
+
+    // Create a Blob with the data
+    const blob = new Blob([dataString], { type: 'application/json' });
+
+    // Create a URL for the blob
+    const url = URL.createObjectURL(blob);
+
+    // Create a temporary anchor element and trigger download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'calendar-data.json';
+    document.body.appendChild(a);
+    a.click();
+
+    // Clean up
+    setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }, 100);
+};
+
+export const importCalendarData = () => {
+    // Create a file input element
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'application/json';
+    fileInput.style.display = 'none';
+    document.body.appendChild(fileInput);
+
+    // Handle file selection
+    fileInput.onchange = (event) => {
+        const file = event.target.files[0];
+        if (!file) {
+            alert('No file selected');
+            document.body.removeChild(fileInput);
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const importedData = JSON.parse(e.target.result);
+
+                // Validate the data structure
+                if (typeof importedData !== 'object') {
+                    throw new Error('Invalid data format');
+                }
+
+                // Import data for each calendar
+                Object.keys(importedData).forEach(key => {
+                    // Check if the calendar exists in our current configuration
+                    const calendarExists = Object.values(Calendars).some(cal => cal.key === key);
+
+                    if (calendarExists && Array.isArray(importedData[key])) {
+                        // Save the imported data to localStorage
+                        saveToStorage(key, importedData[key]);
+                    }
+                });
+
+                alert('Calendar data imported successfully');
+            } catch (error) {
+                console.error('Error importing data:', error);
+                alert('Failed to import calendar data: ' + error.message);
+            }
+
+            // Clean up
+            document.body.removeChild(fileInput);
+        };
+
+        reader.onerror = () => {
+            alert('Error reading file');
+            document.body.removeChild(fileInput);
+        };
+
+        reader.readAsText(file);
+    };
+
+    // Trigger file selection dialog
+    fileInput.click();
+};
