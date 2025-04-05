@@ -107,7 +107,7 @@ export default function SquareCalendar() {
                     setIsCalendarMenuOpen(false);
                 }} />
             )}
-            <div className="p-4 h-dvh user-select-none space-y-12 font-mono">
+            <div className="p-4 overflow-hidden h-dvh user-select-none space-y-12 font-mono">
                 <div className="flex">
                     <button
                         className="h-fit mr-2"
@@ -182,7 +182,7 @@ export default function SquareCalendar() {
                         <DateNavigationButton direction="↓" currentDate={selectedDate} onClick={setSelectedDate} />
                         <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
                     </div>
-                    <div className="grid grid-cols-3 gap-2 border rounded-lg p-2">
+                    <div className="grid grid-cols-3 gap-2 border user-select-none rounded-lg p-2">
                         {
                             calendar.colors.map(color =>
                                 <ColorButton
