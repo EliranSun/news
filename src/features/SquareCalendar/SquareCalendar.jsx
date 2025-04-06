@@ -118,10 +118,6 @@ export default function SquareCalendar() {
                             <div className="flex flex-col" key={`month-${monthIndex}`}>
                                 <div className="flex justify-between items-center">
                                     <h2 className="text-xs">{month.toLocaleString('default', { month: 'short' })}</h2>
-                                    <CalendarMonthColorInfo
-                                        monthDays={currentMonthDays}
-                                        data={data}
-                                    />
                                 </div>
                                 <div className="grid grid-cols-7 p-1 gap-0.5">
                                     {allDays.map((dayObj, dayIndex) => {
@@ -175,6 +171,9 @@ export default function SquareCalendar() {
                         </div>
                     </div>
                 </div>
+                <CalendarMonthColorInfo
+                    selectedDate={selectedDate}
+                    data={data} />
             </div>
         </>
     );

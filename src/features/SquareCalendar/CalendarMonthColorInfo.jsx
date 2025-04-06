@@ -1,64 +1,63 @@
 import PropTypes from "prop-types";
 import { getColorsClassList } from "./utils";
-import { useMemo } from "react";
+import { useColorPercentage } from "./useColorPercentage";
+import { getDaysInMonth } from "date-fns";
 
-export const CalendarMonthColorInfo = ({ monthDays, data }) => {
-    // Calculate color percentages
-    const colorPercentages = useMemo(() => {
-        if (!monthDays || monthDays.length === 0 || !data || data.length === 0) {
-            return [];
-        }
+const MonthColorInfo = ({ data, monthIndex, selectedDate }) => {
+    const month = new Date(selectedDate.getFullYear(), monthIndex, 1);
+    const daysInMonth = getDaysInMonth(month);
+    const currentMonthDays = Array.from({ length: daysInMonth }, (_, i) => ({
+        date: new Date(month.getFullYear(), month.getMonth(), i + 1),
+        previousMonth: false
+    }));
 
-        // Get all dates in the current month
-        const monthDayDates = monthDays.map(day => day.date.toDateString());
-
-        // Filter data entries to only include those from the current month
-        const monthEntries = data.filter(item => {
-            const itemDate = new Date(item.date).toDateString();
-            return monthDayDates.includes(itemDate);
-        });
-
-        if (monthEntries.length === 0) {
-            return [];
-        }
-
-        // Count occurrences of each color
-        const colorCounts = {};
-        monthEntries.forEach(entry => {
-            if (entry.color) {
-                colorCounts[entry.color] = (colorCounts[entry.color] || 0) + 1;
-            }
-        });
-
-        // Calculate percentages
-        return Object.entries(colorCounts).map(([color, count]) => ({
-            color,
-            percentage: Math.round((count / monthDays.length) * 100),
-            count
-        })).sort((a, b) => b.percentage - a.percentage); // Sort by percentage descending
-    }, [monthDays, data]);
+    const colorPercentages = useColorPercentage(data, currentMonthDays);
 
     if (colorPercentages.length === 0) {
         return null;
     }
 
+    return colorPercentages.map(({ color, percentage }) => (
+        <div
+            key={color}
+            className="flex items-center gap-1"
+            title={`${color}: ${percentage}%`}>
+            <div className={`size-4 rounded-sm ${getColorsClassList(color)}`}></div>
+            <span>{percentage}%</span>
+        </div>
+    ));
+};
+
+MonthColorInfo.propTypes = {
+    data: PropTypes.array.isRequired,
+    monthIndex: PropTypes.number.isRequired,
+    selectedDate: PropTypes.instanceOf(Date).isRequired
+};
+
+export const CalendarMonthColorInfo = ({ data, selectedDate }) => {
+
     return (
-        <div className="flex flex-wrap gap-1 justify-center text-[8px] mb-1 px-1">
-            {colorPercentages.map(({ color, percentage }) => (
-                <div
-                    key={color}
-                    className="flex items-center gap-1"
-                    title={`${color}: ${percentage}%`}
-                >
-                    <div className={`size-2 rounded-sm ${getColorsClassList(color)}`}></div>
-                    <span>{percentage}%</span>
-                </div>
-            ))}
+        <div className="flex flex-col gap-1 justify-center mb-1 px-1">
+            {new Array(12).fill(0).map((_, monthIndex) => {
+                const monthName = new Date(selectedDate.getFullYear(), monthIndex, 1)
+                    .toLocaleString('default', { month: 'short' });
+
+                return (
+                    <div key={monthIndex} className="flex items-center gap-3">
+                        <h2 className="">{monthName}</h2>
+                        <MonthColorInfo
+                            data={data}
+                            monthIndex={monthIndex}
+                            selectedDate={selectedDate}
+                        />
+                    </div>
+                )
+            })}
         </div>
     );
 };
 
 CalendarMonthColorInfo.propTypes = {
-    monthDays: PropTypes.array.isRequired,
-    data: PropTypes.array.isRequired
+    data: PropTypes.array.isRequired,
+    selectedDate: PropTypes.instanceOf(Date).isRequired
 };
