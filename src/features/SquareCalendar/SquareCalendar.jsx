@@ -1,18 +1,15 @@
-import classNames from "classnames";
 import { getDaysInMonth, subMonths, startOfMonth, getDay, addDays } from "date-fns";
 import { useCallback, useState, useEffect, useMemo } from "react";
 import { CalendarButton } from "./CalendarButton";
 import { ColorButton } from "./ColorButton";
-import { loadFromStorage, saveToStorage, getColorsClassList } from "./utils";
+import { loadFromStorage, saveToStorage } from "./utils";
 import { DateNavigationButton } from "./DateNavigationButton";
 import { Calendars } from "./constants";
 import { CalendarLegend } from "./CalendarLegend";
 import { CalendarsList } from "./CalendarsList";
 import { CalendarGamification } from "./CalendarGamification";
 import { DaySquare } from './DaySquare';
-
-import PropTypes from "prop-types";
-
+import { CalendarMonthColorInfo } from "./CalendarMonthColorInfo";
 export default function SquareCalendar() {
     const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
 
@@ -86,14 +83,14 @@ export default function SquareCalendar() {
                     </button>
                     <h1 className="text-base font-bold flex flex-nowrap w-[calc(99vw-99px)] overflow-x-auto gap-4">
                         {Object.values(Calendars).map((item) =>
-                                <div key={item.key} className="h-fit" id={item.key}>
-                                    <CalendarButton
-                                        isSelected={calendar.key === item.key}
-                                        onClick={() => onCalendarClick(item)}>
-                                        {item.icon} {item.name.slice(0, 1)}
-                                    </CalendarButton>
-                                </div>
-                            )}
+                            <div key={item.key} className="h-fit" id={item.key}>
+                                <CalendarButton
+                                    isSelected={calendar.key === item.key}
+                                    onClick={() => onCalendarClick(item)}>
+                                    {item.icon} {item.name.slice(0, 1)}
+                                </CalendarButton>
+                            </div>
+                        )}
                     </h1>
                 </div>
                 <CalendarGamification calendar={calendar} />
@@ -115,17 +112,17 @@ export default function SquareCalendar() {
                             previousMonth: false
                         }));
 
-                        // TODO: This should show the percentage of each color in each month
-                        /** const firstColorDays = currentMonthDays.filter(day => {
-                                return data.find(item => 
-                                    new Date(item.date).toDateString() === day.date.toDateString())?.color;
-                            });*/
-
                         const allDays = [...previousMonthDays, ...currentMonthDays];
 
                         return (
                             <div className="flex flex-col" key={`month-${monthIndex}`}>
-                                <h2 className="text-xs">{month.toLocaleString('default', { month: 'short' })}</h2>
+                                <div className="flex justify-between items-center">
+                                    <h2 className="text-xs">{month.toLocaleString('default', { month: 'short' })}</h2>
+                                    <CalendarMonthColorInfo
+                                        monthDays={currentMonthDays}
+                                        data={data}
+                                    />
+                                </div>
                                 <div className="grid grid-cols-7 p-1 gap-0.5">
                                     {allDays.map((dayObj, dayIndex) => {
                                         return (

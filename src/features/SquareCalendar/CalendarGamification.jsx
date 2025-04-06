@@ -1,19 +1,26 @@
 import { getDaysSinceLastEntry, getStreakCount, getHighestStreakCount } from "./utils"
-import { Highscore, Streak, DaysSince } from "./CalendarsList";
+import { HighscoreBadge } from "./HighscoreBadge";
+import { StreakBadge } from "./StreakBadge";
+import { DaysSinceBadge } from "./DaysSinceBadge";
 import { useMemo } from "react";
+import PropTypes from "prop-types";
 
 export const CalendarGamification = ({ calendar }) => {
-     const daysSinceLastEntry = useMemo(() => getDaysSinceLastEntry(calendar.key), [calendar.key]);
+    const daysSinceLastEntry = useMemo(() => getDaysSinceLastEntry(calendar.key), [calendar.key]);
     const streak = useMemo(() => getStreakCount(calendar.key), [calendar.key]);
     const highscore = useMemo(() => getHighestStreakCount(calendar.key), [calendar.key]);
 
-if (calendar.showGamification === false) return null;
+    if (calendar.showGamification === false) return null;
 
     return (
         <div className="grid grid-cols-3 gap-1 text-center items-center justify-center w-full">
-                <DaysSince daysSince={daysSinceLastEntry} />
-                <Streak streak={streak} />
-                <Highscore highscore={highscore} />
+            <DaysSinceBadge daysSince={daysSinceLastEntry} />
+            <StreakBadge streak={streak} />
+            <HighscoreBadge highscore={highscore} />
         </div>
     );
+};
+
+CalendarGamification.propTypes = {
+    calendar: PropTypes.object.isRequired,
 };
