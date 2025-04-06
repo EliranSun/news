@@ -150,7 +150,12 @@ export default function SquareCalendar() {
                             date: new Date(month.getFullYear(), month.getMonth(), i + 1),
                             previousMonth: false
                         }));
-
+                        
+                        /** const firstColorDays = currentMonthDays.filter(day => {
+                                return data.find(item => 
+                                    new Date(item.date).toDateString() === day.date.toDateString())?.color;
+                            });*/
+                            
                         const allDays = [...previousMonthDays, ...currentMonthDays];
 
                         return (
