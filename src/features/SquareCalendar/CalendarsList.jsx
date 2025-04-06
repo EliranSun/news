@@ -4,14 +4,14 @@ import { getDaysSinceLastEntry, getStreakCount, getHighestStreakCount } from "./
 import { useMemo } from "react";
 import PropTypes from "prop-types";
 
-const Foo = ({ children }) => {
+export const Foo = ({ children }) => {
     return (
         <div className="w-full flex gap-0 items-center justify-center overflow-hidden text-sm">
             {children}
         </div>
     )
 }
-const Streak = ({ streak }) => {
+export const Streak = ({ streak }) => {
     return (
         <Foo>
             {streak > 0 &&
@@ -24,7 +24,7 @@ const Streak = ({ streak }) => {
     )
 };
 
-const Highscore = ({ highscore }) => {
+export const Highscore = ({ highscore }) => {
     return (
         <Foo>
             {highscore > 0 &&
@@ -37,7 +37,7 @@ const Highscore = ({ highscore }) => {
     )
 };
 
-const DaysSince = ({ daysSince }) => {
+export const DaysSince = ({ daysSince }) => {
     if (daysSince === null) return null;
 
     return (
@@ -71,11 +71,11 @@ const CalendarItem = ({ calendar, onClick }) => {
             className="cursor-pointer grid grid-cols-2 gap-0 py-2
             w-full px-4 overflow-hidden even:bg-gray-100 dark:even:bg-gray-900">
             <EntryName calendar={calendar} daysSinceLastEntry={daysSinceLastEntry} />
-            <div className="grid grid-cols-3 gap-1 text-center items-center justify-center w-full">
+            {/* <div className="grid grid-cols-3 gap-1 text-center items-center justify-center w-full">
                 <DaysSince daysSince={daysSinceLastEntry} />
                 <Streak streak={streak} />
                 <Highscore highscore={highscore} />
-            </div>
+            </div> */}
         </div>
     );
 };
