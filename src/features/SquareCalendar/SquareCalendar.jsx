@@ -9,6 +9,7 @@ import { Calendars } from "./constants";
 import { CalendarLegend } from "./CalendarLegend";
 import { CalendarsList } from "./CalendarsList";
 import PropTypes from "prop-types";
+import { CalendarGamification } from "./CalendarGamification";
 
 const DaySquare = ({ dayObj, selectedDate, setSelectedDate, data, monthIndex, dayIndex }) => {
     const isToday = dayObj.date.toDateString() === selectedDate.toDateString();
@@ -129,6 +130,7 @@ export default function SquareCalendar() {
                             )}
                     </h1>
                 </div>
+                <CalendarGamification calendar={calendar} />
                 <div className="flex justify-center flex-wrap h-10/12">
                     {new Array(12).fill(0).map((_, monthIndex) => {
                         const month = new Date(selectedDate.getFullYear(), monthIndex, 1);
