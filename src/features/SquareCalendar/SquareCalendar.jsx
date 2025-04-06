@@ -108,7 +108,7 @@ export default function SquareCalendar() {
                     setIsCalendarMenuOpen(false);
                 }} />
             )}
-            <div className="p-4 overflow-x-hidden h-dvh user-select-none space-y-12 font-mono">
+            <div className="p-4 overflow-x-hidden h-dvh user-select-none space-y-8 font-mono">
                 <div className="flex w-full">
                     <button
                         className="h-fit mr-2"
@@ -177,6 +177,7 @@ export default function SquareCalendar() {
                         )
                     })}
                 </div>
+                <div>
                   <CalendarLegend
                     isActive={calendar.key === Calendars.Friends.key}
                     legend={Calendars.Friends.legend} />
@@ -208,6 +209,7 @@ export default function SquareCalendar() {
                         }
                         <ColorButton color="⬜️" onClick={() => updateColor('clear')} />
                     </div>
+                </div>
                 </div>
               <div className="flex gap-2 w-1/3">
                     <button onClick={exportCalendarData}>
