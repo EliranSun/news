@@ -8,9 +8,10 @@ import { DateNavigationButton } from "./DateNavigationButton";
 import { Calendars } from "./constants";
 import { CalendarLegend } from "./CalendarLegend";
 import { CalendarsList } from "./CalendarsList";
-import PropTypes from "prop-types";
 import { CalendarGamification } from "./CalendarGamification";
 import { DaySquare } from './DaySquare';
+
+import PropTypes from "prop-types";
 
 export default function SquareCalendar() {
     const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);

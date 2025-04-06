@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { loadFromStorage, saveToStorage, getColorsClassList } from "./utils";
 import { useMemo } from "react";
+import classNames from "classnames";
 
 export const DaySquare = ({ dayObj, selectedDate, setSelectedDate, data, monthIndex, dayIndex }) => {
     const isToday = dayObj.date.toDateString() === selectedDate.toDateString();
