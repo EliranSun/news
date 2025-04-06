@@ -12,7 +12,7 @@ export const CalendarLegend = ({ isActive, legend = [] }) => {
                     <div className={classNames(getColorsClassList(item.color), {
                         "size-2 rounded-md": true,
                     })} />
-                    <span>{item.name.slice(0,3)}</span>
+                    <span>{item.name.slice(0,5)}</span>
                 </div>
             ))}
         </legend>
