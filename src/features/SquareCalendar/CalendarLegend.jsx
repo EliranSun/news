@@ -8,11 +8,11 @@ export const CalendarLegend = ({ isActive, legend = [] }) => {
     return (
         <legend className="flex flex-wrap gap-2">
             {legend.map((item) => (
-                <div key={item.name} className="flex items-center gap-2">
+                <div key={item.name} className="flex items-center text-xs gap-2">
                     <div className={classNames(getColorsClassList(item.color), {
-                        "size-4 rounded-md": true,
+                        "size-2 rounded-md": true,
                     })} />
-                    <span>{item.name}</span>
+                    <span>{item.name.slice(0,3)}</span>
                 </div>
             ))}
         </legend>
