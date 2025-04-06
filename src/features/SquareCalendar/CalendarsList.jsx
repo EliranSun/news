@@ -17,7 +17,10 @@ const CalendarItem = ({ calendar, onClick }) => {
             className="cursor-pointer flex items-center justify-between
             w-full px-4 overflow-hidden even:bg-gray-100 dark:even:bg-gray-900">
             <CalendarName calendar={calendar} daysSinceLastEntry={daysSinceLastEntry} />
-            <DaysSinceBadge daysSince={daysSinceLastEntry} withIcon={false} />
+            <DaysSinceBadge
+                showToday
+                daysSince={daysSinceLastEntry}
+                withIcon={false} />
         </div>
     );
 };
