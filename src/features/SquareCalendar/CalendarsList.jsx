@@ -38,11 +38,11 @@ export const Highscore = ({ highscore }) => {
 };
 
 export const DaysSince = ({ daysSince }) => {
-    if (daysSince === null) return null;
+    if (daysSince === null || daysSince === 0) return null;
 
     return (
         <Foo>
-            <span className="w-10">{daysSince === 0 ? "↓" : `${daysSince}d`}</span>
+            <span className="w-10">{daysSince}d</span>
             <span>🔄</span>
         </Foo>
     )
