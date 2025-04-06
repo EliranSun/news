@@ -177,6 +177,13 @@ export default function SquareCalendar() {
                         )
                     })}
                 </div>
+                  <CalendarLegend
+                    isActive={calendar.key === Calendars.Friends.key}
+                    legend={Calendars.Friends.legend} />
+                <CalendarLegend
+                    isActive={calendar.key === Calendars.Weight.key}
+                    legend={Calendars.Weight.legend} />
+                
                 <div className="flex justify-between items-center w-full border-2 shadow px-4 rounded-lg">
                     <div className="grid grid-cols-3 gap-2 max-w-[150px] my-2 border rounded-lg p-2">
                         <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
@@ -202,13 +209,7 @@ export default function SquareCalendar() {
                         <ColorButton color="⬜️" onClick={() => updateColor('clear')} />
                     </div>
                 </div>
-                <CalendarLegend
-                    isActive={calendar.key === Calendars.Friends.key}
-                    legend={Calendars.Friends.legend} />
-                <CalendarLegend
-                    isActive={calendar.key === Calendars.Weight.key}
-                    legend={Calendars.Weight.legend} />
-                <div className="flex gap-2 w-1/3">
+              <div className="flex gap-2 w-1/3">
                     <button onClick={exportCalendarData}>
                         EXPORT
                     </button>
