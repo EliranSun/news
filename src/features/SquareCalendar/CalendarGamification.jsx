@@ -1,5 +1,6 @@
 import { getDaysSinceLastEntry, getStreakCount, getHighestStreakCount } from "./utils"
 import { Highscore, Streak, DaysSince } from "./CalendarsList";
+import { useMemo } from "react";
 
 export const CalendarGamification = ({ calendar }) => {
      const daysSinceLastEntry = useMemo(() => getDaysSinceLastEntry(calendar.key), [calendar.key]);
