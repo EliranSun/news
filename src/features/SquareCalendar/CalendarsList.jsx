@@ -5,6 +5,7 @@ import { ExportImport } from './ExportImport';
 import { useMemo } from "react";
 import PropTypes from "prop-types";
 import { CalendarName } from "./CalendarName";
+import { DaysSinceBadge } from "./DaysSinceBadge";
 
 
 const CalendarItem = ({ calendar, onClick }) => {
@@ -13,9 +14,10 @@ const CalendarItem = ({ calendar, onClick }) => {
     return (
         <div
             onClick={() => onClick(calendar)}
-            className="cursor-pointer grid grid-cols-2 gap-0 py-2
+            className="cursor-pointer flex items-center justify-between
             w-full px-4 overflow-hidden even:bg-gray-100 dark:even:bg-gray-900">
             <CalendarName calendar={calendar} daysSinceLastEntry={daysSinceLastEntry} />
+            <DaysSinceBadge daysSince={daysSinceLastEntry} withIcon={false} />
         </div>
     );
 };
@@ -41,14 +43,15 @@ export const CalendarsList = ({ onClick }) => {
         <div className={classNames({
             "font-mono": true,
             "backdrop-brightness-50 backdrop-blur": true,
-            "fixed p-4 top-0 left-0 flex justify-center items-center w-full z-10 h-full ": true,
+            "w-screen h-full": true,
+            "fixed p-4 top-0 left-0 flex justify-center items-center  z-10": true,
             "flex-col": Object.keys(groupedCalendars).length > 1,
             "flex-row": Object.keys(groupedCalendars).length <= 1
         })}>
-            <ExportImport />
-            <div className="h-fit bg-white dark:bg-black border space-y-8 rounded-lg border-black dark:border-white p-4 overflow-y-auto">
+            <div className="h-fit bg-white dark:bg-black border w-9/12
+            space-y-8 rounded-lg border-black dark:border-white p-4 overflow-y-auto">
                 {Object.entries(groupedCalendars).map(([category, calendars]) => (
-                    <div className="" key={category}>
+                    <div className="w-full" key={category}>
                         <h3 className="text-2xl font-bold">{category}</h3>
                         {calendars.map((calendar) => (
                             <CalendarItem
@@ -58,6 +61,7 @@ export const CalendarsList = ({ onClick }) => {
                         ))}
                     </div>
                 ))}
+                <ExportImport />
             </div>
         </div>
     );

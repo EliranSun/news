@@ -1,15 +1,14 @@
 import PropTypes from "prop-types";
 import { Badge } from "./Badge";
+import { Fire } from "@phosphor-icons/react";
 
 export const StreakBadge = ({ streak }) => {
+    if (streak === 0) return null;
+
     return (
         <Badge>
-            {streak > 0 &&
-                <>
-                    <span className="w-10">{streak}d</span>
-                    <span>🔥</span>
-                </>
-            }
+            <Fire size={16} />
+            <span>{streak}d</span>
         </Badge>
     )
 };

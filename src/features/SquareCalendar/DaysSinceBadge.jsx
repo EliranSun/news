@@ -1,13 +1,14 @@
 import { Badge } from "./Badge";
 import PropTypes from "prop-types";
+import { ClockCounterClockwise } from "@phosphor-icons/react";
 
-export const DaysSinceBadge = ({ daysSince }) => {
+export const DaysSinceBadge = ({ daysSince, withIcon = true }) => {
     if (daysSince === null || daysSince <= 1) return null;
 
     return (
         <Badge>
-            <span className="w-10">{daysSince}d</span>
-            <span>🔄</span>
+            {withIcon && <ClockCounterClockwise size={16} />}
+            {daysSince}d
         </Badge>
     )
 };

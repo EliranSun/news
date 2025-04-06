@@ -13,7 +13,7 @@ export const CalendarGamification = ({ calendar }) => {
     if (calendar.showGamification === false) return null;
 
     return (
-        <div className="grid grid-cols-3 gap-1 text-center items-center justify-center w-full">
+        <div className="flex text-center gap-1 items-center w-full">
             <DaysSinceBadge daysSince={daysSinceLastEntry} />
             <StreakBadge streak={streak} />
             <HighscoreBadge highscore={highscore} />
