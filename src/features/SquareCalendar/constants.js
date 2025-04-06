@@ -39,7 +39,8 @@ export const Calendars = {
             Colors.Violet
         ],
         icon: "🎭",
-        category: "self"
+        category: "self",
+        showGamification: false,
     },
     Css: {
         name: "css",
