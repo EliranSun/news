@@ -7,6 +7,8 @@ export const CalendarGamification = ({ calendar }) => {
     const streak = useMemo(() => getStreakCount(calendar.key), [calendar.key]);
     const highscore = useMemo(() => getHighestStreakCount(calendar.key), [calendar.key]);
 
+if (calendar.showGamification === false) return null;
+
     return (
         <div className="grid grid-cols-3 gap-1 text-center items-center justify-center w-full">
                 <DaysSince daysSince={daysSinceLastEntry} />
