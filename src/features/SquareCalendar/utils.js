@@ -1,5 +1,5 @@
 import { Colors, Calendars } from "./constants";
-import { differenceInDays, isEqual, addDays, startOfDay } from "date-fns";
+import { differenceInDays, differenceInHours, isEqual, addDays, startOfDay } from "date-fns";
 
 export const getDaysSinceLastEntry = (key = "square-calendar") => {
     const data = loadFromStorage(key);
@@ -23,7 +23,7 @@ export const getDaysSinceLastEntry = (key = "square-calendar") => {
     const lastEntryDate = sortedDates[0];
     const today = new Date();
 
-    return differenceInDays(today, lastEntryDate);
+    return differenceInHours(today, lastEntryDate) / 24;
 };
 
 export const getStreakCount = (key = "square-calendar") => {
