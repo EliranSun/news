@@ -8,7 +8,7 @@ export const DaysSinceBadge = ({ daysSince, withIcon = true, showToday = false }
     return (
         <Badge>
             {withIcon && <ClockCounterClockwise size={16} />}
-            {daysSince <= 1 ? "Today" : `${daysSince}d`}
+            {(daysSince === 1 || daysSince === 0) ? "Today" : `${daysSince}d`}
         </Badge>
     )
 };
