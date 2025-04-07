@@ -15,7 +15,7 @@ const CalendarItem = ({ calendar, onClick }) => {
         <div
             onClick={() => onClick(calendar)}
             className="cursor-pointer flex items-center justify-between
-            w-full overflow-hidden even:bg-gray-100 dark:even:bg-gray-900">
+            w-full overflow-hidden odd:bg-gray-200 dark:odd:bg-gray-800">
             <CalendarName
                 calendar={calendar}
                 daysSinceLastEntry={daysSinceLastEntry} />
@@ -48,7 +48,7 @@ export const CalendarsList = ({ onClick, onClose }) => {
         <div className={classNames({
             "font-mono": true,
             "backdrop-brightness-50 backdrop-blur": true,
-            "w-screen h-full": true,
+            "w-screen h-full space-y-4": true,
             "fixed p-2 top-0 left-0 flex justify-center items-center z-10": true,
             "flex-col": Object.keys(groupedCalendars).length > 1,
             "flex-row": Object.keys(groupedCalendars).length <= 1
@@ -73,7 +73,7 @@ export const CalendarsList = ({ onClick, onClose }) => {
                         key={category}
                         className={classNames({
                             "w-full p-2 rounded-lg flex flex-col": true,
-                            "bg-gray-100 dark:bg-black": true
+                            "bg-gray-100 dark:bg-gray-900": true
                         })}>
                         <h3 className="font-bold">{category}</h3>
                         <div className="flex-grow">
@@ -87,6 +87,7 @@ export const CalendarsList = ({ onClick, onClose }) => {
                     </div>
                 ))}
             </div>
+            <ExportImport />
         </div>
     );
 };
