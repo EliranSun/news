@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { ClockCounterClockwise } from "@phosphor-icons/react";
 
 export const DaysSinceBadge = ({ daysSince, withIcon = true, showToday = false }) => {
-    if (daysSince === null || (daysSince <= 1 && !showToday)) return null;
+    if (daysSince === null || !showToday) return null;
 
     return (
         <Badge>
