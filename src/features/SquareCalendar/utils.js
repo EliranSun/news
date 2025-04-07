@@ -23,7 +23,7 @@ export const getDaysSinceLastEntry = (key = "square-calendar") => {
     const lastEntryDate = sortedDates[0];
     const today = new Date();
 
-    return Math.ceil(differenceInHours(today, lastEntryDate) / 24);
+    return differenceInHours(today, lastEntryDate);
 };
 
 export const getStreakCount = (key = "square-calendar") => {
