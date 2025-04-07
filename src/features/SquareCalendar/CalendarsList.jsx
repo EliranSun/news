@@ -15,8 +15,10 @@ const CalendarItem = ({ calendar, onClick }) => {
         <div
             onClick={() => onClick(calendar)}
             className="cursor-pointer flex items-center justify-between
-            w-full px-4 overflow-hidden even:bg-gray-100 dark:even:bg-gray-900">
-            <CalendarName calendar={calendar} daysSinceLastEntry={daysSinceLastEntry} />
+            w-full overflow-hidden even:bg-gray-100 dark:even:bg-gray-900">
+            <CalendarName
+                calendar={calendar}
+                daysSinceLastEntry={daysSinceLastEntry} />
             <DaysSinceBadge
                 showToday
                 daysSince={daysSinceLastEntry}
@@ -30,7 +32,7 @@ CalendarItem.propTypes = {
     onClick: PropTypes.func.isRequired,
 };
 
-export const CalendarsList = ({ onClick }) => {
+export const CalendarsList = ({ onClick, onClose }) => {
     // Group calendars by category
     const groupedCalendars = Object.values(Calendars).reduce((acc, calendar) => {
         if (!acc[calendar.category]) {
@@ -47,25 +49,48 @@ export const CalendarsList = ({ onClick }) => {
             "font-mono": true,
             "backdrop-brightness-50 backdrop-blur": true,
             "w-screen h-full": true,
-            "fixed p-4 top-0 left-0 flex justify-center items-center  z-10": true,
+            "fixed p-2 top-0 left-0 flex justify-center items-center z-10": true,
             "flex-col": Object.keys(groupedCalendars).length > 1,
             "flex-row": Object.keys(groupedCalendars).length <= 1
         })}>
-            <div className="h-fit bg-white grid grid-cols-2 gap-2 dark:bg-black border w-12/12
-            rounded-lg border-black dark:border-white p-4 overflow-y-auto">
+            <button
+                className="absolute top-10 inset-x-0 m-auto 
+                text-2xl font-mono
+                rounded-full size-20 p-2"
+                onClick={onClose}>
+                X
+            </button>
+            <div className={classNames({
+                "w-full p-2": true,
+                "bg-white dark:bg-black": true,
+                "grid grid-cols-2 gap-2 auto-rows-auto": true,
+                "border border-black dark:border-white rounded-lg": true,
+                "overflow-y-auto": true,
+                "max-h-[80vh]": true
+            })}>
                 {Object.entries(groupedCalendars).map(([category, calendars]) => (
-                    <div className="w-full" key={category}>
-                        <h3 className="text-2xl font-bold">{category}</h3>
-                        {calendars.map((calendar) => (
-                            <CalendarItem
-                                key={calendar.key}
-                                calendar={calendar}
-                                onClick={onClick} />
-                        ))}
+                    <div
+                        key={category}
+                        className={classNames({
+                            "w-full p-2 rounded-lg flex flex-col": true,
+                            "bg-gray-100 dark:bg-black": true
+                        })}>
+                        <h3 className="font-bold">{category}</h3>
+                        <div className="flex-grow">
+                            {calendars.map((calendar) => (
+                                <CalendarItem
+                                    key={calendar.key}
+                                    calendar={calendar}
+                                    onClick={onClick} />
+                            ))}
+                        </div>
                     </div>
                 ))}
-                <ExportImport />
             </div>
         </div>
     );
+};
+
+CalendarsList.propTypes = {
+    onClick: PropTypes.func.isRequired
 };

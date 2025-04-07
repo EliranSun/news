@@ -69,10 +69,12 @@ export default function SquareCalendar() {
     return (
         <>
             {isCalendarMenuOpen && (
-                <CalendarsList onClick={(...params) => {
-                    onCalendarClick(...params);
-                    setIsCalendarMenuOpen(false);
-                }} />
+                <CalendarsList
+                    onClose={() => setIsCalendarMenuOpen(false)}
+                    onClick={(...params) => {
+                        onCalendarClick(...params);
+                        setIsCalendarMenuOpen(false);
+                    }} />
             )}
             <div className="p-4 overflow-x-hidden h-dvh user-select-none space-y-8 font-mono">
                 <div className="flex w-full">

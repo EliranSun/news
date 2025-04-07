@@ -98,7 +98,7 @@ export const Calendars = {
         showColorStatus: true,
         yellowAfter: 5,
         redAfter: 10,
-        name: "laundry fold",
+        name: "fold",
         key: "laundry-fold-square-calendar",
         colors: [Colors.Lightblue, Colors.Black],
         icon: "👕",
@@ -186,17 +186,17 @@ export const Calendars = {
         colors: [Colors.Turquoise, Colors.Black],
         icon: "🌲",
         category: "wife"
-    }, // Travel
+    },
     LittleThings: {
         showColorStatus: true,
         yellowAfter: 21,
         redAfter: 30,
-        name: "small things",
+        name: "gestures",
         key: "little-things-square-calendar",
         colors: [Colors.Coral, Colors.Black],
         icon: "🎁",
         category: "wife"
-    }, // Gift
+    },
 
     // Social - Using friendly, welcoming colors
     Mom: {
@@ -262,7 +262,8 @@ export const Calendars = {
 
     // avoid - Using darker, muted colors to represent negative activities
     SocialMedia: {
-        name: "social media", key: "social-media-square-calendar",
+        name: "scrolling",
+        key: "social-media-square-calendar",
         colors: [Colors.Darkgray, Colors.Black],
         icon: "📱",
         category: "avoid",
