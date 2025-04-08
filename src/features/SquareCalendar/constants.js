@@ -182,6 +182,7 @@ export const Calendars = {
         name: "REM",
         key: "rem-sleep-square-calendar",
         colors: [
+            Colors.Lightblue,
             Colors.Skyblue,
             Colors.Blue,
             Colors.Navy,
@@ -191,8 +192,8 @@ export const Calendars = {
         icon: "💤",
         category: "self",
         legend: [
-            // todo: add one more 
-            { name: "0:00-0:59", color: Colors.Skyblue },
+            { name: "0:00-0:29", color: Colors.Lightblue },
+            { name: "0:30-0:59", color: Colors.Skyblue },
             { name: "1:00-1:29", color: Colors.Blue },
             { name: "1:30-1:59", color: Colors.Navy },
             { name: "2:00-2:29", color: Colors.Violet },
