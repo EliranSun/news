@@ -3,7 +3,7 @@ import { getColorsClassList } from "./utils";
 import { useColorPercentage } from "./useColorPercentage";
 import { getDaysInMonth } from "date-fns";
 
-const MonthColorInfo = ({ data, monthIndex, selectedDate }) => {
+const MonthColorInfo = ({ data, monthIndex, selectedDate, monthName }) => {
     const month = new Date(selectedDate.getFullYear(), monthIndex, 1);
     const daysInMonth = getDaysInMonth(month);
     const currentMonthDays = Array.from({ length: daysInMonth }, (_, i) => ({
@@ -18,20 +18,24 @@ const MonthColorInfo = ({ data, monthIndex, selectedDate }) => {
     }
 
     return colorPercentages.map(({ color, percentage }) => (
-        <div
-            key={color}
-            className="flex items-center gap-1"
-            title={`${color}: ${percentage}%`}>
-            <div className={`size-4 rounded-sm ${getColorsClassList(color)}`}></div>
-            <span>{percentage}%</span>
-        </div>
+        <>
+            <h2 className="">{monthName}</h2>
+            <div
+                key={color}
+                className="flex items-center gap-1"
+                title={`${color}: ${percentage}%`}>
+                <div className={`size-4 rounded-sm ${getColorsClassList(color)}`}></div>
+                <span>{percentage}%</span>
+            </div>
+        </>
     ));
 };
 
 MonthColorInfo.propTypes = {
     data: PropTypes.array.isRequired,
     monthIndex: PropTypes.number.isRequired,
-    selectedDate: PropTypes.instanceOf(Date).isRequired
+    selectedDate: PropTypes.instanceOf(Date).isRequired,
+    monthName: PropTypes.string.isRequired
 };
 
 export const CalendarMonthColorInfo = ({ data, selectedDate }) => {
@@ -44,9 +48,9 @@ export const CalendarMonthColorInfo = ({ data, selectedDate }) => {
 
                 return (
                     <div key={monthIndex} className="flex items-center gap-3">
-                        <h2 className="">{monthName}</h2>
                         <MonthColorInfo
                             data={data}
+                            monthName={monthName}
                             monthIndex={monthIndex}
                             selectedDate={selectedDate}
                         />

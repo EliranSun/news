@@ -51,7 +51,7 @@ export const Calendars = {
         showColorStatus: true,
         yellowAfter: 5,
         redAfter: 10,
-    }, // Code/programming
+    },
     Read: {
         showColorStatus: true,
         yellowAfter: 2,
@@ -61,7 +61,7 @@ export const Calendars = {
         colors: [Colors.Sage, Colors.Black],
         icon: "📚",
         category: "self"
-    }, // Books
+    },
     Game: {
         showColorStatus: true,
         yellowAfter: 30,
@@ -71,7 +71,7 @@ export const Calendars = {
         colors: [Colors.Violet, Colors.Black],
         icon: "🎮",
         category: "self"
-    }, // Gaming
+    },
     Media: {
         showColorStatus: true,
         yellowAfter: 30,
@@ -81,7 +81,7 @@ export const Calendars = {
         colors: [Colors.Crimson, Colors.Black],
         icon: "🎬",
         category: "self"
-    }, // Movies/TV
+    },
 
     // House - Using earthy, practical colors for household tasks
     Laundry: {
@@ -93,7 +93,7 @@ export const Calendars = {
         colors: [Colors.Skyblue, Colors.Black],
         icon: "🧺",
         category: "house"
-    }, // Laundry basket
+    },
     LaundryFold: {
         showColorStatus: true,
         yellowAfter: 5,
@@ -103,7 +103,7 @@ export const Calendars = {
         colors: [Colors.Lightblue, Colors.Black],
         icon: "👕",
         category: "house"
-    }, // Folded clothes
+    },
     Groceries: {
         showColorStatus: true,
         yellowAfter: 7,
@@ -113,7 +113,7 @@ export const Calendars = {
         colors: [Colors.Forestgreen, Colors.Black],
         icon: "🛒",
         category: "house"
-    }, // Shopping cart
+    },
     Cooking: {
         showColorStatus: true,
         yellowAfter: 2,
@@ -123,7 +123,7 @@ export const Calendars = {
         colors: [Colors.Orange, Colors.Black],
         icon: "🍳",
         category: "house"
-    }, // Cooking
+    },
     ReplaceSheets: {
         showColorStatus: true,
         yellowAfter: 14,
@@ -133,7 +133,7 @@ export const Calendars = {
         colors: [Colors.Lavender, Colors.Black],
         icon: "🛏️",
         category: "house"
-    }, // Bed
+    },
 
     // Wife - Using romantic, warm colors
     Date: {
@@ -145,7 +145,7 @@ export const Calendars = {
         colors: [Colors.Rose, Colors.Black],
         icon: "💑",
         category: "wife"
-    }, // Couple
+    },
     Sex: {
         showColorStatus: true,
         yellowAfter: 14,
@@ -155,7 +155,7 @@ export const Calendars = {
         colors: [Colors.Hotpink, Colors.Black],
         icon: "❤️",
         category: "wife"
-    }, // Heart
+    },
     Weight: {
         showColorStatus: false,
         name: "weight",
@@ -175,6 +175,27 @@ export const Calendars = {
             { name: "74-75", color: Colors.Yellow },
             { name: "76-77", color: Colors.Orange },
             { name: "78-79", color: Colors.Red },
+        ],
+    },
+    Sleep: {
+        showColorStatus: false,
+        name: "REM",
+        key: "rem-sleep-square-calendar",
+        colors: [
+            Colors.Skyblue,
+            Colors.Blue,
+            Colors.Navy,
+            Colors.Violet,
+            Colors.Purple
+        ],
+        icon: "💤",
+        category: "self",
+        legend: [
+            { name: "0-1", color: Colors.Skyblue },
+            { name: "1-2", color: Colors.Blue },
+            { name: "2-3", color: Colors.Navy },
+            { name: "3-4", color: Colors.Violet },
+            { name: "4-5", color: Colors.Purple },
         ],
     },
     Trip: {

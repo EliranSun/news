@@ -1,6 +1,5 @@
-import { getDaysInMonth, subMonths, startOfMonth, getDay, addDays } from "date-fns";
+import { addDays } from "date-fns";
 import { useCallback, useState, useEffect, useMemo } from "react";
-import { CalendarButton } from "./CalendarButton";
 import { ColorButton } from "./ColorButton";
 import { loadFromStorage, saveToStorage } from "./utils";
 import { DateNavigationButton } from "./DateNavigationButton";
@@ -8,8 +7,10 @@ import { Calendars } from "./constants";
 import { CalendarLegend } from "./CalendarLegend";
 import { CalendarsList } from "./CalendarsList";
 import { CalendarGamification } from "./CalendarGamification";
-import { DaySquare } from './DaySquare';
 import { CalendarMonthColorInfo } from "./CalendarMonthColorInfo";
+import { CalendarsStrip } from "./CalendarsStrip";
+import { CalendarMonth } from "./CalendarMonth";
+import { CalendarYearSummary } from "./CalendarYearSummary";
 export default function SquareCalendar() {
     const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
 
@@ -83,59 +84,23 @@ export default function SquareCalendar() {
                         onClick={() => setIsCalendarMenuOpen(!isCalendarMenuOpen)}>
                         ☰
                     </button>
-                    <h1 className="text-base font-bold flex flex-nowrap w-[calc(99vw-99px)] overflow-x-auto gap-4">
-                        {Object.values(Calendars).map((item) =>
-                            <div key={item.key} className="h-fit" id={item.key}>
-                                <CalendarButton
-                                    isSelected={calendar.key === item.key}
-                                    onClick={() => onCalendarClick(item)}>
-                                    {item.icon} {item.name.slice(0, 3)}
-                                </CalendarButton>
-                            </div>
-                        )}
-                    </h1>
+                    <CalendarsStrip
+                        selectedCalendar={calendar}
+                        onCalendarClick={onCalendarClick} />
                 </div>
+                {/* <CalendarName
+                    calendar={calendar}
+                    daysSinceLastEntry={daysSinceLastEntry} /> */}
                 <CalendarGamification calendar={calendar} />
                 <div className="flex justify-center flex-wrap h-10/12">
                     {new Array(12).fill(0).map((_, monthIndex) => {
-                        const month = new Date(selectedDate.getFullYear(), monthIndex, 1);
-                        const daysInMonth = getDaysInMonth(month);
-                        const startDay = getDay(startOfMonth(month)); // 0 = Sunday, 1 = Monday, etc.
-                        const prevMonth = subMonths(month, 1);
-                        const daysInPrevMonth = getDaysInMonth(prevMonth);
-
-                        const previousMonthDays = Array.from({ length: startDay }, (_, i) => ({
-                            date: new Date(prevMonth.getFullYear(), prevMonth.getMonth(), daysInPrevMonth - startDay + i + 1),
-                            previousMonth: true
-                        }));
-
-                        const currentMonthDays = Array.from({ length: daysInMonth }, (_, i) => ({
-                            date: new Date(month.getFullYear(), month.getMonth(), i + 1),
-                            previousMonth: false
-                        }));
-
-                        const allDays = [...previousMonthDays, ...currentMonthDays];
-
                         return (
-                            <div className="flex flex-col" key={`month-${monthIndex}`}>
-                                <div className="flex justify-between items-center">
-                                    <h2 className="text-xs">{month.toLocaleString('default', { month: 'short' })}</h2>
-                                </div>
-                                <div className="grid grid-cols-7 p-1 gap-0.5">
-                                    {allDays.map((dayObj, dayIndex) => {
-                                        return (
-                                            <DaySquare
-                                                monthIndex={monthIndex}
-                                                dayIndex={dayIndex}
-                                                selectedDate={selectedDate}
-                                                setSelectedDate={setSelectedDate}
-                                                data={data}
-                                                key={`month-${monthIndex}-day-${dayIndex}`}
-                                                dayObj={dayObj} />
-                                        );
-                                    })}
-                                </div>
-                            </div>
+                            <CalendarMonth
+                                key={monthIndex}
+                                selectedDate={selectedDate}
+                                setSelectedDate={setSelectedDate}
+                                data={data}
+                                monthIndex={monthIndex} />
                         )
                     })}
                 </div>
@@ -176,6 +141,7 @@ export default function SquareCalendar() {
                 <CalendarMonthColorInfo
                     selectedDate={selectedDate}
                     data={data} />
+                <CalendarYearSummary />
             </div>
         </>
     );
