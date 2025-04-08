@@ -204,7 +204,7 @@ export const exportCalendarData = () => {
     // Create a temporary anchor element and trigger download
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'calendar-data.json';
+    a.download = `calendar-data-${new Date().toJSON()}.json`;
     document.body.appendChild(a);
     a.click();
 
