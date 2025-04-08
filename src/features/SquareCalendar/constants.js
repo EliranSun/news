@@ -191,11 +191,12 @@ export const Calendars = {
         icon: "💤",
         category: "self",
         legend: [
-            { name: "0-1", color: Colors.Skyblue },
-            { name: "1-2", color: Colors.Blue },
-            { name: "2-3", color: Colors.Navy },
-            { name: "3-4", color: Colors.Violet },
-            { name: "4-5", color: Colors.Purple },
+            // todo: add one more 
+            { name: "0:00-0:59", color: Colors.Skyblue },
+            { name: "1:00-1:29", color: Colors.Blue },
+            { name: "1:30-1:59", color: Colors.Navy },
+            { name: "2:00-2:29", color: Colors.Violet },
+            { name: "2:30+", color: Colors.Purple },
         ],
     },
     Trip: {
