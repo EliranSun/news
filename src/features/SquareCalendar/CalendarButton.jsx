@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export const CalendarButton = ({ children, color, isSelected, ...rest }) =>
     <button
-        className={classNames("min-w-20 shrink-0", {
+        className={classNames("", {
             "bg-gray-800": isSelected,
             "text-white": !color,
             "border-yellow-500": color === "yellow",
