@@ -17,9 +17,10 @@ const MonthColorInfo = ({ data, monthIndex, selectedDate, monthName }) => {
         return null;
     }
 
-    return colorPercentages.map(({ color, percentage }) => (
+    return (
         <>
             <h2 className="">{monthName}</h2>
+        {colorPercentages.map(({ color, percentage }) => (
             <div
                 key={color}
                 className="flex items-center gap-1"
@@ -27,8 +28,9 @@ const MonthColorInfo = ({ data, monthIndex, selectedDate, monthName }) => {
                 <div className={`size-4 rounded-sm ${getColorsClassList(color)}`}></div>
                 <span>{percentage}%</span>
             </div>
+        )}
         </>
-    ));
+    );
 };
 
 MonthColorInfo.propTypes = {
