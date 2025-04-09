@@ -91,7 +91,7 @@ export default function SquareCalendar() {
                     </button>
 
                 </div> */}
-                <div className="flex justify-between px-4">
+                <div className="flex w-full justify-between px-4">
                     <CalendarName
                         calendar={calendar}
                         daysSinceLastEntry={daysSinceLastEntry} />
