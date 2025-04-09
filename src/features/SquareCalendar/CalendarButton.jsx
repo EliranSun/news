@@ -6,10 +6,10 @@ export const CalendarButton = ({ children, color, isSelected, ...rest }) =>
         className={classNames("min-w-20 shrink-0", {
             "bg-gray-800": isSelected,
             "text-white": !color,
-            "text-yellow-500": color === "yellow",
-            "text-green-500": color === "green",
-            "text-red-500": color === "red",
-            "text-sm flex": true,
+            "border-yellow-500": color === "yellow",
+            "border-green-500": color === "green",
+            "border-red-500": color === "red",
+            "text-sm flex border": true,
         })} {...rest}>
         {children}
     </button>;
