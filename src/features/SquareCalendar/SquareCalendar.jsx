@@ -41,7 +41,7 @@ export default function SquareCalendar() {
             }
         }
 
-        setSelectedDate(addDays(selectedDate, 1));
+        // setSelectedDate(addDays(selectedDate, 1));
     }, [selectedDate, data]);
 
     useEffect(() => {
