@@ -28,7 +28,7 @@ const MonthColorInfo = ({ data, monthIndex, selectedDate, monthName }) => {
                 <div className={`size-4 rounded-sm ${getColorsClassList(color)}`}></div>
                 <span>{percentage}%</span>
             </div>
-        )}
+        ))}
         </>
     );
 };
