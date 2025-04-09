@@ -8,7 +8,7 @@ export const CalendarsStrip = ({ selectedCalendar, onCalendarClick }) => {
     const hoursSinceLast = useMemo(() => getDaysSinceLastEntry(selectedCalendar.key), [selectedCalendar.key]);
 
     return (
-        <div className="text-base font-bold flex flex-nowrap w-[calc(99vw-99px)] overflow-x-auto gap-4">
+        <div className="text-base font-bold flex flex-nowrap w-screen px-4 overflow-x-auto gap-4">
             {Object.values(Calendars).map((item) =>
                 <div key={item.key} className="h-fit" id={item.key}>
                     <CalendarButton

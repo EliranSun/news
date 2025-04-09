@@ -1,16 +1,17 @@
-import { addDays } from "date-fns";
 import { useCallback, useState, useEffect, useMemo } from "react";
 import { ColorButton } from "./ColorButton";
 import { loadFromStorage, saveToStorage } from "./utils";
 import { DateNavigationButton } from "./DateNavigationButton";
 import { Calendars } from "./constants";
-import { CalendarLegend } from "./CalendarLegend";
 import { CalendarsList } from "./CalendarsList";
 import { CalendarGamification } from "./CalendarGamification";
 import { CalendarMonthColorInfo } from "./CalendarMonthColorInfo";
 import { CalendarsStrip } from "./CalendarsStrip";
 import { CalendarMonth } from "./CalendarMonth";
 import { CalendarYearSummary } from "./CalendarYearSummary";
+import { CalendarName } from "./CalendarName";
+import { upperFirst } from "lodash";
+import { differenceInDays } from "date-fns";
 export default function SquareCalendar() {
     const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
 
@@ -22,6 +23,10 @@ export default function SquareCalendar() {
     const [calendar, setCalendar] = useState(Calendars[calendarKey] || Calendars.Mood);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [data, setData] = useState(loadFromStorage(Calendars[calendarKey]?.key || Calendars.Mood.key));
+
+    const daysSinceLastEntry = useMemo(() => {
+        return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
+    }, [data]);
 
     const updateColor = useCallback((color) => {
         if (color === 'clear') {
@@ -52,7 +57,7 @@ export default function SquareCalendar() {
         setTimeout(() => {
             const calendarButton = document.getElementById(calendar.key);
             if (calendarButton) {
-                calendarButton.scrollIntoView({ behavior: 'smooth' });
+                calendarButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             }
         }, 100);
     }, [calendar]);
@@ -78,18 +83,20 @@ export default function SquareCalendar() {
                     }} />
             )}
             <div className="p-4 overflow-x-hidden h-dvh user-select-none space-y-8 font-mono">
-                <div className="flex w-full">
+                {/* <div className="flex w-full">
                     <button
                         className="h-fit mr-2"
                         onClick={() => setIsCalendarMenuOpen(!isCalendarMenuOpen)}>
                         ☰
                     </button>
-                   
+
+                </div> */}
+                <div className="flex gap-4 px-4">
+                    <CalendarName
+                        calendar={calendar}
+                        daysSinceLastEntry={daysSinceLastEntry} />
+                    <CalendarGamification calendar={calendar} />
                 </div>
-                {/* <CalendarName
-                    calendar={calendar}
-                    daysSinceLastEntry={daysSinceLastEntry} /> */}
-                <CalendarGamification calendar={calendar} />
                 <div className="flex justify-center flex-wrap h-10/12">
                     {new Array(12).fill(0).map((_, monthIndex) => {
                         return (
@@ -102,14 +109,12 @@ export default function SquareCalendar() {
                         )
                     })}
                 </div>
+                <CalendarsStrip
+                    selectedCalendar={calendar}
+                    onCalendarClick={onCalendarClick} />
                 <div>
-                    {/* {calendar.legend && 
-                        <CalendarLegend
-                            isActive
-                            legend={calendar.legend} />}*/}
-
-                    <div className="flex justify-between items-center w-full shadow px-4 rounded-lg">
-                        <div className="grid grid-cols-3 gap-2 max-w-[150px] my-2 border rounded-lg p-2">
+                    <div className="flex justify-between items-center w-full shadow rounded-lg">
+                        {/* <div className="grid grid-cols-3 gap-2 max-w-[150px] my-2 border rounded-lg p-2">
                             <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
                             <DateNavigationButton direction="↑" currentDate={selectedDate} onClick={setSelectedDate} />
                             <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
@@ -119,8 +124,8 @@ export default function SquareCalendar() {
                             <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
                             <DateNavigationButton direction="↓" currentDate={selectedDate} onClick={setSelectedDate} />
                             <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
-                        </div>
-                        <div className="grid grid-cols-3 gap-2 user-select-none rounded-lg p-2">
+                        </div> */}
+                        <div className="flex flex-wrap justify-center gap-1 w-full h-32 user-select-none rounded-lg p-2">
                             {
                                 calendar.colors.map(color =>
                                     <ColorButton
@@ -135,9 +140,6 @@ export default function SquareCalendar() {
                         </div>
                     </div>
                 </div>
-                 <CalendarsStrip
-                        selectedCalendar={calendar}
-                        onCalendarClick={onCalendarClick} />
                 <CalendarMonthColorInfo
                     selectedDate={selectedDate}
                     data={data} />
