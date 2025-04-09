@@ -84,9 +84,7 @@ export default function SquareCalendar() {
                         onClick={() => setIsCalendarMenuOpen(!isCalendarMenuOpen)}>
                         ☰
                     </button>
-                    <CalendarsStrip
-                        selectedCalendar={calendar}
-                        onCalendarClick={onCalendarClick} />
+                   
                 </div>
                 {/* <CalendarName
                     calendar={calendar}
@@ -137,6 +135,9 @@ export default function SquareCalendar() {
                         </div>
                     </div>
                 </div>
+                 <CalendarsStrip
+                        selectedCalendar={calendar}
+                        onCalendarClick={onCalendarClick} />
                 <CalendarMonthColorInfo
                     selectedDate={selectedDate}
                     data={data} />
