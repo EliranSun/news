@@ -19,7 +19,7 @@ export const CalendarsStrip = ({ selectedCalendar, onCalendarClick }) => {
                                 (hoursSinceLast * 24) >= selectedCalendar.yellowAfter ? "yellow" :
                                     "green"
                         }>
-                        {item.icon} {item.name.slice(0, 3)}
+                        {item.icon}
                     </CalendarButton>
                 </div>
             )}
