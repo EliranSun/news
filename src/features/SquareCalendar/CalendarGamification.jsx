@@ -13,12 +13,12 @@ export const CalendarGamification = ({ calendar }) => {
     if (calendar.showGamification === false) return null;
 
     return (
-        <div className="flex text-center gap-1 items-center w-full">
+        <div className="flex text-center gap-1 items-center">
             <DaysSinceBadge daysSince={daysSinceLastEntry} />
             <StreakBadge streak={streak} />
-            <HighscoreBadge 
-            streak={streak}
-            highscore={highscore} />
+            <HighscoreBadge
+                streak={streak}
+                highscore={highscore} />
         </div>
     );
 };
