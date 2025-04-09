@@ -128,7 +128,7 @@ export default function SquareCalendar() {
                                     <ColorButton
                                         key={color}
                                         color={color}
-                                        legend={calendar.legend}
+                                        legend={calendar.legend?.find(item => item.color === color)}
                                         onClick={() => updateColor(color)}
                                     />
                                 )
