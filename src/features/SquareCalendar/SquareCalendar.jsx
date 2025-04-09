@@ -110,6 +110,7 @@ export default function SquareCalendar() {
                     })}
                 </div>
                 <CalendarsStrip
+                    data={data}
                     selectedCalendar={calendar}
                     onCalendarClick={onCalendarClick} />
                 <div>
