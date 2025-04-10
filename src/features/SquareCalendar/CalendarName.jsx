@@ -5,9 +5,6 @@ import { useMemo } from "react";
 import { getDaysSinceLastEntry } from "./utils"
 
 export const CalendarName = ({ calendar, daysSinceLastEntry }) => {
-    const yellow = calendar.yellowAfter * 24;
-    const red = calendar.redAfter * 24;
-    
     const color = useMemo(() => {
         const hoursSinceLast = getDaysSinceLastEntry(calendar.key) || 0;
         const daysSinceLast = hoursSinceLast / 24;
@@ -26,15 +23,9 @@ export const CalendarName = ({ calendar, daysSinceLastEntry }) => {
     
     return (
         <div className={classNames("flex", {
-            "text-green-500": calendar.showColorStatus &&
-                daysSinceLastEntry < yellow,
-            "text-yellow-500": calendar.showColorStatus &&
-                daysSinceLastEntry >= yellow,
-            "text-red-500":
-                calendar.showColorStatus && (
-                    daysSinceLastEntry === null ||
-                    daysSinceLastEntry > red
-                ),
+            "text-green-500": calendar.showColorStatus && color === "green",
+            "text-yellow-500": calendar.showColorStatus && color === "yellow",
+            "text-red-500": calendar.showColorStatus && color === "red",
         })}>
             <div className="w-6 shrink-0 overflow-hidden flex items-center justify-center text-sm">
                 {calendar.icon}
