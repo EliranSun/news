@@ -229,14 +229,18 @@ export const Calendars = {
         name: "mom",
         key: "mom-square-calendar",
         colors: [Colors.Purple, Colors.Black],
-        icon: "👩",
+        icon: "👩🏾",
         category: "social"
     }, // Woman
     Dad: {
         showColorStatus: true,
         yellowAfter: 15,
         redAfter: 30,
-        name: "dad", key: "dad-square-calendar", colors: [Colors.Navy, Colors.Black], icon: "👨", category: "social"
+        name: "dad",
+        key: "dad-square-calendar",
+        colors: [Colors.Navy, Colors.Black],
+        icon: "👨🏾",
+        category: "social"
     }, // Man
     Grandma: {
         showColorStatus: true,
@@ -245,7 +249,7 @@ export const Calendars = {
         name: "grandma",
         key: "grandma-square-calendar",
         colors: [Colors.Plum, Colors.Black],
-        icon: "👵",
+        icon: "👵🏾",
         category: "social"
     }, // Elderly woman
     Friends: {
