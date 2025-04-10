@@ -41,7 +41,7 @@ export const getStreakCount = (key = "square-calendar") => {
         : item.color !== Colors.Black);
 
     if (validEntries.length === 0) {
-        return 0; // No valid entries exist
+        return null; // No valid entries exist
     }
 
     // Convert all dates to Date objects (using startOfDay to normalize times)

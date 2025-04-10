@@ -20,6 +20,7 @@ export const DaysSinceBadge = ({ daysSince, withIcon = true, calendar }) => {
         <Badge className={classNames({
             "bg-red-500": isRed,
             "bg-yellow-500": isYellow,
+            "bg-green-500": !isRed && !isYellow,
         })}>
             {withIcon && <ClockCounterClockwise size={16} />}
             {text}
@@ -28,7 +29,7 @@ export const DaysSinceBadge = ({ daysSince, withIcon = true, calendar }) => {
 };
 
 DaysSinceBadge.propTypes = {
-    daysSince: PropTypes.number.isRequired,
+    daysSince: PropTypes.number,
     withIcon: PropTypes.bool,
     calendar: PropTypes.object.isRequired,
 };

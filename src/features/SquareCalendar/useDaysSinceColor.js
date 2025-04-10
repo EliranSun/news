@@ -3,10 +3,19 @@ import { getDaysSinceLastEntry } from "./utils";
 
 export const useDaysSinceColor = (calendar) => {
     const color = useMemo(() => {
-        const hoursSinceLast = getDaysSinceLastEntry(calendar.key) || 0;
-        const daysSinceLast = hoursSinceLast / 24;
-        const isRed = (daysSinceLast >= calendar.redAfter) || !daysSinceLast;
+        const hoursSinceLast = getDaysSinceLastEntry(calendar.key);
+        const daysSinceLast = hoursSinceLast === null ? null : hoursSinceLast / 24;
+        const isRed = (daysSinceLast >= calendar.redAfter) || daysSinceLast === null;
         const isYellow = daysSinceLast >= calendar.yellowAfter && !isRed;
+
+        console.log({
+            isRed,
+            isYellow,
+            daysSinceLast,
+            hoursSinceLast,
+            redAfter: calendar.redAfter,
+            yellowAfter: calendar.yellowAfter,
+        });
 
         return {
             isRed,
