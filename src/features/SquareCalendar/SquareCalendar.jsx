@@ -92,9 +92,12 @@ export default function SquareCalendar() {
 
                 </div> */}
                 <div className="flex w-full justify-between">
-                    <CalendarName
-                        calendar={calendar}
-                        daysSinceLastEntry={daysSinceLastEntry} />
+                    <div className="flex flex-col">
+                        <CalendarName
+                            calendar={calendar}
+                            daysSinceLastEntry={daysSinceLastEntry} />
+                        {new Date(selectedDate).getFullYear()}
+                    </div>
                     <CalendarGamification calendar={calendar} />
                 </div>
                 <CalendarsStrip
