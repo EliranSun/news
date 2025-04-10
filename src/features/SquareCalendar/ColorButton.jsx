@@ -6,7 +6,7 @@ export const ColorButton = ({ color, onClick, legend }) => {
         <button
             onClick={onClick}
             className={classNames(getColorsClassList(color), {
-                "flex flex-col justify-center items-center rounded p-2 size-12": true,
+                "flex flex-col justify-center items-center border border-black rounded p-2 size-12": true,
             })}>
             {/* <div className={classNames("size-4", } /> */}
             {legend && <label className="text-[8px]">{legend.name}</label>}
