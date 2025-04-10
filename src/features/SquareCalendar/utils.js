@@ -57,7 +57,7 @@ export const getStreakCount = (key = "square-calendar") => {
 
     // Start counting streak from most recent entry
     let currentDate = uniqueDates[0];
-    let streak = 1;
+    let streak = 0;
 
     // If most recent entry is before yesterday, no active streak
     if (differenceInDays(today, currentDate) > 1) {
