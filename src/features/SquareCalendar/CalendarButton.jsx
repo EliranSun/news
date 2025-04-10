@@ -13,10 +13,11 @@ export const CalendarButton = ({ children, calendar, isSelected, ...rest }) => {
             redAfter: calendar.redAfter,
             yellowAfter: calendar.yellowAfter,
         });
-        return (
-            ((daysSinceLast >= calendar.redAfter) || !daysSinceLast) ? "red" :
-            ((daysSinceLast) >= calendar.yellowAfter) ? "yellow" :
-                "green"
+        
+        const isRed = (daysSinceLast >= calendar.redAfter) || !daysSinceLast;
+        const isYellow = daysSinceLast >= calendar.yellowAfter;
+    
+        return isRed ? "red" : isYellow ? "yellow" : "green";
     }, [calendar]);
 
     return (
