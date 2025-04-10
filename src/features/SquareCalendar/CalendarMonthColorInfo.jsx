@@ -20,15 +20,15 @@ const MonthColorInfo = ({ data, monthIndex, selectedDate, monthName }) => {
     return (
         <>
             <h2 className="">{monthName}</h2>
-        {colorPercentages.map(({ color, percentage }) => (
-            <div
-                key={color}
-                className="flex items-center gap-1"
-                title={`${color}: ${percentage}%`}>
-                <div className={`size-4 rounded-sm ${getColorsClassList(color)}`}></div>
-                <span>{percentage}%</span>
-            </div>
-        ))}
+            {colorPercentages.map(({ color, percentage }) => (
+                <div
+                    key={color}
+                    className="flex items-center gap-1"
+                    title={`${color}: ${percentage}%`}>
+                    <div className={`size-4 rounded-sm ${getColorsClassList(color)}`}></div>
+                    <span>{percentage}%</span>
+                </div>
+            ))}
         </>
     );
 };

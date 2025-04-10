@@ -12,6 +12,7 @@ import { CalendarYearSummary } from "./CalendarYearSummary";
 import { CalendarName } from "./CalendarName";
 import { upperFirst } from "lodash";
 import { differenceInDays } from "date-fns";
+import { CalendarYearColorInfo } from "./CalendarYearColorInfo";
 export default function SquareCalendar() {
     const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
 
@@ -91,14 +92,17 @@ export default function SquareCalendar() {
                     </button>
 
                 </div> */}
-                <div className="flex w-full justify-between">
+                <div className="flex w-full justify-between items-center">
                     <div className="flex flex-col">
                         <CalendarName
                             calendar={calendar}
                             daysSinceLastEntry={daysSinceLastEntry} />
                         {new Date(selectedDate).getFullYear()}
                     </div>
-                    <CalendarGamification calendar={calendar} />
+                    <div className="flex flex-col gap-2">
+                        <CalendarGamification calendar={calendar} />
+                        <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
+                    </div>
                 </div>
                 <CalendarsStrip
                     data={data}

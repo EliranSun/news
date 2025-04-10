@@ -1,38 +1,35 @@
 import { useMemo } from "react";
-export const useColorPercentage = (data, monthDays) => {
+
+export const useColorPercentage = (data, days) => {
     const colorPercentages = useMemo(() => {
-        if (!monthDays || monthDays.length === 0 || !data || data.length === 0) {
+        if (!days || days.length === 0 || !data || data.length === 0) {
             return [];
         }
 
-        // Get all dates in the current month
-        const monthDayDates = monthDays.map(day => day.date.toDateString());
+        const dayDates = days.map(day => day.date.toDateString());
 
-        // Filter data entries to only include those from the current month
-        const monthEntries = data.filter(item => {
+        const entries = data.filter(item => {
             const itemDate = new Date(item.date).toDateString();
-            return monthDayDates.includes(itemDate);
+            return dayDates.includes(itemDate);
         });
 
-        if (monthEntries.length === 0) {
+        if (entries.length === 0) {
             return [];
         }
 
-        // Count occurrences of each color
         const colorCounts = {};
-        monthEntries.forEach(entry => {
+        entries.forEach(entry => {
             if (entry.color) {
                 colorCounts[entry.color] = (colorCounts[entry.color] || 0) + 1;
             }
         });
 
-        // Calculate percentages
         return Object.entries(colorCounts).map(([color, count]) => ({
             color,
-            percentage: Math.round((count / monthDays.length) * 100),
+            percentage: Math.round((count / days.length) * 100),
             count
         })).sort((a, b) => b.percentage - a.percentage); // Sort by percentage descending
-    }, [monthDays, data]);
+    }, [days, data]);
 
     return colorPercentages;
 }
