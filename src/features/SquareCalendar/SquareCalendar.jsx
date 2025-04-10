@@ -113,8 +113,10 @@ export default function SquareCalendar() {
                     data={data}
                     selectedCalendar={calendar}
                     onCalendarClick={onCalendarClick} />
-                <div>
-                    <div className="flex justify-between items-center w-full shadow rounded-lg">
+                <div className="px-4">
+                    <h1 className="text-base font-bold my-0 inter-500">Colors</h1>
+
+                    <div className="flex justify-between items-center w-full">
                         {/* <div className="grid grid-cols-3 gap-2 max-w-[150px] my-2 border rounded-lg p-2">
                             <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
                             <DateNavigationButton direction="↑" currentDate={selectedDate} onClick={setSelectedDate} />
@@ -126,7 +128,7 @@ export default function SquareCalendar() {
                             <DateNavigationButton direction="↓" currentDate={selectedDate} onClick={setSelectedDate} />
                             <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
                         </div> */}
-                        <div className="flex flex-wrap justify-center gap-1 w-full h-32 user-select-none rounded-lg p-2">
+                        <div className="flex flex-wrap gap-1 w-full user-select-none">
                             {
                                 calendar.colors.map(color =>
                                     <ColorButton
@@ -141,10 +143,10 @@ export default function SquareCalendar() {
                         </div>
                     </div>
                 </div>
-                <CalendarMonthColorInfo
+                {/* <CalendarMonthColorInfo
                     selectedDate={selectedDate}
                     data={data} />
-                <CalendarYearSummary />
+                <CalendarYearSummary /> */}
             </div>
         </>
     );

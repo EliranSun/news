@@ -22,9 +22,11 @@ export const CalendarMonth = ({ selectedDate, setSelectedDate, data, monthIndex 
     const allDays = [...previousMonthDays, ...currentMonthDays];
 
     return (
-        <div className="flex flex-col" key={`month-${monthIndex}`}>
+        <div className="flex flex-col my-1" key={`month-${monthIndex}`}>
             <div className="flex justify-between items-center">
-                <h2 className="text-xs">{month.toLocaleString('default', { month: 'short' })}</h2>
+                <h2 className="text-xs inter-500">
+                    {month.toLocaleString('default', { month: 'short' })}
+                </h2>
             </div>
             <div className="grid grid-cols-7 p-1 gap-0.5">
                 {allDays.map((dayObj, dayIndex) => {

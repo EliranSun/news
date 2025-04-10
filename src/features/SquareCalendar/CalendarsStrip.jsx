@@ -4,20 +4,22 @@ import PropTypes from "prop-types";
 
 export const CalendarsStrip = ({ selectedCalendar, onCalendarClick }) => {
     return (
-        <div className="text-base font-bold flex flex-nowrap w-screen px-4 overflow-x-auto gap-4">
-            {Object.values(Calendars).map(item => {
-                return (
-                    <div key={item.key} className="h-fit" id={item.key}>
-                        <CalendarButton
-                            onClick={() => onCalendarClick(item)}
-                            calendar={item}
-                            isSelected={selectedCalendar.key === item.key}>
-                            {item.icon}
-                        </CalendarButton>
-                    </div>
-                )
-            }
-            )}
+        <div className="flex flex-col gap-2 px-4 w-screen">
+            <h1 className="text-base font-bold my-0 inter-500">Categories</h1>
+            <div className="text-base font-bold flex flex-nowrap  overflow-x-auto gap-4">
+                {Object.values(Calendars).map(item => {
+                    return (
+                        <div key={item.key} className="h-fit" id={item.key}>
+                            <CalendarButton
+                                onClick={() => onCalendarClick(item)}
+                                calendar={item}
+                                isSelected={selectedCalendar.key === item.key}>
+                                {item.icon}
+                            </CalendarButton>
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     );
 };
