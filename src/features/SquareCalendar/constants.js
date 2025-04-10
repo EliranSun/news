@@ -161,11 +161,11 @@ export const Calendars = {
         name: "weight",
         key: "weight-square-calendar",
         colors: [
-            Colors.Red,
-            Colors.Orange,
-            Colors.Yellow,
+            Colors.Blue,
             Colors.Green,
-            Colors.Blue
+            Colors.Yellow,
+            Colors.Orange,
+            Colors.Red,
         ],
         icon: "💪",
         category: "self",
