@@ -5,9 +5,17 @@ import { getDaysSinceLastEntry } from "./utils";
 
 export const CalendarButton = ({ children, calendar, isSelected, ...rest }) => {
     const color = useMemo(() => {
-        const hoursSinceLast = getDaysSinceLastEntry(calendar.key);
-        return ((hoursSinceLast / 24) >= calendar.redAfter || !hoursSinceLast) ? "red" :
-            (hoursSinceLast / 24) >= calendar.yellowAfter ? "yellow" :
+        const hoursSinceLast = getDaysSinceLastEntry(calendar.key) || 0;
+        const daysSinceLast = hoursSinceLast / 24;
+        console.log({ 
+            key: calendar.key, 
+            daysSinceLast, 
+            redAfter: calendar.redAfter,
+            yellowAfter: calendar.yellowAfter,
+        });
+        return (
+            ((daysSinceLast >= calendar.redAfter) || !daysSinceLast) ? "red" :
+            ((daysSinceLast) >= calendar.yellowAfter) ? "yellow" :
                 "green"
     }, [calendar]);
 
