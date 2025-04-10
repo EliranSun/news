@@ -91,12 +91,16 @@ export default function SquareCalendar() {
                     </button>
 
                 </div> */}
-                <div className="flex w-screen justify-between">
+                <div className="flex w-full justify-between">
                     <CalendarName
                         calendar={calendar}
                         daysSinceLastEntry={daysSinceLastEntry} />
                     <CalendarGamification calendar={calendar} />
                 </div>
+                <CalendarsStrip
+                    data={data}
+                    selectedCalendar={calendar}
+                    onCalendarClick={onCalendarClick} />
                 <div className="flex justify-center flex-wrap h-10/12">
                     {new Array(12).fill(0).map((_, monthIndex) => {
                         return (
@@ -139,10 +143,6 @@ export default function SquareCalendar() {
                         </div>
                     </div>
                 </div>
-                <CalendarsStrip
-                    data={data}
-                    selectedCalendar={calendar}
-                    onCalendarClick={onCalendarClick} />
                 {/* <CalendarMonthColorInfo
                     selectedDate={selectedDate}
                     data={data} />

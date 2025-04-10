@@ -22,7 +22,7 @@ export const CalendarButton = ({ children, calendar, isSelected, ...rest }) => {
 
     return (
         <button
-            className={classNames("", {
+            className={classNames("outline-none", {
                 "bg-gray-800": isSelected,
                 "text-white": !color,
                 "border-yellow-500": color === "yellow",
