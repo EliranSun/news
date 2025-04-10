@@ -7,16 +7,16 @@ export const CalendarButton = ({ children, calendar, isSelected, ...rest }) => {
     const color = useMemo(() => {
         const hoursSinceLast = getDaysSinceLastEntry(calendar.key) || 0;
         const daysSinceLast = hoursSinceLast / 24;
-        console.log({ 
-            key: calendar.key, 
-            daysSinceLast, 
+        console.log({
+            key: calendar.key,
+            daysSinceLast,
             redAfter: calendar.redAfter,
             yellowAfter: calendar.yellowAfter,
         });
-        
+
         const isRed = (daysSinceLast >= calendar.redAfter) || !daysSinceLast;
         const isYellow = daysSinceLast >= calendar.yellowAfter;
-    
+
         return isRed ? "red" : isYellow ? "yellow" : "green";
     }, [calendar]);
 
@@ -28,7 +28,7 @@ export const CalendarButton = ({ children, calendar, isSelected, ...rest }) => {
                 "border-yellow-500": color === "yellow",
                 "border-green-500": color === "green",
                 "border-red-500": color === "red",
-                "text-sm flex border": true,
+                "text-xs border-2 w-16 text-center": true,
             })} {...rest}>
             {children}
         </button>

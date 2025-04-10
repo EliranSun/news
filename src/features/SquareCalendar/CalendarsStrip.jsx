@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 
 export const CalendarsStrip = ({ selectedCalendar, onCalendarClick }) => {
     return (
-        <div className="flex flex-col gap-2 px-4 w-screen">
-            <h1 className="text-base font-bold my-0 inter-500">Categories</h1>
-            <div className="text-base font-bold flex flex-nowrap  overflow-x-auto gap-4">
+        <div className="flex flex-col gap-1 w-screen">
+            <h1 className="text-base font-bold my-0 inter-500">Calendars</h1>
+            <div className="text-base font-bold flex flex-nowrap overflow-x-auto gap-2">
                 {Object.values(Calendars).map(item => {
                     return (
                         <div key={item.key} className="h-fit" id={item.key}>

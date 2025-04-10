@@ -74,15 +74,15 @@ export default function SquareCalendar() {
 
     return (
         <>
-            {isCalendarMenuOpen && (
+            {/* {isCalendarMenuOpen && (
                 <CalendarsList
                     onClose={() => setIsCalendarMenuOpen(false)}
                     onClick={(...params) => {
                         onCalendarClick(...params);
                         setIsCalendarMenuOpen(false);
                     }} />
-            )}
-            <div className="p-4 overflow-x-hidden h-dvh user-select-none space-y-8 font-mono">
+            )} */}
+            <div className="p-4 w-screen overflow-x-hidden h-dvh user-select-none space-y-8 font-mono">
                 {/* <div className="flex w-full">
                     <button
                         className="h-fit mr-2"
@@ -91,7 +91,7 @@ export default function SquareCalendar() {
                     </button>
 
                 </div> */}
-                <div className="flex w-screen justify-between px-4">
+                <div className="flex w-screen justify-between">
                     <CalendarName
                         calendar={calendar}
                         daysSinceLastEntry={daysSinceLastEntry} />
@@ -109,11 +109,7 @@ export default function SquareCalendar() {
                         )
                     })}
                 </div>
-                <CalendarsStrip
-                    data={data}
-                    selectedCalendar={calendar}
-                    onCalendarClick={onCalendarClick} />
-                <div className="px-4">
+                <div className="">
                     <h1 className="text-base font-bold my-0 inter-500">Colors</h1>
 
                     <div className="flex justify-between items-center w-full">
@@ -128,7 +124,7 @@ export default function SquareCalendar() {
                             <DateNavigationButton direction="↓" currentDate={selectedDate} onClick={setSelectedDate} />
                             <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
                         </div> */}
-                        <div className="flex flex-wrap gap-1 w-full user-select-none">
+                        <div className="flex w-screen overflow-x-auto gap-1 user-select-none">
                             {
                                 calendar.colors.map(color =>
                                     <ColorButton
@@ -143,6 +139,10 @@ export default function SquareCalendar() {
                         </div>
                     </div>
                 </div>
+                <CalendarsStrip
+                    data={data}
+                    selectedCalendar={calendar}
+                    onCalendarClick={onCalendarClick} />
                 {/* <CalendarMonthColorInfo
                     selectedDate={selectedDate}
                     data={data} />
