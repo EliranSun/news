@@ -14,6 +14,7 @@ import { upperFirst } from "lodash";
 import { differenceInDays } from "date-fns";
 import { CalendarYearColorInfo } from "./CalendarYearColorInfo";
 import { ExportImport } from "./ExportImport";
+import classNames from "classnames";
 
 const isSameDay = (date1, date2) => {
     if (!date1 || !date2) return false;
