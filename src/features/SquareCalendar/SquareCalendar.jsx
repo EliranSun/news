@@ -159,7 +159,7 @@ export default function SquareCalendar() {
                 </div>
                 <div className={classNames({
                     "flex flex-col w-[98vw] h-fit h-33vh gap-4 user-select-none": true,
-                    "absolute inset-x-0 m-auto": true,
+                    "absolute inset-x-0 m-auto bg-gray-100 dark:bg-neutral-800": true,
                     "rounded-t-full p-4 shadow-lg": true,
                     "bottom-10": new Date(selectedDate).getMonth() < 6,
                     "top-20": new Date(selectedDate).getMonth() >= 6,
