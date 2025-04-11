@@ -120,7 +120,7 @@ export default function SquareCalendar() {
                         <CalendarName
                             calendar={calendar}
                             daysSinceLastEntry={daysSinceLastEntry} />
-                        {new Date(selectedDate)?.getFullYear()}
+                        {selectedDate ? new Date(selectedDate).getFullYear() : new Date().getFullYear()}
                     </div>
                     <div className="flex flex-col gap-2">
                         <CalendarGamification calendar={calendar} />
