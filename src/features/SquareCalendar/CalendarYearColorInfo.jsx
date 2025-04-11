@@ -3,7 +3,7 @@ import { getColorsClassList } from "./utils";
 import { useColorPercentage } from "./useColorPercentage";
 import { getDaysInYear } from "date-fns";
 
-export const CalendarYearColorInfo = ({ data, selectedDate }) => {
+export const CalendarYearColorInfo = ({ data, selectedDate = new Date() }) => {
     const year = new Date(selectedDate.getFullYear(), 0, 1);
     const daysInYear = getDaysInYear(year);
     const currentYearDays = Array.from({ length: daysInYear }, (_, i) => ({
@@ -34,7 +34,5 @@ export const CalendarYearColorInfo = ({ data, selectedDate }) => {
 
 CalendarYearColorInfo.propTypes = {
     data: PropTypes.array.isRequired,
-    monthIndex: PropTypes.number.isRequired,
-    selectedDate: PropTypes.instanceOf(Date).isRequired,
-    monthName: PropTypes.string.isRequired
+    selectedDate: PropTypes.instanceOf(Date),
 };

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { DaySquare } from "./DaySquare";
 import { useMemo } from "react";
 
-export const CalendarMonth = ({ selectedDate, setSelectedDate, data, monthIndex }) => {
+export const CalendarMonth = ({ selectedDate = new Date(), setSelectedDate, data, monthIndex }) => {
     const month = useMemo(() => {
         return new Date(selectedDate.getFullYear(), monthIndex, 1);
     }, [selectedDate, monthIndex]);
@@ -53,7 +53,7 @@ export const CalendarMonth = ({ selectedDate, setSelectedDate, data, monthIndex 
 };
 
 CalendarMonth.propTypes = {
-    selectedDate: PropTypes.instanceOf(Date).isRequired,
+    selectedDate: PropTypes.instanceOf(Date),
     setSelectedDate: PropTypes.func.isRequired,
     data: PropTypes.array.isRequired,
     monthIndex: PropTypes.number.isRequired,

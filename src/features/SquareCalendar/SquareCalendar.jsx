@@ -21,6 +21,19 @@ const isSameDay = (date1, date2) => {
     return new Date(date1).toDateString() === new Date(date2).toDateString();
 };
 
+
+{/* <div className="grid grid-cols-3 gap-2 max-w-[150px] my-2 border rounded-lg p-2">
+                            <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
+                            <DateNavigationButton direction="↑" currentDate={selectedDate} onClick={setSelectedDate} />
+                            <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
+                            <DateNavigationButton direction="←" currentDate={selectedDate} onClick={setSelectedDate} />
+                            <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-50"></div>
+                            <DateNavigationButton direction="→" currentDate={selectedDate} onClick={setSelectedDate} />
+                            <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
+                            <DateNavigationButton direction="↓" currentDate={selectedDate} onClick={setSelectedDate} />
+                            <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
+                        </div> */}
+
 export default function SquareCalendar() {
     const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
 
@@ -35,6 +48,7 @@ export default function SquareCalendar() {
     const [data, setData] = useState(storageData);
     const [selectedDateNote, setSelectedDateNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
 
+    console.log({ selectedDate });
     const daysSinceLastEntry = useMemo(() => {
         return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
     }, [data]);
@@ -143,41 +157,41 @@ export default function SquareCalendar() {
                         )
                     })}
                 </div>
-                <div className="">
-                    <h1 className="text-base font-bold my-0 inter-500">Colors</h1>
-
-                    <div className="flex flex-col w-full border shadow rounded-lg">
-                        {/* <div className="grid grid-cols-3 gap-2 max-w-[150px] my-2 border rounded-lg p-2">
-                            <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
-                            <DateNavigationButton direction="↑" currentDate={selectedDate} onClick={setSelectedDate} />
-                            <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
-                            <DateNavigationButton direction="←" currentDate={selectedDate} onClick={setSelectedDate} />
-                            <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-50"></div>
-                            <DateNavigationButton direction="→" currentDate={selectedDate} onClick={setSelectedDate} />
-                            <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
-                            <DateNavigationButton direction="↓" currentDate={selectedDate} onClick={setSelectedDate} />
-                            <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
-                        </div> */}
-                        <div className={classNames({
-                            "flex w-[66vw] overflow-x-auto gap-1 user-select-none": true,
-                            "absolute bottom-5 right-5": true,
-                            "hidden": !selectedDate
-                            })}>
-                            {
-                                calendar.colors.map(color =>
-                                    <ColorButton
-                                        key={color}
-                                        color={color}
-                                        legend={calendar.legend?.find(item => item.color === color)}
-                                        onClick={() => updateColor(color)}
-                                    />
-                                )
-                            }
-                            <ColorButton color="⬜️" onClick={() => updateColor('clear')} />
-                        </div>
-                        <textarea
+                <div className={classNames({
+                    "flex flex-col w-[98vw] h-fit gap-1 user-select-none": true,
+                    "absolute inset-x-0 m-auto space-y-2": true,
+                    "bg-white rounded-lg p-2 dark:bg-gray-900 border shadow-lg": true,
+                    "bottom-10": new Date(selectedDate).getMonth() < 6,
+                    "top-20": new Date(selectedDate).getMonth() >= 6,
+                    "hidden": !selectedDate
+                })}>
+                    <div className="flex justify-between items-center">
+                        <h1 className="text-base font-bold inter-500">
+                            {new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                        </h1>
+                        <button
+                            onClick={() => setSelectedDate()}
+                            className="text-xs inter-500 rounded-full">
+                            X
+                        </button>
+                    </div>
+                    <div className="flex w-full overflow-x-auto gap-0.5">
+                        {
+                            calendar.colors.map(color =>
+                                <ColorButton
+                                    key={color}
+                                    color={color}
+                                    legend={calendar.legend?.find(item => item.color === color)}
+                                    onClick={() => updateColor(color)}
+                                />
+                            )
+                        }
+                        <ColorButton color="⬜️" onClick={() => updateColor('clear')} />
+                    </div>
+                    <textarea
                         value={selectedDateNote}
-                        className="border w-full p-4 mb-32 h-40"
+                        placeholder="Note"
+                        className="border w-full p-4 h-40"
                         onChange={event => setSelectedDateNote(event.target.value)}
                         onBlur={() => {
                             setData(data.map(item =>
@@ -188,10 +202,9 @@ export default function SquareCalendar() {
                             saveToStorage(calendar.key, data);
                         }}
                     />
-                    </div>
                 </div>
                 <div>
-                    
+
                 </div>
                 {/* <CalendarMonthColorInfo
                     selectedDate={selectedDate}
