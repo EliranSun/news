@@ -25,8 +25,9 @@ export default function SquareCalendar() {
 
     const [calendar, setCalendar] = useState(Calendars[calendarKey] || Calendars.Mood);
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [data, setData] = useState(loadFromStorage(Calendars[calendarKey]?.key || Calendars.Mood.key));
-    const [selectedDateNote, setSelectedDayNote] = useState(Calendars[calendarKey]?.note || "");
+    const storageData = loadFromStorage(Calendars[calendarKey]?.key || Calendars.Mood.key);
+    const [data, setData] = useState(storageData);
+    const [selectedDateNote, setSelectedDayNote] = useState("");
     
     const daysSinceLastEntry = useMemo(() => {
         return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
@@ -75,6 +76,10 @@ export default function SquareCalendar() {
         setCalendar(item);
         setData(loadFromStorage(item.key));
     }, [data, calendar]);
+    
+    useEffect(() => {
+        setSelectedDayNote(data.find(item => item.date === selectedDate)?.note || "");
+        }, [selectedDate]);
 
     return (
         <>
