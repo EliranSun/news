@@ -191,7 +191,7 @@ export default function SquareCalendar() {
                     <textarea
                         value={selectedDateNote}
                         placeholder="Note"
-                        className="border w-full bg-white dark:bg-gray-900 p-4 min-h-40 h-fit"
+                        className="border w-full bg-white dark:bg-gray-900 p-4 min-h-10 h-fit"
                         onChange={event => setSelectedDateNote(event.target.value)}
                         onBlur={() => {
                             setData(data.map(item =>
