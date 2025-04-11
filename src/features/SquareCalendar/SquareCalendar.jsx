@@ -159,7 +159,7 @@ export default function SquareCalendar() {
                     })}
                 </div>
                 <div className={classNames({
-                    "flex w-[98vw] h-fit h-33vh gap-4 user-select-none": true,
+                    "flex flex-col w-[98vw] h-fit h-33vh gap-4 user-select-none": true,
                     "absolute inset-x-0 m-auto bg-gray-100 dark:bg-neutral-800": true,
                     "rounded-t-full p-4 shadow-lg": true,
                     "bottom-10": new Date(selectedDate).getMonth() < 6,
@@ -176,6 +176,7 @@ export default function SquareCalendar() {
                             X
                         </button>
                     </div>
+                    <div className="flex justify-between w-full">
                     <div className="flex w-full overflow-x-auto gap-0.5">
                         {
                             calendar.colors.map(color =>
@@ -189,7 +190,8 @@ export default function SquareCalendar() {
                         }
                         <ColorButton color="⬜️" onClick={() => updateColor('clear')} />
                     </div>
-                    <Note onClick={() => alert("ok")} />
+                    <Note onClick={() => alert("ok")} size={32}/>
+                    </div>
                    {/* <textarea
                         value={selectedDateNote}
                         placeholder="Note"
