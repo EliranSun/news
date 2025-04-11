@@ -13,6 +13,8 @@ import { CalendarName } from "./CalendarName";
 import { upperFirst } from "lodash";
 import { differenceInDays } from "date-fns";
 import { CalendarYearColorInfo } from "./CalendarYearColorInfo";
+
+
 export default function SquareCalendar() {
     const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
 
@@ -24,7 +26,8 @@ export default function SquareCalendar() {
     const [calendar, setCalendar] = useState(Calendars[calendarKey] || Calendars.Mood);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [data, setData] = useState(loadFromStorage(Calendars[calendarKey]?.key || Calendars.Mood.key));
-
+    const [selectedDateNote, setSelectedDayNote] = useState(Calendars[calendarKey]?.note || "");
+    
     const daysSinceLastEntry = useMemo(() => {
         return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
     }, [data]);
@@ -39,11 +42,11 @@ export default function SquareCalendar() {
             if (existingEntry) {
                 setData(data.map(item =>
                     new Date(item.date).toDateString() === new Date(selectedDate).toDateString()
-                        ? { ...item, color }
+                        ? { ...item, color, note: selectedDateNote }
                         : item
                 ));
             } else {
-                setData([...data, { date: selectedDate, color }]);
+                setData([...data, { date: selectedDate, color, note: selectedDateNote }]);
             }
         }
 
@@ -150,6 +153,7 @@ export default function SquareCalendar() {
                         </div>
                     </div>
                 </div>
+                <textarea onChange={event => setSelectedDateNote(event.target.value)} />
                 {/* <CalendarMonthColorInfo
                     selectedDate={selectedDate}
                     data={data} />
