@@ -14,6 +14,7 @@ export const DaySquare = ({ dayObj, selectedDate, setSelectedDate, data }) => {
         <div
             onClick={() => setSelectedDate(dayObj.date)}
             className={classNames(colorClass, {
+                "rounded-[2px]": true,
                 "size-4 text-[8px] flex justify-center items-center": true,
                 "bg-gray-100 dark:bg-gray-900": !dayObj.previousMonth && !isToday && !colorClass,
                 "opacity-0": dayObj.previousMonth,
