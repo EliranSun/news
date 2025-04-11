@@ -1,25 +1,31 @@
 import { getDaysInMonth, getDay, startOfMonth, subMonths } from "date-fns";
 import PropTypes from "prop-types";
 import { DaySquare } from "./DaySquare";
+import { useMemo } from "react";
 
 export const CalendarMonth = ({ selectedDate, setSelectedDate, data, monthIndex }) => {
-    const month = new Date(selectedDate.getFullYear(), monthIndex, 1);
-    const daysInMonth = getDaysInMonth(month);
-    const startDay = getDay(startOfMonth(month)); // 0 = Sunday, 1 = Monday, etc.
-    const prevMonth = subMonths(month, 1);
-    const daysInPrevMonth = getDaysInMonth(prevMonth);
+    const month = useMemo(() => {
+        return new Date(selectedDate.getFullYear(), monthIndex, 1);
+    }, [selectedDate, monthIndex]);
 
-    const previousMonthDays = Array.from({ length: startDay }, (_, i) => ({
-        date: new Date(prevMonth.getFullYear(), prevMonth.getMonth(), daysInPrevMonth - startDay + i + 1),
-        previousMonth: true
-    }));
+    const calendarData = useMemo(() => {
+        const daysInMonth = getDaysInMonth(month);
+        const startDay = getDay(startOfMonth(month)); // 0 = Sunday, 1 = Monday, etc.
+        const prevMonth = subMonths(month, 1);
+        const daysInPrevMonth = getDaysInMonth(prevMonth);
 
-    const currentMonthDays = Array.from({ length: daysInMonth }, (_, i) => ({
-        date: new Date(month.getFullYear(), month.getMonth(), i + 1),
-        previousMonth: false
-    }));
+        const previousMonthDays = Array.from({ length: startDay }, (_, i) => ({
+            date: new Date(prevMonth.getFullYear(), prevMonth.getMonth(), daysInPrevMonth - startDay + i + 1),
+            previousMonth: true
+        }));
 
-    const allDays = [...previousMonthDays, ...currentMonthDays];
+        const currentMonthDays = Array.from({ length: daysInMonth }, (_, i) => ({
+            date: new Date(month.getFullYear(), month.getMonth(), i + 1),
+            previousMonth: false
+        }));
+
+        return [...previousMonthDays, ...currentMonthDays];
+    }, [month]);
 
     return (
         <div className="flex flex-col my-1" key={`month-${monthIndex}`}>
@@ -29,7 +35,7 @@ export const CalendarMonth = ({ selectedDate, setSelectedDate, data, monthIndex 
                 </h2>
             </div>
             <div className="grid grid-cols-7 p-1 gap-0.5">
-                {allDays.map((dayObj, dayIndex) => {
+                {calendarData.map((dayObj, dayIndex) => {
                     return (
                         <DaySquare
                             monthIndex={monthIndex}

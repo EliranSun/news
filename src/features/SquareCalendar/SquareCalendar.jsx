@@ -14,6 +14,9 @@ import { upperFirst } from "lodash";
 import { differenceInDays } from "date-fns";
 import { CalendarYearColorInfo } from "./CalendarYearColorInfo";
 
+const isSameDay = (date1, date2) => {
+    return new Date(date1).toDateString() === new Date(date2).toDateString();
+};
 
 export default function SquareCalendar() {
     const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
@@ -27,23 +30,23 @@ export default function SquareCalendar() {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const storageData = loadFromStorage(Calendars[calendarKey]?.key || Calendars.Mood.key);
     const [data, setData] = useState(storageData);
-    const [selectedDateNote, setSelectedDayNote] = useState("");
-    
+    const [selectedDateNote, setSelectedDateNote] = useState(data.find(item => item.date === selectedDate)?.note || "");
+
     const daysSinceLastEntry = useMemo(() => {
         return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
     }, [data]);
 
     const updateColor = useCallback((color) => {
         if (color === 'clear') {
-            setData(data.filter(item => new Date(item.date).toDateString() !== new Date(selectedDate).toDateString()));
+            setData(data.filter(item => !isSameDay(item.date, selectedDate)));
         } else {
             const existingEntry = data.find(item =>
-                new Date(item.date).toDateString() === new Date(selectedDate).toDateString());
+                isSameDay(item.date, selectedDate));
 
             if (existingEntry) {
                 setData(data.map(item =>
-                    new Date(item.date).toDateString() === new Date(selectedDate).toDateString()
-                        ? { ...item, color, note: selectedDateNote }
+                    isSameDay(item.date, selectedDate)
+                        ? { ...item, color }
                         : item
                 ));
             } else {
@@ -62,7 +65,11 @@ export default function SquareCalendar() {
         setTimeout(() => {
             const calendarButton = document.getElementById(calendar.key);
             if (calendarButton) {
-                calendarButton.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                calendarButton.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest',
+                    inline: 'center'
+                });
             }
         }, 100);
     }, [calendar]);
@@ -76,10 +83,15 @@ export default function SquareCalendar() {
         setCalendar(item);
         setData(loadFromStorage(item.key));
     }, [data, calendar]);
-    
+
     useEffect(() => {
-        setSelectedDayNote(data.find(item => item.date === selectedDate)?.note || "");
-        }, [selectedDate]);
+        const dayItem = data.find(item => isSameDay(item.date, selectedDate));
+        setSelectedDateNote(dayItem?.note || "");
+    }, [selectedDate, data]);
+
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
 
     return (
         <>
@@ -158,9 +170,21 @@ export default function SquareCalendar() {
                         </div>
                     </div>
                 </div>
-                <textarea 
-                className="border w-full p-4 mb-20 h-40"
-                onChange={event => setSelectedDateNote(event.target.value)} />
+                <div>
+                    <textarea
+                        value={selectedDateNote}
+                        className="border w-full p-4 mb-32 h-40"
+                        onChange={event => setSelectedDateNote(event.target.value)}
+                        onBlur={() => {
+                            setData(data.map(item =>
+                                isSameDay(item.date, selectedDate)
+                                    ? { ...item, note: selectedDateNote }
+                                    : item));
+
+                            saveToStorage(calendar.key, data);
+                        }}
+                    />
+                </div>
                 {/* <CalendarMonthColorInfo
                     selectedDate={selectedDate}
                     data={data} />

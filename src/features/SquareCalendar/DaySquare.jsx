@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
-import { loadFromStorage, saveToStorage, getColorsClassList } from "./utils";
+import { getColorsClassList } from "./utils";
 import { useMemo } from "react";
 import classNames from "classnames";
 
-export const DaySquare = ({ dayObj, selectedDate, setSelectedDate, data, monthIndex, dayIndex }) => {
+export const DaySquare = ({ dayObj, selectedDate, setSelectedDate, data }) => {
     const isToday = dayObj.date.toDateString() === selectedDate.toDateString();
     const colorClass = useMemo(() => {
         const color = data.find(item => new Date(item.date).toDateString() === dayObj.date.toDateString())?.color;
@@ -20,7 +20,7 @@ export const DaySquare = ({ dayObj, selectedDate, setSelectedDate, data, monthIn
                 "border-2 border-amber-500": !dayObj.previousMonth && isToday,
             })}>
             {(!dayObj.previousMonth && isToday)
-                ? dayObj.date.toLocaleString('default', { day: 'numeric' }) 
+                ? dayObj.date.toLocaleString('default', { day: 'numeric' })
                 : null}
         </div>
     );
