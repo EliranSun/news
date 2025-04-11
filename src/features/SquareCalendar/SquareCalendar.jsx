@@ -160,7 +160,7 @@ export default function SquareCalendar() {
                 <div className={classNames({
                     "flex flex-col w-[98vw] h-fit gap-1 user-select-none": true,
                     "absolute inset-x-0 m-auto space-y-2": true,
-                    "bg-white rounded-lg p-2 dark:bg-gray-900 border shadow-lg": true,
+                    "bg-white rounded-lg p-4 dark:bg-gray-900 border shadow-lg": true,
                     "bottom-10": new Date(selectedDate).getMonth() < 6,
                     "top-20": new Date(selectedDate).getMonth() >= 6,
                     "hidden": !selectedDate
@@ -191,7 +191,7 @@ export default function SquareCalendar() {
                     <textarea
                         value={selectedDateNote}
                         placeholder="Note"
-                        className="border w-full p-4 h-40"
+                        className="border w-full bg-white dark:bg-gray-900 p-4 min-h-40 h-fit"
                         onChange={event => setSelectedDateNote(event.target.value)}
                         onBlur={() => {
                             setData(data.map(item =>
