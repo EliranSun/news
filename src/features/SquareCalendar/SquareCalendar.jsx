@@ -153,7 +153,9 @@ export default function SquareCalendar() {
                         </div>
                     </div>
                 </div>
-                <textarea onChange={event => setSelectedDateNote(event.target.value)} />
+                <textarea 
+                className="border w-full p-4 mb-4 h-20"
+                onChange={event => setSelectedDateNote(event.target.value)} />
                 {/* <CalendarMonthColorInfo
                     selectedDate={selectedDate}
                     data={data} />
