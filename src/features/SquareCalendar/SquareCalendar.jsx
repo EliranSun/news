@@ -15,6 +15,7 @@ import { differenceInDays } from "date-fns";
 import { CalendarYearColorInfo } from "./CalendarYearColorInfo";
 import { ExportImport } from "./ExportImport";
 import classNames from "classnames";
+import { Note } from "@phosphor-icons/react";
 
 const isSameDay = (date1, date2) => {
     if (!date1 || !date2) return false;
@@ -158,7 +159,7 @@ export default function SquareCalendar() {
                     })}
                 </div>
                 <div className={classNames({
-                    "flex flex-col w-[98vw] h-fit h-33vh gap-4 user-select-none": true,
+                    "flex w-[98vw] h-fit h-33vh gap-4 user-select-none": true,
                     "absolute inset-x-0 m-auto bg-gray-100 dark:bg-neutral-800": true,
                     "rounded-t-full p-4 shadow-lg": true,
                     "bottom-10": new Date(selectedDate).getMonth() < 6,
@@ -188,7 +189,8 @@ export default function SquareCalendar() {
                         }
                         <ColorButton color="⬜️" onClick={() => updateColor('clear')} />
                     </div>
-                    <textarea
+                    <Note onClick={() => alert("ok")} />
+                   {/* <textarea
                         value={selectedDateNote}
                         placeholder="Note"
                         className="border w-full bg-white dark:bg-gray-900 p-4 min-h-10 h-fit"
@@ -201,7 +203,7 @@ export default function SquareCalendar() {
 
                             saveToStorage(calendar.key, data);
                         }}
-                    />
+                    />*/}
                 </div>
                 <div>
 
