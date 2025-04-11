@@ -158,9 +158,9 @@ export default function SquareCalendar() {
                     })}
                 </div>
                 <div className={classNames({
-                    "flex flex-col w-[98vw] h-fit gap-1 user-select-none": true,
-                    "absolute inset-x-0 m-auto space-y-2": true,
-                    "bg-white rounded-lg p-4 dark:bg-gray-900 border shadow-lg": true,
+                    "flex flex-col w-[98vw] h-fit h-33vh gap-4 user-select-none": true,
+                    "absolute inset-x-0 m-auto": true,
+                    "rounded-t-full p-4 shadow-lg": true,
                     "bottom-10": new Date(selectedDate).getMonth() < 6,
                     "top-20": new Date(selectedDate).getMonth() >= 6,
                     "hidden": !selectedDate
