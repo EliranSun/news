@@ -14,7 +14,9 @@ import { upperFirst } from "lodash";
 import { differenceInDays } from "date-fns";
 import { CalendarYearColorInfo } from "./CalendarYearColorInfo";
 import { ExportImport } from "./ExportImport";
+
 const isSameDay = (date1, date2) => {
+    if (!date1 || !date2) return false;
     return new Date(date1).toDateString() === new Date(date2).toDateString();
 };
 
@@ -30,7 +32,7 @@ export default function SquareCalendar() {
     const [selectedDate, setSelectedDate] = useState();
     const storageData = loadFromStorage(Calendars[calendarKey]?.key || Calendars.Mood.key);
     const [data, setData] = useState(storageData);
-    const [selectedDateNote, setSelectedDateNote] = useState(data.find(item => item.date === selectedDate)?.note || "");
+    const [selectedDateNote, setSelectedDateNote] = useState(data.find(item => isSameDay(item.date, selectedDate)?.note || "");
 
     const daysSinceLastEntry = useMemo(() => {
         return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
