@@ -13,7 +13,7 @@ import { CalendarName } from "./CalendarName";
 import { upperFirst } from "lodash";
 import { differenceInDays } from "date-fns";
 import { CalendarYearColorInfo } from "./CalendarYearColorInfo";
-
+import { ExportImport } from "./ExportImport";
 const isSameDay = (date1, date2) => {
     return new Date(date1).toDateString() === new Date(date2).toDateString();
 };
@@ -189,6 +189,7 @@ export default function SquareCalendar() {
                     selectedDate={selectedDate}
                     data={data} />
                 <CalendarYearSummary /> */}
+                <ExportImport />
             </div>
         </>
     );
