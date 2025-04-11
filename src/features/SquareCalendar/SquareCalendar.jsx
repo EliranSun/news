@@ -27,7 +27,7 @@ export default function SquareCalendar() {
     }, []);
 
     const [calendar, setCalendar] = useState(Calendars[calendarKey] || Calendars.Mood);
-    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState();
     const storageData = loadFromStorage(Calendars[calendarKey]?.key || Calendars.Mood.key);
     const [data, setData] = useState(storageData);
     const [selectedDateNote, setSelectedDateNote] = useState(data.find(item => item.date === selectedDate)?.note || "");
@@ -143,7 +143,7 @@ export default function SquareCalendar() {
                 <div className="">
                     <h1 className="text-base font-bold my-0 inter-500">Colors</h1>
 
-                    <div className="flex justify-between items-center w-full">
+                    <div className="flex flex-col w-full border shadow rounded-lg">
                         {/* <div className="grid grid-cols-3 gap-2 max-w-[150px] my-2 border rounded-lg p-2">
                             <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
                             <DateNavigationButton direction="↑" currentDate={selectedDate} onClick={setSelectedDate} />
@@ -155,7 +155,11 @@ export default function SquareCalendar() {
                             <DateNavigationButton direction="↓" currentDate={selectedDate} onClick={setSelectedDate} />
                             <div className="flex justify-center items-center bg-gray-100 rounded-md p-2 opacity-0"></div>
                         </div> */}
-                        <div className="flex w-screen overflow-x-auto gap-1 user-select-none">
+                        <div className={classNames({
+                            "flex w-[66vw] overflow-x-auto gap-1 user-select-none": true,
+                            "absolute bottom-5 right-5": true,
+                            "hidden": !selectedDate
+                            })}>
                             {
                                 calendar.colors.map(color =>
                                     <ColorButton
@@ -168,10 +172,7 @@ export default function SquareCalendar() {
                             }
                             <ColorButton color="⬜️" onClick={() => updateColor('clear')} />
                         </div>
-                    </div>
-                </div>
-                <div>
-                    <textarea
+                        <textarea
                         value={selectedDateNote}
                         className="border w-full p-4 mb-32 h-40"
                         onChange={event => setSelectedDateNote(event.target.value)}
@@ -184,6 +185,10 @@ export default function SquareCalendar() {
                             saveToStorage(calendar.key, data);
                         }}
                     />
+                    </div>
+                </div>
+                <div>
+                    
                 </div>
                 {/* <CalendarMonthColorInfo
                     selectedDate={selectedDate}
