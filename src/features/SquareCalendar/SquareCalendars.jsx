@@ -92,9 +92,7 @@ export default function SquareCalendars() {
         setSelectedDateNote(dayItem?.note || "");
     }, [selectedDate, data]);
 
-    return (
-        <>
-            {/* {isCalendarMenuOpen && (
+    {/* {isCalendarMenuOpen && (
                 <CalendarsList
                     onClose={() => setIsCalendarMenuOpen(false)}
                     onClick={(...params) => {
@@ -102,8 +100,8 @@ export default function SquareCalendars() {
                         setIsCalendarMenuOpen(false);
                     }} />
             )} */}
-            <div className="p-4 w-screen overflow-x-hidden h-dvh user-select-none space-y-8 font-mono">
-                {/* <div className="flex w-full">
+
+    {/* <div className="flex w-full">
                     <button
                         className="h-fit mr-2"
                         onClick={() => setIsCalendarMenuOpen(!isCalendarMenuOpen)}>
@@ -111,57 +109,59 @@ export default function SquareCalendars() {
                     </button>
 
                 </div> */}
-                <div className="flex w-full justify-between items-center">
-                    <div className="flex flex-col">
-                        <CalendarName
-                            calendar={calendar}
-                            daysSinceLastEntry={daysSinceLastEntry} />
-                        {selectedDate ? new Date(selectedDate).getFullYear() : new Date().getFullYear()}
-                    </div>
-                    <div className="flex flex-col gap-2">
-                        <CalendarGamification calendar={calendar} />
-                        <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
-                    </div>
-                </div>
-                <CalendarsStrip
-                    data={data}
-                    selectedCalendar={calendar}
-                    onCalendarClick={onCalendarClick} />
-                <div className="flex justify-center flex-wrap h-10/12">
-                    {new Array(12).fill(0).map((_, monthIndex) => {
-                        return (
-                            <CalendarMonth
-                                key={monthIndex}
-                                selectedDate={selectedDate}
-                                setSelectedDate={setSelectedDate}
-                                data={data}
-                                monthIndex={monthIndex} />
-                        )
-                    })}
-                </div>
-                <DayDrawer
-                    title={dateTitle}
-                    calendar={calendar}
-                    isOpen={!!selectedDate}
-                    onColorSelect={updateColor}
-                    onClose={() => setSelectedDate()}
-                    note={selectedDateNote}
-                    onNoteUpdate={note => {
-                        const newData = data.map(item =>
-                            isSameDay(item.date, selectedDate)
-                                ? { ...item, note }
-                                : item);
 
-                        setData(newData);
-                        saveToStorage(calendar.key, newData);
-                    }}
-                />
-                {/* <CalendarMonthColorInfo
+    {/* <CalendarMonthColorInfo
                     selectedDate={selectedDate}
                     data={data} />
                 <CalendarYearSummary /> */}
-                <ExportImport />
+    return (
+        <div className="p-4 pb-32 w-screen overflow-x-hidden h-dvh user-select-none space-y-8 font-mono">
+            <div className="flex w-full justify-between items-center">
+                <div className="flex flex-col">
+                    <CalendarName
+                        calendar={calendar}
+                        daysSinceLastEntry={daysSinceLastEntry} />
+                    {selectedDate ? new Date(selectedDate).getFullYear() : new Date().getFullYear()}
+                </div>
+                <div className="flex flex-col gap-2">
+                    <CalendarGamification calendar={calendar} />
+                    <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
+                </div>
             </div>
-        </>
+            <CalendarsStrip
+                data={data}
+                selectedCalendar={calendar}
+                onCalendarClick={onCalendarClick} />
+            <div className="flex justify-center flex-wrap h-10/12">
+                {new Array(12).fill(0).map((_, monthIndex) => {
+                    return (
+                        <CalendarMonth
+                            key={monthIndex}
+                            selectedDate={selectedDate}
+                            setSelectedDate={setSelectedDate}
+                            data={data}
+                            monthIndex={monthIndex} />
+                    )
+                })}
+            </div>
+            <DayDrawer
+                title={dateTitle}
+                calendar={calendar}
+                isOpen={!!selectedDate}
+                onColorSelect={updateColor}
+                onClose={() => setSelectedDate()}
+                note={selectedDateNote}
+                onNoteUpdate={note => {
+                    const newData = data.map(item =>
+                        isSameDay(item.date, selectedDate)
+                            ? { ...item, note }
+                            : item);
+
+                    setData(newData);
+                    saveToStorage(calendar.key, newData);
+                }}
+            />
+            <ExportImport />
+        </div>
     );
 }   
