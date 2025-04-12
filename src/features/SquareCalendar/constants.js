@@ -39,11 +39,11 @@ export const Calendars = {
             Colors.Violet
         ],
         legend: [
-            name: "Great", color: Colors.Yellow,
-            name: "Good", color: Colors.Orange,
-            name: "OK", color: Colors.Crimson,
-            name: "Bad", color: Colors.Blue,
-            name: "Awful", color: Colors.Violet,
+            { name: "Great", color: Colors.Yellow },
+            { name: "Good", color: Colors.Orange },
+            { name: "OK", color: Colors.Crimson },
+            { name: "Bad", color: Colors.Blue },
+            { name: "Awful", color: Colors.Violet },
         ],
         icon: "🎭",
         category: "self",
