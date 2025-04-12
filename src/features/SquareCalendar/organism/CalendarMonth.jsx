@@ -1,6 +1,6 @@
 import { getDaysInMonth, getDay, startOfMonth, subMonths } from "date-fns";
 import PropTypes from "prop-types";
-import { DaySquare } from "./DaySquare";
+import { DaySquare } from "../atoms/DaySquare";
 import { useMemo } from "react";
 
 export const CalendarMonth = ({ selectedDate = new Date(), setSelectedDate, data, monthIndex }) => {

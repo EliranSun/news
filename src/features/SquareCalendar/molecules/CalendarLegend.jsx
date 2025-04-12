@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { getColorsClassList } from "./utils";
+import { getColorsClassList } from "../utils";
 import PropTypes from "prop-types";
 
 export const CalendarLegend = ({ isActive, legend = [] }) => {

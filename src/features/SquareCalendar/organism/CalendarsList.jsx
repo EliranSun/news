@@ -1,11 +1,11 @@
 import classNames from "classnames";
-import { Calendars } from "./constants";
-import { getDaysSinceLastEntry } from "./utils";
-import { ExportImport } from './ExportImport';
+import { Calendars } from "../constants";
+import { getDaysSinceLastEntry } from "../utils";
+import { ExportImport } from '../atoms/ExportImport';
 import { useMemo } from "react";
 import PropTypes from "prop-types";
-import { CalendarName } from "./CalendarName";
-import { DaysSinceBadge } from "./DaysSinceBadge";
+import { CalendarName } from "../atoms/CalendarName";
+import { DaysSinceBadge } from "../atoms/DaysSinceBadge";
 
 
 const CalendarItem = ({ calendar, onClick }) => {

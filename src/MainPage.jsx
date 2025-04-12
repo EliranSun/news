@@ -12,7 +12,7 @@ import SleepGraph from "./pages/SleepGraph.jsx";
 import SleepAdd from "./pages/SleepAdd.jsx";
 import Orchuk from "./pages/Orchuk.jsx";
 import Squares from "./pages/Squares.jsx";
-import SquareCalendar from "./features/SquareCalendar/SquareCalendar.jsx";
+import SquareCalendars from "./features/SquareCalendar/SquareCalendars.jsx";
 import { useEffect } from "react";
 
 export const MainPage = ({ savedPath }) => {
@@ -89,12 +89,12 @@ export const MainPage = ({ savedPath }) => {
 			return <Squares />;
 
 		case currentPath.includes("/square-calendar"):
-			return <SquareCalendar />;
+			return <SquareCalendars />;
 
 		case currentPath.includes("/news"):
 			return <News />;
 
 		default:
-			return <SquareCalendar />;
+			return <SquareCalendars />;
 	}
 };

@@ -1,7 +1,7 @@
-import { getDaysSinceLastEntry, getStreakCount, getHighestStreakCount } from "./utils"
-import { HighscoreBadge } from "./HighscoreBadge";
-import { StreakBadge } from "./StreakBadge";
-import { DaysSinceBadge } from "./DaysSinceBadge";
+import { getDaysSinceLastEntry, getStreakCount, getHighestStreakCount } from "../utils"
+import { HighscoreBadge } from "../atoms/HighscoreBadge";
+import { StreakBadge } from "../atoms/StreakBadge";
+import { DaysSinceBadge } from "../atoms/DaysSinceBadge";
 import { useMemo } from "react";
 import PropTypes from "prop-types";
 

@@ -1,4 +1,4 @@
-import { exportCalendarData, importCalendarData } from "./utils";
+import { exportCalendarData, importCalendarData } from "../utils";
 
 export const ExportImport = () => {
     return (

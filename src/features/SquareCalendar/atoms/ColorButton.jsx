@@ -1,9 +1,9 @@
 import classNames from "classnames";
-import { getColorsClassList } from "./utils";
+import { getColorsClassList } from "../utils";
 // import { contrastColor } from 'contrast-color';
 import { useMemo } from "react";
 import PropTypes from "prop-types";
-import { Colors } from "./constants";
+import { Colors } from "../constants";
 
 const contrastColor = ({
     bgColor = '#FFFFFF',

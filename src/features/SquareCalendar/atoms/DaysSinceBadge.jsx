@@ -1,7 +1,7 @@
 import { Badge } from "./Badge";
 import PropTypes from "prop-types";
 import { ClockCounterClockwise } from "@phosphor-icons/react";
-import { useDaysSinceColor } from "./useDaysSinceColor";
+import { useDaysSinceColor } from "../useDaysSinceColor";
 import classNames from "classnames";
 import { useMemo } from "react";
 

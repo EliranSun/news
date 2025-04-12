@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { getColorsClassList } from "./utils";
-import { useColorPercentage } from "./useColorPercentage";
+import { getColorsClassList } from "../utils";
+import { useColorPercentage } from "../useColorPercentage";
 import { getDaysInMonth } from "date-fns";
 
 const MonthColorInfo = ({ data, monthIndex, selectedDate, monthName }) => {

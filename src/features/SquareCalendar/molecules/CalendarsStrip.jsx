@@ -1,5 +1,5 @@
-import { Calendars } from "./constants";
-import { CalendarButton } from "./CalendarButton";
+import { Calendars } from "../constants";
+import { CalendarButton } from "../atoms/CalendarButton";
 import PropTypes from "prop-types";
 
 export const CalendarsStrip = ({ selectedCalendar, onCalendarClick }) => {

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { getColorsClassList } from "./utils";
+import { getColorsClassList } from "../utils";
 import { useMemo } from "react";
 import classNames from "classnames";
 

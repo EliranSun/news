@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { getColorsClassList } from "./utils";
-import { useColorPercentage } from "./useColorPercentage";
+import { getColorsClassList } from "../utils";
+import { useColorPercentage } from "../useColorPercentage";
 import { getDaysInYear } from "date-fns";
 
 export const CalendarYearColorInfo = ({ data, selectedDate = new Date() }) => {
