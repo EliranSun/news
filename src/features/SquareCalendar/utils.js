@@ -180,6 +180,37 @@ const TailwindColorsMap = {
     [Colors.Maroon]: "bg-red-900",
 };
 
+export const ColorHexMap = {
+    [Colors.Clear]: "#FFFFFF00",
+    [Colors.Black]: "#404040",
+    [Colors.Red]: "#EF4444",
+    [Colors.Green]: "#22C55E",
+    [Colors.Yellow]: "#EAB308",
+    [Colors.Orange]: "#F97316",
+    [Colors.Coral]: "#FDBA74",
+    [Colors.Pink]: "#EC4899",
+    [Colors.Forestgreen]: "#065F46",
+    [Colors.Plum]: "#D946EF",
+    [Colors.Turquoise]: "#2DD4BF",
+    [Colors.Brown]: "#D97706",
+    [Colors.Sage]: "#4ADE80",
+
+    // Blue & Purple
+    [Colors.Lightblue]: "#BFDBFE",
+    [Colors.Skyblue]: "#BAE6FD",
+    [Colors.Blue]: "#60A5FA",
+    [Colors.Navy]: "#2563EB",
+    [Colors.Violet]: "#8B5CF6",
+    [Colors.Purple]: "#581C87",
+
+    [Colors.Crimson]: "#DC2626",
+    [Colors.Lavender]: "#E9D5FF",
+    [Colors.Rose]: "#F43F5E",
+    [Colors.Hotpink]: "#DB2777",
+    [Colors.Darkgray]: "#6B7280",
+    [Colors.Maroon]: "#7F1D1D",
+};
+
 export const getColorsClassList = (color) => {
     return TailwindColorsMap[color] || "";
 };
@@ -281,4 +312,39 @@ export const importCalendarData = () => {
 export const isSameDay = (date1, date2) => {
     if (!date1 || !date2) return false;
     return new Date(date1).toDateString() === new Date(date2).toDateString();
+};
+
+export const contrastColor = ({
+    bgColor = '#FFFFFF',
+    fgDarkColor = '#000000',
+    fgLightColor = '#FFFFFF',
+    defaultColor = '#000000',
+    threshold = 128,
+} = {}) => {
+    const hexChars = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F']
+
+    let bgColorArray = String(bgColor)
+        .toUpperCase()
+        .split('')
+        .filter(c => hexChars.includes(c))
+
+    switch (bgColorArray.length) {
+        case 3:
+        case 4:
+            bgColorArray = bgColorArray.slice(0, 3).map(c => `${c}${c}`)
+            break
+        case 6:
+        case 8:
+            bgColorArray = bgColorArray
+                .slice(0, 6)
+                .reduce((acc, curr, n, arr) => n % 2 ? [...acc, `${arr[n - 1]}${curr}`] : acc, [])
+            break
+        default:
+            return defaultColor
+    }
+
+    const [r, g, b] = bgColorArray.map(h => parseInt(h, 16))
+    const yiq = (r * 299 + g * 587 + b * 114) / 1000
+
+    return yiq >= threshold ? fgDarkColor : fgLightColor
 };
