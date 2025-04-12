@@ -21,6 +21,7 @@
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "clsx": "^2.1.1",
+    "contrast-color": "^1.0.1",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.4.7",
     "lodash": "^4.17.21",

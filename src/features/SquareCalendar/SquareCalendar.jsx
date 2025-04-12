@@ -15,7 +15,7 @@ import { differenceInDays } from "date-fns";
 import { CalendarYearColorInfo } from "./CalendarYearColorInfo";
 import { ExportImport } from "./ExportImport";
 import classNames from "classnames";
-import { Note } from "@phosphor-icons/react";
+import { Note, X } from "@phosphor-icons/react";
 
 const isSameDay = (date1, date2) => {
     if (!date1 || !date2) return false;
@@ -48,8 +48,12 @@ export default function SquareCalendar() {
     const storageData = loadFromStorage(Calendars[calendarKey]?.key || Calendars.Mood.key);
     const [data, setData] = useState(storageData);
     const [selectedDateNote, setSelectedDateNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
+    const [isNoteOpen, setIsNoteOpen] = useState(false);
 
-    console.log({ selectedDate });
+    const dateTitle = useMemo(() => {
+        return new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    }, [selectedDate]);
+
     const daysSinceLastEntry = useMemo(() => {
         return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
     }, [data]);
@@ -113,6 +117,33 @@ export default function SquareCalendar() {
 
     return (
         <>
+            {isNoteOpen &&
+                <div className="fixed inset-0 z-20 m-auto backdrop-blur w-screen h-screen">
+                    <h1 className="text-base font-bold inter-500 w-full my-8 text-center">{dateTitle}</h1>
+                    <textarea
+                        value={selectedDateNote}
+                        placeholder="Note"
+                        className={classNames({
+                            "m-4 p-4 rounded-lg font-mono": true,
+                            "border w-[calc(100%-2rem)] h-[calc(100%-10rem)] min-h-10": true,
+                        })}
+                        onChange={event => setSelectedDateNote(event.target.value)}
+                        onBlur={() => {
+                            setData(data.map(item =>
+                                isSameDay(item.date, selectedDate)
+                                    ? { ...item, note: selectedDateNote }
+                                    : item));
+
+                            saveToStorage(calendar.key, data);
+                        }}
+                    />
+                    <X
+                        size={20}
+                        color="black"
+                        weight="bold"
+                        className="absolute top-10 right-5"
+                        onClick={() => setIsNoteOpen(false)} />
+                </div>}
             {/* {isCalendarMenuOpen && (
                 <CalendarsList
                     onClose={() => setIsCalendarMenuOpen(false)}
@@ -159,53 +190,41 @@ export default function SquareCalendar() {
                     })}
                 </div>
                 <div className={classNames({
-                    "flex flex-col w-[98vw] h-fit h-33vh gap-4 user-select-none": true,
+                    "flex flex-col w-screen h-[21vh] gap-4 user-select-none": true,
                     "absolute inset-x-0 m-auto bg-gray-100 dark:bg-neutral-800": true,
-                    "rounded-t-full p-4 shadow-lg": true,
-                    "bottom-10": new Date(selectedDate).getMonth() < 6,
-                    "top-20": new Date(selectedDate).getMonth() >= 6,
+                    "rounded-t-2xl p-4 shadow-lg": true,
+                    "bottom-0": true,
                     "hidden": !selectedDate
                 })}>
-                    <div className="flex justify-between items-center">
-                        <h1 className="text-base font-bold inter-500">
-                            {new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-                        </h1>
-                        <button
-                            onClick={() => setSelectedDate()}
-                            className="text-xs inter-500 rounded-full">
-                            X
-                        </button>
-                    </div>
+                    <X
+                        size={20}
+                        color="black"
+                        weight="bold"
+                        className="absolute top-4 right-4"
+                        onClick={() => setSelectedDate()} />
+                    <h1 className="text-base font-bold inter-500 w-full text-center">
+                        {dateTitle}
+                    </h1>
                     <div className="flex justify-between w-full">
-                    <div className="flex w-full overflow-x-auto gap-0.5">
-                        {
-                            calendar.colors.map(color =>
-                                <ColorButton
-                                    key={color}
-                                    color={color}
-                                    legend={calendar.legend?.find(item => item.color === color)}
-                                    onClick={() => updateColor(color)}
-                                />
-                            )
-                        }
-                        <ColorButton color="⬜️" onClick={() => updateColor('clear')} />
+                        <div className="flex w-full overflow-x-auto gap-0.5">
+                            {
+                                calendar.colors.map(color =>
+                                    <ColorButton
+                                        key={color}
+                                        color={color}
+                                        legend={calendar.legend?.find(item => item.color === color)}
+                                        onClick={() => updateColor(color)}
+                                    />
+                                )
+                            }
+                            <ColorButton color="⬜️" onClick={() => updateColor('clear')} />
+                        </div>
+                        <Note
+                            size={32}
+                            onClick={() => {
+                                setIsNoteOpen(true)
+                            }} />
                     </div>
-                    <Note onClick={() => alert("ok")} size={32}/>
-                    </div>
-                   {/* <textarea
-                        value={selectedDateNote}
-                        placeholder="Note"
-                        className="border w-full bg-white dark:bg-gray-900 p-4 min-h-10 h-fit"
-                        onChange={event => setSelectedDateNote(event.target.value)}
-                        onBlur={() => {
-                            setData(data.map(item =>
-                                isSameDay(item.date, selectedDate)
-                                    ? { ...item, note: selectedDateNote }
-                                    : item));
-
-                            saveToStorage(calendar.key, data);
-                        }}
-                    />*/}
                 </div>
                 <div>
 
