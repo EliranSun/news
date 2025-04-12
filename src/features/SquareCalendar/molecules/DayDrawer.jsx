@@ -49,7 +49,7 @@ export const DayDrawer = ({ isOpen, onNoteUpdate, onClose, title, calendar, onCo
                         size={20}
                         color="black"
                         weight="bold"
-                        className="absolute bottom-10 inset-x-0 m-auto bg-white dark:bg-gray-900 rounded-full size-10 p-2"
+                        className="absolute bottom-10 inset-x-0 border m-auto bg-white dark:bg-gray-900 rounded-full size-10 p-2"
                         onClick={onClose} />
                 </div>
             </div>
