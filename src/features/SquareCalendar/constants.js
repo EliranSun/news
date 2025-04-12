@@ -49,7 +49,7 @@ export const Calendars = {
         category: "self",
         showGamification: false,
     },
-    Mood: {
+    Loneliness: {
         name: "loneliness",
         key: "loneliness-square-tracker",
         colors: [
