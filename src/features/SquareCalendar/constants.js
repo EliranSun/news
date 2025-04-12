@@ -49,6 +49,23 @@ export const Calendars = {
         category: "self",
         showGamification: false,
     },
+    Mood: {
+        name: "loneliness",
+        key: "loneliness-square-tracker",
+        colors: [
+            Colors.Forestgreen,
+            Colors.Green,
+            Colors.Turquoise,
+        ],
+        legend: [
+            { name: "Belong", color: Colors.Forestgreen },
+            { name: "Neutral", color: Colors.Green },
+            { name: "Lonely", color: Colors.Turquoise },
+        ],
+        icon: "😶‍🌫️",
+        category: "self",
+        showGamification: false,
+    },
     Css: {
         name: "css",
         key: "css-square-calendar",
