@@ -5,10 +5,11 @@ import { useState } from "react";
 
 export const DayNoteModal = ({
     title,
+    note: initialNote,
     onClose,
     onUpdate
 }) => {
-    const [note, setNote] = useState("");
+    const [note, setNote] = useState(initialNote);
 
     return (
         <div className="fixed inset-0 z-20 m-auto backdrop-blur w-screen h-screen">
@@ -37,4 +38,5 @@ DayNoteModal.propTypes = {
     title: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     onUpdate: PropTypes.func.isRequired,
+    note: PropTypes.string,
 };

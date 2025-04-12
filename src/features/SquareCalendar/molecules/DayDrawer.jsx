@@ -5,7 +5,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { DayNoteModal } from "./DayNoteModal";
 
-export const DayDrawer = ({ isOpen, onNoteUpdate, onClose, title, calendar, onColorSelect }) => {
+export const DayDrawer = ({ isOpen, onNoteUpdate, onClose, title, calendar, onColorSelect, note }) => {
     const [isNoteOpen, setIsNoteOpen] = useState(false);
 
     return (
@@ -13,6 +13,7 @@ export const DayDrawer = ({ isOpen, onNoteUpdate, onClose, title, calendar, onCo
             {isNoteOpen && (
                 <DayNoteModal
                     title={title}
+                    note={note}
                     onClose={() => setIsNoteOpen(false)}
                     onUpdate={onNoteUpdate} />
             )}
@@ -63,4 +64,5 @@ DayDrawer.propTypes = {
     calendar: PropTypes.object.isRequired,
     onColorSelect: PropTypes.func.isRequired,
     onNoteUpdate: PropTypes.func.isRequired,
+    note: PropTypes.string,
 };

@@ -15,12 +15,11 @@ import { differenceInDays } from "date-fns";
 import { CalendarYearColorInfo } from "./molecules/CalendarYearColorInfo";
 import { ExportImport } from "./atoms/ExportImport";
 import classNames from "classnames";
-import { Note, X } from "@phosphor-icons/react";
 import { isSameDay } from "./utils";
 import { DayDrawer } from "./molecules/DayDrawer";
-export default function SquareCalendars() {
-    const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
 
+export default function SquareCalendars() {
+    // const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
     const calendarKey = useMemo(() => {
         const url = new URL(window.location.href);
         return url.searchParams.get('calendar');
@@ -31,7 +30,6 @@ export default function SquareCalendars() {
     const storageData = loadFromStorage(Calendars[calendarKey]?.key || Calendars.Mood.key);
     const [data, setData] = useState(storageData);
     const [selectedDateNote, setSelectedDateNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
-    const [isNoteOpen, setIsNoteOpen] = useState(false);
 
     const dateTitle = useMemo(() => {
         return new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -147,6 +145,7 @@ export default function SquareCalendars() {
                     isOpen={!!selectedDate}
                     onColorSelect={updateColor}
                     onClose={() => setSelectedDate()}
+                    note={selectedDateNote}
                     onNoteUpdate={note => {
                         const newData = data.map(item =>
                             isSameDay(item.date, selectedDate)
