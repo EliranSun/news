@@ -27,10 +27,10 @@ export const DayDrawer = ({ isOpen, onNoteUpdate, onClose, title, calendar, onCo
                 <h1 className="text-base font-bold inter-500 w-full text-center">
                     {title}
                 </h1>
-                <div className="flex justify-between w-full">
+                <div className="flex justify-between gap-4 w-full">
                     <Note
                         size={32}
-                        className="cursor-pointer rounded-full p-2 border size-12 border-black dark:border-white"
+                        className="shrink-0cursor-pointer rounded-full p-2 border size-12 border-black dark:border-white"
                         onClick={() => {
                             setIsNoteOpen(true)
                         }} />
