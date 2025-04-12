@@ -125,7 +125,7 @@ export default function SquareCalendar() {
                         placeholder="Note"
                         className={classNames({
                             "m-4 p-4 rounded-lg font-mono": true,
-                            "border w-[calc(100%-2rem)] h-[calc(100%-10rem)] min-h-10": true,
+                            "border w-[calc(100%-2rem)] h-[calc(100%-15rem)] min-h-10": true,
                         })}
                         onChange={event => setSelectedDateNote(event.target.value)}
                         onBlur={() => {
@@ -141,7 +141,7 @@ export default function SquareCalendar() {
                         size={20}
                         color="black"
                         weight="bold"
-                        className="absolute top-10 right-5"
+                        className="absolute bottom-20 inset-x-0 m-auto bg-white dark:bg-gray-900 rounded-full size-10 p-2"
                         onClick={() => setIsNoteOpen(false)} />
                 </div>}
             {/* {isCalendarMenuOpen && (
@@ -190,23 +190,23 @@ export default function SquareCalendar() {
                     })}
                 </div>
                 <div className={classNames({
-                    "flex flex-col w-screen h-[21vh] gap-4 user-select-none": true,
+                    "flex flex-col w-screen h-[24vh] gap-4 user-select-none": true,
                     "absolute inset-x-0 m-auto bg-gray-100 dark:bg-neutral-800": true,
                     "rounded-t-2xl p-4 shadow-lg": true,
                     "bottom-0": true,
                     "hidden": !selectedDate
                 })}>
-                    <X
-                        size={20}
-                        color="black"
-                        weight="bold"
-                        className="absolute top-4 right-4"
-                        onClick={() => setSelectedDate()} />
                     <h1 className="text-base font-bold inter-500 w-full text-center">
                         {dateTitle}
                     </h1>
                     <div className="flex justify-between w-full">
-                        <div className="flex w-full overflow-x-auto gap-0.5">
+                        <Note
+                            size={32}
+                            className="cursor-pointer rounded-full p-2 border size-12 border-black dark:border-white"
+                            onClick={() => {
+                                setIsNoteOpen(true)
+                            }} />
+                        <div className="flex overflow-x-auto gap-0.5">
                             {
                                 calendar.colors.map(color =>
                                     <ColorButton
@@ -219,11 +219,12 @@ export default function SquareCalendar() {
                             }
                             <ColorButton color="⬜️" onClick={() => updateColor('clear')} />
                         </div>
-                        <Note
-                            size={32}
-                            onClick={() => {
-                                setIsNoteOpen(true)
-                            }} />
+                        <X
+                            size={20}
+                            color="black"
+                            weight="bold"
+                            className="absolute bottom-10 inset-x-0 m-auto bg-white dark:bg-gray-900 rounded-full size-10 p-2"
+                            onClick={() => setSelectedDate()} />
                     </div>
                 </div>
                 <div>
