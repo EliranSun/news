@@ -99,7 +99,7 @@ export default function SquareCalendars() {
     return (
         <>
             <div id="note-modal-portal" />
-            {isCalendarMenuOpen && (
+            {false && (
                 <CalendarsList
                     onClose={() => setIsCalendarMenuOpen(false)}
                     onClick={(...params) => {
