@@ -3,6 +3,7 @@ import { getDaysSinceLastEntry } from "./utils";
 
 export const useDaysSinceColor = (calendar) => {
     const color = useMemo(() => {
+        debugger;
         if (!calendar) return { isRed: false, isYellow: false };
 
         const hoursSinceLast = getDaysSinceLastEntry(calendar.key);

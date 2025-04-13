@@ -22,6 +22,7 @@ const CalendarItem = ({ calendar, onClick }) => {
                 daysSinceLastEntry={daysSinceLastEntry} />
             <DaysSinceBadge
                 showToday
+                calendar={calendar}
                 hoursSince={daysSinceLastEntry}
                 withIcon={false} />
         </div>
