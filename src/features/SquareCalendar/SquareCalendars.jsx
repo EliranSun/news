@@ -153,7 +153,7 @@ export default function SquareCalendars() {
                         saveToStorage(calendar.key, newData);
                     }}
                 />
-                <div className="flex gap-4">
+                <div className="flex items-center gap-4">
                 <ExportImport />
                 <button
                         className="h-fit mr-2"
