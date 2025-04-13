@@ -4,11 +4,13 @@ import { getDaysSinceLastEntry } from "../utils";
 import { useMemo } from "react";
 import PropTypes from "prop-types";
 import { CalendarName } from "../atoms/CalendarName";
-import { DaysSinceBadge } from "../atoms/DaysSinceBadge";
+// import { DaysSinceBadge } from "../atoms/DaysSinceBadge";
 
 
 const CalendarItem = ({ calendar, onClick }) => {
     const daysSinceLastEntry = useMemo(() => getDaysSinceLastEntry(calendar.key), [calendar.key]);
+
+    console.log({ daysSinceLastEntry });
 
     return (
         <div
@@ -17,11 +19,12 @@ const CalendarItem = ({ calendar, onClick }) => {
             w-full overflow-hidden odd:bg-gray-200 dark:odd:bg-gray-800">
             <CalendarName
                 calendar={calendar}
+                variant="list"
                 daysSinceLastEntry={daysSinceLastEntry} />
-            <DaysSinceBadge
+            {/* <DaysSinceBadge
                 showToday
                 daysSince={daysSinceLastEntry}
-                withIcon={false} />
+                withIcon={false} /> */}
         </div>
     );
 };
@@ -53,9 +56,9 @@ export const CalendarsList = ({ onClick, onClose }) => {
             "flex-row": Object.keys(groupedCalendars).length <= 1
         })}>
             <button
-                className="absolute top-10 inset-x-0 m-auto 
-                text-2xl font-mono
-                rounded-full size-20 p-2"
+                className="absolute bottom-10 inset-x-0 m-auto 
+                text-xl font-mono flex items-center justify-center
+                rounded-full size-10 p-2 border"
                 onClick={onClose}>
                 X
             </button>
