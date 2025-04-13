@@ -4,14 +4,13 @@ import { getDaysSinceLastEntry } from "../utils";
 import { useMemo } from "react";
 import PropTypes from "prop-types";
 import { CalendarName } from "../atoms/CalendarName";
-// import { DaysSinceBadge } from "../atoms/DaysSinceBadge";
+import { DaysSinceBadge } from "../atoms/DaysSinceBadge";
 
 
 const CalendarItem = ({ calendar, onClick }) => {
     const daysSinceLastEntry = useMemo(() => getDaysSinceLastEntry(calendar.key), [calendar.key]);
 
-    console.log({ daysSinceLastEntry });
-
+    console.log({ calendar, daysSinceLastEntry });
     return (
         <div
             onClick={() => onClick(calendar)}
@@ -21,10 +20,10 @@ const CalendarItem = ({ calendar, onClick }) => {
                 calendar={calendar}
                 variant="list"
                 daysSinceLastEntry={daysSinceLastEntry} />
-            {/* <DaysSinceBadge
+            <DaysSinceBadge
                 showToday
-                daysSince={daysSinceLastEntry}
-                withIcon={false} /> */}
+                hoursSince={daysSinceLastEntry}
+                withIcon={false} />
         </div>
     );
 };

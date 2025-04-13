@@ -5,16 +5,17 @@ import { useDaysSinceColor } from "../useDaysSinceColor";
 import classNames from "classnames";
 import { useMemo } from "react";
 
-export const DaysSinceBadge = ({ daysSince, withIcon = true, calendar }) => {
+export const DaysSinceBadge = ({ hoursSince, withIcon = true, calendar }) => {
     const { isRed, isYellow } = useDaysSinceColor(calendar);
 
     // if (daysSince === null) return null;
 
     const text = useMemo(() => {
-        if (daysSince === null) return "Never";
-        if (daysSince < 12) return "Today";
-        return `${(daysSince / 24).toFixed(0)}d`;
-    }, [daysSince]);
+        console.log({ hoursSince });
+        if (hoursSince === null) return "Never";
+        if (hoursSince < 12) return "Today";
+        return `${(hoursSince / 24).toFixed(0)}d`;
+    }, [hoursSince]);
 
     return (
         <Badge className={classNames({
@@ -29,7 +30,7 @@ export const DaysSinceBadge = ({ daysSince, withIcon = true, calendar }) => {
 };
 
 DaysSinceBadge.propTypes = {
-    daysSince: PropTypes.number,
+    hoursSince: PropTypes.number,
     withIcon: PropTypes.bool,
     calendar: PropTypes.object.isRequired,
 };
