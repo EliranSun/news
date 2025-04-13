@@ -19,7 +19,7 @@ import { isSameDay } from "./utils";
 import { DayDrawer } from "./molecules/DayDrawer";
 
 export default function SquareCalendars() {
-    // const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
+    const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
     const calendarKey = useMemo(() => {
         const url = new URL(window.location.href);
         return url.searchParams.get('calendar');
@@ -92,24 +92,6 @@ export default function SquareCalendars() {
         setSelectedDateNote(dayItem?.note || "");
     }, [selectedDate, data]);
 
-    {/* {isCalendarMenuOpen && (
-                <CalendarsList
-                    onClose={() => setIsCalendarMenuOpen(false)}
-                    onClick={(...params) => {
-                        onCalendarClick(...params);
-                        setIsCalendarMenuOpen(false);
-                    }} />
-            )} */}
-
-    {/* <div className="flex w-full">
-                    <button
-                        className="h-fit mr-2"
-                        onClick={() => setIsCalendarMenuOpen(!isCalendarMenuOpen)}>
-                        ☰
-                    </button>
-
-                </div> */}
-
     {/* <CalendarMonthColorInfo
                     selectedDate={selectedDate}
                     data={data} />
@@ -117,6 +99,14 @@ export default function SquareCalendars() {
     return (
         <>
             <div id="note-modal-portal" />
+            {isCalendarMenuOpen && (
+                <CalendarsList
+                    onClose={() => setIsCalendarMenuOpen(false)}
+                    onClick={(...params) => {
+                        onCalendarClick(...params);
+                        setIsCalendarMenuOpen(false);
+                    }} />
+            )}
             <div className="p-4 pb-32 w-screen overflow-x-hidden h-dvh user-select-none space-y-8 font-mono">
                 <div className="flex w-full justify-between items-center">
                     <div className="flex flex-col">
@@ -163,7 +153,14 @@ export default function SquareCalendars() {
                         saveToStorage(calendar.key, newData);
                     }}
                 />
+                <div className="flex gap-4">
                 <ExportImport />
+                <button
+                        className="h-fit mr-2"
+                        onClick={() => setIsCalendarMenuOpen(!isCalendarMenuOpen)}>
+                        List
+                    </button>
+                    </div>
             </div>
         </>
     );
