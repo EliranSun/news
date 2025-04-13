@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import { Calendars } from "../constants";
 import { getDaysSinceLastEntry } from "../utils";
-import { ExportImport } from '../atoms/ExportImport';
 import { useMemo } from "react";
 import PropTypes from "prop-types";
 import { CalendarName } from "../atoms/CalendarName";
@@ -87,7 +86,6 @@ export const CalendarsList = ({ onClick, onClose }) => {
                     </div>
                 ))}
             </div>
-            <ExportImport />
         </div>
     );
 };
