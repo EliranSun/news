@@ -151,7 +151,7 @@ export const saveToStorage = (key = "square-calendar", data) => {
 
 const TailwindColorsMap = {
     [Colors.Clear]: "bg-transparent border",
-    [Colors.Black]: "bg-neutral-700",
+    [Colors.Black]: "bg-neutral-600",
     [Colors.Red]: "bg-red-500",
     [Colors.Green]: "bg-green-500",
     [Colors.Yellow]: "bg-yellow-500",
