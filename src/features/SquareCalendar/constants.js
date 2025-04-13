@@ -73,7 +73,7 @@ export const Calendars = {
         icon: "🎭",
         category: "self",
         showColorStatus: true,
-        yellowAfter: 5,
+        yellowAfter: 3,
         redAfter: 10,
     },
     Read: {
