@@ -17,7 +17,7 @@ export const CalendarGamification = ({ calendar }) => {
         <div className="flex text-center gap-1 items-center">
             <DaysSinceBadge
                 calendar={calendar}
-                daysSince={daysSinceLastEntry} />
+                hoursSince={daysSinceLastEntry} />
             <StreakBadge streak={streak} />
             <HighscoreBadge
                 streak={streak}
