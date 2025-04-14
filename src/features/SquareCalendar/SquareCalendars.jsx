@@ -20,7 +20,7 @@ import { DayDrawer } from "./molecules/DayDrawer";
 import { Export, Import } from "@phosphor-icons/react";
 const Navbar = () => {
     return (
-        <div className="fixed bg-gray-200 bottom-0 w-screen grid grid-cols-5">
+        <div className="fixed h-32 bg-gray-200 bottom-0 w-screen grid grid-cols-5">
             <Export />
             <Export />
         <Export />
