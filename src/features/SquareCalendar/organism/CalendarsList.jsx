@@ -14,7 +14,7 @@ const CalendarItem = ({ calendar, onClick }) => {
     return (
         <div
             onClick={() => onClick(calendar)}
-            className="cursor-pointer flex items-center justify-between
+            className="cursor-pointer flex items-center justify-between gap-2
             w-full overflow-hidden odd:bg-gray-200 dark:odd:bg-gray-800">
             <CalendarName
                 calendar={calendar}
@@ -71,10 +71,10 @@ export const CalendarsList = ({ onClick, onClose, isOpen }) => {
                 <X size={24} />
             </button>
             <div className={classNames({
-                "w-screen h-screen mt-16": true,
+                "w-screen h-fit p-4": true,
                 "bg-white dark:bg-black": false,
                 // "grid grid-cols-1 gap-2 grid-auto-rows-max items-start": true,
-                "flex flex-col flex-wrap gap-2 justify-start items-center": true,
+                "flex flex-wrap gap-2 justify-start items-start": true,
                 "border border-black dark:border-white rounded-lg": false,
                 "overflow-y-auto": true,
                 // "max-h-[80vh]": true
@@ -83,18 +83,18 @@ export const CalendarsList = ({ onClick, onClose, isOpen }) => {
                     <div
                         key={category}
                         className={classNames({
-                            "p-2 shrink-0 rounded-xl w-60 h-fit flex flex-col": true,
+                            "p-2 rounded-xl w-[calc(50%-0.5rem)] h-full gap-1 flex flex-col": true,
                             "bg-gray-100 dark:bg-gray-900": true
                         })}>
-                        <h3 className="font-bold">{category}</h3>
-                        <div className="">
-                            {calendars.map((calendar) => (
-                                <CalendarItem
-                                    key={calendar.key}
-                                    calendar={calendar}
-                                    onClick={onClick} />
-                            ))}
-                        </div>
+                        <h3 className="font-bold">
+                            {category}
+                        </h3>
+                        {calendars.map((calendar) => (
+                            <CalendarItem
+                                key={calendar.key}
+                                calendar={calendar}
+                                onClick={onClick} />
+                        ))}
                     </div>
                 ))}
             </div>
