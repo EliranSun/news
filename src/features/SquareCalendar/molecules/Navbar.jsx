@@ -4,11 +4,11 @@ import { exportCalendarData, importCalendarData } from "../utils";
 
 const NavbarButton = ({ icon: Icon, onClick, label }) => {
     return (
-        <button onClick={onClick} className="flex rounded-none
+        <button onClick={onClick} className="flex flex-col rounded-none
          items-center justify-center h-16 w-full
          bg-transparent border-none">
             <Icon size={24} />
-            <label className="text-xs">{label}</label>
+            {/* <label className="text-[8px]">{label}</label> */}
         </button>
     );
 };
