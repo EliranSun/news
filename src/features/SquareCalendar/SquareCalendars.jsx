@@ -1,34 +1,21 @@
 import { useCallback, useState, useEffect, useMemo } from "react";
-import { ColorButton } from "./atoms/ColorButton";
 import { loadFromStorage, saveToStorage } from "./utils";
-import { DateNavigationButton } from "./atoms/DateNavigationButton";
 import { Calendars } from "./constants";
 import { CalendarsList } from "./organism/CalendarsList";
 import { CalendarGamification } from "./molecules/CalendarGamification";
-import { CalendarMonthColorInfo } from "./molecules/CalendarMonthColorInfo";
 import { CalendarsStrip } from "./molecules/CalendarsStrip";
 import { CalendarMonth } from "./organism/CalendarMonth";
-import { CalendarYearSummary } from "./organism/CalendarYearSummary";
 import { CalendarName } from "./atoms/CalendarName";
-import { upperFirst } from "lodash";
 import { differenceInDays } from "date-fns";
 import { CalendarYearColorInfo } from "./molecules/CalendarYearColorInfo";
 import { ExportImport } from "./atoms/ExportImport";
-import classNames from "classnames";
 import { isSameDay } from "./utils";
 import { DayDrawer } from "./molecules/DayDrawer";
-import { Export, Import } from "@phosphor-icons/react";
-const Navbar = () => {
-    return (
-        <div className="fixed h-24 bg-gray-200 bottom-0 w-screen grid grid-cols-5">
-            <Export />
-            <Export />
-        <Export />
-                    <Export />
-                                <Export />
-        </div>
-        );
-};
+import { Navbar } from "./molecules/Navbar";
+// import { ColorButton } from "./atoms/ColorButton";
+// import { DateNavigationButton } from "./atoms/DateNavigationButton";
+// import { CalendarMonthColorInfo } from "./molecules/CalendarMonthColorInfo";
+// import { CalendarYearSummary } from "./organism/CalendarYearSummary";
 
 export default function SquareCalendars() {
     const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
@@ -167,13 +154,13 @@ export default function SquareCalendars() {
                     }}
                 />
                 <div className="flex items-center gap-4">
-                <ExportImport />
-                <button
+                    <ExportImport />
+                    <button
                         className="h-fit mr-2"
                         onClick={() => setIsCalendarMenuOpen(!isCalendarMenuOpen)}>
                         List
                     </button>
-                    </div>
+                </div>
             </div>
         </>
     );

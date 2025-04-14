@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { MainPage } from "./MainPage.jsx";
 import { registerSW } from "virtual:pwa-register";
-import { MainNavBar } from "./components/molecules/MainNavBar.jsx";
+// import { MainNavBar } from "./components/molecules/MainNavBar.jsx";
+
 registerSW({ immediate: true });
 
 import "./index.css";
@@ -19,6 +20,6 @@ console.log({ path, savedPath });
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
 		<MainPage savedPath={path} />
-		{(!hideNavBar && !path.includes("square-calendar")) && <MainNavBar />}
+		{/* {(!hideNavBar && !path.includes("square-calendar")) && <MainNavBar />} */}
 	</React.StrictMode>
 );
