@@ -13,6 +13,8 @@ export const DayNoteModal = ({
 }) => {
     const [note, setNote] = useState(initialNote);
 
+useEffect(() => setNote(initialNote), [initialNote]);
+
     return createPortal(
         <motion.div
             initial={{ opacity: 0 }}
