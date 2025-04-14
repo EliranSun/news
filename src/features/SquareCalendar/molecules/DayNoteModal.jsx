@@ -40,14 +40,12 @@ useEffect(() => setNote(initialNote), [initialNote]);
             <div className="absolute bottom-20 inset-x-0 m-auto flex gap-4 items-center justify-center">
             <X
                 size={20}
-                color="black"
                 weight="bold"
                 className="border
                 bg-white dark:bg-gray-900 rounded-full size-10 p-2"
                 onClick={onClose} />
                 <Check
                 size={20}
-                color="black"
                 weight="bold"
                 className=" border
                 bg-white dark:bg-gray-900 rounded-full size-10 p-2"
