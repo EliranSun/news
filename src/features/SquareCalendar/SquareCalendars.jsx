@@ -97,16 +97,15 @@ export default function SquareCalendars() {
                 <CalendarYearSummary /> */}
     return (
         <>
-            <Navbar />
+            <Navbar onListClick={() => setIsCalendarMenuOpen(true)} />
             <div id="note-modal-portal" />
-            {isCalendarMenuOpen && (
-                <CalendarsList
-                    onClose={() => setIsCalendarMenuOpen(false)}
-                    onClick={(...params) => {
-                        onCalendarClick(...params);
-                        setIsCalendarMenuOpen(false);
-                    }} />
-            )}
+            <CalendarsList
+                isOpen={isCalendarMenuOpen}
+                onClose={() => setIsCalendarMenuOpen(false)}
+                onClick={(...params) => {
+                    onCalendarClick(...params);
+                    setIsCalendarMenuOpen(false);
+                }} />
             <DayDrawer
                 title={dateTitle}
                 calendar={calendar}
