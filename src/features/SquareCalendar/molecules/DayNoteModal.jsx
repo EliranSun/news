@@ -1,9 +1,10 @@
 import classNames from "classnames";
 import { X } from "@phosphor-icons/react";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "motion/react";
+
 export const DayNoteModal = ({
     title,
     note: initialNote,
