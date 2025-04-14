@@ -1,6 +1,14 @@
 import PropTypes from "prop-types";
-import { List, TrayArrowDown, TrayArrowUp, Calendar, CalendarDot, CalendarDots } from "@phosphor-icons/react";
 import { exportCalendarData, importCalendarData } from "../utils";
+import {
+    List,
+    TrayArrowDown,
+    TrayArrowUp,
+    Calendar,
+    CalendarDot,
+    CalendarDots,
+    Cube
+} from "@phosphor-icons/react";
 
 const NavbarButton = ({ icon: Icon, onClick, label }) => {
     return (
@@ -18,16 +26,17 @@ NavbarButton.propTypes = {
     onClick: PropTypes.func.isRequired
 };
 
-export const Navbar = ({ onListClick }) => {
+export const Navbar = ({ onListClick, onPhysicsClick }) => {
     return (
         <div className="fixed h-24 bg-white dark:bg-black
-         bottom-0 border-t w-screen grid grid-cols-6 items-start justify-center">
+         bottom-0 border-t w-screen grid grid-cols-7 items-start justify-center">
             <NavbarButton label="list" icon={List} onClick={onListClick} />
             <NavbarButton label="day" icon={Calendar} onClick={() => { }} />
             <NavbarButton label="month" icon={CalendarDot} onClick={() => { }} />
             <NavbarButton label="year" icon={CalendarDots} onClick={() => { }} />
             <NavbarButton label="import" icon={TrayArrowDown} onClick={importCalendarData} />
             <NavbarButton label="export" icon={TrayArrowUp} onClick={exportCalendarData} />
+            <NavbarButton label="physics" icon={Cube} onClick={onPhysicsClick} />
         </div>
     );
 };

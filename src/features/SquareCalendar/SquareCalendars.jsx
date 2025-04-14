@@ -8,10 +8,11 @@ import { CalendarMonth } from "./organism/CalendarMonth";
 import { CalendarName } from "./atoms/CalendarName";
 import { differenceInDays } from "date-fns";
 import { CalendarYearColorInfo } from "./molecules/CalendarYearColorInfo";
-import { ExportImport } from "./atoms/ExportImport";
 import { isSameDay } from "./utils";
 import { DayDrawer } from "./molecules/DayDrawer";
 import { Navbar } from "./molecules/Navbar";
+import PhysicsDemo from "./organism/PhysicsDemo";
+
 // import { ColorButton } from "./atoms/ColorButton";
 // import { DateNavigationButton } from "./atoms/DateNavigationButton";
 // import { CalendarMonthColorInfo } from "./molecules/CalendarMonthColorInfo";
@@ -19,6 +20,8 @@ import { Navbar } from "./molecules/Navbar";
 
 export default function SquareCalendars() {
     const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
+    const [isPhysicsDemoOpen, setIsPhysicsDemoOpen] = useState(false);
+
     const calendarKey = useMemo(() => {
         const url = new URL(window.location.href);
         return url.searchParams.get('calendar');
@@ -97,7 +100,10 @@ export default function SquareCalendars() {
                 <CalendarYearSummary /> */}
     return (
         <>
-            <Navbar onListClick={() => setIsCalendarMenuOpen(true)} />
+            {isPhysicsDemoOpen && <PhysicsDemo />}
+            <Navbar
+                onPhysicsClick={() => setIsPhysicsDemoOpen(!isPhysicsDemoOpen)}
+                onListClick={() => setIsCalendarMenuOpen(true)} />
             <div id="note-modal-portal" />
             <CalendarsList
                 isOpen={isCalendarMenuOpen}

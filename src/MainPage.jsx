@@ -13,6 +13,7 @@ import SleepAdd from "./pages/SleepAdd.jsx";
 import Orchuk from "./pages/Orchuk.jsx";
 import Squares from "./pages/Squares.jsx";
 import SquareCalendars from "./features/SquareCalendar/SquareCalendars.jsx";
+import { PhysicsDemoWrapper } from "./App.jsx";
 import { useEffect } from "react";
 
 export const MainPage = ({ savedPath }) => {
@@ -90,6 +91,9 @@ export const MainPage = ({ savedPath }) => {
 
 		case currentPath.includes("/square-calendar"):
 			return <SquareCalendars />;
+
+		case currentPath.includes("/physics"):
+			return <PhysicsDemoWrapper />;
 
 		case currentPath.includes("/news"):
 			return <News />;

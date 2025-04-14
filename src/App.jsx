@@ -4,6 +4,7 @@ import { View } from "./components/organisms/View.jsx";
 import { ActionButtons } from "./components/molecules/ActionButtons.jsx";
 import { PageNavigationHeader } from "./components/molecules/PageNavigationHeader.jsx";
 import { useQueryAI } from "./hooks/useQueryAI.js";
+import PhysicsDemo from "./features/SquareCalendar/organism/PhysicsDemo.jsx";
 
 const RssFeedComponent = () => {
 	const [view, setView] = useState("feed");
@@ -59,6 +60,11 @@ const RssFeedComponent = () => {
 			/>
 		</section>
 	);
+};
+
+// Physics demo component wrapper
+export const PhysicsDemoWrapper = () => {
+	return <PhysicsDemo />;
 };
 
 export default RssFeedComponent;
