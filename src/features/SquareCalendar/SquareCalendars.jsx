@@ -107,7 +107,24 @@ export default function SquareCalendars() {
                         setIsCalendarMenuOpen(false);
                     }} />
             )}
-            <div className="p-4 pb-32 w-screen overflow-x-hidden h-dvh user-select-none space-y-8 font-mono">
+            <DayDrawer
+                title={dateTitle}
+                calendar={calendar}
+                isOpen={!!selectedDate}
+                onColorSelect={updateColor}
+                onClose={() => setSelectedDate()}
+                note={selectedDateNote}
+                onNoteUpdate={note => {
+                    const newData = data.map(item =>
+                        isSameDay(item.date, selectedDate)
+                            ? { ...item, note }
+                            : item);
+
+                    setData(newData);
+                    saveToStorage(calendar.key, newData);
+                }}
+            />
+            <div className="p-4 w-screen overflow-x-hidden h-dvh user-select-none space-y-8 font-mono">
                 <div className="flex w-full justify-between items-center">
                     <div className="flex flex-col">
                         <CalendarName
@@ -136,24 +153,8 @@ export default function SquareCalendars() {
                         )
                     })}
                 </div>
-                <DayDrawer
-                    title={dateTitle}
-                    calendar={calendar}
-                    isOpen={!!selectedDate}
-                    onColorSelect={updateColor}
-                    onClose={() => setSelectedDate()}
-                    note={selectedDateNote}
-                    onNoteUpdate={note => {
-                        const newData = data.map(item =>
-                            isSameDay(item.date, selectedDate)
-                                ? { ...item, note }
-                                : item);
-
-                        setData(newData);
-                        saveToStorage(calendar.key, newData);
-                    }}
-                />
-                {/* <div className="flex items-center gap-4">
+            </div>
+            {/* <div className="flex items-center gap-4">
                     <ExportImport />
                     <button
                         className="h-fit mr-2"
@@ -161,7 +162,6 @@ export default function SquareCalendars() {
                         List
                     </button>
                 </div> */}
-            </div>
         </>
     );
 }   
