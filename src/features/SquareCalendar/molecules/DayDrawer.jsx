@@ -30,6 +30,7 @@ export const DayDrawer = ({ isOpen, onNoteUpdate, onClose, title, calendar, onCo
                 <div className="flex justify-between gap-4 w-full">
                     <Note
                         size={32}
+                            weight={note ? "fill" : "regular"}
                         className="shrink-0cursor-pointer rounded-full p-2 border size-12 border-black dark:border-white"
                         onClick={() => {
                             setIsNoteOpen(true)
