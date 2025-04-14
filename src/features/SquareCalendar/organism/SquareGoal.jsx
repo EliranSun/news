@@ -3,7 +3,7 @@ import { Engine, Render, Runner, Bodies, Composite } from 'matter-js';
 
 const SQUARE_SIZE = 25;
 
-const PhysicsSimulation = ({ initBoxCount = 10, onBoxAdded = () => { } }) => {
+const PhysicsSimulation = ({ initBoxCount = 0, onBoxAdded = () => { } }) => {
     const scene = useRef(null);
     const engine = useRef(null);
     const render = useRef(null);
@@ -155,15 +155,6 @@ const PhysicsSimulation = ({ initBoxCount = 10, onBoxAdded = () => { } }) => {
         onBoxAdded(box);
     };
 
-    const removeRandomBox = () => {
-        const boxes = Composite.allBodies(engine.current.world);
-        if (boxes.length > 0) {
-            const randomIndex = Math.floor(Math.random() * boxes.length);
-            const box = boxes[randomIndex];
-            Composite.remove(engine.current.world, box);
-        }
-    }
-
     useEffect(() => {
         const addBoxesWithDelay = async () => {
             for (let i = 0; i < initBoxCount; i++) {
@@ -184,9 +175,6 @@ const PhysicsSimulation = ({ initBoxCount = 10, onBoxAdded = () => { } }) => {
 
     return (
         <>
-            {/* <button
-                className="fixed top-10 left-0"
-                onClick={() => removeRandomBox()}>REMOVE BOX</button> */}
             <div
                 ref={scene}
                 onClick={handleClick}
