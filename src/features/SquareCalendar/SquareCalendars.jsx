@@ -187,6 +187,9 @@ export default function SquareCalendars() {
                             OR: Compared to last April...
                             Compared to previous month...
                             Compared to next month...
+                            
+                            <br/> No! this should be a better ux for the year. so note should be
+                            right here visible immediately plus colors!
                         </span>
                     </FlexibleOpacityTransition>
                 }
