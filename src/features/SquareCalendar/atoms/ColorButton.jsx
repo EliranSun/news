@@ -12,15 +12,12 @@ export const ColorButton = ({ color, onClick, legend }) => {
         }
 
         try {
-            console.log({ color });
             return contrastColor({ bgColor: ColorHexMap[color] });
         } catch (error) {
             console.trace(error);
             return "text-black";
         }
     }, [color]);
-
-    console.log({ textColor });
 
     return (
         <button

@@ -20,5 +20,5 @@ export const CalendarName = ({ calendar, variant }) => {
 
 CalendarName.propTypes = {
     calendar: PropTypes.object.isRequired,
-    variant: PropTypes.string.isRequired,
+    variant: PropTypes.string,
 };

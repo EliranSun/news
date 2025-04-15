@@ -10,15 +10,6 @@ export const useDaysSinceColor = (calendar) => {
         const isRed = (daysSinceLast >= calendar.redAfter) || daysSinceLast === null;
         const isYellow = daysSinceLast >= calendar.yellowAfter && !isRed;
 
-        console.log({
-            isRed,
-            isYellow,
-            daysSinceLast,
-            hoursSinceLast,
-            redAfter: calendar.redAfter,
-            yellowAfter: calendar.yellowAfter,
-        });
-
         return {
             isRed,
             isYellow,

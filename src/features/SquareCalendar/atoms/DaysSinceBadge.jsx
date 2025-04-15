@@ -11,7 +11,6 @@ export const DaysSinceBadge = ({ hoursSince, withIcon = true, calendar, showValu
     // if (daysSince === null) return null;
 
     const text = useMemo(() => {
-        console.log({ hoursSince });
         if (hoursSince === null) return "Never";
         if (hoursSince < 12) return "Today";
         return `${(hoursSince / 24).toFixed(0)}d`;

@@ -19,10 +19,9 @@ import { Info } from "@phosphor-icons/react";
 // import { CalendarYearSummary } from "./organism/CalendarYearSummary";
 import { CalendarDayView } from "./organism/CalendarDayView";
 import classNames from "classnames";
-export default function SquareCalendars() {
-    const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
-    const [isPhysicsDemoOpen, setIsPhysicsDemoOpen] = useState(false);
 
+export default function SquareCalendars() {
+    const [isPhysicsDemoOpen, setIsPhysicsDemoOpen] = useState(false);
     const calendarKey = useMemo(() => {
         const url = new URL(window.location.href);
         return url.searchParams.get('calendar');
@@ -107,15 +106,8 @@ export default function SquareCalendars() {
                 selectedItem={view}
                 onItemClick={setView}
                 onPhysicsClick={() => setIsPhysicsDemoOpen(!isPhysicsDemoOpen)}
-                onListClick={() => setIsCalendarMenuOpen(true)} />
+                onListClick={() => setView("list")} />
             <div id="note-modal-portal" />
-            <CalendarsList
-                isOpen={isCalendarMenuOpen}
-                onClose={() => setIsCalendarMenuOpen(false)}
-                onClick={(...params) => {
-                    onCalendarClick(...params);
-                    setIsCalendarMenuOpen(false);
-                }} />
             <DayDrawer
                 title={dateTitle}
                 calendar={calendar}
@@ -193,6 +185,14 @@ export default function SquareCalendars() {
                                 monthIndex={monthIndex} />
                         )
                     })}
+
+                    <CalendarsList
+                        isOpen={view === "list"}
+                        onClose={() => setView("year")}
+                        onClick={(...params) => {
+                            onCalendarClick(...params);
+                            setView("year");
+                        }} />
                 </div>
             </div>
         </>
