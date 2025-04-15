@@ -15,7 +15,7 @@ const CalendarDay = ({ item }) => {
             key={item.date}
             onClick={() => setIsNoteExpanded(!isNoteExpanded)}
             className={classNames({
-                "flex gap-4 items-start dark:bg-black dark:text-white bg-gray-50 odd:bg-gray-100": true,
+                "flex gap-4 items-start dark:bg-black dark:text-white bg-gray-50 dark:odd:bg-gray-900 odd:bg-gray-100": true,
                 "rounded-xl px-4 py-1 text-sm": true,
                 "mb-8": day === "Sat",
             })} >
