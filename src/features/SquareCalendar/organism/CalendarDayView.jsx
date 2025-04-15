@@ -13,15 +13,14 @@ export const CalendarDayView = ({ data }) => {
                 const month = format(item.date, "MMM");
                 return (
                     <div className={classNames({
-                        "flex gap-4 items-center bg-gray-50 odd:bg-gray-100": true,
-                        "rounded-lg px-4 py-1": true,
-                        "mb-4": day === "Sat",
+                        "flex gap-4 items-start bg-gray-50 odd:bg-gray-100": true,
+                        "rounded-lg px-4 py-1 text-sm": true,
+                        "mb-8": day === "Sat",
                     })} key={item.date}>
                         <div className={classNames(getColorsClassList(item.color), {
-                            "size-4 rounded": true,
+                            "size-4 rounded shrink-0": true,
                         })} />
-                        <div>{dayNumber} {month} {day}</div>
-                        <div>{item.note}</div>
+                        <div>{dayNumber} {month} {day}{item.note ? " - " : ""}{item.note}</div>
                     </div>
                 );
             })}
