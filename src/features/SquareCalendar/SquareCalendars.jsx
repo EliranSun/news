@@ -18,6 +18,7 @@ import { Info } from "@phosphor-icons/react";
 // import { CalendarMonthColorInfo } from "./molecules/CalendarMonthColorInfo";
 // import { CalendarYearSummary } from "./organism/CalendarYearSummary";
 import { CalendarDayView } from "./organism/CalendarDayView";
+import classNames from "classnames";
 export default function SquareCalendars() {
     const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
     const [isPhysicsDemoOpen, setIsPhysicsDemoOpen] = useState(false);
@@ -161,7 +162,23 @@ export default function SquareCalendars() {
                     data={data}
                     selectedCalendar={calendar}
                     onCalendarClick={onCalendarClick} />
-                <div className="flex justify-center flex-wrap h-10/12">
+                <div className={classNames({
+                    "flex flex-wrap h-10/12": true,
+                    "justify-center": true,
+                })}>
+                    {view === "day" && <CalendarDayView data={data} selectedDate={selectedDate} />}
+                    {view === "month" && <>
+                        <CalendarMonth
+                            showInfo={showMonthInfo}
+                            selectedDate={selectedDate}
+                            size="big"
+                            setSelectedDate={setSelectedDate}
+                            monthIndex={new Date().getMonth()}
+                            data={data} />
+                        <span>
+                            TODO: a combined view of all calendars?
+                        </span>
+                    </>}
                     {view === "year" && yearMap.map((_, monthIndex) => {
                         return (
                             <CalendarMonth
@@ -173,7 +190,6 @@ export default function SquareCalendars() {
                                 monthIndex={monthIndex} />
                         )
                     })}
-                    {view === "day" && <CalendarDayView data={data} selectedDate={selectedDate} />}
                 </div>
             </div>
         </>

@@ -4,7 +4,7 @@ import { DaySquare } from "../atoms/DaySquare";
 import { useMemo } from "react";
 import { CalendarMonthColorInfo } from "../molecules/CalendarMonthColorInfo";
 
-export const CalendarMonth = ({ selectedDate = new Date(), setSelectedDate, data, monthIndex, showInfo }) => {
+export const CalendarMonth = ({ selectedDate = new Date(), setSelectedDate, data, monthIndex, showInfo, size = "small" }) => {
     const month = useMemo(() => {
         return new Date(selectedDate.getFullYear(), monthIndex, 1);
     }, [selectedDate, monthIndex]);
@@ -42,6 +42,7 @@ export const CalendarMonth = ({ selectedDate = new Date(), setSelectedDate, data
                             <DaySquare
                                 monthIndex={monthIndex}
                                 dayIndex={dayIndex}
+                                size={size}
                                 selectedDate={selectedDate}
                                 setSelectedDate={setSelectedDate}
                                 data={data}
