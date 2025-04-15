@@ -129,7 +129,7 @@ export default function SquareCalendars() {
                     saveToStorage(calendar.key, newData);
                 }}
             />
-            <div className="p-4 w-screen overflow-x-hidden h-dvh user-select-none space-y-8 font-mono">
+            <div className="p-4 w-screen overflow-hidden h-dvh user-select-none space-y-8 font-mono">
                 <div className="flex w-full justify-between items-center">
                     <div className="flex flex-col">
                         <CalendarName
