@@ -16,6 +16,23 @@ import { Info } from "@phosphor-icons/react";
 // import { CalendarYearSummary } from "./organism/CalendarYearSummary";
 import { CalendarDayView } from "./organism/CalendarDayView";
 import classNames from "classnames";
+import { motion } from "framer-motion";
+
+const FlexibleOpacityTransition = ({ children }) => {
+    return (
+        <motion.div
+            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={classNames({
+                "flex flex-wrap h-10/12": true,
+                "justify-center": true,
+            })}>
+            {children}
+        </motion.div>
+    );
+};
 
 export default function SquareCalendars() {
     const calendarKey = useMemo(() => new URL(window.location.href).searchParams.get('calendar'), []);
@@ -151,12 +168,13 @@ export default function SquareCalendars() {
                     data={data}
                     selectedCalendar={calendar}
                     onCalendarClick={onCalendarClick} />
-                <div className={classNames({
-                    "flex flex-wrap h-10/12": true,
-                    "justify-center": true,
-                })}>
-                    {view === "day" && <CalendarDayView data={data} selectedDate={selectedDate} />}
-                    {view === "month" && <>
+                {view === "day" &&
+                    <FlexibleOpacityTransition>
+                        <CalendarDayView data={data} selectedDate={selectedDate} />
+                    </FlexibleOpacityTransition>
+                }
+                {view === "month" &&
+                    <FlexibleOpacityTransition>
                         <CalendarMonth
                             showInfo={showMonthInfo}
                             selectedDate={selectedDate}
@@ -170,27 +188,30 @@ export default function SquareCalendars() {
                             Compared to previous month...
                             Compared to next month...
                         </span>
-                    </>}
-                    {view === "year" && yearMap.map((_, monthIndex) => {
-                        return (
-                            <CalendarMonth
-                                key={monthIndex}
-                                showInfo={showMonthInfo}
-                                selectedDate={selectedDate}
-                                setSelectedDate={setSelectedDate}
-                                data={data}
-                                monthIndex={monthIndex} />
-                        )
-                    })}
-
-                    <CalendarsList
-                        isOpen={view === "list"}
-                        onClose={() => setView("year")}
-                        onClick={(...params) => {
-                            onCalendarClick(...params);
-                            setView("year");
-                        }} />
-                </div>
+                    </FlexibleOpacityTransition>
+                }
+                {view === "year" && (
+                    <FlexibleOpacityTransition>
+                        {yearMap.map((_, monthIndex) => {
+                            return (
+                                <CalendarMonth
+                                    key={monthIndex}
+                                    showInfo={showMonthInfo}
+                                    selectedDate={selectedDate}
+                                    setSelectedDate={setSelectedDate}
+                                    data={data}
+                                    monthIndex={monthIndex} />
+                            )
+                        })}
+                    </FlexibleOpacityTransition>
+                )}
+                <CalendarsList
+                    isOpen={view === "list"}
+                    onClose={() => setView("year")}
+                    onClick={(...params) => {
+                        onCalendarClick(...params);
+                        setView("year");
+                    }} />
             </div>
         </>
     );

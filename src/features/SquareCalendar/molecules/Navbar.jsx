@@ -14,6 +14,8 @@ import {
 } from "@phosphor-icons/react";
 import classNames from "classnames";
 import { useState } from "react";
+import { motion } from "framer-motion";
+
 const NavbarButton = ({
     icon: Icon,
     onClick,
@@ -55,13 +57,32 @@ NavbarMenuItem.propTypes = {
     onClick: PropTypes.func.isRequired,
 };
 
+const OpacityTransition = ({ children, isOpen }) => {
+    return (
+        <motion.div
+            className={classNames({
+                "pointer-events-none": !isOpen,
+                "pointer-events-auto": isOpen,
+            })}
+            transition={{ duration: 0.3 }}
+            animate={{ opacity: isOpen ? 1 : 0, }}>
+            {children}
+        </motion.div>
+    );
+};
+
+OpacityTransition.propTypes = {
+    children: PropTypes.node.isRequired,
+    isOpen: PropTypes.bool.isRequired
+};
+
 export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
         <>
-            {isMenuOpen &&
-                <div className="fixed inset-0 m-auto flex items-center justify-center bg-black/50 z-50">
+            <OpacityTransition isOpen={isMenuOpen}>
+                <div className="fixed inset-0 m-auto flex items-center justify-center bg-black/50">
                     <div className="flex flex-col items-center justify-center h-fit
                     text-lg gap-0 p-4 rounded-lg
                     w-10/12 m-auto bg-white dark:bg-black">
@@ -79,7 +100,7 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                         <NavbarMenuItem icon={<X size={24} />} label="Close" onClick={() => { setIsMenuOpen(false) }} />
                     </div>
                 </div>
-            }
+            </OpacityTransition>
             <div className="fixed h-24 bg-white dark:bg-black
          bottom-0 border-t w-screen grid grid-cols-5 items-start justify-center">
                 <NavbarButton
