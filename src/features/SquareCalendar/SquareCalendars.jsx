@@ -17,7 +17,7 @@ import { Info } from "@phosphor-icons/react";
 // import { DateNavigationButton } from "./atoms/DateNavigationButton";
 // import { CalendarMonthColorInfo } from "./molecules/CalendarMonthColorInfo";
 // import { CalendarYearSummary } from "./organism/CalendarYearSummary";
-
+import { CalendarDayView } from "./organism/CalendarDayView";
 export default function SquareCalendars() {
     const [isCalendarMenuOpen, setIsCalendarMenuOpen] = useState(false);
     const [isPhysicsDemoOpen, setIsPhysicsDemoOpen] = useState(false);
@@ -33,7 +33,7 @@ export default function SquareCalendars() {
     const [data, setData] = useState(storageData);
     const [selectedDateNote, setSelectedDateNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
     const [showMonthInfo, setShowMonthInfo] = useState(false);
-    const [navbarItem, setNavbarItem] = useState("year");
+    const [view, setView] = useState("year");
     const dateTitle = useMemo(() => {
         return new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     }, [selectedDate]);
@@ -95,14 +95,16 @@ export default function SquareCalendars() {
         setSelectedDateNote(dayItem?.note || "");
     }, [selectedDate, data]);
 
+    const yearMap = useMemo(() => new Array(12).fill(0), []);
+
     {/* 
                 <CalendarYearSummary /> */}
     return (
         <>
             {isPhysicsDemoOpen && <PhysicsDemo />}
             <Navbar
-                selectedItem={navbarItem}
-                onItemClick={setNavbarItem}
+                selectedItem={view}
+                onItemClick={setView}
                 onPhysicsClick={() => setIsPhysicsDemoOpen(!isPhysicsDemoOpen)}
                 onListClick={() => setIsCalendarMenuOpen(true)} />
             <div id="note-modal-portal" />
@@ -160,7 +162,7 @@ export default function SquareCalendars() {
                     selectedCalendar={calendar}
                     onCalendarClick={onCalendarClick} />
                 <div className="flex justify-center flex-wrap h-10/12">
-                    {new Array(12).fill(0).map((_, monthIndex) => {
+                    {view === "year" && yearMap.map((_, monthIndex) => {
                         return (
                             <CalendarMonth
                                 key={monthIndex}
@@ -171,6 +173,7 @@ export default function SquareCalendars() {
                                 monthIndex={monthIndex} />
                         )
                     })}
+                    {view === "day" && <CalendarDayView data={data} selectedDate={selectedDate} />}
                 </div>
             </div>
         </>
