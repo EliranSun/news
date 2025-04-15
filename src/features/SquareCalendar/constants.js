@@ -246,18 +246,18 @@ export const Calendars = {
         name: "Protein",
         key: "protein-sleep-square-calendar",
         colors: [
+          Colors.Orange,
             Colors.Red,
             Colors.Crimson,
             Colors.Maroon,
-            Colors.Coral,
         ],
         icon: "🍖",
         category: "self",
         legend: [
-            { name: "0-50", color: Colors.Red },
-            { name: "51-100", color: Colors.Crimson },
-            { name: "101-150", color: Colors.Maroon },
-            { name: "151-200", color: Colors.Coral },
+            { name: "0-50", color: Colors.Orange },
+            { name: "51-100", color: Colors.Red },
+            { name: "101-150", color: Colors.Crimson },
+            { name: "151-200", color: Colors.Maroon },
         ],
     },
     Trip: {
