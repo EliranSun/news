@@ -1,29 +1,46 @@
 export const Colors = {
-    Yellow: "yellow",
-    Sage: "sage",
-    Violet: "violet",
-    Crimson: "crimson",
-    Lightblue: "lightblue",
-    Lavender: "lavender",
-    Rose: "rose",
-    Hotpink: "hotpink",
-    Forestgreen: "forestgreen",
-    Skyblue: "skyblue",
-    Plum: "plum",
-    Orange: "orange",
-    Purple: "purple",
-    Coral: "coral",
-    Turquoise: "turquoise",
-    Navy: "navy",
-    Pink: "pink",
-    Brown: "brown",
-    Black: "black",
-    Clear: "clear",
-    Red: "red",
-    Green: "green",
-    Blue: "blue",
-    Darkgray: "darkgray",
-    Maroon: "maroon",
+    // Reds
+  Red: "red",
+  Crimson: "crimson",
+  Maroon: "maroon",
+  Coral: "coral",
+
+  // Oranges
+  Orange: "orange",
+
+  // Yellows
+  Yellow: "yellow",
+
+  // Greens
+  Green: "green",
+  Sage: "sage",
+  Forestgreen: "forestgreen",
+
+  // Blues
+  Blue: "blue",
+  Lightblue: "lightblue",
+  Skyblue: "skyblue",
+  Turquoise: "turquoise",
+  Navy: "navy",
+
+  // Purples
+  Violet: "violet",
+  Plum: "plum",
+  Purple: "purple",
+  Lavender: "lavender",
+
+  // Pinks
+  Pink: "pink",
+  Rose: "rose",
+  Hotpink: "hotpink",
+
+  // Browns / Neutrals
+  Brown: "brown",
+  Darkgray: "darkgray",
+
+  // Others
+  Black: "black",
+  Clear: "clear",
 }
 
 export const Calendars = {
