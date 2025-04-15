@@ -14,11 +14,10 @@ export const DaySquare = ({ dayObj, selectedDate, setSelectedDate, data, size = 
         <div
             onClick={() => setSelectedDate(dayObj.date)}
             className={classNames(colorClass, {
-                "rounded-[2px]": true,
                 "border-2 border-amber-500": Boolean(dayObj.note),
                 "text-[8px] flex justify-center items-center": true,
-                "size-4": size === "small",
-                "size-12": size === "big",
+                "size-4 rounded-[2px]": size === "small",
+                "size-12 rounded-md": size === "big",
                 "bg-gray-100 dark:bg-gray-900": !dayObj.previousMonth && !isToday && !colorClass,
                 "opacity-0": dayObj.previousMonth,
                 "border-2 border-black dark:border-white": !dayObj.previousMonth && isToday,

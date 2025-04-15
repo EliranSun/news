@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { DaySquare } from "../atoms/DaySquare";
 import { useMemo } from "react";
 import { CalendarMonthColorInfo } from "../molecules/CalendarMonthColorInfo";
+import classNames from "classnames";
 
 export const CalendarMonth = ({ selectedDate = new Date(), setSelectedDate, data, monthIndex, showInfo, size = "small" }) => {
     const month = useMemo(() => {
@@ -36,7 +37,11 @@ export const CalendarMonth = ({ selectedDate = new Date(), setSelectedDate, data
                         {month.toLocaleString('default', { month: 'short' })}
                     </h2>
                 </div>
-                <div className="grid grid-cols-7 p-1 gap-0.5">
+                <div className={classNames({
+                    "grid grid-cols-7": true,
+                    "p-1 gap-0.5": size === "small",
+                    "p-2 gap-1": size !== "small",
+                })}>
                     {calendarData.map((dayObj, dayIndex) => {
                         return (
                             <DaySquare
@@ -52,7 +57,11 @@ export const CalendarMonth = ({ selectedDate = new Date(), setSelectedDate, data
                     })}
                 </div>
             </div>
-            <CalendarMonthColorInfo data={data} selectedDate={month} showInfo={showInfo} />
+            <CalendarMonthColorInfo
+                data={data}
+                size={size}
+                selectedDate={month}
+                showInfo={showInfo} />
         </div>
     )
 };

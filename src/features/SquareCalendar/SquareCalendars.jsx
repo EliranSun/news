@@ -175,8 +175,11 @@ export default function SquareCalendars() {
                             setSelectedDate={setSelectedDate}
                             monthIndex={new Date().getMonth()}
                             data={data} />
-                        <span>
-                            TODO: a combined view of all calendars?
+                        <span className="text-xs mt-4">
+                            TODO: a combined view of all calendars? <br />
+                            OR: Compared to last April...
+                            Compared to previous month...
+                            Compared to next month...
                         </span>
                     </>}
                     {view === "year" && yearMap.map((_, monthIndex) => {
