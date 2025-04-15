@@ -22,7 +22,7 @@ const CalendarDay = ({ item }) => {
             <div className={classNames(getColorsClassList(item.color), {
                 "size-4 rounded shrink-0": true,
             })} />
-            <div>{month?.slice(0, 1)}{dayNumber}{day?.slice(0, 1)}{item.note ? " - " : ""}{
+            <div>{month?.slice(0, 1)}{dayNumber}{day?.slice(0, 1)}{item.note ? ": " : ""}{
                 isNoteExpanded ? item.note : item.note?.slice(0, 30)
             }</div>
         </div>
