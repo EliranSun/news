@@ -131,14 +131,26 @@ export default function SquareCalendars() {
             />
             <div className="p-4 w-screen overflow-hidden h-dvh user-select-none space-y-4 font-mono">
                 <div className="flex w-full justify-between items-center">
-                    <div className="flex flex-col">
-                        <CalendarName
-                            calendar={calendar}
-                            daysSinceLastEntry={daysSinceLastEntry} />
-                        {selectedDate ? new Date(selectedDate).getFullYear() : new Date().getFullYear()}
+                    <div className="flex flex-col gap-1">
+                        <div className="flex items-center gap-2">
+                            <CalendarName
+                                calendar={calendar}
+                                daysSinceLastEntry={daysSinceLastEntry} />
+                            <span className="text-lg font-bold">
+                                {selectedDate ? new Date(selectedDate).getFullYear() : new Date().getFullYear()}
+                            </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <CalendarGamification calendar={calendar} />
+                        </div>
                     </div>
-                    <div className="flex flex-col gap-2">
-                        <CalendarGamification calendar={calendar} />
+                    <div className="flex flex-col justify-between gap-1">
+                        <div className="flex items-center gap-2 justify-end">
+                            <Info
+                                size={24}
+                                onClick={() => setShowMonthInfo(!showMonthInfo)}
+                                weight={showMonthInfo ? "fill" : "regular"} />
+                        </div>
                         <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
                     </div>
                 </div>
@@ -158,12 +170,6 @@ export default function SquareCalendars() {
                                 monthIndex={monthIndex} />
                         )
                     })}
-                </div>
-                <div className="flex items-center gap-4">
-                    <button
-                        onClick={() => setShowMonthInfo(!showMonthInfo)}>
-                        <Info size={32} weight={showMonthInfo ? "fill" : "regular"} />
-                    </button>
                 </div>
             </div>
         </>
