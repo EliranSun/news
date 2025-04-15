@@ -224,6 +224,25 @@ export const Calendars = {
             { name: "2:30+", color: Colors.Purple },
         ],
     },
+    Protein: {
+        showColorStatus: false,
+        name: "Protein",
+        key: "protein-sleep-square-calendar",
+        colors: [
+            Colors.Lightblue,
+            Colors.Skyblue,
+            Colors.Blue,
+            Colors.Navy,
+        ],
+        icon: "🍖",
+        category: "self",
+        legend: [
+            { name: "0-50", color: Colors.Lightblue },
+            { name: "51-100", color: Colors.Skyblue },
+            { name: "101-150", color: Colors.Blue },
+            { name: "151-200", color: Colors.Navy },
+        ],
+    },
     Trip: {
         showColorStatus: true,
         yellowAfter: 14,
