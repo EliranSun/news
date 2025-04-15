@@ -13,20 +13,13 @@ import { DayDrawer } from "./molecules/DayDrawer";
 import { Navbar } from "./molecules/Navbar";
 import PhysicsDemo from "./organism/PhysicsDemo";
 import { Info } from "@phosphor-icons/react";
-// import { ColorButton } from "./atoms/ColorButton";
-// import { DateNavigationButton } from "./atoms/DateNavigationButton";
-// import { CalendarMonthColorInfo } from "./molecules/CalendarMonthColorInfo";
 // import { CalendarYearSummary } from "./organism/CalendarYearSummary";
 import { CalendarDayView } from "./organism/CalendarDayView";
 import classNames from "classnames";
 
 export default function SquareCalendars() {
+    const calendarKey = useMemo(() => new URL(window.location.href).searchParams.get('calendar'), []);
     const [isPhysicsDemoOpen, setIsPhysicsDemoOpen] = useState(false);
-    const calendarKey = useMemo(() => {
-        const url = new URL(window.location.href);
-        return url.searchParams.get('calendar');
-    }, []);
-
     const [calendar, setCalendar] = useState(Calendars[calendarKey] || Calendars.Mood);
     const [selectedDate, setSelectedDate] = useState();
     const storageData = loadFromStorage(Calendars[calendarKey]?.key || Calendars.Mood.key);
@@ -34,9 +27,13 @@ export default function SquareCalendars() {
     const [selectedDateNote, setSelectedDateNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
     const [showMonthInfo, setShowMonthInfo] = useState(false);
     const [view, setView] = useState("year");
-    const dateTitle = useMemo(() => {
-        return new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-    }, [selectedDate]);
+
+    const dateTitle = useMemo(() => new Date(selectedDate).toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    }), [selectedDate]);
 
     const daysSinceLastEntry = useMemo(() => {
         return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;

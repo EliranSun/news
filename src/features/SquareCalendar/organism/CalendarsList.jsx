@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import { CalendarName } from "../atoms/CalendarName";
 import { DaysSinceBadge } from "../atoms/DaysSinceBadge";
 import { motion } from "motion/react";
-import { X } from "@phosphor-icons/react";
 
 const CalendarItem = ({ calendar, onClick }) => {
     const daysSinceLastEntry = useMemo(() => getDaysSinceLastEntry(calendar.key), [calendar.key]);
@@ -51,34 +50,19 @@ export const CalendarsList = ({ onClick, onClose, isOpen }) => {
             transition={{ duration: 0.3 }}
             animate={{
                 opacity: isOpen ? 1 : 0,
-                // backdropFilter: isOpen ? "brightness(50%) blur(10px)" : "brightness(100%) blur(0px)"
             }}
             className={classNames({
-                // "w-screen h-screen fixed inset-x-0 top-0 z-10": true,
                 "pointer-events-none": !isOpen,
                 "pointer-events-auto": isOpen,
                 "font-mono": true,
                 "hidden": !isOpen,
-                // "space-y-4": true,
-                // "p-2 flex justify-center items-center": true,
-                // "flex-col": Object.keys(groupedCalendars).length > 1,
-                // "flex-row": Object.keys(groupedCalendars).length <= 1
             })}>
-            {/* <button
-                className="absolute bottom-14 inset-x-0 m-auto 
-                text-xl font-mono flex items-center justify-center
-                rounded-full size-10 p-2 border"
-                onClick={onClose}>
-                <X size={24} />
-            </button> */}
             <div className={classNames({
                 "w-screen h-fit p-4": true,
                 "bg-white dark:bg-black": false,
-                // "grid grid-cols-1 gap-2 grid-auto-rows-max items-start": true,
                 "flex flex-wrap gap-2 justify-start items-start": true,
                 "border border-black dark:border-white rounded-lg": false,
                 "overflow-y-auto": true,
-                // "max-h-[80vh]": true
             })}>
                 {Object.entries(groupedCalendars).map(([category, calendars]) => (
                     <div

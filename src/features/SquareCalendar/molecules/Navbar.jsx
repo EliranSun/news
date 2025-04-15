@@ -57,6 +57,7 @@ NavbarMenuItem.propTypes = {
 
 export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     return (
         <>
             {isMenuOpen &&
@@ -64,8 +65,12 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                     <div className="flex flex-col items-center justify-center h-2/3 
                     text-lg gap-4 px-4 rounded-lg
                     w-10/12 m-auto bg-white dark:bg-black">
-                        <NavbarMenuItem icon={<CalendarHeart size={24} />} label="Optimizing CSS day" onClick={() => { }} />
-                        <NavbarMenuItem icon={<Cube size={24} />} label="CSS cubes" onClick={() => { }} />
+                        <NavbarMenuItem icon={<CalendarHeart size={24} />} label="Optimizing CSS day" onClick={() => {
+                            const url = new URL(window.location.href);
+                            url.pathname = "/squares";
+                            window.location.href = url;
+                        }} />
+                        <NavbarMenuItem icon={<Cube size={24} />} label="CSS cubes" onClick={onPhysicsClick} />
                         <NavbarMenuItem icon={<TrayArrowDown size={24} />} label="Import" onClick={importCalendarData} />
                         <NavbarMenuItem icon={<TrayArrowUp size={24} />} label="Export" onClick={exportCalendarData} />
                         <NavbarMenuItem icon={<X size={24} />} label="Close" onClick={() => { setIsMenuOpen(false) }} />

@@ -214,6 +214,13 @@ export default function Squares() {
                 Sort by color
             </button>
             <button onClick={() => {
+                const url = new URL(window.location.href);
+                url.pathname = "/";
+                window.location.href = url;
+            }}>
+                Squares
+            </button>
+            <button onClick={() => {
                 const emojiText = exportToEmojiText(data);
                 // copy to clipboard
                 navigator.clipboard.writeText(emojiText);
