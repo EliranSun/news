@@ -33,7 +33,7 @@ export default function SquareCalendars() {
     const [data, setData] = useState(storageData);
     const [selectedDateNote, setSelectedDateNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
     const [showMonthInfo, setShowMonthInfo] = useState(false);
-
+    const [navbarItem, setNavbarItem] = useState("year");
     const dateTitle = useMemo(() => {
         return new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     }, [selectedDate]);
@@ -101,7 +101,8 @@ export default function SquareCalendars() {
         <>
             {isPhysicsDemoOpen && <PhysicsDemo />}
             <Navbar
-                selectedItem="year"
+                selectedItem={navbarItem}
+                onItemClick={setNavbarItem}
                 onPhysicsClick={() => setIsPhysicsDemoOpen(!isPhysicsDemoOpen)}
                 onListClick={() => setIsCalendarMenuOpen(true)} />
             <div id="note-modal-portal" />

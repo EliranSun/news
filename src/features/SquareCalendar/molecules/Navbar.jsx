@@ -11,14 +11,18 @@ import {
 } from "@phosphor-icons/react";
 import classNames from "classnames";
 
-const NavbarButton = ({ icon: Icon, onClick, 
-label, isSelected }) => {
+const NavbarButton = ({
+    icon: Icon,
+    onClick,
+    label,
+    isSelected
+}) => {
     return (
         <button onClick={onClick} className={classNames({
             "flex flex-col rounded-none": true,
-         "items-center justify-center h-16 w-full": true,
-         "bg-transparent border-none": true,
-        "text-amber-500": isSelected,
+            "items-center justify-center h-16 w-full": true,
+            "bg-transparent border-none": true,
+            "text-amber-500": isSelected,
         })}>
             <Icon size={24} />
             {/* <label className="text-[8px]">{label}</label> */}
@@ -31,35 +35,38 @@ NavbarButton.propTypes = {
     onClick: PropTypes.func.isRequired
 };
 
-export const Navbar = ({ onListClick, selectedItem, onPhysicsClick,  }) => {
+export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick }) => {
     return (
         <div className="fixed h-24 bg-white dark:bg-black
          bottom-0 border-t w-screen grid grid-cols-7 items-start justify-center">
-            <NavbarButton 
-
-            label="list" icon={List} onClick={onListClick} />
-            <NavbarButton 
-                        isSelected={selectedItem === "day"}
-            label="day" icon={Calendar} onClick={() => { }} />
-            <NavbarButton 
-            isSelected={selectedItem === "month"}
-            label="month" icon={CalendarDot} onClick={() => { }} />
-            <NavbarButton 
-        isSelected={selectedItem === "year"}
-            label="year" icon={CalendarDots} onClick={() => { }} />
-            <NavbarButton 
-            
-            label="import" icon={TrayArrowDown} onClick={importCalendarData} />
-            <NavbarButton 
-            
-            label="export" icon={TrayArrowUp} onClick={exportCalendarData} />
-            <NavbarButton 
-            
-            label="physics" icon={Cube} onClick={onPhysicsClick} />
+            <NavbarButton label="list" icon={List} onClick={onListClick} />
+            <NavbarButton
+                isSelected={selectedItem === "day"}
+                label="day"
+                icon={Calendar}
+                onClick={() => { onItemClick("day") }}
+            />
+            <NavbarButton
+                isSelected={selectedItem === "month"}
+                label="month"
+                icon={CalendarDot}
+                onClick={() => { onItemClick("month") }}
+            />
+            <NavbarButton
+                isSelected={selectedItem === "year"}
+                label="year" icon={CalendarDots}
+                onClick={() => { onItemClick("year") }}
+            />
+            <NavbarButton label="import" icon={TrayArrowDown} onClick={importCalendarData} />
+            <NavbarButton label="export" icon={TrayArrowUp} onClick={exportCalendarData} />
+            <NavbarButton label="physics" icon={Cube} onClick={onPhysicsClick} />
         </div>
     );
 };
 
 Navbar.propTypes = {
-    onListClick: PropTypes.func.isRequired
+    onListClick: PropTypes.func.isRequired,
+    selectedItem: PropTypes.string.isRequired,
+    onPhysicsClick: PropTypes.func.isRequired,
+    onItemClick: PropTypes.func.isRequired
 };
