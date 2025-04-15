@@ -16,7 +16,10 @@ export const DayDrawer = ({ isOpen, onNoteUpdate, onClose, title, calendar, onCo
                 note={note}
                 isOpen={isNoteOpen}
                 onClose={() => setIsNoteOpen(false)}
-                onUpdate={onNoteUpdate} />
+                onUpdate={note => {
+                    onNoteUpdate(note);
+                    setIsNoteOpen(false);
+                }} />
             <motion.div
                 className="absolute inset-x-0 bottom-0 z-10"
                 animate={{ y: isOpen ? 10 : "100%" }}
