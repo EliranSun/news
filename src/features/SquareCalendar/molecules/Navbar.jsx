@@ -42,7 +42,7 @@ NavbarButton.propTypes = {
 
 const NavbarMenuItem = ({ icon, label, onClick }) => {
     return (
-        <div className="flex w-full p-4  odd:bg-gray-100 dark:odd:bg-gray-900" onClick={onClick}>
+        <div className="flex w-full p-4 bg-gray-50 dark:bg-gray-900  odd:bg-gray-100 dark:odd:bg-gray-900" onClick={onClick}>
             <span className="w-10">{icon}</span>
             {label}
         </div>
@@ -62,15 +62,18 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
         <>
             {isMenuOpen &&
                 <div className="fixed inset-0 m-auto flex items-center justify-center bg-black/50 z-50">
-                    <div className="flex flex-col items-center justify-center h-2/3 
-                    text-lg gap-4 px-4 rounded-lg
+                    <div className="flex flex-col items-center justify-center h-fit
+                    text-lg gap-0 p-4 rounded-lg
                     w-10/12 m-auto bg-white dark:bg-black">
                         <NavbarMenuItem icon={<CalendarHeart size={24} />} label="Optimizing CSS day" onClick={() => {
                             const url = new URL(window.location.href);
                             url.pathname = "/squares";
                             window.location.href = url;
                         }} />
-                        <NavbarMenuItem icon={<Cube size={24} />} label="CSS cubes" onClick={onPhysicsClick} />
+                        <NavbarMenuItem icon={<Cube size={24} />} label="CSS cubes" onClick={() => {
+                            onPhysicsClick();
+                            setIsMenuOpen(false);
+                        }} />
                         <NavbarMenuItem icon={<TrayArrowDown size={24} />} label="Import" onClick={importCalendarData} />
                         <NavbarMenuItem icon={<TrayArrowUp size={24} />} label="Export" onClick={exportCalendarData} />
                         <NavbarMenuItem icon={<X size={24} />} label="Close" onClick={() => { setIsMenuOpen(false) }} />
