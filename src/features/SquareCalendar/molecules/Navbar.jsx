@@ -19,7 +19,7 @@ label, isSelected }) => {
          "items-center justify-center h-16 w-full": true,
          "bg-transparent border-none": true,
         "text-amber-500": isSelected,
-        })}
+        })}>
             <Icon size={24} />
             {/* <label className="text-[8px]">{label}</label> */}
         </button>
