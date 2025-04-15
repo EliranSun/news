@@ -12,7 +12,7 @@ import { isSameDay } from "./utils";
 import { DayDrawer } from "./molecules/DayDrawer";
 import { Navbar } from "./molecules/Navbar";
 import PhysicsDemo from "./organism/PhysicsDemo";
-
+import { Info } from "@phosphor-icons/react";
 // import { ColorButton } from "./atoms/ColorButton";
 // import { DateNavigationButton } from "./atoms/DateNavigationButton";
 // import { CalendarMonthColorInfo } from "./molecules/CalendarMonthColorInfo";
@@ -32,6 +32,7 @@ export default function SquareCalendars() {
     const storageData = loadFromStorage(Calendars[calendarKey]?.key || Calendars.Mood.key);
     const [data, setData] = useState(storageData);
     const [selectedDateNote, setSelectedDateNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
+    const [showMonthInfo, setShowMonthInfo] = useState(false);
 
     const dateTitle = useMemo(() => {
         return new Date(selectedDate).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
@@ -94,9 +95,7 @@ export default function SquareCalendars() {
         setSelectedDateNote(dayItem?.note || "");
     }, [selectedDate, data]);
 
-    {/* <CalendarMonthColorInfo
-                    selectedDate={selectedDate}
-                    data={data} />
+    {/* 
                 <CalendarYearSummary /> */}
     return (
         <>
@@ -130,7 +129,7 @@ export default function SquareCalendars() {
                     saveToStorage(calendar.key, newData);
                 }}
             />
-            <div className="p-4 w-screen overflow-hidden h-dvh user-select-none space-y-8 font-mono">
+            <div className="p-4 w-screen overflow-hidden h-dvh user-select-none space-y-4 font-mono">
                 <div className="flex w-full justify-between items-center">
                     <div className="flex flex-col">
                         <CalendarName
@@ -152,6 +151,7 @@ export default function SquareCalendars() {
                         return (
                             <CalendarMonth
                                 key={monthIndex}
+                                showInfo={showMonthInfo}
                                 selectedDate={selectedDate}
                                 setSelectedDate={setSelectedDate}
                                 data={data}
@@ -159,15 +159,13 @@ export default function SquareCalendars() {
                         )
                     })}
                 </div>
-            </div>
-            {/* <div className="flex items-center gap-4">
-                    <ExportImport />
+                <div className="flex items-center gap-4">
                     <button
-                        className="h-fit mr-2"
-                        onClick={() => setIsCalendarMenuOpen(!isCalendarMenuOpen)}>
-                        List
+                        onClick={() => setShowMonthInfo(!showMonthInfo)}>
+                        <Info size={32} weight={showMonthInfo ? "fill" : "regular"} />
                     </button>
-                </div> */}
+                </div>
+            </div>
         </>
     );
 }   

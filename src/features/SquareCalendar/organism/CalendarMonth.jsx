@@ -2,8 +2,9 @@ import { getDaysInMonth, getDay, startOfMonth, subMonths } from "date-fns";
 import PropTypes from "prop-types";
 import { DaySquare } from "../atoms/DaySquare";
 import { useMemo } from "react";
+import { CalendarMonthColorInfo } from "../molecules/CalendarMonthColorInfo";
 
-export const CalendarMonth = ({ selectedDate = new Date(), setSelectedDate, data, monthIndex }) => {
+export const CalendarMonth = ({ selectedDate = new Date(), setSelectedDate, data, monthIndex, showInfo }) => {
     const month = useMemo(() => {
         return new Date(selectedDate.getFullYear(), monthIndex, 1);
     }, [selectedDate, monthIndex]);
@@ -28,26 +29,29 @@ export const CalendarMonth = ({ selectedDate = new Date(), setSelectedDate, data
     }, [month]);
 
     return (
-        <div className="flex flex-col my-1" key={`month-${monthIndex}`}>
-            <div className="flex justify-between items-center">
-                <h2 className="text-xs inter-500">
-                    {month.toLocaleString('default', { month: 'short' })}
-                </h2>
+        <div className="flex flex-col justify-between my-1" key={`month-${monthIndex}`}>
+            <div>
+                <div className="flex justify-between items-center">
+                    <h2 className="text-xs inter-500">
+                        {month.toLocaleString('default', { month: 'short' })}
+                    </h2>
+                </div>
+                <div className="grid grid-cols-7 p-1 gap-0.5">
+                    {calendarData.map((dayObj, dayIndex) => {
+                        return (
+                            <DaySquare
+                                monthIndex={monthIndex}
+                                dayIndex={dayIndex}
+                                selectedDate={selectedDate}
+                                setSelectedDate={setSelectedDate}
+                                data={data}
+                                key={`month-${monthIndex}-day-${dayIndex}`}
+                                dayObj={dayObj} />
+                        );
+                    })}
+                </div>
             </div>
-            <div className="grid grid-cols-7 p-1 gap-0.5">
-                {calendarData.map((dayObj, dayIndex) => {
-                    return (
-                        <DaySquare
-                            monthIndex={monthIndex}
-                            dayIndex={dayIndex}
-                            selectedDate={selectedDate}
-                            setSelectedDate={setSelectedDate}
-                            data={data}
-                            key={`month-${monthIndex}-day-${dayIndex}`}
-                            dayObj={dayObj} />
-                    );
-                })}
-            </div>
+            <CalendarMonthColorInfo data={data} selectedDate={month} showInfo={showInfo} />
         </div>
     )
 };
@@ -57,4 +61,5 @@ CalendarMonth.propTypes = {
     setSelectedDate: PropTypes.func.isRequired,
     data: PropTypes.array.isRequired,
     monthIndex: PropTypes.number.isRequired,
+    showInfo: PropTypes.bool,
 };

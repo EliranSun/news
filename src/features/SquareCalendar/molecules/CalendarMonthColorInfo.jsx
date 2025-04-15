@@ -13,23 +13,18 @@ const MonthColorInfo = ({ data, monthIndex, selectedDate, monthName }) => {
 
     const colorPercentages = useColorPercentage(data, currentMonthDays);
 
-    if (colorPercentages.length === 0) {
-        return null;
-    }
-
     return (
-        <>
-            <h2 className="">{monthName}</h2>
+        <div className="flex items-center justify-center gap-2 font-mono text-[8px] h-5">
             {colorPercentages.map(({ color, percentage }) => (
                 <div
                     key={color}
-                    className="flex items-center gap-1"
+                    className="flex flex-col items-center gap-0 font-mono text-[8px]"
                     title={`${color}: ${percentage}%`}>
-                    <div className={`size-4 rounded-sm ${getColorsClassList(color)}`}></div>
+                    <div className={`size-2 rounded-sm ${getColorsClassList(color)}`}></div>
                     <span>{percentage}%</span>
                 </div>
             ))}
-        </>
+        </div>
     );
 };
 
@@ -40,25 +35,18 @@ MonthColorInfo.propTypes = {
     monthName: PropTypes.string.isRequired
 };
 
-export const CalendarMonthColorInfo = ({ data, selectedDate }) => {
+export const CalendarMonthColorInfo = ({ data, selectedDate, showInfo }) => {
+    const monthName = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1)
+        .toLocaleString('default', { month: 'short' });
 
     return (
-        <div className="flex flex-col gap-1 justify-center mb-1 px-1">
-            {new Array(12).fill(0).map((_, monthIndex) => {
-                const monthName = new Date(selectedDate.getFullYear(), monthIndex, 1)
-                    .toLocaleString('default', { month: 'short' });
-
-                return (
-                    <div key={monthIndex} className="flex items-center gap-3">
-                        <MonthColorInfo
-                            data={data}
-                            monthName={monthName}
-                            monthIndex={monthIndex}
-                            selectedDate={selectedDate}
-                        />
-                    </div>
-                )
-            })}
+        <div className={`${showInfo ? 'opacity-100' : 'opacity-0'}`}>
+            <MonthColorInfo
+                data={data}
+                monthName={monthName}
+                monthIndex={selectedDate.getMonth()}
+                selectedDate={selectedDate}
+            />
         </div>
     );
 };
