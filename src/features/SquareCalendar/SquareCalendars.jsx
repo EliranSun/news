@@ -102,6 +102,7 @@ export default function SquareCalendars() {
         <>
             {isPhysicsDemoOpen && <PhysicsDemo />}
             <Navbar
+                selectedItem="year"
                 onPhysicsClick={() => setIsPhysicsDemoOpen(!isPhysicsDemoOpen)}
                 onListClick={() => setIsCalendarMenuOpen(true)} />
             <div id="note-modal-portal" />
