@@ -9,6 +9,7 @@ import {
     CalendarDots,
     Cube
 } from "@phosphor-icons/react";
+import classNames from "classnames";
 
 const NavbarButton = ({ icon: Icon, onClick, 
 label, isSelected }) => {
