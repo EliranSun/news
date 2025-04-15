@@ -2,13 +2,26 @@ import classNames from "classnames";
 import { getColorsClassList } from "../utils";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const CalendarDayView = ({ data }) => {
     const [isNoteExpanded, setIsNoteExpanded] = useState(false);
 
+    useEffect(() => {
+        // scroll to the bottom of the page
+        const calendarDayView = document.getElementById("calendar-day-view");
+        if (calendarDayView) {
+            calendarDayView.scrollTo({
+                top: calendarDayView.scrollHeight,
+                behavior: "smooth"
+            });
+        }
+    }, []);
+
     return (
-        <div className="flex flex-col gap-1 h-[80vh] w-screen overflow-y-auto pb-20">
+        <div
+            id="calendar-day-view"
+            className="flex flex-col gap-1 h-[80vh] w-screen overflow-y-auto pb-20">
             {data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).map((item) => {
                 const day = format(item.date, "E");
                 const dayNumber = format(item.date, "dd");
@@ -25,7 +38,7 @@ export const CalendarDayView = ({ data }) => {
                         <div className={classNames(getColorsClassList(item.color), {
                             "size-4 rounded shrink-0": true,
                         })} />
-                        <div>{day.slice(0, 1)}{dayNumber}{month.slice(0, 1)}{item.note ? " - " : ""}{
+                        <div>{month?.slice(0, 1)}{dayNumber}{day?.slice(0, 1)}{item.note ? " - " : ""}{
                             isNoteExpanded ? item.note : item.note?.slice(0, 30)
                         }</div>
                     </div>
