@@ -5,7 +5,7 @@ import { useDaysSinceColor } from "../useDaysSinceColor";
 import classNames from "classnames";
 import { useMemo } from "react";
 
-export const DaysSinceBadge = ({ hoursSince, withIcon = true, calendar }) => {
+export const DaysSinceBadge = ({ hoursSince, withIcon = true, calendar, showValue = true }) => {
     const { isRed, isYellow } = useDaysSinceColor(calendar);
 
     // if (daysSince === null) return null;
@@ -18,13 +18,13 @@ export const DaysSinceBadge = ({ hoursSince, withIcon = true, calendar }) => {
     }, [hoursSince]);
 
     return (
-        <Badge className={classNames({
+        <Badge className={classNames('h-5', {
             "bg-red-500": isRed,
-            "bg-yellow-500": isYellow,
-            "bg-green-500": !isRed && !isYellow,
+            "bg-yellow-400": isYellow,
+            "bg-lime-400": !isRed && !isYellow,
         })}>
             {withIcon && <ClockCounterClockwise size={16} />}
-            {text}
+            {showValue && text}
         </Badge>
     )
 };
