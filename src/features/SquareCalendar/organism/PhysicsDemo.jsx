@@ -18,8 +18,8 @@ const PhysicsDemo = () => {
 
     return (
         <div className="physics-demo fixed inset-0">
-            <h1 className="text-2xl font-bold fixed top-0 inset-x-0 text-center">
-                2025 - {boxCount}/{300}
+            <h1 className="text-lg font-bold fixed top-0 inset-x-0 text-center">
+                2025 - {boxCount}/{300}h for CSS demo completion
             </h1>
             <PhysicsSimulation
                 initBoxCount={boxCount}
