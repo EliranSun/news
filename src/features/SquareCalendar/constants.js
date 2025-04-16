@@ -199,6 +199,7 @@ export const Calendars = {
     },
     Weight: {
         showColorStatus: false,
+                showGamification: false,
         name: "weight",
         key: "weight-square-calendar",
         colors: [
@@ -231,6 +232,7 @@ export const Calendars = {
             Colors.Purple
         ],
         icon: "💤",
+                showGamification: false,
         category: "self",
         legend: [
             { name: "0:00-0:29", color: Colors.Lightblue },
@@ -243,6 +245,7 @@ export const Calendars = {
     },
     Protein: {
         showColorStatus: false,
+                showGamification: false,
         name: "Protein",
         key: "protein-sleep-square-calendar",
         colors: [
