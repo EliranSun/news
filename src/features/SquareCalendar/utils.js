@@ -8,23 +8,32 @@ export const getDaysSinceLastEntry = (key = "square-calendar") => {
         return null; // No entries exist
     }
 
-    // Filter out entries with "black" color
     const validEntries = data.filter(item => item.color !== Colors.Black);
 
     if (validEntries.length === 0) {
         return null; // No valid entries exist
     }
 
-    // Find the most recent date entry
     const sortedDates = validEntries
         .map(item => new Date(item.date))
-        .sort((a, b) => b - a); // Sort in descending order (newest first)
+        .sort((a, b) => b - a);
 
     const lastEntryDate = sortedDates[0];
     const today = new Date();
 
-    return differenceInHours(today, lastEntryDate);
+    // Compare only the date part (ignore time)
+    const isSameDay = today.toDateString() === lastEntryDate.toDateString();
+
+    if (isSameDay) {
+        return 0; // Still today, so 0 hours passed
+    }
+
+    const msDiff = today - lastEntryDate;
+    const hoursPassed = Math.floor(msDiff / (1000 * 60 * 60));
+
+    return hoursPassed;
 };
+
 
 export const getStreakCount = (key = "square-calendar") => {
     const data = loadFromStorage(key);
