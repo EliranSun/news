@@ -158,7 +158,7 @@ export const Calendars = {
         icon: "🧺",
         category: "house"
     },
-    LaundryFold: {
+    /* LaundryFold: {
         showColorStatus: true,
         yellowAfter: 5,
         redAfter: 10,
@@ -167,7 +167,7 @@ export const Calendars = {
         colors: [Colors.Lightblue, Colors.Black],
         icon: "👕",
         category: "house"
-    },
+    },*/
     Groceries: {
         showColorStatus: true,
         yellowAfter: 7,
