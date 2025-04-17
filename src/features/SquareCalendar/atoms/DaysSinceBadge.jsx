@@ -13,7 +13,7 @@ export const DaysSinceBadge = ({ hoursSince, withIcon = true, calendar, showValu
     const text = useMemo(() => {
         if (hoursSince === null) return "Never";
         if (hoursSince < 12) return "Today";
-        return `${(hoursSince / 24).toFixed(0)}d`;
+        return `${Math.round(hoursSince / 24).toFixed(0)}d`;
     }, [hoursSince]);
 
     return (
