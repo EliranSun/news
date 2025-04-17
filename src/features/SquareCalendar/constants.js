@@ -125,13 +125,36 @@ export const Calendars = {
     },
 
     // House - Using earthy, practical colors for household tasks
+    House: {
+        showColorStatus: true,
+        yellowAfter: 5,
+        redAfter: 10,
+        name: "house care",
+        key: "house-care-square-calendar",
+        colors: [
+          Colors.Red, 
+          Colors.Green, 
+          Colors.Blue
+        ],
+        legend: [
+            { name: "Floor cleaning", color: Colors.Red },
+            { name: "Organizing", color: Colors.Green },
+            { name: "TBD", color: Colors.Blue },
+        ],
+        icon: "🧺",
+        category: "house"
+    },
     Laundry: {
         showColorStatus: true,
         yellowAfter: 5,
         redAfter: 10,
         name: "laundry",
         key: "laundry-square-calendar",
-        colors: [Colors.Skyblue, Colors.Black],
+        colors: [Colors.Lightblue, Colors.Skyblue, Colors.Black],
+        legend: [
+            { name: "Fold", color: Colors.Lightblue },
+            { name: "Wash", color: Colors.Skyblue },
+        ],
         icon: "🧺",
         category: "house"
     },
