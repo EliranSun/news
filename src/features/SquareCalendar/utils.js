@@ -177,7 +177,7 @@ const TailwindColorsMap = {
 
     // Blue & Purple
     [Colors.Lightblue]: "bg-blue-200",
-    [Colors.Skyblue]: "bg-sky-200",
+    [Colors.Skyblue]: "bg-sky-300",
     [Colors.Blue]: "bg-blue-400",
     [Colors.Navy]: "bg-blue-600",
     [Colors.Violet]: "bg-violet-500",
