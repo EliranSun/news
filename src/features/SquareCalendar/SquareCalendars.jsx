@@ -34,6 +34,59 @@ const FlexibleOpacityTransition = ({ children }) => {
     );
 };
 
+/**
+ * Shows, for the selected date, one tiny square per calendar coloured
+ * according to that calendar’s entry for the day (if any).
+ *
+ * Props
+ * ────────────────────────────────────────────────────────────────
+ * selectedDate      : Date | undefined  – current day the user picked
+ * onCalendarClick?  : (cal: typeof Calendars[keyof typeof Calendars]) => void
+ *                    – pass the handler you already have if you want the
+ *                      squares to be clickable; omit to make them static.
+ */
+const SelectedDateStrip = ({ selectedDate, onCalendarClick }) => {
+    // Build { calendarKey: colour | null } for the chosen date
+    const dayColours = useMemo(() => {
+        if (!selectedDate) return {};
+
+        return Object.values(Calendars).reduce((acc, cal) => {
+            const stored = loadFromStorage(cal.key) ?? [];
+            const entry  = stored.find(e => isSameDay(e.date, selectedDate));
+            acc[cal.key] = entry?.color ?? null;      // null → no colour that day
+            return acc;
+        }, {});
+    }, [selectedDate]);
+
+    if (!selectedDate) return null; // nothing selected → nothing to render
+
+    return (
+        <div className="flex gap-1 overflow-x-auto py-1">
+            {Object.values(Calendars).map(cal => {
+                const colour = dayColours[cal.key];
+                const isEmpty = !colour || colour === Colors.Clear;
+
+                return (
+                    <div
+                        key={cal.key}
+                        title={cal.name}
+                        onClick={() => onCalendarClick?.(cal)}
+                        className={classNames(
+                            "w-4 h-4 rounded-sm border",
+                            "flex-shrink-0 cursor-pointer",
+                            { "border-gray-300": isEmpty, "border-transparent": !isEmpty }
+                        )}
+                        style={{
+                            backgroundColor: isEmpty ? "transparent" : colour,
+                            opacity: isEmpty ? 0.25 : 1,
+                        }}
+                    />
+                );
+            })}
+        </div>
+    );
+};
+
 export default function SquareCalendars() {
     const calendarKey = useMemo(() => new URL(window.location.href).searchParams.get('calendar'), []);
     const [isPhysicsDemoOpen, setIsPhysicsDemoOpen] = useState(false);
@@ -170,7 +223,13 @@ export default function SquareCalendars() {
                     onCalendarClick={onCalendarClick} />
                 {view === "day" &&
                     <FlexibleOpacityTransition>
-                        <CalendarDayView data={data} selectedDate={selectedDate} />
+                        {/* <CalendarDayView data={data} 
+selectedDate={selectedDate} /> */}
+{/* …inside the JSX return right after <CalendarYearColorInfo … /> */}
+<SelectedDateStrip
+    selectedDate={selectedDate}
+    onCalendarClick={onCalendarClick}
+/>
                     </FlexibleOpacityTransition>
                 }
                 {view === "month" &&
