@@ -59,22 +59,23 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
                 {Object.values(Calendars).map(cal => {
                     const colour = dayColours[cal.key];
                     const isEmpty = !colour || colour === Colors.Clear;
-
-                    console.log({ cal, colour, isEmpty });
+                    const isNegative = colour === Colors.Black;
 
                     return (
                         <div
                             key={cal.key}
                             onClick={() => onCalendarClick?.(cal)}
                             style={{ color: contrastColor({ bgColor: ColorHexMap[colour] }) }}
-                            className={classNames(getColorsClassList(colour), "flex gap-0 items-center border border-gray-700 rounded-sm px-2")}>
+                            className={classNames(getColorsClassList(colour), "flex gap-0 items-center border border-gray-700 rounded-sm px-2", {
+                                "opacity-50": isNegative
+                            })}>
                             <h2 className="w-28">{cal.name}</h2>
                             <div
                                 title={cal.name}
                                 className={classNames(
                                     "w-4 h-4 rounded-sm border",
                                     "flex-shrink-0 cursor-pointer",
-                                    { "border-gray-700": isEmpty, "border-transparent": !isEmpty }
+                                    { "border-gray-700": isEmpty, "border-transparent": !isEmpty },
                                 )}
                                 style={{
                                     // backgroundColor: isEmpty ? "transparent" : colour,
