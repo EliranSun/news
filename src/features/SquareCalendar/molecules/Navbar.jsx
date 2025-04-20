@@ -10,7 +10,8 @@ import {
     Cube,
     CalendarHeart,
     X,
-    ListBullets
+    ListBullets,
+    Note,
 } from "@phosphor-icons/react";
 import classNames from "classnames";
 import { useState } from "react";
@@ -102,12 +103,18 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                 </div>
             </OpacityTransition>
             <div className="fixed h-24 bg-white dark:bg-black
-         bottom-0 border-t w-screen grid grid-cols-5 items-start justify-center">
+         bottom-0 border-t w-screen grid grid-cols-6 items-start justify-center">
                 <NavbarButton
                     isSelected={selectedItem === "list"}
                     label="list"
                     icon={ListBullets}
                     onClick={onListClick}
+                />
+                <NavbarButton
+                    isSelected={selectedItem === "note"}
+                    label="note"
+                    icon={Note}
+                    onClick={() => { onItemClick("note") }}
                 />
                 <NavbarButton
                     isSelected={selectedItem === "day"}
