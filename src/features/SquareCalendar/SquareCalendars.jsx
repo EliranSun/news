@@ -17,6 +17,7 @@ import { CalendarDayView } from "./organism/CalendarDayView";
 // import { CalendarYearSummary } from "./organism/CalendarYearSummary";
 import classNames from "classnames";
 import { motion } from "framer-motion";
+import { Palette } from "@phosphor-icons/react";
 
 const FlexibleOpacityTransition = ({ children }) => {
     return (
@@ -173,6 +174,12 @@ export default function SquareCalendars() {
                 <CalendarYearSummary /> */}
     return (
         <>
+            <button
+                onClick={() => setIsDrawerOpen(!isDrawerOpen)}
+                className="fixed bottom-32 right-5  rounded-full p-4 bg-black text-white">
+                <Palette size={24}
+                    color="white" />
+            </button>
             {isPhysicsDemoOpen && <PhysicsDemo />}
             <Navbar
                 selectedItem={view}
