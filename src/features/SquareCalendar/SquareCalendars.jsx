@@ -244,8 +244,8 @@ export default function SquareCalendars() {
                         <SelectedDateStrip
                             selectedDate={selectedDate}
                             onCalendarClick={(cal) => {
-                                setCalendar(cal);
-                                setSelectedDate(new Date());
+                                // setSelectedDate(new Date());
+                                onCalendarClick(cal);
                             }}
                         />
                     </FlexibleOpacityTransition>
