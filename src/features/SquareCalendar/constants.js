@@ -135,12 +135,14 @@ export const Calendars = {
           Colors.Red, 
           Colors.Green, 
           Colors.Blue,
+          Colors.Yellow,
           Colors.Black
         ],
         legend: [
             { name: "Floor cleaning", color: Colors.Red },
             { name: "Organizing", color: Colors.Green },
-            { name: "TBD", color: Colors.Blue },
+            { name: "Dishes", color: Colors.Blue },
+            { name: "Towels", color: Colors.Yellow },
         ],
         icon: "🏠",
         category: "house"
