@@ -64,6 +64,7 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
                     return (
                         <div
                             key={cal.key}
+                            // FIXME: this overrides the selected calendar with current 
                             onClick={() => onCalendarClick?.(cal)}
                             style={{ color: contrastColor({ bgColor: ColorHexMap[colour] }) }}
                             className={classNames(getColorsClassList(colour), "flex gap-0 items-center border border-gray-700 rounded-sm px-2", {
@@ -160,7 +161,7 @@ export default function SquareCalendars() {
         url.searchParams.set('calendar', item.key);
         window.history.pushState({}, '', url);
 
-        saveToStorage(calendar.key, data);
+        // saveToStorage(calendar.key, data);
         setCalendar(item);
         setData(loadFromStorage(item.key));
     }, [data, calendar]);
