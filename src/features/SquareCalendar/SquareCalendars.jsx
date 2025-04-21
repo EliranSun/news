@@ -67,7 +67,8 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
                             onClick={() => onCalendarClick?.(cal)}
                             style={{ color: contrastColor({ bgColor: ColorHexMap[colour] }) }}
                             className={classNames(getColorsClassList(colour), "flex gap-0 items-center border border-gray-700 rounded-sm px-2", {
-                                "opacity-50": isNegative
+                                "opacity-50": isNegative,
+                                "hidden": isNegative || isEmpty
                             })}>
                             <h2 className="w-28">{cal.name}</h2>
                             <div
