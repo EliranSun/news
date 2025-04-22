@@ -163,7 +163,6 @@ export default function SquareCalendars() {
 
         // saveToStorage(calendar.key, data);
         setCalendar(item);
-        alert(item.key);
         setData(loadFromStorage(item.key));
     }, [data, calendar]);
 
