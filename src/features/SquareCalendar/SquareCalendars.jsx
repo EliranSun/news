@@ -64,10 +64,12 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
 
     return (
         <div className="text-2xl font-bold mb-4 text-left w-full">
-            {format(selectedDate, "EEEE")} was <span className={classNames(
-                getColorsClassList(mood?.color), {
-                "font-bold px-2": true
-            })}>{mood?.label.toUpperCase()}
+            {format(selectedDate, "EEEE")} was <span
+                style={{ color: contrastColor({ bgColor: ColorHexMap[mood?.color] }) }}
+                className={classNames(
+                    getColorsClassList(mood?.color), {
+                    "font-bold px-2": true
+                })}>{mood?.label.toUpperCase()}
             </span>.
             <br /><br />
             {css ? <span>I coded CSS</span> : <span>I did not manage to CSS</span>} and {' '}

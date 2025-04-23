@@ -2,7 +2,7 @@ import { getDaysInMonth, getDay, startOfMonth, subMonths } from "date-fns";
 import PropTypes from "prop-types";
 import { DaySquare } from "../atoms/DaySquare";
 import { useMemo, useState, useEffect } from "react";
-import { CalendarMonthColorInfo } from "../molecules/CalendarMonthColorInfo";
+// import { CalendarMonthColorInfo } from "../molecules/CalendarMonthColorInfo";
 import classNames from "classnames";
 import { ColorsButtons } from "../molecules/ColorsButtons";
 import { FloppyDisk, CheckCircle, WarningCircle } from "@phosphor-icons/react";
