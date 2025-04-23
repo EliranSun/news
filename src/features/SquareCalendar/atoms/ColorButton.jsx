@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import PropTypes from "prop-types";
 import { Colors } from "../constants";
 
-export const ColorButton = ({ color, onClick, legend }) => {
+export const ColorButton = ({ color, onClick, legend, count }) => {
     const bgColor = useMemo(() => getColorsClassList(color), [color]);
     const textColor = useMemo(() => {
         if (color === Colors.Clear) {
@@ -29,6 +29,7 @@ export const ColorButton = ({ color, onClick, legend }) => {
             })}>
             {/* <div className={classNames("size-4", } /> */}
             {legend && <label className="text-[8px]">{legend.name}</label>}
+            {count && <label className="text-[8px]">{count}</label>}
         </button>
     );
 };
@@ -37,4 +38,5 @@ ColorButton.propTypes = {
     color: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
     legend: PropTypes.object,
+    count: PropTypes.number,
 };

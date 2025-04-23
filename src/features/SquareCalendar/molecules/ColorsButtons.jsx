@@ -1,6 +1,20 @@
 import { ColorButton } from "../atoms/ColorButton";
 import PropTypes from "prop-types";
-export const ColorsButtons = ({ calendar, onColorSelect }) => {
+import { useColorPercentage } from "../useColorPercentage";
+import { getDaysInMonth } from "date-fns";
+
+export const ColorsButtons = ({ data, calendar, onColorSelect, selectedDate, monthIndex }) => {
+    const month = new Date(selectedDate.getFullYear(), monthIndex, 1);
+    const daysInMonth = getDaysInMonth(month);
+    const currentMonthDays = Array.from({ length: daysInMonth }, (_, i) => ({
+        date: new Date(month.getFullYear(), month.getMonth(), i + 1),
+        previousMonth: false
+    }));
+
+    const colorPercentages = useColorPercentage(data, currentMonthDays);
+
+    console.log({ colorPercentages });
+
     return (
         <div className="flex overflow-x-auto gap-0.5">
             {calendar.colors.map(color =>
@@ -9,6 +23,7 @@ export const ColorsButtons = ({ calendar, onColorSelect }) => {
                     color={color}
                     legend={calendar.legend?.find(item => item.color === color)}
                     onClick={() => onColorSelect(color)}
+                    count={colorPercentages.find(item => item.color === color)?.count}
                 />
             )}
             <ColorButton color="⬜️" onClick={() => onColorSelect('clear')} />
@@ -18,6 +33,9 @@ export const ColorsButtons = ({ calendar, onColorSelect }) => {
 
 ColorsButtons.propTypes = {
     calendar: PropTypes.object.isRequired,
-    onColorSelect: PropTypes.func.isRequired
+    onColorSelect: PropTypes.func.isRequired,
+    selectedDate: PropTypes.instanceOf(Date).isRequired,
+    monthIndex: PropTypes.number.isRequired,
+    data: PropTypes.array.isRequired
 }
 

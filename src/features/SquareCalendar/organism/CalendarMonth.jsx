@@ -84,11 +84,11 @@ export const CalendarMonth = ({
                     })}
                 </div>
             </div>
-            <CalendarMonthColorInfo
+            {/* <CalendarMonthColorInfo
                 data={data}
                 size={size}
                 selectedDate={month}
-                showInfo />
+                showInfo /> */}
             <textarea
                 value={note}
                 placeholder="Note"
@@ -98,7 +98,13 @@ export const CalendarMonth = ({
                     "border min-h-10": true,
                 })}
             />
-            <ColorsButtons calendar={calendar} onColorSelect={onColorSelect} />
+            <ColorsButtons
+                calendar={calendar}
+                onColorSelect={onColorSelect}
+                selectedDate={selectedDate}
+                monthIndex={monthIndex}
+                data={data}
+            />
             <button className="flex items-center justify-center" onClick={() => onNoteUpdate(note, (success) => {
                 setIsNoteSaved(success);
                 setTimeout(() => {
