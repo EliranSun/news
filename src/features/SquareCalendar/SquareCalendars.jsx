@@ -66,13 +66,18 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
 
     return (
         <div className="text-3xl font-bold my-8 text-left w-full">
-            {format(selectedDate, "EEEE")} was <span
-                style={{ color: contrastColor({ bgColor: ColorHexMap[mood?.color] }) }}
-                className={classNames(
-                    getColorsClassList(mood?.color), {
-                    "font-bold px-2": true
-                })}>{mood?.label.toUpperCase()}
-            </span>. {loneliness ? (
+            {format(selectedDate, "EEEE")}{mood ? " was " : ""}{mood ? (
+                <>
+                    <span
+                        style={{ color: contrastColor({ bgColor: ColorHexMap[mood?.color] }) }}
+                        className={classNames(
+                            getColorsClassList(mood?.color), {
+                            "font-bold px-2": true
+                        })}>{mood?.label.toUpperCase()}
+                    </span>
+                </>
+            ) : ""}.{' '}
+            {loneliness ? (
                 <>
                     Socially, I felt{' '}
                     <span
