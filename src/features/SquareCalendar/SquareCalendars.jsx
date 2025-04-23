@@ -62,6 +62,7 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
     const css = dayColours[Calendars.Css.key];
     const read = dayColours[Calendars.Read.key];
     const loneliness = dayColours[Calendars.Loneliness.key];
+    const friends = dayColours[Calendars.Friends.key];
 
     return (
         <div className="text-3xl font-bold my-8 text-left w-full">
@@ -93,7 +94,14 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
             })}>READ for 30m</span> : <span>did not READ</span>}
             {(css && read) ? "! " : ". "}
             {!css && !read && <span>Bummer.</span>}
-
+            <br /><br />
+            {friends ? (
+                <>
+                    I met with <span className={classNames(getColorsClassList(friends?.color), {
+                        "font-bold px-2": true
+                    })}>{friends?.label.toUpperCase()}</span>.
+                </>
+            ) : ""}
             {/* <div className="grid grid-cols-2 gap-1 overflow-x-auto py-0">
                 {Object.values(Calendars).map(cal => {
                     const colour = dayColours[cal.key];

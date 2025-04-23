@@ -16,7 +16,7 @@ export const ColorsButtons = ({ data, calendar, onColorSelect, selectedDate, mon
     console.log({ colorPercentages });
 
     return (
-        <div className="flex overflow-x-auto gap-0.5">
+        <div className="flex flex-wrap overflow-x-auto gap-0.5">
             {calendar.colors.map(color =>
                 <ColorButton
                     key={color}
