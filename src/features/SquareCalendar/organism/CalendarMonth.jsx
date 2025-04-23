@@ -63,7 +63,7 @@ export const CalendarMonth = ({
     }, [isNoteSaved]);
 
     return (
-        <div className="flex flex-col justify-between space-y-1" key={`month-${monthIndex}`}>
+        <div className="flex flex-col justify-between space-y-1 w-full" key={`month-${monthIndex}`}>
             {isYearView ? <h2 className="text-xs font-serif my-0">{format(month, "MMM")}</h2> : ""}
             <div>
                 <div className={classNames({
@@ -92,13 +92,13 @@ export const CalendarMonth = ({
                 selectedDate={month}
                 showInfo /> */}
             {!isYearView && (
-                <div className="space-y-8">
+                <div className="space-y-4 w-full pt-4">
                     <textarea
                         value={note}
                         placeholder="Note"
                         onChange={event => setNote(event.target.value)}
                         className={classNames({
-                            "p-4 rounded-lg font-mono": true,
+                            "p-4 rounded-lg font-mono w-full": true,
                             "border min-h-10": true,
                         })}
                     />
