@@ -62,7 +62,7 @@ export const CalendarMonth = ({
     }, [isNoteSaved]);
 
     return (
-        <div className="flex flex-col justify-between space-y-4" key={`month-${monthIndex}`}>
+        <div className="flex flex-col justify-between space-y-8" key={`month-${monthIndex}`}>
             <div>
                 <div className={classNames({
                     "grid grid-cols-7": true,
