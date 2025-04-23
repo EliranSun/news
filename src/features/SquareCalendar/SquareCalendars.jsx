@@ -359,17 +359,20 @@ export default function SquareCalendars() {
                 }
                 {view === "year" && (
                     <FlexibleOpacityTransition>
-                        {yearMap.map((_, monthIndex) => {
-                            return (
-                                <CalendarMonth
-                                    key={monthIndex}
-                                    showInfo={showMonthInfo}
-                                    selectedDate={selectedDate}
-                                    setSelectedDate={setSelectedDate}
-                                    data={data}
-                                    monthIndex={monthIndex} />
-                            )
-                        })}
+                        <div className="my-8 grid grid-cols-3 gap-2">
+                            {yearMap.map((_, monthIndex) => {
+                                return (
+                                    <CalendarMonth
+                                        key={monthIndex}
+                                        isYearView={true}
+                                        showInfo={showMonthInfo}
+                                        selectedDate={selectedDate}
+                                        setSelectedDate={setSelectedDate}
+                                        data={data}
+                                        monthIndex={monthIndex} />
+                                )
+                            })}
+                        </div>
                     </FlexibleOpacityTransition>
                 )}
                 <CalendarsList

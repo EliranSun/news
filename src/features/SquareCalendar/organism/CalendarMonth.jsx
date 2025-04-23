@@ -1,4 +1,4 @@
-import { getDaysInMonth, getDay, startOfMonth, subMonths } from "date-fns";
+import { getDaysInMonth, getDay, startOfMonth, subMonths, format } from "date-fns";
 import PropTypes from "prop-types";
 import { DaySquare } from "../atoms/DaySquare";
 import { useMemo, useState, useEffect } from "react";
@@ -17,7 +17,8 @@ export const CalendarMonth = ({
     calendar,
     onColorSelect,
     onNoteUpdate,
-    note: initialNote
+    note: initialNote,
+    isYearView = false
 }) => {
     const [note, setNote] = useState(initialNote);
     const [isNoteSaved, setIsNoteSaved] = useState(null);
@@ -62,7 +63,8 @@ export const CalendarMonth = ({
     }, [isNoteSaved]);
 
     return (
-        <div className="flex flex-col justify-between space-y-8" key={`month-${monthIndex}`}>
+        <div className="flex flex-col justify-between space-y-1" key={`month-${monthIndex}`}>
+            {isYearView ? <h2 className="text-xs font-serif my-0">{format(month, "MMM")}</h2> : ""}
             <div>
                 <div className={classNames({
                     "grid grid-cols-7": true,
@@ -89,30 +91,34 @@ export const CalendarMonth = ({
                 size={size}
                 selectedDate={month}
                 showInfo /> */}
-            <textarea
-                value={note}
-                placeholder="Note"
-                onChange={event => setNote(event.target.value)}
-                className={classNames({
-                    "p-4 rounded-lg font-mono": true,
-                    "border min-h-10": true,
-                })}
-            />
-            <ColorsButtons
-                calendar={calendar}
-                onColorSelect={onColorSelect}
-                selectedDate={selectedDate}
-                monthIndex={monthIndex}
-                data={data}
-            />
-            <button className="flex items-center justify-center" onClick={() => onNoteUpdate(note, (success) => {
-                setIsNoteSaved(success);
-                setTimeout(() => {
-                    setIsNoteSaved(null);
-                }, 1000);
-            })}>
-                <NoteSaveIcon size={24} />
-            </button>
+            {!isYearView && (
+                <div className="space-y-8">
+                    <textarea
+                        value={note}
+                        placeholder="Note"
+                        onChange={event => setNote(event.target.value)}
+                        className={classNames({
+                            "p-4 rounded-lg font-mono": true,
+                            "border min-h-10": true,
+                        })}
+                    />
+                    <ColorsButtons
+                        calendar={calendar}
+                        onColorSelect={onColorSelect}
+                        selectedDate={selectedDate}
+                        monthIndex={monthIndex}
+                        data={data}
+                    />
+                    <button className="flex items-center justify-center" onClick={() => onNoteUpdate(note, (success) => {
+                        setIsNoteSaved(success);
+                        setTimeout(() => {
+                            setIsNoteSaved(null);
+                        }, 1000);
+                    })}>
+                        <NoteSaveIcon size={24} />
+                    </button>
+                </div>
+            )}
         </div>
     )
 };

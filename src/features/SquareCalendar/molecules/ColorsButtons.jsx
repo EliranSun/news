@@ -13,7 +13,7 @@ export const ColorsButtons = ({ data, calendar, onColorSelect, selectedDate, mon
 
     const colorPercentages = useColorPercentage(data, currentMonthDays);
 
-    console.log({ colorPercentages });
+    if (!calendar) return null;
 
     return (
         <div className="flex flex-wrap overflow-x-auto gap-0.5">
