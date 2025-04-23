@@ -100,11 +100,11 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
             {(css && read) ? "! " : ". "}
             {!css && !read && <span>Bummer.</span>}
             <br /><br />
-            {friends ? (
+            {friends && friends.label ? (
                 <>
-                    I met with <span className={classNames(getColorsClassList(friends?.color), {
+                    I met with <span className={classNames(getColorsClassList(friends.color), {
                         "font-bold px-2": true
-                    })}>{friends?.label.toUpperCase()}</span>.
+                    })}>{friends.label.toUpperCase()}</span>.
                 </>
             ) : ""}
             {/* <div className="grid grid-cols-2 gap-1 overflow-x-auto py-0">
