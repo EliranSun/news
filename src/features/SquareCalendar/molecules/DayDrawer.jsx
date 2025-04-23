@@ -1,10 +1,10 @@
 import classNames from "classnames";
 import { Note, X } from "@phosphor-icons/react";
-import { ColorButton } from "../atoms/ColorButton";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { DayNoteModal } from "./DayNoteModal";
 import { motion } from "motion/react"
+import { ColorsButtons } from "./ColorsButtons";
 
 export const DayDrawer = ({ isOpen, onNoteUpdate, onClose, title, calendar, onColorSelect, note }) => {
     const [isNoteOpen, setIsNoteOpen] = useState(false);
@@ -45,17 +45,7 @@ export const DayDrawer = ({ isOpen, onNoteUpdate, onClose, title, calendar, onCo
                             onClick={() => {
                                 setIsNoteOpen(true)
                             }} />
-                        <div className="flex overflow-x-auto gap-0.5">
-                            {calendar.colors.map(color =>
-                                <ColorButton
-                                    key={color}
-                                    color={color}
-                                    legend={calendar.legend?.find(item => item.color === color)}
-                                    onClick={() => onColorSelect(color)}
-                                />
-                            )}
-                            <ColorButton color="⬜️" onClick={() => onColorSelect('clear')} />
-                        </div>
+                        <ColorsButtons calendar={calendar} onColorSelect={onColorSelect} />
                         <X
                             size={20}
                             color="black"

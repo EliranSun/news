@@ -28,7 +28,8 @@ export const useColorPercentage = (data, days) => {
             color,
             percentage: Math.round((count / days.length) * 100),
             count
-        })).sort((a, b) => b.percentage - a.percentage); // Sort by percentage descending
+        }))
+            .sort((a, b) => b.percentage - a.percentage); // Sort by percentage descending
     }, [days, data]);
 
     return colorPercentages;

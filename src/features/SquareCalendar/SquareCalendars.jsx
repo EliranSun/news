@@ -99,16 +99,17 @@ export default function SquareCalendars() {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const storageData = loadFromStorage(Calendars[calendarKey]?.key || Calendars.Mood.key);
     const [data, setData] = useState(storageData);
+    // this works because timestamp is unique
     const [selectedDateNote, setSelectedDateNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
     const [showMonthInfo, setShowMonthInfo] = useState(false);
-    const [view, setView] = useState("year");
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const dateTitle = useMemo(() => new Date(selectedDate).toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    }), [selectedDate]);
+    const [view, setView] = useState("month");
+    // const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    // const dateTitle = useMemo(() => new Date(selectedDate).toLocaleDateString('en-US', {
+    //     weekday: 'long',
+    //     year: 'numeric',
+    //     month: 'long',
+    //     day: 'numeric'
+    // }), [selectedDate]);
 
     const daysSinceLastEntry = useMemo(() => {
         return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
@@ -162,27 +163,26 @@ export default function SquareCalendars() {
         window.history.pushState({}, '', url);
 
         // saveToStorage(calendar.key, data);
-        setCalendar(item);
-        setData(loadFromStorage(item.key));
-    }, [data, calendar]);
+        const newData = loadFromStorage(item.key);
+        const note = newData.find(item => isSameDay(item.date, selectedDate))?.note || "";
 
-    useEffect(() => {
-        const dayItem = data.find(item => isSameDay(item.date, selectedDate));
-        setSelectedDateNote(dayItem?.note || "");
-    }, [selectedDate, data]);
+        setCalendar(item);
+        setData(newData);
+        setSelectedDateNote(note);
+    }, [selectedDate]);
 
     const yearMap = useMemo(() => new Array(12).fill(0), []);
 
-    {/* 
-                <CalendarYearSummary /> */}
+    console.log({ data, selectedDateNote });
+
     return (
         <>
-            <button
+            {/* <button
                 onClick={() => setIsDrawerOpen(!isDrawerOpen)}
                 className="fixed bottom-32 right-5  rounded-full p-4 bg-black text-white">
                 <Palette size={24}
                     color="white" />
-            </button>
+            </button> */}
             {isPhysicsDemoOpen && <PhysicsDemo />}
             <Navbar
                 selectedItem={view}
@@ -190,7 +190,7 @@ export default function SquareCalendars() {
                 onPhysicsClick={() => setIsPhysicsDemoOpen(!isPhysicsDemoOpen)}
                 onListClick={() => setView("list")} />
             <div id="note-modal-portal" />
-            <DayDrawer
+            {/* <DayDrawer
                 title={dateTitle}
                 calendar={calendar}
                 isOpen={isDrawerOpen}
@@ -208,7 +208,7 @@ export default function SquareCalendars() {
                     setData(newData);
                     saveToStorage(calendar.key, newData);
                 }}
-            />
+            /> */}
             <div className="p-4 w-screen overflow-hidden h-dvh user-select-none space-y-4 font-mono">
                 <div className="flex w-full justify-between items-center">
                     <div className="flex flex-col gap-1">
@@ -217,7 +217,9 @@ export default function SquareCalendars() {
                                 calendar={calendar}
                                 daysSinceLastEntry={daysSinceLastEntry} />
                             <span className="text-lg font-bold">
-                                {selectedDate ? new Date(selectedDate).getFullYear() : new Date().getFullYear()}
+                                {selectedDate
+                                    ? `${new Date(selectedDate).getFullYear()} ${new Date(selectedDate).toLocaleDateString('en-US', { month: 'long' })}`
+                                    : `${new Date().getFullYear()} ${new Date().getMonth()}`}
                             </span>
                         </div>
                         <div className="flex items-center gap-2">
@@ -260,10 +262,39 @@ export default function SquareCalendars() {
                             showInfo={showMonthInfo}
                             selectedDate={selectedDate}
                             size="big"
-                            setSelectedDate={setSelectedDate}
+                            note={selectedDateNote}
+                            onNoteUpdate={(value, callback) => {
+                                try {
+                                    let newData = [...data];
+                                    const hasDay = newData.find(item => isSameDay(item.date, selectedDate));
+                                    if (hasDay) {
+                                        newData = newData.map(item =>
+                                            isSameDay(item.date, selectedDate)
+                                                ? { ...item, note: value }
+                                                : item);
+                                    } else {
+                                        newData.push({ date: selectedDate, note: value });
+                                    }
+
+                                    setData(newData);
+                                    saveToStorage(calendar.key, newData);
+                                    setSelectedDateNote(value);
+                                    callback?.(true);
+                                } catch (error) {
+                                    console.error(error);
+                                    callback?.(false);
+                                }
+                            }}
+                            calendar={calendar}
+                            onColorSelect={updateColor}
+                            setSelectedDate={newDate => {
+                                setSelectedDate(newDate);
+                                const dayItem = data.find(item => isSameDay(item.date, newDate));
+                                setSelectedDateNote(dayItem?.note || "");
+                            }}
                             monthIndex={new Date().getMonth()}
                             data={data} />
-                        <span className="text-xs mt-4">
+                        {/* <span className="text-xs mt-4">
                             TODO: a combined view of all calendars? <br />
                             OR: Compared to last April...
                             Compared to previous month...
@@ -271,7 +302,7 @@ export default function SquareCalendars() {
 
                             <br /> No! this should be a better ux for the year. so note should be
                             right here visible immediately plus colors!
-                        </span>
+                        </span> */}
                     </FlexibleOpacityTransition>
                 }
                 {view === "year" && (

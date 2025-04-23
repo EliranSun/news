@@ -322,7 +322,7 @@ export const importCalendarData = () => {
 
 export const isSameDay = (date1, date2) => {
     if (!date1 || !date2) return false;
-    return new Date(date1).toDateString() === new Date(date2).toDateString();
+    return new Date(date1).getTime() === new Date(date2).getTime();
 };
 
 export const contrastColor = ({

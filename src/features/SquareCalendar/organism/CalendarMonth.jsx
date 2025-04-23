@@ -1,11 +1,32 @@
 import { getDaysInMonth, getDay, startOfMonth, subMonths } from "date-fns";
 import PropTypes from "prop-types";
 import { DaySquare } from "../atoms/DaySquare";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { CalendarMonthColorInfo } from "../molecules/CalendarMonthColorInfo";
 import classNames from "classnames";
+import { ColorsButtons } from "../molecules/ColorsButtons";
+import { FloppyDisk, CheckCircle, WarningCircle } from "@phosphor-icons/react";
 
-export const CalendarMonth = ({ selectedDate = new Date(), setSelectedDate, data, monthIndex, showInfo, size = "small" }) => {
+export const CalendarMonth = ({
+    selectedDate = new Date(),
+    setSelectedDate,
+    data,
+    monthIndex,
+    showInfo,
+    size = "small",
+    calendar,
+    onColorSelect,
+    onNoteUpdate,
+    note: initialNote
+}) => {
+    const [note, setNote] = useState(initialNote);
+    const [isNoteSaved, setIsNoteSaved] = useState(null);
+
+    useEffect(() => {
+        console.log("initialNote", initialNote);
+        setNote(initialNote);
+    }, [initialNote]);
+
     const month = useMemo(() => {
         return new Date(selectedDate.getFullYear(), monthIndex, 1);
     }, [selectedDate, monthIndex]);
@@ -29,14 +50,20 @@ export const CalendarMonth = ({ selectedDate = new Date(), setSelectedDate, data
         return [...previousMonthDays, ...currentMonthDays];
     }, [month]);
 
+    const NoteSaveIcon = useMemo(() => {
+        if (isNoteSaved === null) {
+            return FloppyDisk;
+        }
+
+        if (isNoteSaved) {
+            return CheckCircle;
+        }
+        return WarningCircle;
+    }, [isNoteSaved]);
+
     return (
-        <div className="flex flex-col justify-between my-1" key={`month-${monthIndex}`}>
+        <div className="flex flex-col justify-between space-y-4" key={`month-${monthIndex}`}>
             <div>
-                <div className="flex justify-between items-center">
-                    <h2 className="text-xs inter-500">
-                        {month.toLocaleString('default', { month: 'short' })}
-                    </h2>
-                </div>
                 <div className={classNames({
                     "grid grid-cols-7": true,
                     "p-1 gap-0.5": size === "small",
@@ -61,7 +88,25 @@ export const CalendarMonth = ({ selectedDate = new Date(), setSelectedDate, data
                 data={data}
                 size={size}
                 selectedDate={month}
-                showInfo={showInfo} />
+                showInfo />
+            <textarea
+                value={note}
+                placeholder="Note"
+                onChange={event => setNote(event.target.value)}
+                className={classNames({
+                    "p-4 rounded-lg font-mono": true,
+                    "border min-h-10": true,
+                })}
+            />
+            <ColorsButtons calendar={calendar} onColorSelect={onColorSelect} />
+            <button className="flex items-center justify-center" onClick={() => onNoteUpdate(note, (success) => {
+                setIsNoteSaved(success);
+                setTimeout(() => {
+                    setIsNoteSaved(null);
+                }, 1000);
+            })}>
+                <NoteSaveIcon size={24} />
+            </button>
         </div>
     )
 };

@@ -19,16 +19,16 @@ const MonthColorInfo = ({ data, monthIndex, selectedDate, monthName, size = "sma
             "h-5 gap-2": size === "small",
             "h-fit gap-4": size === "big"
         })}>
-            {colorPercentages.map(({ color, percentage }) => (
+            {colorPercentages.map(({ color, count }) => (
                 <div
                     key={color}
                     className="flex flex-col items-center gap-0 font-mono text-[8px]"
-                    title={`${color}: ${percentage}%`}>
+                    title={`${color}: ${count}`}>
                     <div className={classNames(`rounded-sm ${getColorsClassList(color)}`, {
                         "size-2": size === "small",
                         "size-6": size === "big"
                     })}></div>
-                    <span>{percentage}%</span>
+                    <span>{count}</span>
                 </div>
             ))}
         </div>
