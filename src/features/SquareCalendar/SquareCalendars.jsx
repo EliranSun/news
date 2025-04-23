@@ -73,7 +73,7 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
             </span>.
             <br /><br />
             {css ? <span>I coded CSS</span> : <span>I did not manage to CSS</span>} and {' '}
-            {read ? <span>I read</span> : <span>I did not read</span>}.
+            {read ? <span>I READ for 30m!</span> : <span>I did not READ</span>}. {!css && !read && <span>Bummer.</span>}
 
             {/* <div className="grid grid-cols-2 gap-1 overflow-x-auto py-0">
                 {Object.values(Calendars).map(cal => {
