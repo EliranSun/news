@@ -55,14 +55,16 @@ export const CalendarDayView = ({ data }) => {
         <div
             id="calendar-day-view"
             className="flex flex-col gap-1 h-[80vh] w-screen overflow-y-auto pb-20">
-            {data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()).map((item) => {
-                return (
-                    <CalendarDay
-                        key={item.date}
-                        item={item}
-                    />
-                );
-            })}
+            {data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+                .filter(item => item.note)
+                .map((item) => {
+                    return (
+                        <CalendarDay
+                            key={item.date}
+                            item={item}
+                        />
+                    );
+                })}
         </div>
     )
 };
