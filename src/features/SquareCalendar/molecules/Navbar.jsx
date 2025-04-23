@@ -4,7 +4,7 @@ import {
     List,
     TrayArrowDown,
     TrayArrowUp,
-    Calendar,
+    TextAa,
     CalendarDot,
     CalendarDots,
     Cube,
@@ -119,7 +119,7 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                 <NavbarButton
                     isSelected={selectedItem === "day"}
                     label="day"
-                    icon={Calendar}
+                    icon={TextAa}
                     onClick={() => { onItemClick("day") }}
                 />
                 <NavbarButton
