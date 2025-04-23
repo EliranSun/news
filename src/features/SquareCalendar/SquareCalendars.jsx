@@ -72,7 +72,8 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
                 })}>{mood?.label.toUpperCase()}
             </span>.
             <br /><br />
-            {css ? <span>I coded CSS</span> : <span>I did not manage to CSS</span>} and {' '}
+            {css ? <span>I coded CSS</span> : <span>I did not manage to CSS</span>}
+            {(css && !read || !css && read) ? "but" : "and"}
             {read ? <span>I READ for 30m!</span> : <span>I did not READ</span>}. {!css && !read && <span>Bummer.</span>}
 
             {/* <div className="grid grid-cols-2 gap-1 overflow-x-auto py-0">
