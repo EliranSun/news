@@ -125,7 +125,7 @@ const DayHoursColumn = ({
                         }}
                         className={classNames({
                             "cursor-pointer h-6 text-black": true,
-                            "bg-gray-100": !hours?.[index],
+                            "bg-gray-100 dark:bg-gray-800": !hours?.[index],
                             "bg-purple-400": hours?.[index] === 1,
                             "bg-orange-400": hours?.[index] === 2,
                             "bg-yellow-400": hours?.[index] === 3,
