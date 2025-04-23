@@ -61,20 +61,38 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
     const mood = dayColours[Calendars.Mood.key];
     const css = dayColours[Calendars.Css.key];
     const read = dayColours[Calendars.Read.key];
+    const loneliness = dayColours[Calendars.Loneliness.key];
 
     return (
-        <div className="text-2xl font-bold mb-4 text-left w-full">
+        <div className="text-3xl font-bold my-8 text-left w-full">
             {format(selectedDate, "EEEE")} was <span
                 style={{ color: contrastColor({ bgColor: ColorHexMap[mood?.color] }) }}
                 className={classNames(
                     getColorsClassList(mood?.color), {
                     "font-bold px-2": true
                 })}>{mood?.label.toUpperCase()}
-            </span>.
-            <br /><br />
-            {css ? <span>I coded CSS</span> : <span>I did not manage to CSS</span>}
-            {(css && !read || !css && read) ? "but" : "and"}
-            {read ? <span>I READ for 30m!</span> : <span>I did not READ</span>}. {!css && !read && <span>Bummer.</span>}
+            </span>. {loneliness ? (
+                <>
+                    I felt{' '}
+                    <span
+                        style={{ color: contrastColor({ bgColor: ColorHexMap[loneliness?.color] }) }}
+                        className={classNames(
+                            getColorsClassList(loneliness?.color), {
+                            "font-bold px-2": true
+                        })}>{loneliness?.label.toUpperCase()}
+                    </span>.
+                </>
+            ) : ""}
+            <br /><br />I {' '}
+            {css ? <span className={classNames(getColorsClassList(css?.color), {
+                "font-bold px-2": true
+            })}>coded CSS</span> : <span>did not manage to CSS</span>}
+            {(css && !read || !css && read) ? " but " : " and "}
+            {read ? <span className={classNames(getColorsClassList(read?.color), {
+                "font-bold px-2": true
+            })}>READ for 30m</span> : <span>did not READ</span>}
+            {(css && read) ? "! " : ". "}
+            {!css && !read && <span>Bummer.</span>}
 
             {/* <div className="grid grid-cols-2 gap-1 overflow-x-auto py-0">
                 {Object.values(Calendars).map(cal => {
