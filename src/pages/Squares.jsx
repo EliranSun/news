@@ -32,11 +32,16 @@ const SquareMap = [
         "activity": "Prep",
         "color": "🟥",
     },
+    {
+        "id": 7,
+        "activity": "WebDev",
+        "color": "🟧",
+    },
 ];
 
 const Hours = new Array(24 * 2).fill(0).map((_, index) => `${Math.floor(index / 2)}:${index % 2 === 0 ? '00' : '30'}`); // every 30 minutes
 const START_HOUR = 7 * 2;
-const END_HOUR = 19 * 2;
+const END_HOUR = 21 * 2;
 
 const Column = ({ children, size = "normal" }) => {
     return (
@@ -130,7 +135,8 @@ const DayHoursColumn = ({
                             "border border-black":
                                 selectedHour === index && selectedDate === date
                         })}>
-                    </div>)}
+                    </div>
+                )}
             <div>
                 {totalYellow * 0.5}h
             </div>
@@ -151,14 +157,14 @@ export default function Squares() {
     }, [data]);
 
     return (
-        <>
-            <div className="flex font-mono p-4">
+        <div className="flex flex-col overflow-y-auto h-screen p-4">
+            <div className="flex font-mono">
                 <Column>
                     <div className="text-center border-b border-black h-8">Hours</div>
-                    {Hours.slice(START_HOUR, END_HOUR).map((hour, index) =>
+                    {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>
                         <div key={index} className="h-6 text-xs">{hour}</div>)}
                 </Column>
-                <div className="flex overflow-x-auto max-w-[60vw]">
+                <div className="flex overflow-x-auto w-full">
                     {Object
                         .entries(data)
                         .sort((a, b) => {
@@ -178,55 +184,47 @@ export default function Squares() {
                                 setData={setData} />
                         )}
                 </div>
-                <Column>
-                    <button onClick={() => {
-                        const lastWeek = new Date(Object.keys(data).at(-1));
-                        lastWeek.setDate(lastWeek.getDate() - 7);
-                        setData({
-                            ...data,
-                            [lastWeek.toISOString().split('T')[0]]: data[lastWeek.toISOString().split('T')[0]] || {}
-                        })
-                    }}>+</button>
-                </Column>
             </div>
-            <div>
-                {SquareMap.map((square) =>
-                    <button
-                        key={square.id}
-                        className="text-xs"
-                        onClick={() => {
-                            setData({
-                                ...data,
-                                [selectedDate]: {
-                                    ...data[selectedDate],
-                                    [selectedHour]: square.id
-                                }
-                            });
+            <div className="flex flex-col gap-2">
+                <div className="">
+                    {SquareMap.map((square) =>
+                        <button
+                            key={square.id}
+                            className="text-xs"
+                            onClick={() => {
+                                setData({
+                                    ...data,
+                                    [selectedDate]: {
+                                        ...data[selectedDate],
+                                        [selectedHour]: square.id
+                                    }
+                                });
 
-                            setSelectedHour(selectedHour + 1);
-                        }}>
-                        {square.color} - {square.activity}
-                    </button>)}
+                                setSelectedHour(selectedHour + 1);
+                            }}>
+                            {square.color} {square.activity}
+                        </button>)}
+                </div>
+                <button onClick={() => {
+                    setSortBy('color');
+                }}>
+                    Sort by color
+                </button>
+                <button onClick={() => {
+                    const url = new URL(window.location.href);
+                    url.pathname = "/";
+                    window.location.href = url;
+                }}>
+                    Squares
+                </button>
+                <button onClick={() => {
+                    const emojiText = exportToEmojiText(data);
+                    // copy to clipboard
+                    navigator.clipboard.writeText(emojiText);
+                }}>
+                    Export
+                </button>
             </div>
-            <button onClick={() => {
-                setSortBy('color');
-            }}>
-                Sort by color
-            </button>
-            <button onClick={() => {
-                const url = new URL(window.location.href);
-                url.pathname = "/";
-                window.location.href = url;
-            }}>
-                Squares
-            </button>
-            <button onClick={() => {
-                const emojiText = exportToEmojiText(data);
-                // copy to clipboard
-                navigator.clipboard.writeText(emojiText);
-            }}>
-                Export
-            </button>
-        </>
+        </div>
     )
 }
