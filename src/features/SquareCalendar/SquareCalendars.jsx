@@ -6,9 +6,9 @@ import { CalendarGamification } from "./molecules/CalendarGamification";
 import { CalendarsStrip } from "./molecules/CalendarsStrip";
 import { CalendarMonth } from "./organism/CalendarMonth";
 import { CalendarName } from "./atoms/CalendarName";
-import { differenceInDays } from "date-fns";
+import { differenceInDays, format } from "date-fns";
 import { CalendarYearColorInfo } from "./molecules/CalendarYearColorInfo";
-import { DayDrawer } from "./molecules/DayDrawer";
+// import { DayDrawer } from "./molecules/DayDrawer";
 import { Navbar } from "./molecules/Navbar";
 import PhysicsDemo from "./organism/PhysicsDemo";
 import { Info } from "@phosphor-icons/react";
@@ -17,7 +17,7 @@ import { CalendarDayView } from "./organism/CalendarDayView";
 // import { CalendarYearSummary } from "./organism/CalendarYearSummary";
 import classNames from "classnames";
 import { motion } from "framer-motion";
-import { Palette } from "@phosphor-icons/react";
+// import { Palette } from "@phosphor-icons/react";
 
 const FlexibleOpacityTransition = ({ children }) => {
     return (
@@ -43,7 +43,12 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
         return Object.values(Calendars).reduce((acc, cal) => {
             const stored = loadFromStorage(cal.key) ?? [];
             const entry = stored.find(e => isSameDay(e.date, selectedDate));
-            acc[cal.key] = entry?.color ?? null;      // null → no colour that day
+            const legend = Object.values(Calendars).find(c => c.key === cal.key)?.legend;
+
+            acc[cal.key] = entry?.color ? {
+                color: entry.color,
+                label: legend?.find(l => l.color === entry.color)?.name
+            } : null;      // null → no colour that day
             return acc;
         }, {});
     }, [selectedDate]);
@@ -51,11 +56,24 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
 
     if (!selectedDate) return null;
 
-    return (
-        <>
-            <h1 className="text-2xl font-bold mb-4">{selectedDate.toLocaleDateString()}</h1>
+    console.log({ selectedDate, dayColours });
 
-            <div className="grid grid-cols-2 gap-1 overflow-x-auto py-0">
+    const mood = dayColours[Calendars.Mood.key];
+    const css = dayColours[Calendars.Css.key];
+    const read = dayColours[Calendars.Read.key];
+
+    return (
+        <div className="text-2xl font-bold mb-4 text-left w-full">
+            {format(selectedDate, "EEEE")} was <span className={classNames(
+                getColorsClassList(mood?.color), {
+                "font-bold px-2": true
+            })}>{mood?.label.toUpperCase()}
+            </span>.
+            <br /><br />
+            {css ? <span>I coded CSS</span> : <span>I did not manage to CSS</span>} and {' '}
+            {read ? <span>I read</span> : <span>I did not read</span>}.
+
+            {/* <div className="grid grid-cols-2 gap-1 overflow-x-auto py-0">
                 {Object.values(Calendars).map(cal => {
                     const colour = dayColours[cal.key];
                     const isEmpty = !colour || colour === Colors.Clear;
@@ -87,8 +105,8 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
                         </div>
                     );
                 })}
-            </div>
-        </>
+            </div> */}
+        </div>
     );
 };
 
