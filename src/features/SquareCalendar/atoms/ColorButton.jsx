@@ -29,7 +29,7 @@ export const ColorButton = ({ color, onClick, legend, count }) => {
             })}>
             {/* <div className={classNames("size-4", } /> */}
             {legend && <label className="text-[8px]">{legend.name}</label>}
-            {count && <label className="text-[8px]">{count}</label>}
+            <label className="text-[8px]">{count || 0}</label>
         </button>
     );
 };
