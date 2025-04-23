@@ -73,7 +73,7 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
                 })}>{mood?.label.toUpperCase()}
             </span>. {loneliness ? (
                 <>
-                    I felt{' '}
+                    Socially, I felt{' '}
                     <span
                         style={{ color: contrastColor({ bgColor: ColorHexMap[loneliness?.color] }) }}
                         className={classNames(
