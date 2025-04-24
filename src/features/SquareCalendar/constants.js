@@ -269,6 +269,30 @@ export const Calendars = {
             { name: "2:30+", color: Colors.Purple },
         ],
     },
+    SleepDeep: {
+        showColorStatus: false,
+        name: "DEEP",
+        key: "deep-sleep-square-calendar",
+        colors: [
+            Colors.Lightblue,
+            Colors.Skyblue,
+            Colors.Blue,
+            Colors.Navy,
+            Colors.Violet,
+            Colors.Purple
+        ],
+        icon: "💤",
+                showGamification: false,
+        category: "self",
+        legend: [
+            { name: "0-14", color: Colors.Lightblue },
+            { name: "15-29", color: Colors.Skyblue },
+            { name: "30-44", color: Colors.Blue },
+            { name: "45-59", color: Colors.Navy },
+            { name: "1:00-1:14", color: Colors.Violet },
+            { name: "1:15+", color: Colors.Purple },
+        ],
+    },
     Protein: {
         showColorStatus: false,
                 showGamification: false,
