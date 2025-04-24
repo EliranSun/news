@@ -16,8 +16,8 @@ const CalendarDay = ({ item }) => {
             onClick={() => setIsNoteExpanded(!isNoteExpanded)}
             className={classNames({
                 "flex gap-4 items-start dark:bg-black dark:text-white bg-gray-50 dark:odd:bg-gray-900 odd:bg-gray-100": true,
-                "rounded-xl px-4 py-1 text-sm": true,
-                "mb-8": day === "Sat",
+                "rounded-xl px-4 py-1 text-xs": true,
+                "mb-4": day === "Sat",
             })} >
             <div className={classNames(getColorsClassList(item.color), {
                 "size-4 rounded shrink-0": true,
