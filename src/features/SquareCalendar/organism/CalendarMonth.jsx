@@ -29,8 +29,8 @@ export const CalendarMonth = ({
     }, [initialNote]);
 
     const month = useMemo(() => {
-        return new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1);
-    }, [selectedDate]);
+        return new Date(selectedDate.getFullYear(), monthIndex, 1);
+    }, [selectedDate, monthIndex]);
 
     const calendarData = useMemo(() => {
         const daysInMonth = getDaysInMonth(month);
