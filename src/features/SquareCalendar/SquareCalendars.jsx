@@ -92,11 +92,11 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
                 </>
             ) : ""}
             <br /><br />I {' '}
-            {css.color !== "" ? <span className={classNames(getColorsClassList(css?.color), {
+            {css && css.color !== "black" ? <span className={classNames(getColorsClassList(css?.color), {
                 "font-bold px-2": true
             })}>coded CSS</span> : <span>did not manage to CSS</span>}
             {(css && !read || !css && read) ? " but " : " and "}
-            {read ? <span className={classNames(getColorsClassList(read?.color), {
+            {read && read.color !== "black" ? <span className={classNames(getColorsClassList(read?.color), {
                 "font-bold px-2": true
             })}>READ for 30m</span> : <span>did not READ</span>}
             {(css && read) ? "! " : ". "}
