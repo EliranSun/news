@@ -245,6 +245,18 @@ export const Calendars = {
             { name: "78-79", color: Colors.Red },
         ],
     },
+    Workout: {
+        showColorStatus: true,
+        showGamification: true,
+        name: "workout",
+        key: "workout-square-calendar",
+        colors: [
+            Colors.Red,
+            Colors.Black
+        ],
+        icon: "💪",
+        category: "self",
+    },
     Sleep: {
         showColorStatus: false,
         name: "REM",
