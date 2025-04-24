@@ -63,7 +63,9 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
     const read = dayColours[Calendars.Read.key];
     const loneliness = dayColours[Calendars.Loneliness.key];
     const friends = dayColours[Calendars.Friends.key];
-
+    const remSleep = dayColours[Calendars.Sleep.key];
+    const deepSleep = dayColours[Calendars.SleepDeep.key];
+        
     return (
         <div className="text-3xl font-bold my-8 text-left w-full">
             {format(selectedDate, "EEEE")}{mood ? " was " : ""}{mood ? (
@@ -90,7 +92,7 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
                 </>
             ) : ""}
             <br /><br />I {' '}
-            {css ? <span className={classNames(getColorsClassList(css?.color), {
+            {css.color !== "" ? <span className={classNames(getColorsClassList(css?.color), {
                 "font-bold px-2": true
             })}>coded CSS</span> : <span>did not manage to CSS</span>}
             {(css && !read || !css && read) ? " but " : " and "}
@@ -105,6 +107,21 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
                     I met with <span className={classNames(getColorsClassList(friends.color), {
                         "font-bold px-2": true
                     })}>{friends.label.toUpperCase()}</span>.
+                </>
+            ) : ""}
+            <br /><br />
+            {remSleep && remSleep.label ? (
+                <>
+                   Mental recover was <span className={classNames(getColorsClassList(friends.color), {
+                        "font-bold px-2": true
+                    })}>{remSleep.label.toUpperCase()}</span>.
+                </>
+            ) : ""}
+            {deepSleep && deepSleep.label ? (
+                <>
+                   Body recovery was <span className={classNames(getColorsClassList(friends.color), {
+                        "font-bold px-2": true
+                    })}>{deepSleep.label.toUpperCase()}</span>.
                 </>
             ) : ""}
             {/* <div className="grid grid-cols-2 gap-1 overflow-x-auto py-0">
