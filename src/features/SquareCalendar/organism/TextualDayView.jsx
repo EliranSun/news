@@ -1,0 +1,164 @@
+import classNames from "classnames";
+import { format, subDays } from "date-fns";
+import { useState, useMemo } from "react";
+import { Calendars } from "../constants";
+import { loadFromStorage, isSameDay, contrastColor, getColorsClassList, ColorHexMap } from "../utils";
+import PropTypes from "prop-types";
+
+const ColorLabel = ({ color, label, textBefore, isVisible, isSuccess, connectingText, showPeriod = true, textAfter }) => {
+    if (!isVisible) return null;
+
+    return (
+        <div className="inline">
+            {textBefore && <span>{textBefore} </span>}
+            {connectingText && <span>{connectingText} </span>}
+            <span
+                style={{
+                    color: isSuccess
+                        ? contrastColor({ bgColor: ColorHexMap[color] })
+                        : ColorHexMap[color]
+                }}
+                className={classNames(isSuccess ? getColorsClassList(color) : "", {
+                    "hidden": !label,
+                    "font-bold px-2": isSuccess
+                })}>{label?.toUpperCase()}</span>
+            {textAfter && <span>{textAfter}</span>}
+            {showPeriod && <span>. </span>}
+        </div>
+    );
+};
+
+ColorLabel.propTypes = {
+    color: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    textBefore: PropTypes.string,
+    isVisible: PropTypes.bool,
+    connectingText: PropTypes.string,
+    showPeriod: PropTypes.bool,
+    isSuccess: PropTypes.bool,
+};
+
+export const TextualDayView = ({ selectedDate = new Date(), setSelectedDate }) => {
+    const [fontToggle, setFontToggle] = useState(false);
+    const dayColours = useMemo(() => {
+        if (!selectedDate) return {};
+
+
+        return Object.values(Calendars).reduce((acc, cal) => {
+            const stored = loadFromStorage(cal.key) ?? [];
+            const entry = stored.find(e => isSameDay(e.date, selectedDate));
+            const legend = Object.values(Calendars).find(c => c.key === cal.key)?.legend;
+
+            acc[cal.key] = entry?.color ? {
+                color: entry.color,
+                label: legend?.find(l => l?.color === entry?.color)?.label ||
+                    legend?.find(l => l?.color === entry?.color)?.name
+            } : null; // null → no colour that day
+            return acc;
+        }, {});
+    }, [selectedDate]);
+
+
+    if (!selectedDate) return null;
+
+    console.log({ selectedDate, dayColours });
+
+    const mood = dayColours[Calendars.Mood.key];
+    const css = dayColours[Calendars.Css.key];
+    const read = dayColours[Calendars.Read.key];
+    const loneliness = dayColours[Calendars.Loneliness.key];
+    const friends = dayColours[Calendars.Friends.key];
+    const remSleep = dayColours[Calendars.Sleep.key];
+    const deepSleep = dayColours[Calendars.SleepDeep.key];
+    const isCssSuccess = css && css?.color !== "black" && css?.color !== "clear";
+    const isReadSuccess = read && read?.color !== "black" && read?.color !== "clear";
+
+    console.log({ css, isCssSuccess });
+
+    return (
+        <>
+            <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
+                {Array.from({ length: 10 }).map((_, index) => {
+                    const date = subDays(new Date(), index);
+                    const isSelected = isSameDay(date, selectedDate);
+                    return (
+                        <div
+                            key={format(date, 'yyyy-MM-dd')}
+                            className={classNames("min-w-fit px-3 py-1 rounded-full cursor-pointer transition-colors", {
+                                "bg-gray-200 hover:bg-gray-300": !isSelected,
+                                "bg-black text-white hover:bg-gray-800": isSelected
+                            })}
+                            onClick={() => {
+                                setSelectedDate(date);
+                            }}
+                        >
+                            {format(date, 'MMM d')}
+                        </div>
+                    );
+                })}
+            </div>
+            <div
+                onClick={() => setFontToggle(!fontToggle)}
+                className={classNames({
+                    "text-3xl font-bold my-8 text-left w-full leading-snug": true,
+                    "merriweather-bold": fontToggle,
+                    "space-grotesk-700": !fontToggle
+                })}>
+                <ColorLabel
+                    isVisible
+                    connectingText={mood ? "was" : ""}
+                    isSuccess
+                    textBefore={format(selectedDate, "EEEE")}
+                    color={mood?.color}
+                    label={mood?.label} />
+                <br /><br />
+                <ColorLabel
+                    isVisible
+                    label="CSS"
+                    isSuccess={isCssSuccess}
+                    showPeriod={false}
+                    textBefore={isCssSuccess ? "I worked hard on" : "Did not manage to"}
+                    color={css?.color || Calendars.Css.colors[0]} />
+                <span>{(css && !read || !css && read) ? " but " : " and "}</span>
+                <ColorLabel
+                    isSuccess={isReadSuccess}
+                    label="READ"
+                    isVisible
+                    showPeriod={false}
+                    textBefore={isReadSuccess ? "" : "did not"}
+                    textAfter={isReadSuccess ? " for 30m" : ""}
+                    color={read?.color || Calendars.Read.colors[0]} />
+                {(css && read) ? "! " : ". "}
+                {!css && !read && <span>Bummer.</span>}
+                <br /><br />
+                <ColorLabel
+                    isVisible={loneliness}
+                    isSuccess
+                    textBefore="Socially, I felt"
+                    color={loneliness?.color} label={loneliness?.label} />
+                <ColorLabel
+                    isVisible={friends?.label}
+                    textBefore="I met with"
+                    isSuccess
+                    color={friends?.color}
+                    label={friends?.label} />
+                <br /><br />
+                <ColorLabel
+                    isVisible={remSleep?.label}
+                    isSuccess
+                    textBefore="Mental recovery was"
+                    color={remSleep?.color} label={remSleep?.label} />
+                <ColorLabel
+                    isVisible={deepSleep?.label}
+                    isSuccess
+                    textBefore="Body recovery was"
+                    color={deepSleep?.color} label={deepSleep?.label} />
+            </div>
+        </>
+    );
+};
+
+TextualDayView.propTypes = {
+    selectedDate: PropTypes.instanceOf(Date).isRequired,
+    setSelectedDate: PropTypes.func.isRequired,
+};

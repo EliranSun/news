@@ -1,24 +1,21 @@
 import { useCallback, useState, useEffect, useMemo } from "react";
-import { getColorsClassList, loadFromStorage, saveToStorage, contrastColor, isSameDay, ColorHexMap } from "./utils";
+import { loadFromStorage, saveToStorage, isSameDay } from "./utils";
 import { Calendars } from "./constants";
 import { CalendarsList } from "./organism/CalendarsList";
 import { CalendarGamification } from "./molecules/CalendarGamification";
 import { CalendarsStrip } from "./molecules/CalendarsStrip";
 import { CalendarMonth } from "./organism/CalendarMonth";
 import { CalendarName } from "./atoms/CalendarName";
-import { differenceInDays, format } from "date-fns";
+import { differenceInDays } from "date-fns";
 import { CalendarYearColorInfo } from "./molecules/CalendarYearColorInfo";
-// import { DayDrawer } from "./molecules/DayDrawer";
 import { Navbar } from "./molecules/Navbar";
 import PhysicsDemo from "./organism/PhysicsDemo";
 import { Info } from "@phosphor-icons/react";
-import { Colors } from "./constants";
 import { CalendarDayView } from "./organism/CalendarDayView";
-// import { CalendarYearSummary } from "./organism/CalendarYearSummary";
 import classNames from "classnames";
 import { motion } from "framer-motion";
-// import { Palette } from "@phosphor-icons/react";
-import PropTypes from "prop-types";
+import { TextualDayView } from "./organism/TextualDayView";
+
 const FlexibleOpacityTransition = ({ children }) => {
     return (
         <motion.div
@@ -32,139 +29,6 @@ const FlexibleOpacityTransition = ({ children }) => {
             })}>
             {children}
         </motion.div>
-    );
-};
-
-const ColorLabel = ({ color, label, textBefore, isVisible, isSuccess, connectingText, showPeriod = true, textAfter }) => {
-    if (!isVisible) return null;
-
-    return (
-        <div className="inline">
-            {textBefore && <span>{textBefore} </span>}
-            {connectingText && <span>{connectingText} </span>}
-            <span
-                style={{
-                    color: isSuccess
-                        ? contrastColor({ bgColor: ColorHexMap[color] })
-                        : ColorHexMap[color]
-                }}
-                className={classNames(isSuccess ? getColorsClassList(color) : "", {
-                    "font-bold px-2": isSuccess
-                })}>{label.toUpperCase()}</span>
-            {textAfter && <span>{textAfter}</span>}
-            {showPeriod && <span>. </span>}
-        </div>
-    );
-};
-
-ColorLabel.propTypes = {
-    color: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    textBefore: PropTypes.string,
-    isVisible: PropTypes.bool,
-    connectingText: PropTypes.string,
-    showPeriod: PropTypes.bool,
-    isSuccess: PropTypes.bool,
-};
-
-const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
-    const [fontToggle, setFontToggle] = useState(false);
-    const dayColours = useMemo(() => {
-        if (!selectedDate) return {};
-
-
-        return Object.values(Calendars).reduce((acc, cal) => {
-            const stored = loadFromStorage(cal.key) ?? [];
-            const entry = stored.find(e => isSameDay(e.date, selectedDate));
-            const legend = Object.values(Calendars).find(c => c.key === cal.key)?.legend;
-
-            acc[cal.key] = entry?.color ? {
-                color: entry.color,
-                label:
-                    legend?.find(l => l?.color === entry?.color)?.label ||
-                    legend?.find(l => l?.color === entry?.color)?.name
-            } : null;      // null → no colour that day
-            return acc;
-        }, {});
-    }, [selectedDate]);
-
-
-    if (!selectedDate) return null;
-
-    console.log({ selectedDate, dayColours });
-
-    const mood = dayColours[Calendars.Mood.key];
-    const css = dayColours[Calendars.Css.key];
-    const read = dayColours[Calendars.Read.key];
-    const loneliness = dayColours[Calendars.Loneliness.key];
-    const friends = dayColours[Calendars.Friends.key];
-    const remSleep = dayColours[Calendars.Sleep.key];
-    const deepSleep = dayColours[Calendars.SleepDeep.key];
-    const isCssSuccess = css && css?.color !== "black" && css?.color !== "clear";
-    const isReadSuccess = read && read?.color !== "black" && read?.color !== "clear";
-
-    console.log({ css, isCssSuccess });
-
-    return (
-        <div
-            onClick={() => setFontToggle(!fontToggle)}
-            className={classNames({
-                "text-3xl font-bold my-8 text-left w-full leading-snug": true,
-                "merriweather-bold": fontToggle,
-                "space-grotesk-700": !fontToggle
-            })}>
-            <ColorLabel
-                isVisible
-                connectingText="was"
-                isSuccess
-                textBefore={format(selectedDate, "EEEE")}
-                color={mood?.color}
-                label={mood?.label} />
-            <br /><br />
-            <ColorLabel
-                isVisible
-                label="CSS"
-                isSuccess={isCssSuccess}
-                showPeriod={false}
-                textBefore={isCssSuccess ? "I worked hard on" : "Did not manage to"}
-                color={css?.color || Calendars.Css.colors[0]}
-            />
-            <span>{(css && !read || !css && read) ? " but " : " and "}</span>
-            <ColorLabel
-                isSuccess={isReadSuccess}
-                label="READ"
-                isVisible
-                showPeriod={false}
-                textBefore={isReadSuccess ? "" : "did not"}
-                textAfter={isReadSuccess ? " for 30m" : ""}
-                color={read?.color || Calendars.Read.colors[0]}
-            />
-            {(css && read) ? "! " : ". "}
-            {!css && !read && <span>Bummer.</span>}
-            <br /><br />
-            <ColorLabel
-                isVisible={loneliness}
-                isSuccess
-                textBefore="Socially, I felt"
-                color={loneliness?.color} label={loneliness?.label} />
-            <ColorLabel
-                isVisible={friends?.label}
-                textBefore="I met with"
-                isSuccess
-                color={friends?.color}
-                label={friends?.label} />
-            <br /><br />
-            <ColorLabel
-                isVisible={remSleep?.label}
-                isSuccess
-                textBefore="Mental recovery was"
-                color={remSleep?.color} label={remSleep?.label} />
-            <ColorLabel
-                isVisible={deepSleep?.label}
-                isSuccess
-                textBefore="Body recovery was"
-                color={deepSleep?.color} label={deepSleep?.label} />
-        </div>
     );
 };
 
@@ -318,12 +182,9 @@ export default function SquareCalendars() {
                     onCalendarClick={onCalendarClick} />}
                 {view === "day" &&
                     <FlexibleOpacityTransition>
-                        <SelectedDateStrip
+                        <TextualDayView
                             selectedDate={selectedDate}
-                            onCalendarClick={(cal) => {
-                                // setSelectedDate(new Date());
-                                onCalendarClick(cal);
-                            }}
+                            setSelectedDate={setSelectedDate}
                         />
                     </FlexibleOpacityTransition>
                 }
