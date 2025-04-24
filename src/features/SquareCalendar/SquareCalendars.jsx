@@ -35,7 +35,7 @@ const FlexibleOpacityTransition = ({ children }) => {
     );
 };
 
-const ColorLabel = ({ color, label, textBefore, isVisible, isSuccess, connectingText, showPeriod = true }) => {
+const ColorLabel = ({ color, label, textBefore, isVisible, isSuccess, connectingText, showPeriod = true, textAfter }) => {
     if (!isVisible) return null;
 
     return (
@@ -51,6 +51,7 @@ const ColorLabel = ({ color, label, textBefore, isVisible, isSuccess, connecting
                 className={classNames(isSuccess ? getColorsClassList(color) : "", {
                     "font-bold px-2": isSuccess
                 })}>{label.toUpperCase()}</span>
+            {textAfter && <span>{textAfter}</span>}
             {showPeriod && <span>. </span>}
         </div>
     );
@@ -67,6 +68,7 @@ ColorLabel.propTypes = {
 };
 
 const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
+    const [fontToggle, setFontToggle] = useState(false);
     const dayColours = useMemo(() => {
         if (!selectedDate) return {};
 
@@ -102,8 +104,15 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
     const isReadSuccess = read && read?.color !== "black" && read?.color !== "clear";
 
     console.log({ css, isCssSuccess });
+
     return (
-        <div className="text-3xl font-bold my-8 text-left w-full">
+        <div
+            onClick={() => setFontToggle(!fontToggle)}
+            className={classNames({
+                "text-3xl font-bold my-8 text-left w-full leading-snug": true,
+                "merriweather-bold": fontToggle,
+                "space-grotesk-700": !fontToggle
+            })}>
             <ColorLabel
                 isVisible
                 connectingText="was"
@@ -111,11 +120,6 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
                 textBefore={format(selectedDate, "EEEE")}
                 color={mood?.color}
                 label={mood?.label} />
-            <ColorLabel
-                isVisible={loneliness}
-                isSuccess
-                textBefore="Socially, I felt"
-                color={loneliness?.color} label={loneliness?.label} />
             <br /><br />
             <ColorLabel
                 isVisible
@@ -131,12 +135,18 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
                 label="READ"
                 isVisible
                 showPeriod={false}
-                textBefore={isReadSuccess ? "read" : "did not read"}
+                textBefore={isReadSuccess ? "" : "did not"}
+                textAfter={isReadSuccess ? " for 30m" : ""}
                 color={read?.color || Calendars.Read.colors[0]}
             />
             {(css && read) ? "! " : ". "}
             {!css && !read && <span>Bummer.</span>}
             <br /><br />
+            <ColorLabel
+                isVisible={loneliness}
+                isSuccess
+                textBefore="Socially, I felt"
+                color={loneliness?.color} label={loneliness?.label} />
             <ColorLabel
                 isVisible={friends?.label}
                 textBefore="I met with"
