@@ -47,7 +47,7 @@ const SelectedDateStrip = ({ selectedDate = new Date(), onCalendarClick }) => {
 
             acc[cal.key] = entry?.color ? {
                 color: entry.color,
-                label: legend?.find(l => l.color === entry.color)?.name
+                label: legend?.find(l => l?.color === entry?.color)?.name
             } : null;      // null → no colour that day
             return acc;
         }, {});
