@@ -192,7 +192,7 @@ const TailwindColorsMap = {
 };
 
 export const ColorHexMap = {
-    [Colors.Clear]: "#FFFFFF00",
+    [Colors.Clear]: "#FFFFFF",
     [Colors.Black]: "#404040",
     [Colors.Red]: "#EF4444",
     [Colors.Green]: "#22C55E",

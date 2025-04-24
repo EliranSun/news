@@ -1,46 +1,46 @@
 export const Colors = {
     // Reds
-  Red: "red",
-  Crimson: "crimson",
-  Maroon: "maroon",
-  Coral: "coral",
+    Red: "red",
+    Crimson: "crimson",
+    Maroon: "maroon",
+    Coral: "coral",
 
-  // Oranges
-  Orange: "orange",
+    // Oranges
+    Orange: "orange",
 
-  // Yellows
-  Yellow: "yellow",
+    // Yellows
+    Yellow: "yellow",
 
-  // Greens
-  Green: "green",
-  Sage: "sage",
-  Forestgreen: "forestgreen",
+    // Greens
+    Green: "green",
+    Sage: "sage",
+    Forestgreen: "forestgreen",
 
-  // Blues
-  Blue: "blue",
-  Lightblue: "lightblue",
-  Skyblue: "skyblue",
-  Turquoise: "turquoise",
-  Navy: "navy",
+    // Blues
+    Blue: "blue",
+    Lightblue: "lightblue",
+    Skyblue: "skyblue",
+    Turquoise: "turquoise",
+    Navy: "navy",
 
-  // Purples
-  Violet: "violet",
-  Plum: "plum",
-  Purple: "purple",
-  Lavender: "lavender",
+    // Purples
+    Violet: "violet",
+    Plum: "plum",
+    Purple: "purple",
+    Lavender: "lavender",
 
-  // Pinks
-  Pink: "pink",
-  Rose: "rose",
-  Hotpink: "hotpink",
+    // Pinks
+    Pink: "pink",
+    Rose: "rose",
+    Hotpink: "hotpink",
 
-  // Browns / Neutrals
-  Brown: "brown",
-  Darkgray: "darkgray",
+    // Browns / Neutrals
+    Brown: "brown",
+    Darkgray: "darkgray",
 
-  // Others
-  Black: "black",
-  Clear: "clear",
+    // Others
+    Black: "black",
+    Clear: "clear",
 }
 
 export const Calendars = {
@@ -132,11 +132,11 @@ export const Calendars = {
         name: "house care",
         key: "house-care-square-calendar",
         colors: [
-          Colors.Red, 
-          Colors.Green, 
-          Colors.Blue,
-          Colors.Yellow,
-          Colors.Black
+            Colors.Red,
+            Colors.Green,
+            Colors.Blue,
+            Colors.Yellow,
+            Colors.Black
         ],
         legend: [
             { name: "Floor cleaning", color: Colors.Red },
@@ -225,7 +225,7 @@ export const Calendars = {
     },
     Weight: {
         showColorStatus: false,
-                showGamification: false,
+        showGamification: false,
         name: "weight",
         key: "weight-square-calendar",
         colors: [
@@ -258,15 +258,15 @@ export const Calendars = {
             Colors.Purple
         ],
         icon: "💤",
-                showGamification: false,
+        showGamification: false,
         category: "self",
         legend: [
-            { name: "0:00-0:29", color: Colors.Lightblue },
-            { name: "0:30-0:59", color: Colors.Skyblue },
-            { name: "1:00-1:29", color: Colors.Blue },
-            { name: "1:30-1:59", color: Colors.Navy },
-            { name: "2:00-2:29", color: Colors.Violet },
-            { name: "2:30+", color: Colors.Purple },
+            { name: "0:00-0:29", label: "horrible", color: Colors.Lightblue },
+            { name: "0:30-0:59", label: "bad", color: Colors.Skyblue },
+            { name: "1:00-1:29", label: "ok", color: Colors.Blue },
+            { name: "1:30-1:59", label: "good", color: Colors.Navy },
+            { name: "2:00-2:29", label: "great", color: Colors.Violet },
+            { name: "2:30+", label: "fantastic", color: Colors.Purple },
         ],
     },
     SleepDeep: {
@@ -282,24 +282,24 @@ export const Calendars = {
             Colors.Purple
         ],
         icon: "💤",
-                showGamification: false,
+        showGamification: false,
         category: "self",
         legend: [
-            { name: "0-14", color: Colors.Lightblue },
-            { name: "15-29", color: Colors.Skyblue },
-            { name: "30-44", color: Colors.Blue },
-            { name: "45-59", color: Colors.Navy },
-            { name: "1:00-1:14", color: Colors.Violet },
-            { name: "1:15+", color: Colors.Purple },
+            { name: "0-14", label: "horrible", color: Colors.Lightblue },
+            { name: "15-29", label: "bad", color: Colors.Skyblue },
+            { name: "30-44", label: "ok", color: Colors.Blue },
+            { name: "45-59", label: "good", color: Colors.Navy },
+            { name: "1:00-1:14", label: "great", color: Colors.Violet },
+            { name: "1:15+", label: "fantastic", color: Colors.Purple },
         ],
     },
     Protein: {
         showColorStatus: false,
-                showGamification: false,
+        showGamification: false,
         name: "Protein",
         key: "protein-sleep-square-calendar",
         colors: [
-          Colors.Orange,
+            Colors.Orange,
             Colors.Red,
             Colors.Crimson,
             Colors.Maroon,
