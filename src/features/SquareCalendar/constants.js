@@ -88,7 +88,7 @@ export const Calendars = {
         key: "css-square-calendar",
         colors: [Colors.Yellow, Colors.Black],
         icon: "🎭",
-        category: "self",
+        category: "creative",
         showColorStatus: true,
         yellowAfter: 3,
         redAfter: 10,
@@ -101,7 +101,7 @@ export const Calendars = {
         key: "read-square-calendar",
         colors: [Colors.Sage, Colors.Black],
         icon: "📚",
-        category: "self"
+        category: "creative"
     },
     Game: {
         showColorStatus: true,
@@ -111,7 +111,7 @@ export const Calendars = {
         key: "game-square-calendar",
         colors: [Colors.Violet, Colors.Black],
         icon: "🎮",
-        category: "self"
+        category: "creative"
     },
     Media: {
         showColorStatus: true,
@@ -121,7 +121,7 @@ export const Calendars = {
         key: "media-square-calendar",
         colors: [Colors.Crimson, Colors.Black],
         icon: "🎬",
-        category: "self"
+        category: "creative"
     },
 
     // House - Using earthy, practical colors for household tasks
