@@ -63,7 +63,7 @@ export const CalendarMonth = ({
 
     return (
         <div className="flex flex-col justify-between space-y-1 w-full" key={`month-${monthIndex}`}>
-            {!isYearView && <Pills type="month" length={10} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />}
+            {!isYearView && <Pills type="month" length={12} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />}
             {isYearView ? <h2 className="text-xs font-serif my-0">{format(month, "MMM")}</h2> : ""}
             <div>
                 <div className={classNames({
