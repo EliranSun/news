@@ -5,8 +5,8 @@ export const Pill = ({ isSelected, onClick, children }) => {
     return (
         <div
             className={classNames("min-w-fit px-3 py-1 rounded-full cursor-pointer transition-colors", {
-                "bg-gray-200 hover:bg-gray-300": !isSelected,
-                "bg-black text-white hover:bg-gray-800": isSelected
+                "bg-gray-200 hover:bg-gray-300 text-gray-800": !isSelected,
+                "bg-black text-white hover:bg-gray-800 border border-white": isSelected
             })}
             onClick={onClick}
         >
