@@ -1,5 +1,6 @@
 import classNames from "classnames";
-import { getColorsClassList, ColorHexMap, contrastColor } from "../utils";
+import { getColorsClassList, contrastColor } from "../utils";
+import { ColorHexMap } from "../constants";
 import { useMemo } from "react";
 import PropTypes from "prop-types";
 import { Colors } from "../constants";

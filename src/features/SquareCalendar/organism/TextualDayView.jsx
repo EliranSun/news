@@ -2,7 +2,8 @@ import classNames from "classnames";
 import { format } from "date-fns";
 import { useState, useMemo } from "react";
 import { Calendars } from "../constants";
-import { loadFromStorage, isSameDay, contrastColor, getColorsClassList, ColorHexMap } from "../utils";
+import { loadFromStorage, isSameDay, contrastColor, getColorsClassList } from "../utils";
+import { ColorHexMap } from "../constants";
 import PropTypes from "prop-types";
 import { Pills } from "../molecules/Pills";
 

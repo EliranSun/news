@@ -1,4 +1,4 @@
-import { Colors, Calendars } from "./constants";
+import { Colors, Calendars, TailwindColorsMap } from "./constants";
 import { differenceInDays, differenceInHours, isEqual, addDays, startOfDay } from "date-fns";
 
 export const getDaysSinceLastEntry = (key = "square-calendar") => {
@@ -158,68 +158,6 @@ export const loadFromStorage = (key = "square-calendar") => {
         console.error('Error loading data from storage:', error);
         return [];
     }
-};
-
-const TailwindColorsMap = {
-    [Colors.Clear]: "bg-transparent border",
-    [Colors.Black]: "bg-neutral-400",
-    [Colors.Red]: "bg-red-500",
-    [Colors.Green]: "bg-green-500",
-    [Colors.Yellow]: "bg-yellow-500",
-    [Colors.Orange]: "bg-orange-500",
-    [Colors.Coral]: "bg-orange-300",
-    [Colors.Pink]: "bg-pink-500",
-    [Colors.Forestgreen]: "bg-emerald-800",
-    [Colors.Plum]: "bg-fuchsia-500",
-    [Colors.Turquoise]: "bg-teal-400",
-    [Colors.Brown]: "bg-amber-600",
-    [Colors.Sage]: "bg-green-400",
-
-    // Blue & Purple
-    [Colors.Lightblue]: "bg-blue-200",
-    [Colors.Skyblue]: "bg-sky-300",
-    [Colors.Blue]: "bg-blue-400",
-    [Colors.Navy]: "bg-blue-600",
-    [Colors.Violet]: "bg-violet-500",
-    [Colors.Purple]: "bg-purple-900",
-
-    [Colors.Crimson]: "bg-red-600",
-    [Colors.Lavender]: "bg-purple-200",
-    [Colors.Rose]: "bg-rose-500",
-    [Colors.Hotpink]: "bg-pink-600",
-    [Colors.Darkgray]: "bg-gray-500",
-    [Colors.Maroon]: "bg-red-900",
-};
-
-export const ColorHexMap = {
-    [Colors.Clear]: "#FFFFFF",
-    [Colors.Black]: "#404040",
-    [Colors.Red]: "#EF4444",
-    [Colors.Green]: "#22C55E",
-    [Colors.Yellow]: "#EAB308",
-    [Colors.Orange]: "#F97316",
-    [Colors.Coral]: "#FDBA74",
-    [Colors.Pink]: "#EC4899",
-    [Colors.Forestgreen]: "#065F46",
-    [Colors.Plum]: "#D946EF",
-    [Colors.Turquoise]: "#2DD4BF",
-    [Colors.Brown]: "#D97706",
-    [Colors.Sage]: "#4ADE80",
-
-    // Blue & Purple
-    [Colors.Lightblue]: "#BFDBFE",
-    [Colors.Skyblue]: "#BAE6FD",
-    [Colors.Blue]: "#60A5FA",
-    [Colors.Navy]: "#2563EB",
-    [Colors.Violet]: "#8B5CF6",
-    [Colors.Purple]: "#581C87",
-
-    [Colors.Crimson]: "#DC2626",
-    [Colors.Lavender]: "#E9D5FF",
-    [Colors.Rose]: "#F43F5E",
-    [Colors.Hotpink]: "#DB2777",
-    [Colors.Darkgray]: "#6B7280",
-    [Colors.Maroon]: "#7F1D1D",
 };
 
 export const getColorsClassList = (color) => {
