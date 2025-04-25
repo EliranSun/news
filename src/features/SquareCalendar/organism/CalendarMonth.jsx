@@ -2,11 +2,10 @@ import { getDaysInMonth, getDay, startOfMonth, subMonths, format } from "date-fn
 import PropTypes from "prop-types";
 import { DaySquare } from "../atoms/DaySquare";
 import { useMemo, useState, useEffect } from "react";
-// import { CalendarMonthColorInfo } from "../molecules/CalendarMonthColorInfo";
 import classNames from "classnames";
 import { ColorsButtons } from "../molecules/ColorsButtons";
 import { FloppyDisk, CheckCircle, WarningCircle } from "@phosphor-icons/react";
-
+import { Pills } from "../molecules/Pills";
 export const CalendarMonth = ({
     selectedDate = new Date(),
     setSelectedDate,
@@ -64,6 +63,7 @@ export const CalendarMonth = ({
 
     return (
         <div className="flex flex-col justify-between space-y-1 w-full" key={`month-${monthIndex}`}>
+            {!isYearView && <Pills type="month" length={10} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />}
             {isYearView ? <h2 className="text-xs font-serif my-0">{format(month, "MMM")}</h2> : ""}
             <div>
                 <div className={classNames({

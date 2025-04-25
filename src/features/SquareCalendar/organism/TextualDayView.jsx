@@ -1,9 +1,10 @@
 import classNames from "classnames";
-import { format, subDays } from "date-fns";
+import { format } from "date-fns";
 import { useState, useMemo } from "react";
 import { Calendars } from "../constants";
 import { loadFromStorage, isSameDay, contrastColor, getColorsClassList, ColorHexMap } from "../utils";
 import PropTypes from "prop-types";
+import { Pills } from "../molecules/Pills";
 
 const ColorLabel = ({ color, label, textBefore, isVisible, isSuccess, connectingText, showPeriod = true, textAfter }) => {
     if (!isVisible) return null;
@@ -43,7 +44,6 @@ export const TextualDayView = ({ selectedDate = new Date(), setSelectedDate }) =
     const dayColours = useMemo(() => {
         if (!selectedDate) return {};
 
-
         return Object.values(Calendars).reduce((acc, cal) => {
             const stored = loadFromStorage(cal.key) ?? [];
             const entry = stored.find(e => isSameDay(e.date, selectedDate));
@@ -61,8 +61,6 @@ export const TextualDayView = ({ selectedDate = new Date(), setSelectedDate }) =
 
     if (!selectedDate) return null;
 
-    console.log({ selectedDate, dayColours });
-
     const mood = dayColours[Calendars.Mood.key];
     const css = dayColours[Calendars.Css.key];
     const read = dayColours[Calendars.Read.key];
@@ -73,30 +71,9 @@ export const TextualDayView = ({ selectedDate = new Date(), setSelectedDate }) =
     const isCssSuccess = css && css?.color !== "black" && css?.color !== "clear";
     const isReadSuccess = read && read?.color !== "black" && read?.color !== "clear";
 
-    console.log({ css, isCssSuccess });
-
     return (
         <>
-            <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
-                {Array.from({ length: 10 }).map((_, index) => {
-                    const date = subDays(new Date(), index);
-                    const isSelected = isSameDay(date, selectedDate);
-                    return (
-                        <div
-                            key={format(date, 'yyyy-MM-dd')}
-                            className={classNames("min-w-fit px-3 py-1 rounded-full cursor-pointer transition-colors", {
-                                "bg-gray-200 hover:bg-gray-300": !isSelected,
-                                "bg-black text-white hover:bg-gray-800": isSelected
-                            })}
-                            onClick={() => {
-                                setSelectedDate(date);
-                            }}
-                        >
-                            {format(date, 'MMM d')}
-                        </div>
-                    );
-                })}
-            </div>
+            <Pills length={10} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
             <div
                 onClick={() => setFontToggle(!fontToggle)}
                 className={classNames({

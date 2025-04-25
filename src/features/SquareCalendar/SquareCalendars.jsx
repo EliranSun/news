@@ -200,6 +200,15 @@ export default function SquareCalendars() {
                             selectedDate={selectedDate}
                             size="big"
                             note={selectedDateNote}
+                            calendar={calendar}
+                            onColorSelect={updateColor}
+                            data={data}
+                            monthIndex={selectedDate.getMonth()}
+                            setSelectedDate={newDate => {
+                                setSelectedDate(newDate);
+                                const dayItem = data.find(item => isSameDay(item.date, newDate));
+                                setSelectedDateNote(dayItem?.note || "");
+                            }}
                             onNoteUpdate={(value, callback) => {
                                 try {
                                     let newData = [...data];
@@ -221,25 +230,7 @@ export default function SquareCalendars() {
                                     console.error(error);
                                     callback?.(false);
                                 }
-                            }}
-                            calendar={calendar}
-                            onColorSelect={updateColor}
-                            setSelectedDate={newDate => {
-                                setSelectedDate(newDate);
-                                const dayItem = data.find(item => isSameDay(item.date, newDate));
-                                setSelectedDateNote(dayItem?.note || "");
-                            }}
-                            monthIndex={new Date().getMonth()}
-                            data={data} />
-                        {/* <span className="text-xs mt-4">
-                            TODO: a combined view of all calendars? <br />
-                            OR: Compared to last April...
-                            Compared to previous month...
-                            Compared to next month...
-
-                            <br /> No! this should be a better ux for the year. so note should be
-                            right here visible immediately plus colors!
-                        </span> */}
+                            }} />
                     </FlexibleOpacityTransition>
                 }
                 {view === "year" && (
