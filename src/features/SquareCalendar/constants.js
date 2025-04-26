@@ -245,6 +245,18 @@ export const Calendars = {
             { name: "78-79", color: Colors.Red },
         ],
     },
+    Physio: {
+        showColorStatus: true,
+        showGamification: true,
+        name: "physio",
+        key: "physiotherapy-square-calendar",
+        colors: [
+            Colors.Sage,
+            Colors.Black
+        ],
+        icon: "🦶",
+        category: "self",
+    },
     Workout: {
         showColorStatus: true,
         showGamification: true,
