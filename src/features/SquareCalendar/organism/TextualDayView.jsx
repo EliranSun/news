@@ -52,6 +52,7 @@ export const TextualDayView = ({ selectedDate = new Date(), setSelectedDate }) =
 
             acc[cal.key] = entry?.color ? {
                 color: entry.color,
+                note: entry.note,
                 label: legend?.find(l => l?.color === entry?.color)?.label ||
                     legend?.find(l => l?.color === entry?.color)?.name
             } : null; // null → no colour that day
@@ -131,6 +132,8 @@ export const TextualDayView = ({ selectedDate = new Date(), setSelectedDate }) =
                     isSuccess
                     textBefore="Body recovery was"
                     color={deepSleep?.color} label={deepSleep?.label} />
+                    <br/>   <br/>
+                {mood?.note}
             </div>
         </>
     );
