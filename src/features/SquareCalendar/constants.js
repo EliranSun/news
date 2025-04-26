@@ -251,8 +251,15 @@ export const Calendars = {
         name: "physio",
         key: "physiotherapy-square-calendar",
         colors: [
+            Colors.Green,
             Colors.Sage,
+            Colors.Forestgreen,
             Colors.Black
+        ],
+        legend: [
+         { name: "deadhang", color: Colors.Green },
+            { name: "plantar", color: Colors.Sage },
+            { name: "both", color: Colors.Forestgreen },
         ],
         icon: "🦶",
         category: "self",
