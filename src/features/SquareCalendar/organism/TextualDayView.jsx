@@ -79,7 +79,8 @@ export const TextualDayView = ({ selectedDate = new Date(), setSelectedDate }) =
             <div
                 onClick={() => setFontToggle(!fontToggle)}
                 className={classNames({
-                    "text-3xl font-bold my-8 text-left w-full leading-snug": true,
+                    "h-[70vh] overflow-y-auto space-y-4": true,
+                    "text-3xl font-bold my-0 text-left w-full leading-snug": true,
                     "merriweather-bold": fontToggle,
                     "space-grotesk-700": !fontToggle
                 })}>
@@ -90,50 +91,52 @@ export const TextualDayView = ({ selectedDate = new Date(), setSelectedDate }) =
                     textBefore={format(selectedDate, "EEEE")}
                     color={mood?.color}
                     label={mood?.label} />
-                <br /><br />
-                <ColorLabel
-                    isVisible
-                    label="CSS"
-                    isSuccess={isCssSuccess}
-                    showPeriod={false}
-                    textBefore={isCssSuccess ? "I worked hard on" : "Did not manage to"}
-                    color={css?.color || Calendars.Css.colors[0]} />
-                <span>{(css && !read || !css && read) ? " but " : " and "}</span>
-                <ColorLabel
-                    isSuccess={isReadSuccess}
-                    label="READ"
-                    isVisible
-                    showPeriod={false}
-                    textBefore={isReadSuccess ? "" : "did not"}
-                    textAfter={isReadSuccess ? " for 30m" : ""}
-                    color={read?.color || Calendars.Read.colors[0]} />
-                {(css && read) ? "! " : ". "}
-                {!css && !read && <span>Bummer.</span>}
-                <br /><br />
-                <ColorLabel
-                    isVisible={loneliness}
-                    isSuccess
-                    textBefore="Socially, I felt"
-                    color={loneliness?.color} label={loneliness?.label} />
-                <ColorLabel
-                    isVisible={friends?.label}
-                    textBefore="I met with"
-                    isSuccess
-                    color={friends?.color}
-                    label={friends?.label} />
-                <br /><br />
-                <ColorLabel
-                    isVisible={remSleep?.label}
-                    isSuccess
-                    textBefore="Mental recovery was"
-                    color={remSleep?.color} label={remSleep?.label} />
-                <ColorLabel
-                    isVisible={deepSleep?.label}
-                    isSuccess
-                    textBefore="Body recovery was"
-                    color={deepSleep?.color} label={deepSleep?.label} />
-                    <br/>   <br/>
-                {mood?.note}
+                <div>
+                    <ColorLabel
+                        isVisible
+                        label="CSS"
+                        isSuccess={isCssSuccess}
+                        showPeriod={false}
+                        textBefore={isCssSuccess ? "I worked hard on" : "Did not manage to"}
+                        color={css?.color || Calendars.Css.colors[0]} />
+                    <span>{(css && !read || !css && read) ? " but " : " and "}</span>
+                    <ColorLabel
+                        isSuccess={isReadSuccess}
+                        label="READ"
+                        isVisible
+                        showPeriod={false}
+                        textBefore={isReadSuccess ? "" : "did not"}
+                        textAfter={isReadSuccess ? " for 30m" : ""}
+                        color={read?.color || Calendars.Read.colors[0]} />
+                    {(css && read) ? "! " : ". "}
+                    {!css && !read && <span>Bummer.</span>}
+                </div>
+                <div>
+                    <ColorLabel
+                        isVisible={loneliness}
+                        isSuccess
+                        textBefore="Socially, I felt"
+                        color={loneliness?.color} label={loneliness?.label} />
+                    <ColorLabel
+                        isVisible={friends?.label}
+                        textBefore="I met with"
+                        isSuccess
+                        color={friends?.color}
+                        label={friends?.label} />
+                </div>
+                <div>
+                    <ColorLabel
+                        isVisible={remSleep?.label}
+                        isSuccess
+                        textBefore="Mental recovery was"
+                        color={remSleep?.color} label={remSleep?.label} />
+                    <ColorLabel
+                        isVisible={deepSleep?.label}
+                        isSuccess
+                        textBefore="Body recovery was"
+                        color={deepSleep?.color} label={deepSleep?.label} />
+                </div>
+                {mood?.note && <div className="">I was thinking: &ldquo;{mood?.note}&rdquo;</div>}
             </div>
         </>
     );

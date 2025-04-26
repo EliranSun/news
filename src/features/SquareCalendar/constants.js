@@ -235,7 +235,7 @@ export const Calendars = {
             Colors.Orange,
             Colors.Red,
         ],
-        icon: "💪",
+        icon: "⏲️",
         category: "self",
         legend: [
             { name: "70-71", color: Colors.Blue },
@@ -254,7 +254,7 @@ export const Calendars = {
             Colors.Red,
             Colors.Black
         ],
-        icon: "💪",
+        icon: "🏋",
         category: "self",
     },
     Sleep: {
