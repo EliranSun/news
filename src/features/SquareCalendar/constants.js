@@ -258,7 +258,7 @@ export const Calendars = {
         ],
         legend: [
          { name: "deadhang", color: Colors.Green },
-            { name: "plantar", color: Colors.Sage },
+            { name: "knee", color: Colors.Sage },
             { name: "both", color: Colors.Forestgreen },
         ],
         icon: "🦶",
