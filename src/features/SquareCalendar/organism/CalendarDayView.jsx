@@ -15,12 +15,13 @@ const CalendarDay = ({ item }) => {
             key={item.date}
             onClick={() => setIsNoteExpanded(!isNoteExpanded)}
             className={classNames({
-                "flex gap-4 items-start dark:bg-black dark:text-white bg-gray-50 dark:odd:bg-gray-900 odd:bg-gray-100": true,
-                "rounded-xl px-4 py-1 text-xs": true,
-                "mb-2": day === "Sat",
+                "flex gap-2 items-start": true,
+                "dark:bg-black dark:text-white bg-gray-50 dark:odd:bg-gray-900 odd:bg-gray-100": true,
+                "rounded-xl px-4 py-0 text-[10px]": true,
+                "mb-1": day === "Sat",
             })} >
             <div className={classNames(getColorsClassList(item.color), {
-                "size-4 rounded shrink-0": true,
+                "size-3 rounded-sm shrink-0": true,
             })} />
             <div className="w-full overflow-x-auto">
                 {month?.slice(0, 1)}
