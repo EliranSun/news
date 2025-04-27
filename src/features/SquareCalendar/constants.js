@@ -471,7 +471,8 @@ export const TailwindColorsMap = {
     [Colors.Orange]: "bg-orange-500",
     [Colors.Coral]: "bg-orange-300",
     [Colors.Pink]: "bg-pink-500",
-    [Colors.Forestgreen]: "bg-emerald-800",
+    
+    [Colors.Forestgreen]: "bg-emerald-600",
     [Colors.Plum]: "bg-fuchsia-500",
     [Colors.Turquoise]: "bg-teal-400",
     [Colors.Brown]: "bg-amber-600",
