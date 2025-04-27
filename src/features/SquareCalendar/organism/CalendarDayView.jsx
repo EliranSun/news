@@ -22,9 +22,15 @@ const CalendarDay = ({ item }) => {
             <div className={classNames(getColorsClassList(item.color), {
                 "size-4 rounded shrink-0": true,
             })} />
-            <div className="w-full overflow-x-auto">{month?.slice(0, 1)}{dayNumber}{day?.slice(0, 1)}{item.note ? ": " : ""}{
-                item.note
-            }</div>
+            <div className="w-full overflow-x-auto">
+                {month?.slice(0, 1)}
+                {dayNumber}
+                <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                    {day?.slice(0, 1)}
+                    {item.note ? ": " : ""}
+                    {item.note}
+                </span>
+            </div>
         </div>
     );
 

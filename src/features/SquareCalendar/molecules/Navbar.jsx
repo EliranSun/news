@@ -111,16 +111,16 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                     onClick={onListClick}
                 />
                 <NavbarButton
-                    isSelected={selectedItem === "note"}
-                    label="note"
-                    icon={Note}
-                    onClick={() => { onItemClick("note") }}
-                />
-                <NavbarButton
                     isSelected={selectedItem === "day"}
                     label="day"
                     icon={TextAa}
                     onClick={() => { onItemClick("day") }}
+                />
+                <NavbarButton
+                    isSelected={selectedItem === "note"}
+                    label="note"
+                    icon={Note}
+                    onClick={() => { onItemClick("note") }}
                 />
                 <NavbarButton
                     isSelected={selectedItem === "month"}
