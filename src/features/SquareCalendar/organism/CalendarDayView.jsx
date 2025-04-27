@@ -3,6 +3,7 @@ import { getColorsClassList } from "../utils";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
+import React from "react";
 
 const CalendarDay = ({ item }) => {
     const [isNoteExpanded, setIsNoteExpanded] = useState(false);
@@ -15,13 +16,13 @@ const CalendarDay = ({ item }) => {
             key={item.date}
             onClick={() => setIsNoteExpanded(!isNoteExpanded)}
             className={classNames({
-                "flex gap-2 items-start": true,
+                "flex gap-2 items-center": true,
                 "dark:bg-black dark:text-white bg-gray-50 dark:odd:bg-gray-900 odd:bg-gray-100": true,
-                "rounded-xl px-4 py-0 text-[10px]": true,
+                "rounded px-1.5 py-0 text-[10px]": true,
                 "mb-1": day === "Sat",
             })} >
             <div className={classNames(getColorsClassList(item.color), {
-                "size-3 rounded-sm shrink-0": true,
+                "size-2 rounded-sm shrink-0": true,
             })} />
             <div className="w-full overflow-x-auto">
                 {month?.slice(0, 1)}
@@ -46,7 +47,6 @@ CalendarDay.propTypes = {
 };
 
 export const CalendarDayView = ({ data }) => {
-
     useEffect(() => {
         // scroll to the bottom of the page
         const calendarDayView = document.getElementById("calendar-day-view");
@@ -58,22 +58,37 @@ export const CalendarDayView = ({ data }) => {
         }
     }, []);
 
+    // Sort and filter data
+    const sortedData = data
+        .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+        .filter(item => item.note);
+
+    let lastMonth = null;
+
     return (
         <div
             id="calendar-day-view"
             className="flex flex-col gap-1 h-[80vh] w-screen overflow-y-auto pb-20">
-            {data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-                .filter(item => item.note)
-                .map((item) => {
-                    return (
-                        <CalendarDay
-                            key={item.date}
-                            item={item}
-                        />
-                    );
-                })}
+            {sortedData.map((item, idx) => {
+                const dateObj = new Date(item.date);
+                const month = dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });
+
+                const showMonth = lastMonth !== month;
+                lastMonth = month;
+
+                return (
+                    <React.Fragment key={item.date}>
+                        {showMonth && (
+                            <div className="sticky top-0 z-10 bg-white py-2 font-bold text-lg">
+                                {month}
+                            </div>
+                        )}
+                        <CalendarDay item={item} />
+                    </React.Fragment>
+                );
+            })}
         </div>
-    )
+    );
 };
 
 CalendarDayView.propTypes = {
