@@ -153,10 +153,16 @@ export const Calendars = {
         redAfter: 10,
         name: "laundry",
         key: "laundry-square-calendar",
-        colors: [Colors.Lightblue, Colors.Skyblue, Colors.Black],
+        colors: [
+            Colors.Lightblue, 
+            Colors.Skyblue, 
+            Colors.Blue,
+            Colors.Black
+        ],
         legend: [
             { name: "Fold", color: Colors.Lightblue },
             { name: "Wash", color: Colors.Skyblue },
+            { name: "Both", color: Colors.Blue },
         ],
         icon: "🧺",
         category: "house"
