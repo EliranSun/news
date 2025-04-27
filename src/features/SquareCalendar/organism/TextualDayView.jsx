@@ -99,7 +99,7 @@ export const TextualDayView = ({ selectedDate = new Date(), setSelectedDate }) =
                         showPeriod={false}
                         textBefore={isCssSuccess ? "I worked hard on" : "Did not manage to"}
                         color={css?.color || Calendars.Css.colors[0]} />
-                    <span>{(css && !read || !css && read) ? " but " : " and "}</span>
+                    <span>{((css && !read) || (!css && read)) ? " but " : " and "}</span>
                     <ColorLabel
                         isSuccess={isReadSuccess}
                         label="READ"
