@@ -459,7 +459,15 @@ export const Calendars = {
         icon: "🚫",
         category: "avoid",
         avoid: true,
-    }, // Prohibited
+    },
+    Lie: {
+        name: "lie", 
+        key: "lie-square-calendar",
+        colors: [Colors.Brown, Colors.Black],
+        icon: "🤥",
+        category: "avoid",
+        avoid: true,
+    }, 
 };
 
 export const TailwindColorsMap = {
