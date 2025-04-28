@@ -107,7 +107,7 @@ export const CalendarMonth = ({
                         onChange={event => setNote(event.target.value)}
                         className={classNames({
                             "p-4 rounded-lg w-full": true,
-                            "border-none h-fit min-h-10": true,
+                            "border-none h-full min-h-10": true,
                         })}
                     />
                     <button className="flex items-center justify-center" onClick={() => onNoteUpdate(note, (success) => {
