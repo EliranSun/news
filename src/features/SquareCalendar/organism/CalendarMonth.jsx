@@ -69,7 +69,7 @@ export const CalendarMonth = ({
                 <div className={classNames({
                     "grid grid-cols-7": true,
                     "p-1 gap-0.5": size === "small",
-                    "p-2 gap-1": size !== "small",
+                    "p-1.5 gap-1": size !== "small",
                 })}>
                     {calendarData.map((dayObj, dayIndex) => {
                         return (
@@ -93,22 +93,13 @@ export const CalendarMonth = ({
                 showInfo /> */}
             {!isYearView && (
                 <div className="space-y-4 w-full pt-4">
-                  
+                  <div className="flex justify-between">
                     <ColorsButtons
                         calendar={calendar}
                         onColorSelect={onColorSelect}
                         selectedDate={selectedDate}
                         monthIndex={monthIndex}
                         data={data}
-                    />
-                      <textarea
-                        value={note}
-                        placeholder="Note"
-                        onChange={event => setNote(event.target.value)}
-                        className={classNames({
-                            "p-4 rounded-lg w-full": true,
-                            "border-none h-full min-h-10": true,
-                        })}
                     />
                     <button className="flex items-center justify-center" onClick={() => onNoteUpdate(note, (success) => {
                         setIsNoteSaved(success);
@@ -118,6 +109,17 @@ export const CalendarMonth = ({
                     })}>
                         <NoteSaveIcon size={24} />
                     </button>
+                    </div>
+                      <textarea
+                        value={note}
+                        placeholder="Note"
+                        onChange={event => setNote(event.target.value)}
+                        className={classNames({
+                            "p-4 rounded-lg w-full": true,
+                            "border-none h-full min-h-10": true,
+                        })}
+                    />
+                    
                 </div>
             )}
         </div>
