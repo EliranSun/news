@@ -162,7 +162,7 @@ export function HourView() {
                             {hour}
                         </div>)}
                 </Column>
-                <div className="">
+                <div className="flex">
                     {Object
                         .entries(data)
                         .sort((a, b) => {
