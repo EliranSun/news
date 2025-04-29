@@ -10,7 +10,7 @@ export const FlexibleOpacityTransition = ({ children }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className={classNames({
-                "flex flex-wrap h-10/12": true,
+                "flex flex-wrap": true,
                 "justify-center": true,
             })}>
             {children}

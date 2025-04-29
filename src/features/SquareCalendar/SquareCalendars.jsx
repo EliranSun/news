@@ -92,7 +92,8 @@ export default function SquareCalendars() {
                 onPhysicsClick={() => setIsPhysicsDemoOpen(!isPhysicsDemoOpen)}
                 onListClick={() => setView("list")} />
             <div id="note-modal-portal" />
-            <div className="p-4 w-screen overflow-hidden h-dvh user-select-none space-y-4 font-mono">
+            <div className="p-4 w-screen overflow-hidden h-[calc(100vh-96px)] 
+            user-select-none space-y-4 font-mono">
                 <div className="flex w-full justify-between items-center">
                     <div className="flex flex-col gap-1">
                         <div className="flex items-center gap-2">

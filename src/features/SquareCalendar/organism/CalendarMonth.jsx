@@ -62,7 +62,7 @@ export const CalendarMonth = ({
     }, [isNoteSaved]);
 
     return (
-        <div className="flex flex-col justify-between w-full gap-4" key={`month-${monthIndex}`}>
+        <div className="flex flex-col justify-between w-full gap-4 h-full overflow-y-scroll" key={`month-${monthIndex}`}>
             {!isYearView && <Pills type="month" length={12} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />}
             {isYearView ? <h2 className="text-xs my-0 text-center">{format(month, "MMM")}</h2> : ""}
             <div>
