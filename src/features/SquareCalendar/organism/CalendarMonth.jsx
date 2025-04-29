@@ -105,7 +105,7 @@ export const CalendarMonth = ({
                         placeholder="Note"
                         onChange={event => setNote(event.target.value)}
                         className={classNames({
-                            "p-4 rounded-lg w-full": true,
+                            "w-full": true,
                             "border-none h-48": true,
                         })}
                     />
