@@ -62,14 +62,14 @@ export const CalendarMonth = ({
     }, [isNoteSaved]);
 
     return (
-        <div className="flex flex-col justify-between space-y-1 w-full" key={`month-${monthIndex}`}>
+        <div className="flex flex-col justify-between w-full gap-4" key={`month-${monthIndex}`}>
             {!isYearView && <Pills type="month" length={12} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />}
-            {isYearView ? <h2 className="text-xs font-serif my-0">{format(month, "MMM")}</h2> : ""}
+            {isYearView ? <h2 className="text-xs my-0 text-center">{format(month, "MMM")}</h2> : ""}
             <div>
                 <div className={classNames({
                     "grid grid-cols-7": true,
                     "p-1 gap-0.5": size === "small",
-                    "p-1 gap-1 justify-start": size !== "small",
+                    "p-1 gap-1 justify-center items-start w-fit": size !== "small",
                 })}>
                     {calendarData.map((dayObj, dayIndex) => {
                         return (
@@ -92,8 +92,16 @@ export const CalendarMonth = ({
                 selectedDate={month}
                 showInfo /> */}
             {!isYearView && (
-                <div className="space-y-4 w-full pt-4">
-                  <div className="flex justify-between">
+                <>
+                    <textarea
+                        value={note}
+                        placeholder="Note"
+                        onChange={event => setNote(event.target.value)}
+                        className={classNames({
+                            "p-4 rounded-lg w-full": true,
+                            "border h-48": true,
+                        })}
+                    />
                     <ColorsButtons
                         calendar={calendar}
                         onColorSelect={onColorSelect}
@@ -109,18 +117,7 @@ export const CalendarMonth = ({
                     })}>
                         <NoteSaveIcon size={24} />
                     </button>
-                    </div>
-                      <textarea
-                        value={note}
-                        placeholder="Note"
-                        onChange={event => setNote(event.target.value)}
-                        className={classNames({
-                            "p-4 rounded-lg w-full": true,
-                            "border-none h-full min-h-10": true,
-                        })}
-                    />
-                    
-                </div>
+                </>
             )}
         </div>
     )
@@ -132,4 +129,10 @@ CalendarMonth.propTypes = {
     data: PropTypes.array.isRequired,
     monthIndex: PropTypes.number.isRequired,
     showInfo: PropTypes.bool,
+    size: PropTypes.string,
+    calendar: PropTypes.object.isRequired,
+    onColorSelect: PropTypes.func,
+    onNoteUpdate: PropTypes.func,
+    note: PropTypes.string,
+    isYearView: PropTypes.bool,
 };

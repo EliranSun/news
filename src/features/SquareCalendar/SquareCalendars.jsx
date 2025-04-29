@@ -12,25 +12,8 @@ import { Navbar } from "./molecules/Navbar";
 import PhysicsDemo from "./organism/PhysicsDemo";
 import { Info } from "@phosphor-icons/react";
 import { CalendarDayView } from "./organism/CalendarDayView";
-import classNames from "classnames";
-import { motion } from "framer-motion";
 import { TextualDayView } from "./organism/TextualDayView";
-
-const FlexibleOpacityTransition = ({ children }) => {
-    return (
-        <motion.div
-            transition={{ duration: 0.3 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className={classNames({
-                "flex flex-wrap h-10/12": true,
-                "justify-center": true,
-            })}>
-            {children}
-        </motion.div>
-    );
-};
+import { FlexibleOpacityTransition } from "./atoms/FlexibleOpacityTransition";
 
 export default function SquareCalendars() {
     const calendarKey = useMemo(() => new URL(window.location.href).searchParams.get('calendar'), []);
@@ -43,13 +26,6 @@ export default function SquareCalendars() {
     const [selectedDateNote, setSelectedDateNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
     const [showMonthInfo, setShowMonthInfo] = useState(false);
     const [view, setView] = useState("month");
-    // const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    // const dateTitle = useMemo(() => new Date(selectedDate).toLocaleDateString('en-US', {
-    //     weekday: 'long',
-    //     year: 'numeric',
-    //     month: 'long',
-    //     day: 'numeric'
-    // }), [selectedDate]);
 
     const daysSinceLastEntry = useMemo(() => {
         return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
@@ -77,12 +53,7 @@ export default function SquareCalendars() {
 
         setData(newData);
         saveToStorage(calendar.key, newData);
-        // setSelectedDate(addDays(selectedDate, 1));
     }, [selectedDate, data, calendar, selectedDateNote]);
-
-    // useEffect(() => {
-    //     saveToStorage(calendar.key, data);
-    // }, [calendar, data]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -102,7 +73,6 @@ export default function SquareCalendars() {
         url.searchParams.set('calendar', item.key);
         window.history.pushState({}, '', url);
 
-        // saveToStorage(calendar.key, data);
         const newData = loadFromStorage(item.key);
         const note = newData.find(item => isSameDay(item.date, selectedDate))?.note || "";
 
@@ -113,16 +83,8 @@ export default function SquareCalendars() {
 
     const yearMap = useMemo(() => new Array(12).fill(0), []);
 
-    console.log({ data, selectedDateNote });
-
     return (
         <>
-            {/* <button
-                onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-                className="fixed bottom-32 right-5  rounded-full p-4 bg-black text-white">
-                <Palette size={24}
-                    color="white" />
-            </button> */}
             {isPhysicsDemoOpen && <PhysicsDemo />}
             <Navbar
                 selectedItem={view}
@@ -130,25 +92,6 @@ export default function SquareCalendars() {
                 onPhysicsClick={() => setIsPhysicsDemoOpen(!isPhysicsDemoOpen)}
                 onListClick={() => setView("list")} />
             <div id="note-modal-portal" />
-            {/* <DayDrawer
-                title={dateTitle}
-                calendar={calendar}
-                isOpen={isDrawerOpen}
-                onColorSelect={color => {
-                    updateColor(color)
-                }}
-                onClose={() => setIsDrawerOpen(false)}
-                note={selectedDateNote}
-                onNoteUpdate={note => {
-                    const newData = data.map(item =>
-                        isSameDay(item.date, selectedDate)
-                            ? { ...item, note }
-                            : item);
-
-                    setData(newData);
-                    saveToStorage(calendar.key, newData);
-                }}
-            /> */}
             <div className="p-4 w-screen overflow-hidden h-dvh user-select-none space-y-4 font-mono">
                 <div className="flex w-full justify-between items-center">
                     <div className="flex flex-col gap-1">
@@ -176,21 +119,29 @@ export default function SquareCalendars() {
                         <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
                     </div>
                 </div>
-                {view !== "day" && <CalendarsStrip
-                    data={data}
-                    selectedCalendar={calendar}
-                    onCalendarClick={onCalendarClick} />}
+                {view !== "day" && view !== "list" &&
+                    <CalendarsStrip
+                        data={data}
+                        selectedCalendar={calendar}
+                        onCalendarClick={onCalendarClick} />}
+                {view === "note" &&
+                    <FlexibleOpacityTransition>
+                        <CalendarDayView data={data} selectedDate={selectedDate} />
+                    </FlexibleOpacityTransition>
+                }
+                <CalendarsList
+                    isOpen={view === "list"}
+                    onClose={() => setView("month")}
+                    onClick={(...params) => {
+                        onCalendarClick(...params);
+                        setView("month");
+                    }} />
                 {view === "day" &&
                     <FlexibleOpacityTransition>
                         <TextualDayView
                             selectedDate={selectedDate}
                             setSelectedDate={setSelectedDate}
                         />
-                    </FlexibleOpacityTransition>
-                }
-                {view === "note" &&
-                    <FlexibleOpacityTransition>
-                        <CalendarDayView data={data} selectedDate={selectedDate} />
                     </FlexibleOpacityTransition>
                 }
                 {view === "month" &&
@@ -235,7 +186,7 @@ export default function SquareCalendars() {
                 }
                 {view === "year" && (
                     <FlexibleOpacityTransition>
-                        <div className="my-8 grid grid-cols-3 gap-2">
+                        <div className="grid grid-cols-3 gap-1">
                             {yearMap.map((_, monthIndex) => {
                                 return (
                                     <CalendarMonth
@@ -251,13 +202,6 @@ export default function SquareCalendars() {
                         </div>
                     </FlexibleOpacityTransition>
                 )}
-                <CalendarsList
-                    isOpen={view === "list"}
-                    onClose={() => setView("year")}
-                    onClick={(...params) => {
-                        onCalendarClick(...params);
-                        setView("year");
-                    }} />
             </div>
         </>
     );

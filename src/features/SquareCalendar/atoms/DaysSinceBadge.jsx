@@ -5,12 +5,13 @@ import { useDaysSinceColor } from "../useDaysSinceColor";
 import classNames from "classnames";
 import { useMemo } from "react";
 
-export const DaysSinceBadge = ({ 
-hoursSince, 
-withIcon = true, 
-colorText = false,
-calendar, 
-showValue = true }) => {
+export const DaysSinceBadge = ({
+    hoursSince,
+    withIcon = true,
+    transparent = false,
+    calendar,
+    showValue = true
+}) => {
     const { isRed, isYellow } = useDaysSinceColor(calendar);
 
     // if (daysSince === null) return null;
@@ -21,8 +22,10 @@ showValue = true }) => {
         return `${Math.round(hoursSince / 24).toFixed(0)}d`;
     }, [hoursSince]);
 
+    console.log({ text, isRed, isYellow });
+
     return (
-        <Badge className={classNames('h-5', colorText ? {
+        <Badge textBlack={transparent} className={classNames('h-5', transparent ? {
             "text-red-500": isRed,
             "text-yellow-400": isYellow,
             "text-lime-400": !isRed && !isYellow,
@@ -30,7 +33,7 @@ showValue = true }) => {
             "bg-red-500": isRed,
             "bg-yellow-400": isYellow,
             "bg-lime-400": !isRed && !isYellow,
-        } )}>
+        })}>
             {withIcon && <ClockCounterClockwise size={16} />}
             {showValue && text}
         </Badge>
@@ -41,4 +44,6 @@ DaysSinceBadge.propTypes = {
     hoursSince: PropTypes.number,
     withIcon: PropTypes.bool,
     calendar: PropTypes.object.isRequired,
+    transparent: PropTypes.bool,
+    showValue: PropTypes.bool,
 };
