@@ -12,6 +12,7 @@ import {
     X,
     ListBullets,
     Note,
+    Timer,
 } from "@phosphor-icons/react";
 import classNames from "classnames";
 import { useState } from "react";
@@ -87,11 +88,22 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                     <div className="flex flex-col items-center justify-center h-fit
                     text-lg gap-0 p-4 rounded-lg
                     w-10/12 m-auto bg-white dark:bg-black">
-                        <NavbarMenuItem icon={<CalendarHeart size={24} />} label="Optimizing CSS day" onClick={() => {
-                            const url = new URL(window.location.href);
-                            url.pathname = "/squares";
-                            window.location.href = url;
-                        }} />
+                        <NavbarMenuItem
+                            icon={<Note size={24} />}
+                            isSelected={selectedItem === "note"}
+                            label="Notes list"
+                            onClick={() => {
+                                onItemClick("note");
+                                setIsMenuOpen(false);
+                            }}
+                        />
+                        <NavbarMenuItem
+                            icon={<CalendarHeart size={24} />}
+                            label="Optimizing CSS day" onClick={() => {
+                                const url = new URL(window.location.href);
+                                url.pathname = "/squares";
+                                window.location.href = url;
+                            }} />
                         <NavbarMenuItem icon={<Cube size={24} />} label="CSS cubes" onClick={() => {
                             onPhysicsClick();
                             setIsMenuOpen(false);
@@ -117,10 +129,10 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                     onClick={() => { onItemClick("day") }}
                 />
                 <NavbarButton
-                    isSelected={selectedItem === "note"}
-                    label="note"
-                    icon={Note}
-                    onClick={() => { onItemClick("note") }}
+                    isSelected={selectedItem === "hour"}
+                    label="hour"
+                    icon={Timer}
+                    onClick={() => { onItemClick("hour") }}
                 />
                 <NavbarButton
                     isSelected={selectedItem === "month"}

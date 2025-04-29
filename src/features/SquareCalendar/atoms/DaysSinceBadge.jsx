@@ -10,7 +10,8 @@ export const DaysSinceBadge = ({
     withIcon = true,
     transparent = false,
     calendar,
-    showValue = true
+    showValue = true,
+    size
 }) => {
     const { isRed, isYellow } = useDaysSinceColor(calendar);
 
@@ -25,16 +26,19 @@ export const DaysSinceBadge = ({
     console.log({ text, isRed, isYellow });
 
     return (
-        <Badge textBlack={transparent} className={classNames('h-5', transparent ? {
-            "text-red-500": isRed,
-            "text-yellow-400": isYellow,
-            "text-lime-400": !isRed && !isYellow,
-        } : {
-            "bg-red-500": isRed,
-            "bg-yellow-400": isYellow,
-            "bg-lime-400": !isRed && !isYellow,
-        })}>
-            {withIcon && <ClockCounterClockwise size={16} />}
+        <Badge
+            textBlack={transparent}
+            size={size}
+            className={classNames('h-fit', transparent ? {
+                "text-red-500": isRed,
+                "text-yellow-400": isYellow,
+                "text-lime-400": !isRed && !isYellow,
+            } : {
+                "bg-red-500": isRed,
+                "bg-yellow-400": isYellow,
+                "bg-lime-400": !isRed && !isYellow,
+            })}>
+            {withIcon && <ClockCounterClockwise size={size === "big" ? 24 : 16} />}
             {showValue && text}
         </Badge>
     )

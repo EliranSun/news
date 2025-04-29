@@ -154,8 +154,8 @@ export const Calendars = {
         name: "laundry",
         key: "laundry-square-calendar",
         colors: [
-            Colors.Lightblue, 
-            Colors.Skyblue, 
+            Colors.Lightblue,
+            Colors.Skyblue,
             Colors.Blue,
             Colors.Black
         ],
@@ -263,7 +263,7 @@ export const Calendars = {
             Colors.Black
         ],
         legend: [
-         { name: "deadhang", color: Colors.Green },
+            { name: "deadhang", color: Colors.Green },
             { name: "knee", color: Colors.Sage },
             { name: "both", color: Colors.Forestgreen },
         ],
@@ -461,13 +461,13 @@ export const Calendars = {
         avoid: true,
     },
     Lie: {
-        name: "lie", 
+        name: "lie",
         key: "lie-square-calendar",
         colors: [Colors.Brown, Colors.Black],
         icon: "🤥",
         category: "avoid",
         avoid: true,
-    }, 
+    },
 };
 
 export const TailwindColorsMap = {
@@ -479,7 +479,7 @@ export const TailwindColorsMap = {
     [Colors.Orange]: "bg-orange-500",
     [Colors.Coral]: "bg-orange-300",
     [Colors.Pink]: "bg-pink-500",
-    
+
     [Colors.Forestgreen]: "bg-emerald-600",
     [Colors.Plum]: "bg-fuchsia-500",
     [Colors.Turquoise]: "bg-teal-400",
@@ -532,4 +532,49 @@ export const ColorHexMap = {
     [Colors.Darkgray]: "#6B7280",
     [Colors.Maroon]: "#7F1D1D",
 };
+
+export const HourlyActivitiesMap = [
+    {
+        "id": 1,
+        "activity": "coffee & chill",
+        "hex": ColorHexMap[Colors.Purple],
+        "color": TailwindColorsMap[Colors.Purple],
+    },
+    {
+        "id": 2,
+        "activity": "Bonella",
+        "hex": ColorHexMap[Colors.Maroon],
+        "color": TailwindColorsMap[Colors.Maroon],
+    },
+    {
+        "id": 3,
+        "activity": "CSS",
+        "hex": ColorHexMap[Colors.Yellow],
+        "color": TailwindColorsMap[Colors.Yellow],
+    },
+    {
+        "id": 4,
+        "activity": "Read",
+        "hex": ColorHexMap[Colors.Green],
+        "color": TailwindColorsMap[Colors.Green],
+    },
+    {
+        "id": 5,
+        "activity": "Media",
+        "hex": ColorHexMap[Colors.Blue],
+        "color": TailwindColorsMap[Colors.Blue],
+    },
+    {
+        "id": 6,
+        "activity": "Prep",
+        "hex": ColorHexMap[Colors.Red],
+        "color": TailwindColorsMap[Colors.Red],
+    },
+    {
+        "id": 7,
+        "activity": "WebDev",
+        "hex": ColorHexMap[Colors.Orange],
+        "color": TailwindColorsMap[Colors.Orange],
+    },
+];
 
