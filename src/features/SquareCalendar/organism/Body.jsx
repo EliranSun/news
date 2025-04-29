@@ -5,7 +5,7 @@ import { CalendarMonth } from "./CalendarMonth";
 import { isSameDay } from "date-fns";
 import PropTypes from "prop-types";
 import { useCallback } from "react";
-import { HourView } from "./HourView";
+import { HourView } from "../../HourlyTracker/HourView";
 
 export const Body = ({
     view,

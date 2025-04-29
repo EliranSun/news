@@ -1,8 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import { HourlyActivitiesMap } from "../constants";
-import { contrastColor } from "../utils";
+import { HourlyActivitiesButtons } from "./HourlyActivitiesButtons";
+import { AddDayButton } from "./AddDayButton";
 
 const Hours = new Array(24 * 4)
     .fill(0)
@@ -20,6 +20,7 @@ const Column = ({ children, size = "normal" }) => {
             "flex flex-col border-r border-black text-center": true,
             "w-14": size === "normal" || !size,
             "w-fit": size === "narrow",
+            "w-full": size === "full",
         })}>
             {children}
         </div>
@@ -58,7 +59,7 @@ const DayHoursColumn = ({
     }, [hours]);
 
     return (
-        <Column key={date} size="narrow">
+        <Column key={date} size="full">
             {/* <input
                 type="date"
                 value={date}
@@ -94,7 +95,8 @@ const DayHoursColumn = ({
                             setSelectedHour(index);
                             setSelectedDate(date);
                         }}
-                        className={classNames(size, {
+                        className={classNames({
+                            "w-full h-6": true,
                             "cursor-pointer text-black outline outline-2 outline-black": true,
                             "bg-gray-100 dark:bg-gray-800": !hours?.[index],
                             "bg-purple-400": hours?.[index] === 1,
@@ -130,38 +132,16 @@ export function HourView() {
 
     return (
         <div className="flex flex-col overflow-y-auto h-[calc(100vh-96px)] w-full space-y-2">
-            <div className="flex order-2 justify-start gap-2">
-                {HourlyActivitiesMap.map((square) =>
-                    <button
-                        key={square.id}
-                        style={{ color: contrastColor({ bgColor: square.hex }) }}
-                        className={classNames(square.color, {
-                            "uppercase": true,
-                            "size-10 rounded-full text-xs flex items-center justify-center": true,
-                        })}
-                        onClick={() => {
-                            setData({
-                                ...data,
-                                [selectedDate]: {
-                                    ...data[selectedDate],
-                                    [selectedHour]: square.id
-                                }
-                            });
 
-                            setSelectedHour(selectedHour + 1);
-                        }}>
-                        {square.activity.slice(0, 3)}
-                    </button>)}
-            </div>
-            <div className="flex order-1 font-mono h-[calc(100vh-192px)] overflow-y-auto border border-red-500">
+            <div className="flex font-mono h-[calc(100vh-192px)] overflow-y-auto">
                 <Column>
-                    <div className={classNames("text-center border-b border-black")}>X</div>
+                    <div className={classNames("h-8 text-center border-b border-black")}>X</div>
                     {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>
-                        <div key={index} className="text-[8px] flex items-center justify-center">
+                        <div key={index} className="text-[8px] flex items-center justify-end w-full pr-1">
                             {hour}
                         </div>)}
                 </Column>
-                <div className="flex">
+                <div className="flex w-full">
                     {Object
                         .entries(data)
                         .sort((a, b) => {
@@ -181,8 +161,15 @@ export function HourView() {
                                 setData={setData} />
                         )}
                 </div>
-                
             </div>
+            <AddDayButton />
+            <HourlyActivitiesButtons
+                data={data}
+                selectedDate={selectedDate}
+                selectedHour={selectedHour}
+                setData={setData}
+                setSelectedHour={setSelectedHour}
+            />
             {/* <div className="flex flex-col gap-2">
                 <button onClick={() => {
                     setSortBy('color');
