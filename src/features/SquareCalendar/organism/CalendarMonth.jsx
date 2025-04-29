@@ -69,7 +69,7 @@ export const CalendarMonth = ({
                 <div className={classNames({
                     "grid grid-cols-7": true,
                     "p-1 gap-0.5": size === "small",
-                    "p-1 gap-1 justify-center items-start w-fit": size !== "small",
+                    "p-1 gap-1 justify-center items-start w-fit my-2": size !== "small",
                 })}>
                     {calendarData.map((dayObj, dayIndex) => {
                         return (
@@ -93,21 +93,21 @@ export const CalendarMonth = ({
                 showInfo /> */}
             {!isYearView && (
                 <>
-                    <textarea
-                        value={note}
-                        placeholder="Note"
-                        onChange={event => setNote(event.target.value)}
-                        className={classNames({
-                            "p-4 rounded-lg w-full": true,
-                            "border h-48": true,
-                        })}
-                    />
                     <ColorsButtons
                         calendar={calendar}
                         onColorSelect={onColorSelect}
                         selectedDate={selectedDate}
                         monthIndex={monthIndex}
                         data={data}
+                    />
+                    <textarea
+                        value={note}
+                        placeholder="Note"
+                        onChange={event => setNote(event.target.value)}
+                        className={classNames({
+                            "p-4 rounded-lg w-full": true,
+                            "border-none h-48": true,
+                        })}
                     />
                     <button className="flex items-center justify-center" onClick={() => onNoteUpdate(note, (success) => {
                         setIsNoteSaved(success);
