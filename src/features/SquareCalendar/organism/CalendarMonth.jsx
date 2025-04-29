@@ -109,7 +109,7 @@ export const CalendarMonth = ({
                             "border-none h-48": true,
                         })}
                     />
-                    <button className="flex items-center justify-center" onClick={() => onNoteUpdate(note, (success) => {
+                    <button className="flex absolute right-5 bottom-20 items-center justify-center" onClick={() => onNoteUpdate(note, (success) => {
                         setIsNoteSaved(success);
                         setTimeout(() => {
                             setIsNoteSaved(null);
