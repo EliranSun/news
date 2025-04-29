@@ -17,8 +17,7 @@ const END_HOUR = 21 * 4;
 const Column = ({ children, size = "normal" }) => {
     return (
         <div className={classNames({
-            // "h-full": true,
-            "flex shrink-0 flex-col border-r border-black text-center": true,
+            "flex flex-col border-r border-black text-center": true,
             "w-14": size === "normal" || !size,
             "w-fit": size === "narrow",
         })}>
@@ -156,9 +155,9 @@ export function HourView() {
             </div>
             <div className="flex font-mono h-[calc(100vh-192px)] overflow-y-auto border border-red-500">
                 <Column>
-                    <div className={classNames("h-8 shrink-0 text-center border-b border-black")}>X</div>
+                    <div className={classNames("text-center border-b border-black")}>X</div>
                     {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>
-                        <div key={index} className="h-6 text-xs shrink-0 flex items-center justify-center">
+                        <div key={index} className="text-[8px] flex items-center justify-center">
                             {hour}
                         </div>)}
                 </Column>
