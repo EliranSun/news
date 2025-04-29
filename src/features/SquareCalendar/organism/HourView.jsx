@@ -154,13 +154,7 @@ export function HourView() {
                     </button>)}
             </div>
             <div className="flex font-mono h-[calc(100vh-192px)] overflow-y-auto border border-red-500">
-                <Column>
-                    <div className={classNames("text-center border-b border-black")}>X</div>
-                    {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>
-                        <div key={index} className="text-[8px] flex items-center justify-center">
-                            {hour}
-                        </div>)}
-                </Column>
+                
                 <div className="flex">
                     {Object
                         .entries(data)
@@ -181,6 +175,14 @@ export function HourView() {
                                 setData={setData} />
                         )}
                 </div>
+                
+                <Column>
+                    <div className={classNames("text-center border-b border-black")}>X</div>
+                    {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>
+                        <div key={index} className="text-[8px] flex items-center justify-center">
+                            {hour}
+                        </div>)}
+                </Column>
             </div>
             {/* <div className="flex flex-col gap-2">
                 <button onClick={() => {
