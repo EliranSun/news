@@ -130,7 +130,7 @@ export function HourView() {
 
     return (
         <div className="flex flex-col overflow-y-auto h-[calc(100vh-96px)] w-full space-y-2">
-            <div className="flex justify-start gap-2">
+            <div className="flex order-2 justify-start gap-2">
                 {HourlyActivitiesMap.map((square) =>
                     <button
                         key={square.id}
@@ -153,8 +153,14 @@ export function HourView() {
                         {square.activity.slice(0, 3)}
                     </button>)}
             </div>
-            <div className="flex font-mono h-[calc(100vh-192px)] overflow-y-auto border border-red-500">
-                
+            <div className="flex order-1 font-mono h-[calc(100vh-192px)] overflow-y-auto border border-red-500">
+                <Column>
+                    <div className={classNames("text-center border-b border-black")}>X</div>
+                    {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>
+                        <div key={index} className="text-[8px] flex items-center justify-center">
+                            {hour}
+                        </div>)}
+                </Column>
                 <div className="flex">
                     {Object
                         .entries(data)
@@ -176,13 +182,6 @@ export function HourView() {
                         )}
                 </div>
                 
-                <Column>
-                    <div className={classNames("text-center border-b border-black")}>X</div>
-                    {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>
-                        <div key={index} className="text-[8px] flex items-center justify-center">
-                            {hour}
-                        </div>)}
-                </Column>
             </div>
             {/* <div className="flex flex-col gap-2">
                 <button onClick={() => {
