@@ -12,7 +12,7 @@ export const END_HOUR = 21;
 export const HourlyActivitiesMap = [
     {
         "id": 1,
-        "activity": "coffee & chill",
+        "activity": "Chill",
         "hex": ColorHexMap[Colors.Purple],
         "color": TailwindColorsMap[Colors.Purple],
         "icon": "🥤"
@@ -40,14 +40,14 @@ export const HourlyActivitiesMap = [
     },
     {
         "id": 5,
-        "activity": "Media",
+        "activity": "Entertainment",
         "hex": ColorHexMap[Colors.Blue],
         "color": TailwindColorsMap[Colors.Blue],
         "icon": "🎥"
     },
     {
         "id": 6,
-        "activity": "Prep",
+        "activity": "Prepare",
         "hex": ColorHexMap[Colors.Red],
         "color": TailwindColorsMap[Colors.Red],
         "icon": "🍳"
