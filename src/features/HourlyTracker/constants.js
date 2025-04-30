@@ -1,4 +1,14 @@
 import { Colors, ColorHexMap, TailwindColorsMap } from "../SquareCalendar/constants";
+
+export const Hours = new Array(24)
+    .fill(0)
+    .map((_, hour) => {
+        return hour < 10 ? `0${hour}:00` : `${hour}:00`;
+    }); // every 60 minutes
+
+export const START_HOUR = 7;
+export const END_HOUR = 21;
+
 export const HourlyActivitiesMap = [
     {
         "id": 1,

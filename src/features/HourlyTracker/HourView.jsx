@@ -1,123 +1,12 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { HourlyActivitiesButtons } from "./HourlyActivitiesButtons";
 import { AddDayButton } from "./AddDayButton";
-
-const Hours = new Array(24 * 4)
-    .fill(0)
-    .map((_, index) => {
-        const hour = Math.floor(index / 4);
-        const minutes = (index % 4) * 15;
-        return `${hour}:${minutes.toString().padStart(2, '0')}`;
-    }); // every 15 minutes
-const START_HOUR = 7 * 4;
-const END_HOUR = 21 * 4;
-
-const Column = ({ children, size = "normal" }) => {
-    return (
-        <div className={classNames({
-            "flex flex-col border-r border-black text-center": true,
-            "w-14": size === "normal" || !size,
-            "w-fit": size === "narrow",
-            "w-full": size === "full",
-        })}>
-            {children}
-        </div>
-    )
-};
-
-const saveData = (data) => {
-    localStorage.setItem('data', JSON.stringify(data));
-};
-
-const exportToEmojiText = (data) => {
-    return Object.entries(data).map(([date, hours]) => {
-        return `${date}: ${Object.entries(hours).map(([hour, id]) => HourlyActivitiesMap.find((square) => square.id === id)?.color).join('')}`;
-    }).join('\n');
-};
-
-const size = "size-6";
-
-const DayHoursColumn = ({
-    data,
-    date,
-    hours,
-    selectedDate,
-    selectedHour,
-    setSelectedDate,
-    setSelectedHour,
-    setData,
-    sortBy
-}) => {
-    const totalYellow = useMemo(() => {
-        return Object.values(hours).filter((hour) => hour === 3).length;
-    }, [hours]);
-
-    const dataWithIndex = useMemo(() => {
-        return Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) => ({ hour, index }));
-    }, [hours]);
-
-    return (
-        <Column key={date} size="full">
-            {/* <input
-                type="date"
-                value={date}
-                className={classNames(size, "text-center border-b border-black")}
-                onChange={(e) => {
-                    const previousDate = date;
-                    const newDate = e.target.value;
-                    setSelectedDate(newDate);
-                    const newData = {
-                        ...data,
-                        [newDate]: previousDate ? data[previousDate] : {}
-                    };
-
-                    delete newData[previousDate];
-                    setData(newData);
-                }} /> */}
-            <span className="text-xs flex flex-col items-center justify-center">
-                <span>{date.split('-').at(-1)}</span>
-                <span>{date.split('-').at(1)}</span>
-            </span>
-            {dataWithIndex
-                .sort((a, b) => {
-                    if (sortBy === 'hour') {
-                        return a.hour - b.hour;
-                    } else if (sortBy === 'color') {
-                        return hours[b.index] - hours[a.index];
-                    }
-                })
-                .map(({ hour, index }) =>
-                    <div
-                        key={index}
-                        onClick={() => {
-                            setSelectedHour(index);
-                            setSelectedDate(date);
-                        }}
-                        className={classNames({
-                            "w-full h-6": true,
-                            "cursor-pointer text-black outline outline-2 outline-black": true,
-                            "bg-gray-100 dark:bg-gray-800": !hours?.[index],
-                            "bg-purple-400": hours?.[index] === 1,
-                            "bg-orange-900": hours?.[index] === 2,
-                            "bg-yellow-400": hours?.[index] === 3,
-                            "bg-green-400": hours?.[index] === 4,
-                            "bg-blue-400": hours?.[index] === 5,
-                            "bg-red-400": hours?.[index] === 6,
-                            "bg-orange-400": hours?.[index] === 7,
-                            "border border-black":
-                                selectedHour === index && selectedDate === date
-                        })}>
-                    </div>
-                )}
-            <div className="text-xs">
-                {totalYellow * 0.25}
-            </div>
-        </Column>
-    )
-}
-
+import { Column } from "./Column";
+import { Hours, START_HOUR, END_HOUR } from "./constants";
+import { saveData } from "./utils";
+import { Day } from "./Day";
 
 export function HourView() {
     const [sortBy, setSortBy] = useState('hour');
@@ -127,42 +16,41 @@ export function HourView() {
 
     useEffect(() => {
         saveData(data);
-        console.log(data);
+        console.log({ data });
     }, [data]);
 
     return (
         <div className="flex flex-col overflow-y-auto h-[calc(100vh-96px)] w-full space-y-2">
-
-            <div className="flex font-mono h-[calc(100vh-192px)] overflow-y-auto">
+            <div className="flex overflow-y-auto h-[70vh]">
                 <Column>
-                    <div className={classNames("h-8 text-center border-b border-black")}>X</div>
+                    <div className={classNames("opacity-0 h-8 shrink-0 text-center border-b border-black")}>
+                        X
+                    </div>
                     {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>
-                        <div key={index} className="text-[8px] flex items-center justify-end w-full pr-1">
-                            {hour}
+                        <div key={index} className="h-full text-[10px] flex text-center w-full px-1">
+                            {hour.slice(0, 2)}
                         </div>)}
                 </Column>
-                <div className="flex w-full">
-                    {Object
-                        .entries(data)
-                        .sort((a, b) => {
-                            return new Date(b[0]) - new Date(a[0]);
-                        })
-                        .map(([date, hours]) =>
-                            <DayHoursColumn
-                                key={date}
-                                date={date}
-                                data={data}
-                                sortBy={sortBy}
-                                hours={hours}
-                                selectedDate={selectedDate}
-                                selectedHour={selectedHour}
-                                setSelectedDate={setSelectedDate}
-                                setSelectedHour={setSelectedHour}
-                                setData={setData} />
-                        )}
-                </div>
+                {Object
+                    .entries(data)
+                    .sort((a, b) => {
+                        return new Date(b[0]) - new Date(a[0]);
+                    })
+                    .map(([date, hours]) =>
+                        <Day
+                            key={date}
+                            date={date}
+                            hours={Hours.slice(START_HOUR, END_HOUR + 1)}
+                            data={data}
+                            sortBy={sortBy}
+                            hoursData={hours}
+                            selectedDate={selectedDate}
+                            selectedHour={selectedHour}
+                            setSelectedDate={setSelectedDate}
+                            setSelectedHour={setSelectedHour}
+                            setData={setData} />
+                    )}
             </div>
-            <AddDayButton />
             <HourlyActivitiesButtons
                 data={data}
                 selectedDate={selectedDate}
@@ -170,6 +58,7 @@ export function HourView() {
                 setData={setData}
                 setSelectedHour={setSelectedHour}
             />
+            <AddDayButton />
             {/* <div className="flex flex-col gap-2">
                 <button onClick={() => {
                     setSortBy('color');
@@ -192,7 +81,7 @@ export function HourView() {
                 </button>
             </div> */}
         </div>
-    )
+    );
 }
 
 HourView.propTypes = {

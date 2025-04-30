@@ -111,7 +111,8 @@ export const Calendars = {
         key: "game-square-calendar",
         colors: [Colors.Violet, Colors.Black],
         icon: "🎮",
-        category: "creative"
+        category: "creative",
+        showGamification: false,
     },
     Media: {
         showColorStatus: true,
@@ -121,7 +122,8 @@ export const Calendars = {
         key: "media-square-calendar",
         colors: [Colors.Crimson, Colors.Black],
         icon: "🎬",
-        category: "creative"
+        category: "creative",
+        showGamification: false,
     },
 
     // House - Using earthy, practical colors for household tasks
@@ -145,7 +147,8 @@ export const Calendars = {
             { name: "Towels", color: Colors.Yellow },
         ],
         icon: "🏠",
-        category: "house"
+        category: "house",
+        showGamification: false,
     },
     Laundry: {
         showColorStatus: true,
@@ -165,7 +168,8 @@ export const Calendars = {
             { name: "Both", color: Colors.Blue },
         ],
         icon: "🧺",
-        category: "house"
+        category: "house",
+        showGamification: false,
     },
     /* LaundryFold: {
         showColorStatus: true,
@@ -185,7 +189,8 @@ export const Calendars = {
         key: "groceries-square-calendar",
         colors: [Colors.Forestgreen, Colors.Black],
         icon: "🛒",
-        category: "house"
+        category: "house",
+        showGamification: false,
     },
     Cooking: {
         showColorStatus: true,
@@ -195,7 +200,8 @@ export const Calendars = {
         key: "cooking-square-calendar",
         colors: [Colors.Orange, Colors.Black],
         icon: "🍳",
-        category: "house"
+        category: "house",
+        showGamification: false,
     },
     ReplaceSheets: {
         showColorStatus: true,
@@ -205,7 +211,8 @@ export const Calendars = {
         key: "replace-sheets-square-calendar",
         colors: [Colors.Lavender, Colors.Black],
         icon: "🛏️",
-        category: "house"
+        category: "house",
+        showGamification: false,
     },
 
     // Wife - Using romantic, warm colors
@@ -217,7 +224,8 @@ export const Calendars = {
         key: "date-square-calendar",
         colors: [Colors.Rose, Colors.Black],
         icon: "💑",
-        category: "wife"
+        category: "wife",
+        showGamification: false,
     },
     Sex: {
         showColorStatus: true,
@@ -227,7 +235,8 @@ export const Calendars = {
         key: "sex-square-calendar",
         colors: [Colors.Hotpink, Colors.Black],
         icon: "❤️",
-        category: "wife"
+        category: "wife",
+        showGamification: false,
     },
     Weight: {
         showColorStatus: false,
@@ -272,7 +281,7 @@ export const Calendars = {
     },
     Workout: {
         showColorStatus: true,
-        showGamification: true,
+        showGamification: false,
         name: "workout",
         key: "workout-square-calendar",
         colors: [
@@ -352,6 +361,7 @@ export const Calendars = {
     },
     Trip: {
         showColorStatus: true,
+        showGamification: false,
         yellowAfter: 14,
         redAfter: 30,
         name: "trip",
@@ -362,6 +372,7 @@ export const Calendars = {
     },
     LittleThings: {
         showColorStatus: true,
+        showGamification: false,
         yellowAfter: 21,
         redAfter: 30,
         name: "gestures",
@@ -374,6 +385,7 @@ export const Calendars = {
     // Social - Using friendly, welcoming colors
     Mom: {
         showColorStatus: true,
+        showGamification: false,
         yellowAfter: 30,
         redAfter: 60,
         name: "mom",
@@ -384,6 +396,7 @@ export const Calendars = {
     }, // Woman
     Dad: {
         showColorStatus: true,
+        showGamification: false,
         yellowAfter: 15,
         redAfter: 30,
         name: "dad",
@@ -391,9 +404,10 @@ export const Calendars = {
         colors: [Colors.Navy, Colors.Black],
         icon: "👨🏾",
         category: "social"
-    }, // Man
+    },
     Grandma: {
         showColorStatus: true,
+        showGamification: false,
         yellowAfter: 60,
         redAfter: 90,
         name: "grandma",
@@ -401,9 +415,10 @@ export const Calendars = {
         colors: [Colors.Plum, Colors.Black],
         icon: "👵🏾",
         category: "social"
-    }, // Elderly woman
+    },
     Friends: {
         showColorStatus: true,
+        showGamification: false,
         yellowAfter: 10,
         redAfter: 20,
         icon: "👥",
@@ -436,8 +451,6 @@ export const Calendars = {
             { name: "Noa", color: Colors.Orange },
         ],
     },
-
-    // avoid - Using darker, muted colors to represent negative activities
     SocialMedia: {
         name: "scrolling",
         key: "social-media-square-calendar",
@@ -445,6 +458,7 @@ export const Calendars = {
         icon: "📱",
         category: "avoid",
         avoid: true,
+        showGamification: true,
     },
     Porn: {
         name: "porn", key: "porn-square-calendar",
@@ -452,13 +466,15 @@ export const Calendars = {
         icon: "⛔",
         category: "avoid",
         avoid: true,
-    }, // No entry
+        showGamification: true,
+    },
     Masturbate: {
         name: "masturbate", key: "masturbate-square-calendar",
         colors: [Colors.Brown, Colors.Black],
         icon: "🚫",
         category: "avoid",
         avoid: true,
+        showGamification: true,
     },
     Lie: {
         name: "lie",
@@ -467,6 +483,7 @@ export const Calendars = {
         icon: "🤥",
         category: "avoid",
         avoid: true,
+        showGamification: true,
     },
 };
 
