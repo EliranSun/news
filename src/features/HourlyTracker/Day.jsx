@@ -48,7 +48,8 @@ export const Day = ({
                             "bg-blue-400": hoursData?.[index] === 5,
                             "bg-red-400": hoursData?.[index] === 6,
                             "bg-orange-400": hoursData?.[index] === 7,
-                            "border-b border-gray-500": index % 4 === 0 && !isSelected,
+                            // "border-b border-gray-500": index % 4 === 0 && !isSelected,
+                            "mb-1": index > 0 && index % 4 === 0 && !isSelected,
                             "border-2 border-black": isSelected
                         })}>
                     </div>
