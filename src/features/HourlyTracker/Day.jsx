@@ -51,7 +51,7 @@ export const Day = ({
                         setSelectedDate(date);
                     }}
                     className={classNames({
-                        "w-full h-6 border border-black": true,
+                        "w-full h-6 border border-stone-600": true,
                         "cursor-pointer text-black": true,
                         "bg-gray-100 dark:bg-gray-800": !hoursData?.[index],
                         "bg-purple-400": hoursData?.[index] === 1,
