@@ -22,7 +22,7 @@ export function HourView() {
 
     return (
         <div className="flex flex-col overflow-y-auto h-[calc(100vh-96px)] w-full space-y-2">
-            <div className="flex overflow-y-auto h-[70vh]">
+            <div className="flex overflow-y-auto h-[70vh] gap-1">
                 <Column>
                     <div className={classNames("opacity-0 h-8 shrink-0 text-center border-b border-black")} />
                     {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>

@@ -51,7 +51,7 @@ export const Day = ({
                         setSelectedDate(date);
                     }}
                     className={classNames({
-                        "w-full h-6 border border-stone-600": true,
+                        "w-full h-6 border border-black/60": true,
                         "cursor-pointer text-black": true,
                         "bg-gray-100 dark:bg-gray-800": !hoursData?.[index],
                         "bg-purple-400": hoursData?.[index] === 1,
@@ -65,8 +65,7 @@ export const Day = ({
                             selectedHour === index && selectedDate === date
                     })}>
                 </div>
-            )
-            }
+            )}
             <div className="text-xs" >
                 {totalYellow * 0.25}
             </div>
