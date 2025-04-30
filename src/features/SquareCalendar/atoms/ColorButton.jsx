@@ -32,6 +32,7 @@ export const ColorButton = ({ color, onClick, legend, count, percentage }) => {
                 {/* <div className={classNames("size-4", } /> */}
                 {legend && <label className="text-xs">{legend.name}</label>}
             </button>
+            {count || null} {percentage || null}
         </div>
     );
 };
