@@ -20,23 +20,6 @@ export const Day = ({
         return Object.values(hoursData).filter((hour) => hour === 3).length;
     }, [hoursData]);
 
-    const dataWithIndex = useMemo(() => {
-        return Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) => ({ hour, index }));
-    }, []);
-
-    console.log({ dataWithIndex });
-    /**
-     * 
-     * dataWithIndex
-                    .sort((a, b) => {
-                        if (sortBy === 'hour') {
-                            return a.hour - b.hour;
-                        } else if (sortBy === 'color') {
-                            return hours[b.index] - hours[a.index];
-                        }
-                    })
-     */
-
     return (
         <Column size="full">
             <span className="text-xs flex flex-col items-center justify-center">
@@ -50,8 +33,9 @@ export const Day = ({
                         setSelectedHour(index);
                         setSelectedDate(date);
                     }}
+                    style={{ borderWidth: "0.5px" }}
                     className={classNames({
-                        "w-full h-6 border border-black/60": true,
+                        "w-full h-6 border-black/60": true,
                         "cursor-pointer text-black": true,
                         "bg-gray-100 dark:bg-gray-800": !hoursData?.[index],
                         "bg-purple-400": hoursData?.[index] === 1,
