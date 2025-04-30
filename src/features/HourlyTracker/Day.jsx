@@ -20,38 +20,40 @@ export const Day = ({
         return Object.values(hoursData).filter((hour) => hour === 3).length;
     }, [hoursData]);
 
+
     return (
         <Column size="full">
             <span className="text-xs flex flex-col items-center justify-center">
                 <span>{date.split('-').at(-1)}</span>
                 <span>{date.split('-').at(1)}</span>
             </span>
-            {new Array(hours.length * 4).fill(null).map((_, index) =>
-                <div
-                    key={index}
-                    onClick={() => {
-                        setSelectedHour(index);
-                        setSelectedDate(date);
-                    }}
-                    // style={{ borderWidth: "0.5px" }}
-                    className={classNames({
-                        "w-full h-6": true,
-                        "cursor-pointer text-black": true,
-                        "bg-gray-100 dark:bg-gray-800": !hoursData?.[index],
-                        "bg-purple-400": hoursData?.[index] === 1,
-                        "bg-orange-900": hoursData?.[index] === 2,
-                        "bg-yellow-400": hoursData?.[index] === 3,
-                        "bg-green-400": hoursData?.[index] === 4,
-                        "bg-blue-400": hoursData?.[index] === 5,
-                        "bg-red-400": hoursData?.[index] === 6,
-                        "bg-orange-400": hoursData?.[index] === 7,
-                        "border-none":
-                            selectedHour !== index,
-                        "border-2 border-black":
-                            selectedHour === index && selectedDate === date
-                    })}>
-                </div>
-            )}
+            {new Array(hours.length * 4).fill(null).map((_, index) => {
+                const isSelected = selectedHour === index && selectedDate === date;
+                return (
+                    <div
+                        key={index}
+                        onClick={() => {
+                            setSelectedHour(index);
+                            setSelectedDate(date);
+                        }}
+                        // style={{ borderWidth: "0.5px" }}
+                        className={classNames({
+                            "w-full h-6": true,
+                            "cursor-pointer text-black": true,
+                            "bg-gray-100 dark:bg-gray-800": !hoursData?.[index],
+                            "bg-purple-400": hoursData?.[index] === 1,
+                            "bg-orange-900": hoursData?.[index] === 2,
+                            "bg-yellow-400": hoursData?.[index] === 3,
+                            "bg-green-400": hoursData?.[index] === 4,
+                            "bg-blue-400": hoursData?.[index] === 5,
+                            "bg-red-400": hoursData?.[index] === 6,
+                            "bg-orange-400": hoursData?.[index] === 7,
+                            "border-b border-black": index % 4 === 0 && !isSelected,
+                            "border-2 border-black": isSelected
+                        })}>
+                    </div>
+                )
+            })}
             <div className="text-xs" >
                 {totalYellow * 0.25}
             </div>
