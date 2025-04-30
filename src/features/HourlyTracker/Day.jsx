@@ -33,7 +33,7 @@ export const Day = ({
                         setSelectedHour(index);
                         setSelectedDate(date);
                     }}
-                    style={{ borderWidth: "0.5px" }}
+                    // style={{ borderWidth: "0.5px" }}
                     className={classNames({
                         "w-full h-6": true,
                         "cursor-pointer text-black": true,
@@ -45,7 +45,9 @@ export const Day = ({
                         "bg-blue-400": hoursData?.[index] === 5,
                         "bg-red-400": hoursData?.[index] === 6,
                         "bg-orange-400": hoursData?.[index] === 7,
-                        "border-dashed border-2 border-black":
+                        "border border-white":
+                            selectedHour !== index,
+                        "border-2 border-black":
                             selectedHour === index && selectedDate === date
                     })}>
                 </div>
