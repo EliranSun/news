@@ -23,8 +23,8 @@ export const ColorsButtons = ({ data, calendar, onColorSelect, selectedDate, mon
                     color={color}
                     legend={calendar.legend?.find(item => item.color === color)}
                     onClick={() => onColorSelect(color)}
-                // count={colorPercentages.find(item => item.color === color)?.count}
-                // percentage={colorPercentages.find(item => item.color === color)?.percentage}
+                count={colorPercentages.find(item => item.color === color)?.count}
+                percentage={colorPercentages.find(item => item.color === color)?.percentage}
                 />
             )}
             <ColorButton color="⬜️" onClick={() => onColorSelect('clear')} />
