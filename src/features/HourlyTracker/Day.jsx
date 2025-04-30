@@ -39,22 +39,6 @@ export const Day = ({
 
     return (
         <Column size="full">
-            {/* <input
-                type="date"
-                value={date}
-                className={classNames(size, "text-center border-b border-black")}
-                onChange={(e) => {
-                    const previousDate = date;
-                    const newDate = e.target.value;
-                    setSelectedDate(newDate);
-                    const newData = {
-                        ...data,
-                        [newDate]: previousDate ? data[previousDate] : {}
-                    };
-
-                    delete newData[previousDate];
-                    setData(newData);
-                }} /> */}
             <span className="text-xs flex flex-col items-center justify-center">
                 <span>{date.split('-').at(-1)}</span>
                 <span>{date.split('-').at(1)}</span>

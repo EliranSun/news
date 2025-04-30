@@ -13,6 +13,7 @@ export function HourView() {
     const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
     const [selectedHour, setSelectedHour] = useState(0);
     const [data, setData] = useState(JSON.parse(localStorage.getItem('data')) || {});
+    const [pendingDate, setPendingDate] = useState(new Date().toISOString().split('T')[0]);
 
     useEffect(() => {
         saveData(data);
@@ -23,9 +24,7 @@ export function HourView() {
         <div className="flex flex-col overflow-y-auto h-[calc(100vh-96px)] w-full space-y-2">
             <div className="flex overflow-y-auto h-[70vh]">
                 <Column>
-                    <div className={classNames("opacity-0 h-8 shrink-0 text-center border-b border-black")}>
-                        X
-                    </div>
+                    <div className={classNames("opacity-0 h-8 shrink-0 text-center border-b border-black")} />
                     {Hours.slice(START_HOUR, END_HOUR + 1).map((hour, index) =>
                         <div key={index} className="h-full text-[10px] flex text-center w-full px-1">
                             {hour.slice(0, 2)}
@@ -58,7 +57,41 @@ export function HourView() {
                 setData={setData}
                 setSelectedHour={setSelectedHour}
             />
-            <AddDayButton />
+            <div className="flex gap-2">
+                <input
+                    type="date"
+                    value={pendingDate}
+                    className={classNames("w-2/3 text-center border-b border-black")}
+                    onChange={(e) => {
+                        // const previousDate = selectedDate;
+                        // const newDate = e.target.value;
+
+                        // setSelectedDate(newDate);
+
+                        // const newData = {
+                        //     ...data,
+                        //     [newDate]: previousDate ? data[previousDate] : {}
+                        // };
+
+                        // delete newData[previousDate];
+                        // setData(newData);
+
+                        setPendingDate(e.target.value);
+                    }} />
+                <AddDayButton onClick={() => {
+                    if (data[pendingDate]) {
+                        alert('Date already exists');
+                        return;
+                    }
+
+                    setSelectedDate(pendingDate);
+                    setSelectedHour(0);
+                    setData({
+                        ...data,
+                        [pendingDate]: {}
+                    });
+                }} />
+            </div>
             {/* <div className="flex flex-col gap-2">
                 <button onClick={() => {
                     setSortBy('color');
