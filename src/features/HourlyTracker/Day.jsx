@@ -45,7 +45,7 @@ export const Day = ({
                         "bg-blue-400": hoursData?.[index] === 5,
                         "bg-red-400": hoursData?.[index] === 6,
                         "bg-orange-400": hoursData?.[index] === 7,
-                        "border border-white":
+                        "border-none":
                             selectedHour !== index,
                         "border-2 border-black":
                             selectedHour === index && selectedDate === date
