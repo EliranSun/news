@@ -80,7 +80,10 @@ export const Body = ({
         case "year":
             return (
                 <div>
+                    <div className="flex gap-2">
+                    <button>2025</button>
                     <button>2024</button>
+                    </div>
                 <div className="grid grid-cols-3 gap-1">
                     {yearMap.map((_, monthIndex) => {
                         return (
