@@ -83,6 +83,8 @@ export const Body = ({
                     <div className="flex gap-2">
                     <button onClick={() => setSelectedDate(new Date(2025, 0, 1))}>2025</button>
                     <button onClick={() => setSelectedDate(new Date(2024, 0, 1))}>2024</button>
+                                        <button onClick={() => setSelectedDate(new Date(2023, 0, 1))}>2023</button>
+                                                            <button onClick={() => setSelectedDate(new Date(2022, 0, 1))}>2022</button>
                     </div>
                 <div className="grid grid-cols-3 gap-1">
                     {yearMap.map((_, monthIndex) => {
