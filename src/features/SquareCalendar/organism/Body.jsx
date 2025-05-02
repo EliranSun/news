@@ -79,6 +79,8 @@ export const Body = ({
 
         case "year":
             return (
+                <div>
+                    <button>2024</button>
                 <div className="grid grid-cols-3 gap-1">
                     {yearMap.map((_, monthIndex) => {
                         return (
@@ -91,6 +93,7 @@ export const Body = ({
                                 monthIndex={monthIndex} />
                         )
                     })}
+                </div>
                 </div>
             );
 
