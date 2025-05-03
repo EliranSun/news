@@ -3,10 +3,12 @@ import { CalendarButton } from "../atoms/CalendarButton";
 import PropTypes from "prop-types";
 
 export const CalendarsStrip = ({ selectedCalendar, onCalendarClick }) => {
+    const strip = Object.values(Calendars);
+    
     return (
         <div className="flex flex-col gap-1 w-full">
             <div className="text-base font-bold flex flex-nowrap overflow-x-auto gap-2">
-                {Object.values(Calendars).map(item => {
+                {strip.slice(0, Math.round(strip.length / 2)).map(item => {
                     return (
                         <div key={item.key} className="h-fit" id={item.key}>
                             <CalendarButton
@@ -20,7 +22,7 @@ export const CalendarsStrip = ({ selectedCalendar, onCalendarClick }) => {
                 })}
             </div>
             <div className="text-base font-bold flex flex-nowrap overflow-x-auto gap-2">
-                {Object.values(Calendars).map(item => {
+                {strip.slice(Math.round(strip.length / 2), strip.length).map(item => {
                     return (
                         <div key={item.key} className="h-fit" id={item.key}>
                             <CalendarButton
