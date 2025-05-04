@@ -552,6 +552,45 @@ export const Calendars = {
             { name: "📞 call", color: Colors.Purple },
         ]
     },
+    Rotem: {
+        showColorStatus: true,
+        showGamification: false,
+        yellowAfter: 30,
+        redAfter: 60,
+        name: "avshalom",
+        key: "avshalom-square-calendar",
+        icon: "🫂",
+        category: "social",
+        colors: [
+            Colors.Violet,
+            Colors.Purple,
+            Colors.Black
+        ],
+        legend: [
+            { name: "Meet", color: Colors.Violet },
+            { name: "Personal", color: Colors.Violet },
+            { name: "Call", color: Colors.Purple },
+        ]
+    },
+    Maya: {
+        showColorStatus: true,
+        showGamification: false,
+        yellowAfter: 30,
+        redAfter: 60,
+        name: "avshalom",
+        key: "avshalom-square-calendar",
+        icon: "🫂",
+        category: "social",
+        colors: [
+            Colors.Violet,
+            Colors.Purple,
+            Colors.Black
+        ],
+        legend: [
+            { name: "💬 personal", color: Colors.Violet },
+            { name: "📞 call", color: Colors.Purple },
+        ]
+    },
     /* Friends: {
         showColorStatus: true,
         showGamification: false,
