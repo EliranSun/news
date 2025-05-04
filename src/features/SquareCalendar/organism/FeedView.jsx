@@ -14,7 +14,7 @@ const FeedItem = ({
     updateColor,
     setSelectedDateNote,
 }) => {
-    const data = loadFromStorage(calendar.key);
+    const [data, setData] = useState(loadFromStorage(calendar.key));
 
     return (
         <>
@@ -53,8 +53,7 @@ const FeedItem = ({
                         }
                     }
 
-                    // setData(newData);
-                    // alert("calendar.key " + calendar.key);
+                    setData(newData);
                     saveToStorage(calendar.key, newData);
                 }}
                 onNoteUpdate={(value, callback) => {
@@ -70,7 +69,7 @@ const FeedItem = ({
                             newData.push({ date: selectedDate, note: value });
                         }
 
-                        // setData(newData);
+                        setData(newData);
                         saveToStorage(calendar.key, newData);
                         setSelectedDateNote(value);
                         callback?.(true);
