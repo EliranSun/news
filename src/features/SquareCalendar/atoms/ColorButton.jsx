@@ -30,7 +30,7 @@ export const ColorButton = ({ color, onClick, legend, count, percentage }) => {
             })}>
             {legend && <label className="">{legend.name}</label>}
             <span className="">
-                {count || null}{percentage ? `- %${percentage}` : null}
+                {count || null}{percentage ? ` - %${percentage}` : null}
             </span>
         </button>
     );
