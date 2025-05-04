@@ -381,8 +381,6 @@ export const Calendars = {
         icon: "🎁",
         category: "wife"
     },
-
-    // Social - Using friendly, welcoming colors
     Mom: {
         showColorStatus: true,
         showGamification: false,
@@ -390,10 +388,15 @@ export const Calendars = {
         redAfter: 60,
         name: "mom",
         key: "mom-square-calendar",
-        colors: [Colors.Purple, Colors.Black],
         icon: "👩🏾",
         category: "social"
-    }, // Woman
+        colors: [Colors.Purple, Colors.Black],
+        legend: [
+            { name: "visit", color:  Colors.Purple },
+            { name: "phone call", color: Colors.Lavender },
+            { name: "personal 💬", color: Colors.Violet },
+        ]
+    },
     Dad: {
         showColorStatus: true,
         showGamification: false,
