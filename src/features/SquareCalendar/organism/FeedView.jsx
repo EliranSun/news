@@ -108,15 +108,17 @@ export const FeedView = ({
         <div className="w-full h-dvh overflow-y-auto pb-40">
             <div className="flex justify-between items-center font-serif">
                 <h1 className="text-2xl font-bold">Blocks</h1>
+            </div>
+            <div className="flex gap-4 items-center sticky z-10 top-0 bg-stone-100 dark:bg-stone-900">
                 <button onClick={() => setShowNotes(!showNotes)}>
                     <Note size={24} weight={showNotes ? "fill" : "regular"} />
                 </button>
+                <DateStrip
+                    length={10}
+                    type="month"
+                    selectedDate={selectedDate}
+                    setSelectedDate={setSelectedDate} />
             </div>
-            <DateStrip
-                length={10}
-                type="month"
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate} />
             {Object.values(Calendars).map((calendar) => (
                 <div key={calendar.key} className="bg-white dark:bg-gray-800
                  my-4 shadow-md rounded-xl p-4">
