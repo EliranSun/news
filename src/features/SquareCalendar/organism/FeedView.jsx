@@ -5,6 +5,7 @@ import { isSameDay } from "date-fns";
 import { useState } from "react";
 import { loadFromStorage, saveToStorage } from "../utils";
 import { DateStrip } from "../molecules/DateStrip";
+import { Note } from "@phosphor-icons/react";
 
 const FeedItem = ({
     calendar,
@@ -13,6 +14,7 @@ const FeedItem = ({
     selectedDateNote,
     updateColor,
     setSelectedDateNote,
+    showNote,
 }) => {
     const [data, setData] = useState(loadFromStorage(calendar.key));
 
@@ -28,6 +30,7 @@ const FeedItem = ({
                 note={data.find(item => isSameDay(item.date, selectedDate))?.note || ""}
                 calendar={calendar}
                 data={data}
+                showNote={showNote}
                 setSelectedDate={newDate => {
                     setSelectedDate(newDate);
                     const dayItem = data.find(item => isSameDay(item.date, newDate));
@@ -99,9 +102,16 @@ export const FeedView = ({
     setSelectedDateNote,
 }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [showNotes, setShowNotes] = useState(false);
 
     return (
         <div className="w-full h-dvh overflow-y-auto pb-40">
+            <div className="flex justify-between items-center font-serif">
+                <h1 className="text-2xl font-bold">Blocks</h1>
+                <button onClick={() => setShowNotes(!showNotes)}>
+                    <Note size={24} weight={showNotes ? "fill" : "regular"} />
+                </button>
+            </div>
             <DateStrip
                 length={10}
                 type="month"
@@ -111,6 +121,7 @@ export const FeedView = ({
                 <div key={calendar.key} className="bg-white dark:bg-gray-800
                  my-4 shadow-md rounded-xl p-4">
                     <FeedItem
+                        showNote={showNotes}
                         calendar={calendar}
                         selectedDate={selectedDate}
                         setSelectedDate={setSelectedDate}

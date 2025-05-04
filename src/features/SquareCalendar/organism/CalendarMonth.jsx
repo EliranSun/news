@@ -18,7 +18,8 @@ export const CalendarMonth = ({
     onColorSelect,
     onNoteUpdate,
     note: initialNote,
-    isYearView = false
+    isYearView = false,
+    showNote = false,
 }) => {
     const [note, setNote] = useState(initialNote);
     const [isNoteSaved, setIsNoteSaved] = useState(null);
@@ -62,7 +63,7 @@ export const CalendarMonth = ({
     }, [isNoteSaved]);
 
     return (
-        <div className="flex flex-col justify-between w-full gap-4 h-full overflow-y-scroll" key={`month-${monthIndex}`}>
+        <div className="flex flex-col justify-between w-full gap-2 h-full overflow-y-scroll" key={`month-${monthIndex}`}>
             {isYearView ? <h2 className="text-xs my-0 text-center">{format(month, "MMM")}</h2> : ""}
             <div className="flex flex-row-reverse gap-4 w-full">
                 {!isYearView &&
@@ -103,16 +104,16 @@ export const CalendarMonth = ({
                 size={size}
                 selectedDate={month}
                 showInfo /> */}
-            {/* {!isYearView && (
+            {showNote && (
                 <>
-                    <div className="relative z-0">
+                    <div className="relative z-0 w-full">
                         <textarea
                             value={note}
                             placeholder="Note"
                             onChange={event => setNote(event.target.value)}
                             className={classNames({
                                 "w-full border rounded-md p-2": true,
-                                "h-40": true,
+                                "h-20": true,
                             })}
                         />
                         <button
@@ -127,7 +128,7 @@ export const CalendarMonth = ({
                         </button>
                     </div>
                 </>
-            )} */}
+            )}
         </div>
     )
 };
