@@ -389,7 +389,7 @@ export const Calendars = {
         name: "mom",
         key: "mom-square-calendar",
         icon: "👩🏾",
-        category: "social"
+        category: "social",
         colors: [
         Colors.Purple,
         Colors.Lavender, 
