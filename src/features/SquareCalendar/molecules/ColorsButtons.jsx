@@ -16,15 +16,15 @@ export const ColorsButtons = ({ data, calendar, onColorSelect, selectedDate, mon
     if (!calendar) return null;
 
     return (
-        <div className="flex flex-wrap items-start overflow-x-auto gap-1 min-h-fit">
+        <div className="flex flex-col items-start overflow-x-auto gap-1 min-h-fit w-1/4">
             {calendar.colors.map(color =>
                 <ColorButton
                     key={color}
                     color={color}
                     legend={calendar.legend?.find(item => item.color === color)}
                     onClick={() => onColorSelect(color)}
-                count={colorPercentages.find(item => item.color === color)?.count}
-                percentage={colorPercentages.find(item => item.color === color)?.percentage}
+                    count={colorPercentages.find(item => item.color === color)?.count}
+                    percentage={colorPercentages.find(item => item.color === color)?.percentage}
                 />
             )}
             <ColorButton color="⬜️" onClick={() => onColorSelect('clear')} />

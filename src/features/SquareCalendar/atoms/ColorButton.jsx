@@ -21,13 +21,13 @@ export const ColorButton = ({ color, onClick, legend, count, percentage }) => {
     }, [color]);
 
     return (
-        <div className="flex flex-col justify-center items-center shrink-0">
+        <div className="flex flex-col justify-center items-center shrink-0 w-full">
             <button
                 onClick={onClick}
                 style={{ color: textColor }}
                 className={classNames(bgColor, {
                     "flex flex-col justify-center items-center shrink-0": true,
-                    "border border-black rounded-full p-2 size-12": true,
+                    "border border-black p-2 w-full h-7 rounded-xl": true,
                 })}>
                 {/* <div className={classNames("size-4", } /> */}
                 {legend && <label className="text-xs">{legend.name}</label>}

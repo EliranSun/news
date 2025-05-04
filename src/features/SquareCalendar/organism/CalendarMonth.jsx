@@ -62,13 +62,12 @@ export const CalendarMonth = ({
 
     return (
         <div className="flex flex-col justify-between w-full gap-4 h-full overflow-y-scroll" key={`month-${monthIndex}`}>
-            {!isYearView && <Pills type="month" length={12} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />}
             {isYearView ? <h2 className="text-xs my-0 text-center">{format(month, "MMM")}</h2> : ""}
-            <div>
+            <div className="flex gap-4 w-full">
                 <div className={classNames({
                     "grid grid-cols-7": true,
                     "p-1 gap-0.5": size === "small",
-                    "p-1 gap-1 justify-center items-start w-fit my-2": size !== "small",
+                    "p-1 gap-1 justify-center items-start w-fit": size !== "small",
                 })}>
                     {calendarData.map((dayObj, dayIndex) => {
                         return (
@@ -84,22 +83,24 @@ export const CalendarMonth = ({
                         );
                     })}
                 </div>
-            </div>
-            {/* <CalendarMonthColorInfo
-                data={data}
-                size={size}
-                selectedDate={month}
-                showInfo /> */}
-            {!isYearView && (
-                <>
+                {!isYearView &&
                     <ColorsButtons
                         calendar={calendar}
                         onColorSelect={onColorSelect}
                         selectedDate={selectedDate}
                         monthIndex={monthIndex}
                         data={data}
-                    />
-                    <div className="relative">
+                    />}
+            </div>
+            {/* {!isYearView && <Pills type="month" length={12} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />} */}
+            {/* <CalendarMonthColorInfo
+                data={data}
+                size={size}
+                selectedDate={month}
+                showInfo /> */}
+            {/* {!isYearView && (
+                <>
+                    <div className="relative z-0">
                         <textarea
                             value={note}
                             placeholder="Note"
@@ -110,7 +111,7 @@ export const CalendarMonth = ({
                             })}
                         />
                         <button
-                            className="flex absolute right-2 bottom-4 items-center justify-center"
+                            className="flex absolute right-2 bottom-4 items-center justify-center z-0"
                             onClick={() => onNoteUpdate(note, (success) => {
                                 setIsNoteSaved(success);
                                 setTimeout(() => {
@@ -121,7 +122,7 @@ export const CalendarMonth = ({
                         </button>
                     </div>
                 </>
-            )}
+            )} */}
         </div>
     )
 };

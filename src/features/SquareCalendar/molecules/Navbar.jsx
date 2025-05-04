@@ -84,7 +84,7 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
     return (
         <>
             <OpacityTransition isOpen={isMenuOpen}>
-                <div className="fixed inset-0 m-auto flex items-center justify-center bg-black/50">
+                <div className="fixed z-20 inset-0 m-auto flex items-center justify-center bg-black/50">
                     <div className="flex flex-col items-center justify-center h-fit
                     text-lg gap-0 p-4 rounded-lg
                     w-10/12 m-auto bg-white dark:bg-black">

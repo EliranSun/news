@@ -391,14 +391,14 @@ export const Calendars = {
         icon: "👩🏾",
         category: "social",
         colors: [
-        Colors.Purple,
-        Colors.Lavender, 
-        Colors.Violet, 
-        Colors.Black],
+            Colors.Purple,
+            Colors.Lavender,
+            Colors.Violet,
+            Colors.Black],
         legend: [
             { name: "visit", color: Colors.Purple },
             { name: "phone call", color: Colors.Lavender },
-            { name: "personal 💬", color: Colors.Violet },
+            { name: "💬 personal", color: Colors.Violet },
         ]
     },
     Dad: {
