@@ -4,16 +4,17 @@ import PropTypes from "prop-types";
 import { isSameDay } from "date-fns";
 import { useState } from "react";
 import { loadFromStorage, saveToStorage } from "../utils";
+import { DateStrip } from "../molecules/DateStrip";
 
 const FeedItem = ({
     calendar,
+    selectedDate,
+    setSelectedDate,
     selectedDateNote,
     updateColor,
     setSelectedDateNote,
-    onNoteUpdate
 }) => {
     const data = loadFromStorage(calendar.key);
-    const [selectedDate, setSelectedDate] = useState(new Date());
 
     return (
         <>
@@ -46,7 +47,7 @@ const FeedItem = ({
                             newData.push({ date: selectedDate, note: value });
                         }
 
-                        setData(newData);
+                        // setData(newData);
                         saveToStorage(calendar.key, newData);
                         setSelectedDateNote(value);
                         callback?.(true);
@@ -64,25 +65,35 @@ FeedItem.propTypes = {
     selectedDateNote: PropTypes.string.isRequired,
     updateColor: PropTypes.func.isRequired,
     setSelectedDateNote: PropTypes.func.isRequired,
+    selectedDate: PropTypes.instanceOf(Date).isRequired,
+    setSelectedDate: PropTypes.func.isRequired,
 }
 
 export const FeedView = ({
-    selectedDate,
+    // selectedDate,
     selectedDateNote,
     updateColor,
-    setSelectedDate,
+    // setSelectedDate,
     setSelectedDateNote,
 }) => {
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
     return (
         <div className="w-full h-dvh overflow-y-auto">
+            <DateStrip
+                length={10}
+                type="month"
+                selectedDate={selectedDate}
+                setSelectedDate={setSelectedDate} />
             {Object.values(Calendars).map((calendar) => (
-                <div key={calendar.key} className="border-b border-gray-200 py-4">
+                <div key={calendar.key} className="bg-white dark:bg-gray-800
+                 my-4 shadow-md rounded-xl p-4">
                     <FeedItem
                         calendar={calendar}
                         selectedDate={selectedDate}
+                        setSelectedDate={setSelectedDate}
                         selectedDateNote={selectedDateNote}
                         updateColor={updateColor}
-                        setSelectedDate={setSelectedDate}
                         setSelectedDateNote={setSelectedDateNote}
                     />
                 </div>

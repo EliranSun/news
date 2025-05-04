@@ -17,7 +17,7 @@ export const DaySquare = ({ dayObj, selectedDate, setSelectedDate, data, size = 
                 "border-2 border-amber-500": Boolean(dayObj.note),
                 "text-[8px] flex justify-center items-center": true,
                 "size-4 rounded-[2px]": size === "small",
-                "size-6 rounded-md mx-auto": size === "medium",
+                "size-7 rounded-md mx-auto": size === "medium",
                 "size-8 rounded-md mx-auto": size === "big",
                 "bg-gray-100 dark:bg-gray-900": !dayObj.previousMonth && !isToday && !colorClass,
                 "opacity-0": dayObj.previousMonth,

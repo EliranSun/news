@@ -2,9 +2,9 @@ import { Pill } from "../atoms/Pill";
 import { subDays, isSameDay, format, subMonths } from "date-fns";
 import PropTypes from "prop-types";
 
-export const Pills = ({ type = "day", length = 10, selectedDate, setSelectedDate }) => {
+export const DateStrip = ({ type = "day", length = 10, selectedDate, setSelectedDate }) => {
     return (
-        <div className="flex gap-1 overflow-x-auto min-h-fit">
+        <div className="flex gap-1 overflow-x-auto min-h-fit sticky top-0 bg-stone-100 dark:bg-stone-900">
             {Array.from({ length }).map((_, index) => {
                 const date = type === "day" ? subDays(new Date(), index) : subMonths(new Date(), index);
                 const isSelected = isSameDay(date, selectedDate);
@@ -24,7 +24,7 @@ export const Pills = ({ type = "day", length = 10, selectedDate, setSelectedDate
 };
 
 
-Pills.propTypes = {
+DateStrip.propTypes = {
     type: PropTypes.oneOf(["day", "month"]),
     length: PropTypes.number,
     selectedDate: PropTypes.date,

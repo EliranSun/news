@@ -5,7 +5,7 @@ import { Calendars } from "../constants";
 import { loadFromStorage, isSameDay, contrastColor, getColorsClassList } from "../utils";
 import { ColorHexMap } from "../constants";
 import PropTypes from "prop-types";
-import { Pills } from "../molecules/Pills";
+import { DateStrip } from "../molecules/DateStrip";
 
 const ColorLabel = ({ color, label, textBefore, isVisible, isSuccess, connectingText, showPeriod = true, textAfter }) => {
     if (!isVisible) return null;
@@ -67,7 +67,7 @@ export const TextualDayView = ({ selectedDate = new Date(), setSelectedDate }) =
     const css = dayColours[Calendars.Css.key];
     const read = dayColours[Calendars.Read.key];
     const loneliness = dayColours[Calendars.Loneliness.key];
-    const friends = dayColours[Calendars.Friends.key];
+    // const friends = dayColours[Calendars.Friends.key];
     const remSleep = dayColours[Calendars.Sleep.key];
     const deepSleep = dayColours[Calendars.SleepDeep.key];
     const isCssSuccess = css && css?.color !== "black" && css?.color !== "clear";
@@ -75,7 +75,7 @@ export const TextualDayView = ({ selectedDate = new Date(), setSelectedDate }) =
 
     return (
         <>
-            <Pills length={10} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+            <DateStrip length={10} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
             <div
                 onClick={() => setFontToggle(!fontToggle)}
                 className={classNames({
@@ -117,12 +117,12 @@ export const TextualDayView = ({ selectedDate = new Date(), setSelectedDate }) =
                         isSuccess
                         textBefore="Socially, I felt"
                         color={loneliness?.color} label={loneliness?.label} />
-                    <ColorLabel
+                    {/* <ColorLabel
                         isVisible={friends?.label}
                         textBefore="I met with"
                         isSuccess
                         color={friends?.color}
-                        label={friends?.label} />
+                        label={friends?.label} /> */}
                 </div>
                 <div>
                     <ColorLabel

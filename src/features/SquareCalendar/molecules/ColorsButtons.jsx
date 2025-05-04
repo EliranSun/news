@@ -16,7 +16,7 @@ export const ColorsButtons = ({ data, calendar, onColorSelect, selectedDate, mon
     if (!calendar) return null;
 
     return (
-        <div className="flex flex-col items-start overflow-x-auto gap-1 min-h-fit w-1/3">
+        <div className="flex flex-col items-start overflow-x-auto gap-1 min-h-fit">
             {calendar.colors.map(color =>
                 <ColorButton
                     key={color}

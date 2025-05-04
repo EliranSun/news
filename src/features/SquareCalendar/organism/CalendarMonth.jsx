@@ -5,7 +5,8 @@ import { useMemo, useState, useEffect } from "react";
 import classNames from "classnames";
 import { ColorsButtons } from "../molecules/ColorsButtons";
 import { FloppyDisk, CheckCircle, WarningCircle } from "@phosphor-icons/react";
-import { Pills } from "../molecules/Pills";
+import { DateStrip } from "../molecules/DateStrip";
+
 export const CalendarMonth = ({
     selectedDate = new Date(),
     setSelectedDate,
@@ -63,34 +64,38 @@ export const CalendarMonth = ({
     return (
         <div className="flex flex-col justify-between w-full gap-4 h-full overflow-y-scroll" key={`month-${monthIndex}`}>
             {isYearView ? <h2 className="text-xs my-0 text-center">{format(month, "MMM")}</h2> : ""}
-            <div className="flex gap-4 w-full">
-                <div className={classNames({
-                    "grid grid-cols-7": true,
-                    "p-1 gap-0.5": size === "small",
-                    "p-1 gap-1 justify-center items-start w-fit": size !== "small",
-                })}>
-                    {calendarData.map((dayObj, dayIndex) => {
-                        return (
-                            <DaySquare
-                                monthIndex={monthIndex}
-                                dayIndex={dayIndex}
-                                size={size}
-                                selectedDate={selectedDate}
-                                setSelectedDate={setSelectedDate}
-                                data={data}
-                                key={`month-${monthIndex}-day-${dayIndex}`}
-                                dayObj={dayObj} />
-                        );
-                    })}
-                </div>
+            <div className="flex flex-row-reverse gap-4 w-full">
                 {!isYearView &&
-                    <ColorsButtons
-                        calendar={calendar}
-                        onColorSelect={onColorSelect}
-                        selectedDate={selectedDate}
-                        monthIndex={monthIndex}
-                        data={data}
-                    />}
+                    <div className="w-1/3">
+                        <ColorsButtons
+                            calendar={calendar}
+                            onColorSelect={onColorSelect}
+                            selectedDate={selectedDate}
+                            monthIndex={monthIndex}
+                            data={data}
+                        />
+                    </div>}
+                <div className="w-2/3 flex justify-start items-start">
+                    <div className={classNames({
+                        "grid grid-cols-7 h-fit w-fit": true,
+                        "p-1 gap-0.5": size === "small",
+                        "p-1 gap-1 justify-center items-start": size !== "small",
+                    })}>
+                        {calendarData.map((dayObj, dayIndex) => {
+                            return (
+                                <DaySquare
+                                    monthIndex={monthIndex}
+                                    dayIndex={dayIndex}
+                                    size={size}
+                                    selectedDate={selectedDate}
+                                    setSelectedDate={setSelectedDate}
+                                    data={data}
+                                    key={`month-${monthIndex}-day-${dayIndex}`}
+                                    dayObj={dayObj} />
+                            );
+                        })}
+                    </div>
+                </div>
             </div>
             {/* {!isYearView && <Pills type="month" length={12} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />} */}
             {/* <CalendarMonthColorInfo
