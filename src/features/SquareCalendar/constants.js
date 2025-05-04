@@ -423,7 +423,136 @@ export const Calendars = {
         icon: "👵🏾",
         category: "social"
     },
-    Friends: {
+    Mor: {
+        showColorStatus: true,
+        showGamification: false,
+        yellowAfter: 30,
+        redAfter: 60,
+        name: "mor",
+        key: "mor-square-calendar",
+        icon: "🫂",
+        category: "social",
+        colors: [
+            Colors.Purple,
+            Colors.Black
+        ],
+        legend: [
+            { name: "💬 personal", color: Colors.Violet },
+        ]
+    },
+    Nadav: {
+        showColorStatus: true,
+        showGamification: false,
+        yellowAfter: 30,
+        redAfter: 60,
+        name: "nadav",
+        key: "nadav-square-calendar",
+        icon: "🫂",
+        category: "social",
+        colors: [
+            Colors.Purple,
+            Colors.Black
+        ],
+        legend: [
+            { name: "💬 personal", color: Colors.Violet },
+        ]
+    },
+    Shahar: {
+        showColorStatus: true,
+        showGamification: false,
+        yellowAfter: 30,
+        redAfter: 60,
+        name: "shahar",
+        key: "shahar-square-calendar",
+        icon: "🫂",
+        category: "social",
+        colors: [
+            Colors.Violet,
+            Colors.Purple,
+            Colors.Black
+        ],
+        legend: [
+            { name: "💬 personal", color: Colors.Violet },
+            { name: "📞 call", color: Colors.Purple },
+        ]
+    },
+    Sahar: {
+        showColorStatus: true,
+        showGamification: false,
+        yellowAfter: 30,
+        redAfter: 60,
+        name: "sahar",
+        key: "sahar-square-calendar",
+        icon: "🫂",
+        category: "social",
+        colors: [
+            Colors.Violet,
+            Colors.Purple,
+            Colors.Black
+        ],
+        legend: [
+            { name: "💬 personal", color: Colors.Violet },
+            { name: "📞 call", color: Colors.Purple },
+        ]
+    },
+    Yahel: {
+        showColorStatus: true,
+        showGamification: false,
+        yellowAfter: 30,
+        redAfter: 60,
+        name: "yahel",
+        key: "yahel-square-calendar",
+        icon: "🫂",
+        category: "social",
+        colors: [
+            Colors.Violet,
+            Colors.Purple,
+            Colors.Black
+        ],
+        legend: [
+            { name: "💬 personal", color: Colors.Violet },
+            { name: "📞 call", color: Colors.Purple },
+        ]
+    },
+    Ofek: {
+        showColorStatus: true,
+        showGamification: false,
+        yellowAfter: 30,
+        redAfter: 60,
+        name: "ofek",
+        key: "ofek-square-calendar",
+        icon: "🫂",
+        category: "social",
+        colors: [
+            Colors.Violet,
+            Colors.Purple,
+            Colors.Black
+        ],
+        legend: [
+            { name: "💬 personal", color: Colors.Violet },
+            { name: "📞 call", color: Colors.Purple },
+        ]
+    },
+    Avshalom: {
+        showColorStatus: true,
+        showGamification: false,
+        yellowAfter: 30,
+        redAfter: 60,
+        name: "avshalom",
+        key: "avshalom-square-calendar",
+        icon: "🫂",
+        category: "social",
+        colors: [
+            Colors.Violet,
+            Colors.Purple,
+            Colors.Black
+        ],
+        legend: [
+            { name: "💬 personal", color: Colors.Violet },
+            { name: "📞 call", color: Colors.Purple },
+        ]
+    },
+    /* Friends: {
         showColorStatus: true,
         showGamification: false,
         yellowAfter: 10,
@@ -457,7 +586,7 @@ export const Calendars = {
             { name: "Mika", color: Colors.Violet },
             { name: "Noa", color: Colors.Orange },
         ],
-    },
+    },*/
     SocialMedia: {
         name: "scrolling",
         key: "social-media-square-calendar",
