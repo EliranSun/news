@@ -75,7 +75,7 @@ export const CalendarMonth = ({
                             data={data}
                         />
                     </div>}
-                <div className="w-2/3 flex justify-start items-start">
+                <div className={isYearView ? "w-full" : "w-2/3 flex justify-start items-start"}>
                     <div className={classNames({
                         "grid grid-cols-7 h-fit w-fit": true,
                         "p-1 gap-0.5": size === "small",

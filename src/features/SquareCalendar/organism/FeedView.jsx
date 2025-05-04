@@ -27,12 +27,35 @@ const FeedItem = ({
                 monthIndex={selectedDate.getMonth()}
                 note={data.find(item => isSameDay(item.date, selectedDate))?.note || ""}
                 calendar={calendar}
-                onColorSelect={updateColor}
                 data={data}
                 setSelectedDate={newDate => {
                     setSelectedDate(newDate);
                     const dayItem = data.find(item => isSameDay(item.date, newDate));
                     setSelectedDateNote(dayItem?.note || "");
+                }}
+                onColorSelect={(color) => {
+                    let newData;
+
+                    if (color === 'clear') {
+                        newData = data.filter(item => !isSameDay(item.date, selectedDate));
+                    } else {
+                        const existingEntry = data.find(item =>
+                            isSameDay(item.date, selectedDate));
+
+                        if (existingEntry) {
+                            newData = data.map(item =>
+                                isSameDay(item.date, selectedDate)
+                                    ? { ...item, color }
+                                    : item
+                            );
+                        } else {
+                            newData = [...data, { date: selectedDate, color, note: selectedDateNote }];
+                        }
+                    }
+
+                    // setData(newData);
+                    // alert("calendar.key " + calendar.key);
+                    saveToStorage(calendar.key, newData);
                 }}
                 onNoteUpdate={(value, callback) => {
                     try {
@@ -93,7 +116,6 @@ export const FeedView = ({
                         selectedDate={selectedDate}
                         setSelectedDate={setSelectedDate}
                         selectedDateNote={selectedDateNote}
-                        updateColor={updateColor}
                         setSelectedDateNote={setSelectedDateNote}
                     />
                 </div>

@@ -396,9 +396,9 @@ export const Calendars = {
             Colors.Violet,
             Colors.Black],
         legend: [
-            { name: "visit", color: Colors.Purple },
-            { name: "phone call", color: Colors.Lavender },
-            { name: "💬 personal", color: Colors.Violet },
+            { name: "Visit", color: Colors.Purple },
+            { name: "Call", color: Colors.Lavender },
+            { name: "PM", color: Colors.Violet },
         ]
     },
     Dad: {
@@ -437,7 +437,7 @@ export const Calendars = {
             Colors.Black
         ],
         legend: [
-            { name: "💬 personal", color: Colors.Purple },
+            { name: "PM", color: Colors.Purple },
         ]
     },
     Nadav: {
@@ -454,7 +454,7 @@ export const Calendars = {
             Colors.Black
         ],
         legend: [
-            { name: "💬 personal", color: Colors.Purple },
+            { name: "PM", color: Colors.Purple },
         ]
     },
     Shahar: {
@@ -472,8 +472,8 @@ export const Calendars = {
             Colors.Black
         ],
         legend: [
-            { name: "💬 personal", color: Colors.Violet },
-            { name: "📞 call", color: Colors.Purple },
+            { name: "PM", color: Colors.Violet },
+            { name: "Call", color: Colors.Purple },
         ]
     },
     Sahar: {
@@ -491,8 +491,8 @@ export const Calendars = {
             Colors.Black
         ],
         legend: [
-            { name: "💬 personal", color: Colors.Violet },
-            { name: "📞 call", color: Colors.Purple },
+            { name: "PM", color: Colors.Violet },
+            { name: "Call", color: Colors.Purple },
         ]
     },
     Yahel: {
@@ -510,8 +510,8 @@ export const Calendars = {
             Colors.Black
         ],
         legend: [
-            { name: "💬 personal", color: Colors.Violet },
-            { name: "📞 call", color: Colors.Purple },
+            { name: "PM", color: Colors.Violet },
+            { name: "Call", color: Colors.Purple },
         ]
     },
     Ofek: {
@@ -529,8 +529,8 @@ export const Calendars = {
             Colors.Black
         ],
         legend: [
-            { name: "💬 personal", color: Colors.Violet },
-            { name: "📞 call", color: Colors.Purple },
+            { name: "PM", color: Colors.Violet },
+            { name: "Call", color: Colors.Purple },
         ]
     },
     Avshalom: {
@@ -548,8 +548,8 @@ export const Calendars = {
             Colors.Black
         ],
         legend: [
-            { name: "💬 personal", color: Colors.Violet },
-            { name: "📞 call", color: Colors.Purple },
+            { name: "PM", color: Colors.Violet },
+            { name: "Call", color: Colors.Purple },
         ]
     },
     Rotem: {
@@ -587,8 +587,8 @@ export const Calendars = {
             Colors.Black
         ],
         legend: [
-            { name: "💬 personal", color: Colors.Violet },
-            { name: "📞 call", color: Colors.Purple },
+            { name: "PM", color: Colors.Violet },
+            { name: "Call", color: Colors.Purple },
         ]
     },
     /* Friends: {

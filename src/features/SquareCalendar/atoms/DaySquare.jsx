@@ -19,7 +19,7 @@ export const DaySquare = ({ dayObj, selectedDate, setSelectedDate, data, size = 
                 "size-4 rounded-[2px]": size === "small",
                 "size-7 rounded-md mx-auto": size === "medium",
                 "size-8 rounded-md mx-auto": size === "big",
-                "bg-gray-100 dark:bg-gray-900": !dayObj.previousMonth && !isToday && !colorClass,
+                "bg-gray-200 dark:bg-gray-900": !dayObj.previousMonth && !isToday && !colorClass,
                 "opacity-0": dayObj.previousMonth,
                 "border-2 border-black dark:border-white": !dayObj.previousMonth && isToday,
             })}>
