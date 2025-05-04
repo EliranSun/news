@@ -557,8 +557,8 @@ export const Calendars = {
         showGamification: false,
         yellowAfter: 30,
         redAfter: 60,
-        name: "avshalom",
-        key: "avshalom-square-calendar",
+        name: "rotem",
+        key: "rotem-square-calendar",
         icon: "🫂",
         category: "social",
         colors: [
@@ -577,8 +577,8 @@ export const Calendars = {
         showGamification: false,
         yellowAfter: 30,
         redAfter: 60,
-        name: "avshalom",
-        key: "avshalom-square-calendar",
+        name: "maya",
+        key: "maya-square-calendar",
         icon: "🫂",
         category: "social",
         colors: [

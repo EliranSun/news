@@ -17,7 +17,9 @@ const FeedItem = ({
 
     return (
         <>
-            <h1 className="text-xl font-bold mb-4">{calendar.icon} {calendar.name.toUpperCase()}</h1>
+            <h1 className="text-xl font-bold mb-4">
+                {calendar.icon} {calendar.name.toUpperCase()}
+            </h1>
             <CalendarMonth
                 size="medium"
                 selectedDate={selectedDate}
