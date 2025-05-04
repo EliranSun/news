@@ -390,9 +390,13 @@ export const Calendars = {
         key: "mom-square-calendar",
         icon: "👩🏾",
         category: "social"
-        colors: [Colors.Purple, Colors.Black],
+        colors: [
+        Colors.Purple,
+        Colors.Lavender, 
+        Colors.Violet, 
+        Colors.Black],
         legend: [
-            { name: "visit", color:  Colors.Purple },
+            { name: "visit", color: Colors.Purple },
             { name: "phone call", color: Colors.Lavender },
             { name: "personal 💬", color: Colors.Violet },
         ]
