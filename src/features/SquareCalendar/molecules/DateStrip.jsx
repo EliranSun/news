@@ -1,5 +1,5 @@
 import { Pill } from "../atoms/Pill";
-import { subDays, isSameDay, format, subMonths } from "date-fns";
+import { subDays, isSameDay, format, subMonths, isSameMonth } from "date-fns";
 import PropTypes from "prop-types";
 
 export const DateStrip = ({ type = "day", length = 10, selectedDate, setSelectedDate }) => {
@@ -8,7 +8,7 @@ export const DateStrip = ({ type = "day", length = 10, selectedDate, setSelected
         py-2 top-0 bg-stone-100 dark:bg-stone-900">
             {Array.from({ length }).map((_, index) => {
                 const date = type === "day" ? subDays(new Date(), index) : subMonths(new Date(), index);
-                const isSelected = isSameDay(date, selectedDate);
+                const isSelected = type === "day" ? isSameDay(date, selectedDate) : isSameMonth(date, selectedDate);
 
                 return (
                     <Pill
@@ -16,7 +16,7 @@ export const DateStrip = ({ type = "day", length = 10, selectedDate, setSelected
                         isSelected={isSelected}
                         onClick={() => setSelectedDate(date)}
                     >
-                        {format(date, type === "day" ? 'MMM d' : 'MMM')}
+                        {format(date, type === "day" ? 'MMM d' : 'MMMM')}
                     </Pill>
                 );
             })}

@@ -102,7 +102,7 @@ export const FeedView = ({
     const [selectedDate, setSelectedDate] = useState(new Date());
 
     return (
-        <div className="w-full h-dvh overflow-y-auto">
+        <div className="w-full h-dvh overflow-y-auto pb-40">
             <DateStrip
                 length={10}
                 type="month"
