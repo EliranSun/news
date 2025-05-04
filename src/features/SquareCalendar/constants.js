@@ -437,7 +437,7 @@ export const Calendars = {
             Colors.Black
         ],
         legend: [
-            { name: "💬 personal", color: Colors.Violet },
+            { name: "💬 personal", color: Colors.Purple },
         ]
     },
     Nadav: {
@@ -454,7 +454,7 @@ export const Calendars = {
             Colors.Black
         ],
         legend: [
-            { name: "💬 personal", color: Colors.Violet },
+            { name: "💬 personal", color: Colors.Purple },
         ]
     },
     Shahar: {
