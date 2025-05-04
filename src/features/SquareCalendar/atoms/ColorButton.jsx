@@ -29,10 +29,9 @@ export const ColorButton = ({ color, onClick, legend, count, percentage }) => {
                     "flex flex-col justify-center items-center shrink-0": true,
                     "border border-black p-2 w-full h-7 rounded-xl": true,
                 })}>
-                {/* <div className={classNames("size-4", } /> */}
                 {legend && <label className="text-xs">{legend.name}</label>}
+                {count || null}{percentage ? `- %${percentage}` : null}
             </button>
-            {count || null} {percentage || null}
         </div>
     );
 };
