@@ -6,6 +6,7 @@ import { useState } from "react";
 import { loadFromStorage, saveToStorage } from "../utils";
 import { DateStrip } from "../molecules/DateStrip";
 import { Note } from "@phosphor-icons/react";
+import { CalendarGamification } from "../molecules/CalendarGamification";
 
 const FeedItem = ({
     calendar,
@@ -20,9 +21,12 @@ const FeedItem = ({
 
     return (
         <>
+        <div className="flex w-full justify-between">
             <h1 className="text-xl font-bold mb-4">
                 {calendar.icon} {calendar.name.toUpperCase()}
             </h1>
+              <CalendarGamification calendar={calendar} size="big" />
+            </div>
             <CalendarMonth
                 size="medium"
                 selectedDate={selectedDate}
