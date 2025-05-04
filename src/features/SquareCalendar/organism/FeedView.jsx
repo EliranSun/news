@@ -21,7 +21,7 @@ const FeedItem = ({
 
     return (
         <>
-        <div className="flex w-full justify-between">
+        <div className="flex items-center w-full justify-between">
             <h1 className="text-xl font-bold mb-4">
                 {calendar.icon} {calendar.name.toUpperCase()}
             </h1>
