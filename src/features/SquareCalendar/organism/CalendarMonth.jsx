@@ -23,7 +23,6 @@ export const CalendarMonth = ({
     const [isNoteSaved, setIsNoteSaved] = useState(null);
 
     useEffect(() => {
-        console.log("initialNote", initialNote);
         setNote(initialNote);
     }, [initialNote]);
 
@@ -100,23 +99,27 @@ export const CalendarMonth = ({
                         monthIndex={monthIndex}
                         data={data}
                     />
-                    <textarea
-                        value={note}
-                        placeholder="Note"
-                        onChange={event => setNote(event.target.value)}
-                        className={classNames({
-                            "w-full": true,
-                            "border-none h-48": true,
-                        })}
-                    />
-                    <button className="flex absolute right-5 bottom-32 items-center justify-center" onClick={() => onNoteUpdate(note, (success) => {
-                        setIsNoteSaved(success);
-                        setTimeout(() => {
-                            setIsNoteSaved(null);
-                        }, 1000);
-                    })}>
-                        <NoteSaveIcon size={24} />
-                    </button>
+                    <div className="relative">
+                        <textarea
+                            value={note}
+                            placeholder="Note"
+                            onChange={event => setNote(event.target.value)}
+                            className={classNames({
+                                "w-full border rounded-md p-2": true,
+                                "h-40": true,
+                            })}
+                        />
+                        <button
+                            className="flex absolute right-2 bottom-4 items-center justify-center"
+                            onClick={() => onNoteUpdate(note, (success) => {
+                                setIsNoteSaved(success);
+                                setTimeout(() => {
+                                    setIsNoteSaved(null);
+                                }, 1000);
+                            })}>
+                            <NoteSaveIcon size={18} />
+                        </button>
+                    </div>
                 </>
             )}
         </div>

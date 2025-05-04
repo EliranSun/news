@@ -17,8 +17,9 @@ export default function SquareCalendars() {
     const storageData = loadFromStorage(Calendars[calendarKey]?.key || Calendars.Mood.key);
     const [data, setData] = useState(storageData);
     // this works because timestamp is unique
-    const [selectedDateNote, setSelectedDateNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
-    const [view, setView] = useState("month");
+    const [selectedDateNote, setSelectedDateNote] = useState(data.find(item =>
+        isSameDay(item.date, selectedDate))?.note || "");
+    const [view, setView] = useState("feed");
 
     const daysSinceLastEntry = useMemo(() => {
         return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
@@ -63,13 +64,13 @@ export default function SquareCalendars() {
             <div id="note-modal-portal" />
             <div className="p-4 w-screen overflow-hidden h-[calc(100vh-96px)] 
             user-select-none space-y-4 font-mono">
-                {view !== "hour" &&
+                {view !== "hour" && view !== "feed" &&
                     <Header
                         calendar={calendar}
                         selectedDate={selectedDate}
                         daysSinceLastEntry={daysSinceLastEntry}
                         data={data} />}
-                {view !== "day" && view !== "list" && view !== "hour" &&
+                {view !== "day" && view !== "list" && view !== "hour" && view !== "feed" &&
                     <CalendarsStrip
                         data={data}
                         selectedCalendar={calendar}
@@ -88,6 +89,28 @@ export default function SquareCalendars() {
                         calendar={calendar}
                         selectedDateNote={selectedDateNote}
                         yearMap={yearMap}
+                        onNoteUpdate={(value, callback) => {
+                            try {
+                                let newData = [...data];
+                                const hasDay = newData.find(item => isSameDay(item.date, selectedDate));
+                                if (hasDay) {
+                                    newData = newData.map(item =>
+                                        isSameDay(item.date, selectedDate)
+                                            ? { ...item, note: value }
+                                            : item);
+                                } else {
+                                    newData.push({ date: selectedDate, note: value });
+                                }
+
+                                setData(newData);
+                                saveToStorage(calendar.key, newData);
+                                setSelectedDateNote(value);
+                                callback?.(true);
+                            } catch (error) {
+                                console.error(error);
+                                callback?.(false);
+                            }
+                        }}
                     />
                 </FlexibleOpacityTransition>
             </div>

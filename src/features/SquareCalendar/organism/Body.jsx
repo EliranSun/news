@@ -6,7 +6,7 @@ import { isSameDay } from "date-fns";
 import PropTypes from "prop-types";
 import { useCallback } from "react";
 import { HourView } from "../../HourlyTracker/HourView";
-
+import { FeedView } from "./FeedView";
 export const Body = ({
     view,
     data,
@@ -19,7 +19,8 @@ export const Body = ({
     setData,
     saveToStorage,
     calendar,
-    selectedDateNote
+    selectedDateNote,
+    onNoteUpdate
 }) => {
     const updateColor = useCallback((color) => {
         let newData;
@@ -46,6 +47,19 @@ export const Body = ({
     }, [selectedDate, data, calendar, selectedDateNote, setData, saveToStorage]);
 
     switch (view) {
+        case "feed":
+            return (
+                <FeedView
+                    selectedDate={selectedDate}
+                    selectedDateNote={selectedDateNote}
+                    updateColor={updateColor}
+                    data={data}
+                    setSelectedDate={setSelectedDate}
+                    setSelectedDateNote={setSelectedDateNote}
+                    onNoteUpdate={onNoteUpdate}
+                />
+            );
+
         case "note":
             return (
                 <CalendarDayView
@@ -81,24 +95,24 @@ export const Body = ({
             return (
                 <div>
                     <div className="flex gap-2">
-                    <button onClick={() => setSelectedDate(new Date(2025, 0, 1))}>2025</button>
-                    <button onClick={() => setSelectedDate(new Date(2024, 0, 1))}>2024</button>
-                                        <button onClick={() => setSelectedDate(new Date(2023, 0, 1))}>2023</button>
-                                                            <button onClick={() => setSelectedDate(new Date(2022, 0, 1))}>2022</button>
+                        <button onClick={() => setSelectedDate(new Date(2025, 0, 1))}>2025</button>
+                        <button onClick={() => setSelectedDate(new Date(2024, 0, 1))}>2024</button>
+                        <button onClick={() => setSelectedDate(new Date(2023, 0, 1))}>2023</button>
+                        <button onClick={() => setSelectedDate(new Date(2022, 0, 1))}>2022</button>
                     </div>
-                <div className="grid grid-cols-3 gap-1">
-                    {yearMap.map((_, monthIndex) => {
-                        return (
-                            <CalendarMonth
-                                key={monthIndex}
-                                isYearView={true}
-                                selectedDate={selectedDate}
-                                setSelectedDate={setSelectedDate}
-                                data={data}
-                                monthIndex={monthIndex} />
-                        )
-                    })}
-                </div>
+                    <div className="grid grid-cols-3 gap-1">
+                        {yearMap.map((_, monthIndex) => {
+                            return (
+                                <CalendarMonth
+                                    key={monthIndex}
+                                    isYearView={true}
+                                    selectedDate={selectedDate}
+                                    setSelectedDate={setSelectedDate}
+                                    data={data}
+                                    monthIndex={monthIndex} />
+                            )
+                        })}
+                    </div>
                 </div>
             );
 
@@ -117,29 +131,8 @@ export const Body = ({
                         const dayItem = data.find(item => isSameDay(item.date, newDate));
                         setSelectedDateNote(dayItem?.note || "");
                     }}
-                    onNoteUpdate={(value, callback) => {
-                        try {
-                            let newData = [...data];
-                            const hasDay = newData.find(item => isSameDay(item.date, selectedDate));
-                            if (hasDay) {
-                                newData = newData.map(item =>
-                                    isSameDay(item.date, selectedDate)
-                                        ? { ...item, note: value }
-                                        : item);
-                            } else {
-                                newData.push({ date: selectedDate, note: value });
-                            }
-
-                            setData(newData);
-                            saveToStorage(calendar.key, newData);
-                            setSelectedDateNote(value);
-                            callback?.(true);
-                        } catch (error) {
-                            console.error(error);
-                            callback?.(false);
-                        }
-                    }} />
-            )
+                    onNoteUpdate={onNoteUpdate} />
+            );
     }
 };
 
