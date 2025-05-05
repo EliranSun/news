@@ -10,12 +10,12 @@ export const DaysSinceBadge = ({
     withIcon = true,
     transparent = false,
     calendar,
-    showValue = true,
+    visible = true,
     size
 }) => {
     const { isRed, isYellow } = useDaysSinceColor(calendar);
 
-    // if (daysSince === null) return null;
+    if (!visible) return null;
 
     const text = useMemo(() => {
         if (hoursSince === null) return "Never";
@@ -39,7 +39,7 @@ export const DaysSinceBadge = ({
                 "bg-lime-400": !isRed && !isYellow,
             })}>
             {withIcon && <ClockCounterClockwise size={size === "big" ? 24 : 16} />}
-            {showValue && text}
+            {text}
         </Badge>
     )
 };
