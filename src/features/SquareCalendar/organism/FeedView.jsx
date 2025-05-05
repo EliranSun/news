@@ -37,7 +37,7 @@ const FeedItem = ({
                 setSelectedDate={newDate => {
                     setSelectedDate(newDate);
                     const dayItem = data.find(item => isSameDay(item.date, newDate));
-                    setSelectedDateNote(dayItem?.note || "");
+                    setNote(dayItem?.note || "");
                 }}
                 onColorSelect={(color) => {
                     let newData;
