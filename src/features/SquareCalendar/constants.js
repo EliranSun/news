@@ -430,7 +430,7 @@ export const Calendars = {
         redAfter: 60,
         name: "mor",
         key: "mor-square-calendar",
-        icon: "🫂",
+        icon: "🌳",
         category: "social",
         colors: [
             Colors.Purple,
@@ -447,7 +447,7 @@ export const Calendars = {
         redAfter: 60,
         name: "nadav",
         key: "nadav-square-calendar",
-        icon: "🫂",
+        icon: "🌳",
         category: "social",
         colors: [
             Colors.Purple,
@@ -464,7 +464,7 @@ export const Calendars = {
         redAfter: 60,
         name: "shahar",
         key: "shahar-square-calendar",
-        icon: "🫂",
+        icon: "☀️",
         category: "social",
         colors: [
             Colors.Violet,
@@ -483,7 +483,7 @@ export const Calendars = {
         redAfter: 60,
         name: "sahar",
         key: "sahar-square-calendar",
-        icon: "🫂",
+        icon: "☀️",
         category: "social",
         colors: [
             Colors.Violet,
@@ -502,7 +502,7 @@ export const Calendars = {
         redAfter: 60,
         name: "yahel",
         key: "yahel-square-calendar",
-        icon: "🫂",
+        icon: "☀️",
         category: "social",
         colors: [
             Colors.Violet,
@@ -521,7 +521,7 @@ export const Calendars = {
         redAfter: 60,
         name: "ofek",
         key: "ofek-square-calendar",
-        icon: "🫂",
+        icon: "☀️",
         category: "social",
         colors: [
             Colors.Violet,
@@ -540,7 +540,7 @@ export const Calendars = {
         redAfter: 60,
         name: "avshalom",
         key: "avshalom-square-calendar",
-        icon: "🫂",
+        icon: "☀️",
         category: "social",
         colors: [
             Colors.Violet,
@@ -559,7 +559,7 @@ export const Calendars = {
         redAfter: 60,
         name: "rotem",
         key: "rotem-square-calendar",
-        icon: "🫂",
+        icon: "⭐️",
         category: "social",
         colors: [
             Colors.Violet,
@@ -579,7 +579,7 @@ export const Calendars = {
         redAfter: 60,
         name: "maya",
         key: "maya-square-calendar",
-        icon: "🫂",
+        icon: "👺",
         category: "social",
         colors: [
             Colors.Violet,
