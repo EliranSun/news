@@ -15,15 +15,15 @@ export const CalendarGamification = ({ calendar, size }) => {
             <StreakBadge
                 streak={streak}
                 size={size}
-                showValue={calendar.showGamification} />
+                visible={calendar.showGamification} />
             <HighscoreBadge
                 streak={streak}
                 highscore={highscore}
-                showValue={calendar.showGamification}
+                visible={calendar.showGamification}
                 size={size} />
             <DaysSinceBadge
                 calendar={calendar}
-                showValue={true}
+                visible={true}
                 hoursSince={daysSinceLastEntry}
                 size={size} />
         </div>
