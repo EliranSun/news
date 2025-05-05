@@ -21,8 +21,8 @@ const FeedItem = ({
 
     return (
         <>
-        <div className="flex items-center w-full justify-between">
-            <h1 className="text-xl font-bold mb-4">
+        <div className="flex items-center w-full gap-4 mb-4">
+            <h1 className="text-xl font-bold">
                 {calendar.icon} {calendar.name.toUpperCase()}
             </h1>
               <CalendarGamification calendar={calendar} size="big" />
