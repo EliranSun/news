@@ -15,8 +15,8 @@ const FeedItem = ({
     updateColor,
     showNote,
 }) => {
+        const [data, setData] = useState(loadFromStorage(calendar.key));
     const [note, setNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
-    const [data, setData] = useState(loadFromStorage(calendar.key));
 
     return (
         <>
