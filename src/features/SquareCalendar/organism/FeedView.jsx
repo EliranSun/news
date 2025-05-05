@@ -12,11 +12,10 @@ const FeedItem = ({
     calendar,
     selectedDate,
     setSelectedDate,
-    selectedDateNote,
     updateColor,
-    setSelectedDateNote,
     showNote,
 }) => {
+    const [note, setNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
     const [data, setData] = useState(loadFromStorage(calendar.key));
 
     return (
@@ -31,7 +30,7 @@ const FeedItem = ({
                 size="medium"
                 selectedDate={selectedDate}
                 monthIndex={selectedDate.getMonth()}
-                note={data.find(item => isSameDay(item.date, selectedDate))?.note || ""}
+                note={note}
                 calendar={calendar}
                 data={data}
                 showNote={showNote}
@@ -78,7 +77,7 @@ const FeedItem = ({
 
                         setData(newData);
                         saveToStorage(calendar.key, newData);
-                        setSelectedDateNote(value);
+                        setNote(value);
                         callback?.(true);
                     } catch (error) {
                         console.error(error);
