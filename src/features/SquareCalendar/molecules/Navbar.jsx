@@ -13,6 +13,7 @@ import {
     ListBullets,
     Note,
     Timer,
+    Rows
 } from "@phosphor-icons/react";
 import classNames from "classnames";
 import { useState } from "react";
@@ -135,10 +136,10 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                     onClick={() => { onItemClick("hour") }}
                 />
                 <NavbarButton
-                    isSelected={selectedItem === "month"}
-                    label="month"
-                    icon={CalendarDot}
-                    onClick={() => { onItemClick("month") }}
+                    isSelected={selectedItem === "feed"}
+                    label="feed"
+                    icon={Rows}
+                    onClick={() => { onItemClick("feed") }}
                 />
                 <NavbarButton
                     isSelected={selectedItem === "year"}
