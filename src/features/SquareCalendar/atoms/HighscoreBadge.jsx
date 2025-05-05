@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Badge } from "./Badge";
 import { Trophy } from "@phosphor-icons/react";
 
-export const HighscoreBadge = ({ highscore, streak, size }) => {
+export const HighscoreBadge = ({ highscore, visible, streak, size }) => {
     if (!visible || highscore === 0 || streak === highscore) return null;
 
     return (
