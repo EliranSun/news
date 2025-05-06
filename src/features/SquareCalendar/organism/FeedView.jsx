@@ -122,8 +122,11 @@ export const FeedView = ({
                     selectedDate={selectedDate}
                     setSelectedDate={setSelectedDate} />
             </div>
-            {Object.values(Calendars).map((calendar) => (
-                <div key={calendar.key} className="bg-white dark:bg-stone-800
+            {Object.values(Calendars).sort((a, b) => a.category - b.category).map((calendar) => (
+                <div 
+                key={calendar.key} 
+                id={calendar.category}
+                className="bg-white dark:bg-stone-800
                  my-4 shadow-md rounded-xl p-4">
                     <FeedItem
                         showNote={showNotes}
