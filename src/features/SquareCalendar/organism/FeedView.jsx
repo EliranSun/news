@@ -55,7 +55,7 @@ const FeedItem = ({
                                     : item
                             );
                         } else {
-                            newData = [...data, { date: selectedDate, color, note: selectedDateNote }];
+                            newData = [...data, { date: selectedDate, color, note }];
                         }
                     }
 
