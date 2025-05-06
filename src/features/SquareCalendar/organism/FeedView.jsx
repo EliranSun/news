@@ -121,11 +121,19 @@ export const FeedView = ({
                     type="month"
                     selectedDate={selectedDate}
                     setSelectedDate={setSelectedDate} />
+                    <div>
+                        <button onClick={() => {
+                            document.getElementById("social").scrollIntoView({ 
+                                behavior: "smooth",
+                                 block: "end", 
+                                 inline: "nearest" });
+                        }}>social</button>
+                    </div>
             </div>
             {Object.values(Calendars).sort((a, b) => a.category - b.category).map((calendar) => (
                 <div 
                 key={calendar.key} 
-                id={calendar.category}
+                id={calendar.category.toLowerCase()}
                 className="bg-white dark:bg-stone-800
                  my-4 shadow-md rounded-xl p-4">
                     <FeedItem
