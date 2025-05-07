@@ -1,4 +1,4 @@
-import { Calendars } from "../constants"
+import { Calendars, Categories } from "../constants"
 import { CalendarMonth } from "../organism/CalendarMonth";
 import PropTypes from "prop-types";
 import { isSameDay } from "date-fns";
@@ -20,11 +20,11 @@ const FeedItem = ({
 
     return (
         <>
-        <div className="flex items-center w-full justify-between mb-4">
-            <h1 className="text-xl font-bold">
-                {calendar.icon} {calendar.name.toUpperCase()}
-            </h1>
-              <CalendarGamification calendar={calendar} size="big" />
+            <div className="flex items-center w-full justify-between mb-4">
+                <h1 className="text-xl font-bold">
+                    {calendar.icon} {calendar.name.toUpperCase()}
+                </h1>
+                <CalendarGamification calendar={calendar} size="big" />
             </div>
             <CalendarMonth
                 size="medium"
@@ -121,20 +121,43 @@ export const FeedView = ({
                     type="month"
                     selectedDate={selectedDate}
                     setSelectedDate={setSelectedDate} />
-                    <div>
-                        <button onClick={() => {
-                            document.getElementById("social").scrollIntoView({ 
-                                behavior: "smooth",
-                                 block: "end", 
-                                 inline: "nearest" });
-                        }}>social</button>
-                    </div>
+                <div>
+                    <button onClick={() => {
+                        document.getElementById("social").scrollIntoView({
+                            behavior: "smooth",
+                            block: "end",
+                            inline: "nearest"
+                        });
+                    }}>social</button>
+                </div>
             </div>
-            {Object.values(Calendars).sort((a, b) => a.category - b.category).map((calendar) => (
-                <div 
-                key={calendar.key} 
-                id={calendar.category.toLowerCase()}
-                className="bg-white dark:bg-stone-800
+            <div className="flex flex-col gap-4 flex-nowrap overflow-x-auto w-full">
+                {Object.values(Categories).map((category) => (
+                    <div key={category}>
+                        {Object.values(Calendars).filter(calendar => calendar.category === category).map((calendar) => (
+                            <div
+                                key={calendar.key}
+                                id={calendar.category.toLowerCase()}
+                                className="bg-white dark:bg-stone-800
+                     my-4 shadow-md rounded-xl p-4">
+                                <FeedItem
+                                    showNote={showNotes}
+                                    calendar={calendar}
+                                    selectedDate={selectedDate}
+                                    setSelectedDate={setSelectedDate}
+                                    selectedDateNote={selectedDateNote}
+                                    setSelectedDateNote={setSelectedDateNote}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                ))}
+            </div>
+            {/* {Object.values(Calendars).sort((a, b) => a.category - b.category).map((calendar) => (
+                <div
+                    key={calendar.key}
+                    id={calendar.category.toLowerCase()}
+                    className="bg-white dark:bg-stone-800
                  my-4 shadow-md rounded-xl p-4">
                     <FeedItem
                         showNote={showNotes}
@@ -145,7 +168,7 @@ export const FeedView = ({
                         setSelectedDateNote={setSelectedDateNote}
                     />
                 </div>
-            ))}
+            ))} */}
         </div>
     )
 }

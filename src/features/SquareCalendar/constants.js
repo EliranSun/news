@@ -41,7 +41,16 @@ export const Colors = {
     // Others
     Black: "black",
     Clear: "clear",
-}
+};
+
+export const Categories = {
+    Self: "self",
+    Wife: "wife",
+    Social: "social",
+    House: "house",
+    Creative: "creative",
+    Avoid: "avoid",
+};
 
 export const Calendars = {
     // Self - Using vibrant, energetic colors for personal development
@@ -63,7 +72,7 @@ export const Calendars = {
             { name: "Awful", color: Colors.Violet },
         ],
         icon: "🌀",
-        category: "self",
+        category: Categories.Self,
         showGamification: false,
     },
     Loneliness: {
@@ -80,7 +89,7 @@ export const Calendars = {
             { name: "LON", color: Colors.Turquoise },
         ],
         icon: "😶‍🌫️",
-        category: "self",
+        category: Categories.Self,
         showGamification: false,
     },
     Css: {
@@ -88,7 +97,7 @@ export const Calendars = {
         key: "css-square-calendar",
         colors: [Colors.Yellow, Colors.Black],
         icon: "🎭",
-        category: "creative",
+        category: Categories.Creative,
         showColorStatus: true,
         yellowAfter: 3,
         redAfter: 10,
@@ -101,7 +110,7 @@ export const Calendars = {
         key: "read-square-calendar",
         colors: [Colors.Sage, Colors.Black],
         icon: "📚",
-        category: "creative"
+        category: Categories.Creative
     },
     Game: {
         showColorStatus: true,
@@ -111,7 +120,7 @@ export const Calendars = {
         key: "game-square-calendar",
         colors: [Colors.Violet, Colors.Black],
         icon: "🎮",
-        category: "creative",
+        category: Categories.Creative,
         showGamification: false,
     },
     Media: {
@@ -122,7 +131,7 @@ export const Calendars = {
         key: "media-square-calendar",
         colors: [Colors.Crimson, Colors.Black],
         icon: "🎬",
-        category: "creative",
+        category: Categories.Creative,
         showGamification: false,
     },
 
@@ -147,7 +156,7 @@ export const Calendars = {
             { name: "TOW", color: Colors.Yellow },
         ],
         icon: "🏠",
-        category: "house",
+        category: Categories.House,
         showGamification: false,
     },
     Laundry: {
@@ -168,7 +177,7 @@ export const Calendars = {
             { name: "Both", color: Colors.Blue },
         ],
         icon: "🧺",
-        category: "house",
+        category: Categories.House,
         showGamification: false,
     },
     /* LaundryFold: {
@@ -189,7 +198,7 @@ export const Calendars = {
         key: "groceries-square-calendar",
         colors: [Colors.Forestgreen, Colors.Black],
         icon: "🛒",
-        category: "house",
+        category: Categories.House,
         showGamification: false,
     },
     Cooking: {
@@ -200,7 +209,7 @@ export const Calendars = {
         key: "cooking-square-calendar",
         colors: [Colors.Orange, Colors.Black],
         icon: "🍳",
-        category: "house",
+        category: Categories.House,
         showGamification: false,
     },
     ReplaceSheets: {
@@ -211,7 +220,7 @@ export const Calendars = {
         key: "replace-sheets-square-calendar",
         colors: [Colors.Lavender, Colors.Black],
         icon: "🛏️",
-        category: "house",
+        category: Categories.House,
         showGamification: false,
     },
 
@@ -224,7 +233,7 @@ export const Calendars = {
         key: "date-square-calendar",
         colors: [Colors.Rose, Colors.Black],
         icon: "💑",
-        category: "wife",
+        category: Categories.Wife,
         showGamification: false,
     },
     Sex: {
@@ -235,7 +244,7 @@ export const Calendars = {
         key: "sex-square-calendar",
         colors: [Colors.Hotpink, Colors.Black],
         icon: "❤️",
-        category: "wife",
+        category: Categories.Wife,
         showGamification: false,
     },
     Weight: {
@@ -251,7 +260,7 @@ export const Calendars = {
             Colors.Red,
         ],
         icon: "⏲️",
-        category: "self",
+        category: Categories.Self,
         legend: [
             { name: "70-71", color: Colors.Blue },
             { name: "72-73", color: Colors.Green },
@@ -277,7 +286,7 @@ export const Calendars = {
             { name: "both", color: Colors.Forestgreen },
         ],
         icon: "🦶",
-        category: "self",
+        category: Categories.Self,
     },
     Workout: {
         showColorStatus: true,
@@ -289,7 +298,7 @@ export const Calendars = {
             Colors.Black
         ],
         icon: "🏋",
-        category: "self",
+        category: Categories.Self,
     },
     Sleep: {
         showColorStatus: false,
@@ -305,7 +314,7 @@ export const Calendars = {
         ],
         icon: "💤",
         showGamification: false,
-        category: "self",
+        category: Categories.Self,
         legend: [
             { name: "0", label: "horrible", color: Colors.Lightblue },
             { name: "30", label: "bad", color: Colors.Skyblue },
@@ -329,7 +338,7 @@ export const Calendars = {
         ],
         icon: "💤",
         showGamification: false,
-        category: "self",
+        category: Categories.Self,
         legend: [
             { name: "0", label: "horrible", color: Colors.Lightblue },
             { name: "15", label: "bad", color: Colors.Skyblue },
@@ -351,7 +360,7 @@ export const Calendars = {
             Colors.Maroon,
         ],
         icon: "🍖",
-        category: "self",
+        category: Categories.Self,
         legend: [
             { name: "0", color: Colors.Orange },
             { name: "50", color: Colors.Red },
@@ -368,7 +377,7 @@ export const Calendars = {
         key: "trip-square-calendar",
         colors: [Colors.Turquoise, Colors.Black],
         icon: "🌲",
-        category: "wife"
+        category: Categories.Wife,
     },
     LittleThings: {
         showColorStatus: true,
@@ -379,7 +388,7 @@ export const Calendars = {
         key: "little-things-square-calendar",
         colors: [Colors.Coral, Colors.Black],
         icon: "🎁",
-        category: "wife"
+        category: Categories.Wife,
     },
     Mom: {
         showColorStatus: true,
@@ -389,7 +398,7 @@ export const Calendars = {
         name: "mom",
         key: "mom-square-calendar",
         icon: "👩🏾",
-        category: "social",
+        category: Categories.Social,
         colors: [
             Colors.Purple,
             Colors.Lavender,
@@ -410,7 +419,7 @@ export const Calendars = {
         key: "dad-square-calendar",
         colors: [Colors.Navy, Colors.Black],
         icon: "👨🏾",
-        category: "social"
+        category: Categories.Social,
     },
     Grandma: {
         showColorStatus: true,
@@ -421,7 +430,7 @@ export const Calendars = {
         key: "grandma-square-calendar",
         colors: [Colors.Plum, Colors.Black],
         icon: "👵🏾",
-        category: "social"
+        category: Categories.Social,
     },
     Mor: {
         showColorStatus: true,
@@ -431,7 +440,7 @@ export const Calendars = {
         name: "mor",
         key: "mor-square-calendar",
         icon: "🌳",
-        category: "social",
+        category: Categories.Social,
         colors: [
             Colors.Purple,
             Colors.Black
@@ -448,7 +457,7 @@ export const Calendars = {
         name: "nadav",
         key: "nadav-square-calendar",
         icon: "🌳",
-        category: "social",
+        category: Categories.Social,
         colors: [
             Colors.Purple,
             Colors.Black
@@ -465,7 +474,7 @@ export const Calendars = {
         name: "shahar",
         key: "shahar-square-calendar",
         icon: "☀️",
-        category: "social",
+        category: Categories.Social,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -484,7 +493,7 @@ export const Calendars = {
         name: "sahar",
         key: "sahar-square-calendar",
         icon: "☀️",
-        category: "social",
+        category: Categories.Social,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -503,7 +512,7 @@ export const Calendars = {
         name: "yahel",
         key: "yahel-square-calendar",
         icon: "☀️",
-        category: "social",
+        category: Categories.Social,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -522,7 +531,7 @@ export const Calendars = {
         name: "ofek",
         key: "ofek-square-calendar",
         icon: "☀️",
-        category: "social",
+        category: Categories.Social,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -541,7 +550,7 @@ export const Calendars = {
         name: "avshalom",
         key: "avshalom-square-calendar",
         icon: "☀️",
-        category: "social",
+        category: Categories.Social,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -560,7 +569,7 @@ export const Calendars = {
         name: "rotem",
         key: "rotem-square-calendar",
         icon: "⭐️",
-        category: "social",
+        category: Categories.Social,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -580,7 +589,7 @@ export const Calendars = {
         name: "maya",
         key: "maya-square-calendar",
         icon: "👺",
-        category: "social",
+        category: Categories.Social,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -631,7 +640,7 @@ export const Calendars = {
         key: "social-media-square-calendar",
         colors: [Colors.Darkgray, Colors.Black],
         icon: "📱",
-        category: "avoid",
+        category: Categories.Avoid,
         avoid: true,
         showGamification: true,
     },
@@ -639,7 +648,7 @@ export const Calendars = {
         name: "porn", key: "porn-square-calendar",
         colors: [Colors.Maroon, Colors.Black],
         icon: "⛔",
-        category: "avoid",
+        category: Categories.Avoid,
         avoid: true,
         showGamification: true,
     },
@@ -647,7 +656,7 @@ export const Calendars = {
         name: "masturbate", key: "masturbate-square-calendar",
         colors: [Colors.Brown, Colors.Black],
         icon: "🚫",
-        category: "avoid",
+        category: Categories.Avoid,
         avoid: true,
         showGamification: true,
     },
@@ -656,7 +665,7 @@ export const Calendars = {
         key: "lie-square-calendar",
         colors: [Colors.Brown, Colors.Black],
         icon: "🤥",
-        category: "avoid",
+        category: Categories.Avoid,
         avoid: true,
         showGamification: true,
     },
