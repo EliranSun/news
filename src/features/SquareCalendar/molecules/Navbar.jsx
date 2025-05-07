@@ -108,22 +108,16 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
             <div className="fixed h-24 bg-white dark:bg-black
          bottom-0 border-t w-screen grid grid-cols-6 items-start justify-center">
                 <NavbarButton
-                    isSelected={selectedItem === "list"}
-                    label="list"
-                    icon={ListBullets}
-                    onClick={onListClick}
-                />
-                <NavbarButton
-                    isSelected={selectedItem === "day"}
-                    label="day"
-                    icon={TextAa}
-                    onClick={() => { onItemClick("day") }}
-                />
-                <NavbarButton
                     isSelected={selectedItem === "hour"}
                     label="hour"
                     icon={Timer}
                     onClick={() => { onItemClick("hour") }}
+                />
+                <NavbarButton
+                    isSelected={selectedItem === "list"}
+                    label="list"
+                    icon={ListBullets}
+                    onClick={onListClick}
                 />
                 <NavbarButton
                     isSelected={selectedItem === "feed"}
@@ -135,6 +129,12 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                     isSelected={selectedItem === "year"}
                     label="year" icon={CalendarDots}
                     onClick={() => { onItemClick("year") }}
+                />
+                <NavbarButton
+                    isSelected={selectedItem === "day"}
+                    label="day"
+                    icon={TextAa}
+                    onClick={() => { onItemClick("day") }}
                 />
                 <NavbarButton
                     label="list"
