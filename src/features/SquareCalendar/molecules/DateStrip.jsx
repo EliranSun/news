@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 export const DateStrip = ({ type = "day", length = 10, selectedDate, setSelectedDate }) => {
     return (
         <div className="flex gap-1 overflow-x-auto min-h-fit
-        py-2 bg-stone-100 dark:bg-stone-900">
+        py-2 bg-stone-50 dark:bg-stone-900">
             {Array.from({ length }).map((_, index) => {
                 const date = type === "day" ? subDays(new Date(), index) : subMonths(new Date(), index);
                 const isSelected = type === "day" ? isSameDay(date, selectedDate) : isSameMonth(date, selectedDate);
