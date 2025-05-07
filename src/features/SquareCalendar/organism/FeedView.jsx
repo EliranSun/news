@@ -98,10 +98,7 @@ FeedItem.propTypes = {
 }
 
 export const FeedView = ({
-    // selectedDate,
     selectedDateNote,
-    updateColor,
-    // setSelectedDate,
     setSelectedDateNote,
 }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -121,7 +118,7 @@ export const FeedView = ({
                     type="month"
                     selectedDate={selectedDate}
                     setSelectedDate={setSelectedDate} />
-                <div>
+                {/* <div>
                     <button onClick={() => {
                         document.getElementById("social").scrollIntoView({
                             behavior: "smooth",
@@ -129,20 +126,21 @@ export const FeedView = ({
                             inline: "nearest"
                         });
                     }}>social</button>
-                </div>
+                </div> */}
             </div>
-            <div className="flex flex-col gap-4 flex-nowrap overflow-x-auto w-full">
+            <div className="flex gap-4 flex-nowrap w-screen overflow-x-auto">
                 {Object.values(Categories).map((category) => (
-                    <div key={category}>
+                    <div key={category} className="w-96 shrink-0 bg-stone-700 p-4 
+                    rounded-xl h-[calc(100vh-210px)] overflow-y-auto">
                         {Object.values(Calendars).filter(calendar => calendar.category === category).map((calendar) => (
                             <div
                                 key={calendar.key}
                                 id={calendar.category.toLowerCase()}
                                 className="bg-white dark:bg-stone-800
-                     my-4 shadow-md rounded-xl p-4">
+                     my-4 shadow-md rounded-xl p-4 w-full shrink-0">
                                 <FeedItem
-                                    showNote={showNotes}
                                     calendar={calendar}
+                                    showNote={showNotes}
                                     selectedDate={selectedDate}
                                     setSelectedDate={setSelectedDate}
                                     selectedDateNote={selectedDateNote}
