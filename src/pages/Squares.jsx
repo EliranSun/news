@@ -207,6 +207,17 @@ export default function Squares() {
                         </button>)}
                 </div>
                 <button onClick={() => {
+                    setData({
+                        ...data,
+                        [selectedDate]: {
+                            ...data[selectedDate],
+                            [selectedHour]: 0
+                        }
+                    });
+                }}>
+                    Add today
+                </button>
+                <button onClick={() => {
                     setSortBy('color');
                 }}>
                     Sort by color
