@@ -128,9 +128,9 @@ export const FeedView = ({
                     }}>social</button>
                 </div> */}
             </div>
-            <div className="flex gap-4 flex-nowrap w-screen overflow-x-auto">
+            <div className="flex gap-4 flex-nowrap w-[94vw] overflow-x-auto">
                 {Object.values(Categories).map((category) => (
-                    <div key={category} className="w-96 shrink-0 bg-stone-700 p-4 
+                    <div key={category} className="w-96 shrink-0 bg-stone-700 p-2
                     rounded-xl h-[calc(100vh-210px)] overflow-y-auto">
                         {Object.values(Calendars).filter(calendar => calendar.category === category).map((calendar) => (
                             <div
