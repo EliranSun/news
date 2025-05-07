@@ -5,10 +5,8 @@ import {
     TrayArrowDown,
     TrayArrowUp,
     TextAa,
-    CalendarDot,
     CalendarDots,
     Cube,
-    CalendarHeart,
     X,
     ListBullets,
     Note,
@@ -22,7 +20,6 @@ import { motion } from "framer-motion";
 const NavbarButton = ({
     icon: Icon,
     onClick,
-    label,
     isSelected
 }) => {
     return (
@@ -98,13 +95,6 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                                 setIsMenuOpen(false);
                             }}
                         />
-                        <NavbarMenuItem
-                            icon={<CalendarHeart size={24} />}
-                            label="Optimizing CSS day" onClick={() => {
-                                const url = new URL(window.location.href);
-                                url.pathname = "/squares";
-                                window.location.href = url;
-                            }} />
                         <NavbarMenuItem icon={<Cube size={24} />} label="CSS cubes" onClick={() => {
                             onPhysicsClick();
                             setIsMenuOpen(false);
