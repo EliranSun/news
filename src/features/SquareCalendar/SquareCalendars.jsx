@@ -63,7 +63,7 @@ export default function SquareCalendars() {
                 onListClick={() => setView("list")} />
             <div id="note-modal-portal" />
             <div className="p-4 w-screen overflow-hidden h-[calc(100vh-96px)] 
-            user-select-none space-y-4 font-mono bg-stone-100 dark:bg-stone-900">
+            user-select-none space-y-4 font-mono bg-stone-50 dark:bg-stone-900">
                 {view !== "hour" && view !== "feed" &&
                     <Header
                         calendar={calendar}
