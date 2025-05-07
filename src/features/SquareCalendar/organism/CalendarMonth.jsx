@@ -89,7 +89,7 @@ export const CalendarMonth = ({
                 </div>
             </div>
             {!isYearView &&
-                <div className="">
+                <div className="w-full">
                     <ColorsButtons
                         calendar={calendar}
                         onColorSelect={onColorSelect}

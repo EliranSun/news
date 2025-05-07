@@ -13,10 +13,10 @@ export const FeedView = ({
     const [showNotes, setShowNotes] = useState(false);
 
     return (
-        <div className="w-full h-dvh overflow-y-auto pb-40">
-            <div className="flex justify-between items-center font-serif">
+        <div className="h-[calc(100vh-127px)] overflow-y-auto">
+            {/* <div className="flex justify-between items-center font-serif">
                 <h1 className="text-2xl font-bold">Blocks</h1>
-            </div>
+            </div> */}
             <div className="flex gap-4 items-center sticky z-10 top-0  dark:bg-stone-900">
                 <DateStrip
                     length={10}
@@ -24,10 +24,10 @@ export const FeedView = ({
                     selectedDate={selectedDate}
                     setSelectedDate={setSelectedDate} />
             </div>
-            <div className="flex gap-6 flex-nowrap w-[94vw] overflow-x-auto snap-x">
+            <div className="flex gap-6 flex-nowrap w-[calc(100vw-16px*2)] overflow-x-auto snap-x">
                 {Object.values(Categories).map((category) => (
-                    <div key={category} className="w-fit shrink-0 bg-stone-200 dark:bg-stone-700 p-2
-                    rounded-xl h-[calc(100vh-210px)] overflow-y-auto snap-center">
+                    <div key={category} className="w-[80vw] shrink-0 bg-stone-200 dark:bg-stone-700 p-2
+                    rounded-xl h-[calc(100vh-180px)] overflow-y-auto snap-center">
                         <h1 className="text-base font-bold">{category.toUpperCase()}</h1>
                         {Object.values(Calendars).filter(calendar => calendar.category === category).map((calendar) => (
                             <div
