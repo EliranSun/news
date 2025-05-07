@@ -66,17 +66,7 @@ export const CalendarMonth = ({
         <div className="flex flex-col justify-between w-full gap-2 h-full overflow-y-scroll" key={`month-${monthIndex}`}>
             {isYearView ? <h2 className="text-xs my-0 text-center">{format(month, "MMM")}</h2> : ""}
             <div className="flex flex-row-reverse gap-4 w-full">
-                {!isYearView &&
-                    <div className="w-1/3">
-                        <ColorsButtons
-                            calendar={calendar}
-                            onColorSelect={onColorSelect}
-                            selectedDate={selectedDate}
-                            monthIndex={monthIndex}
-                            data={data}
-                        />
-                    </div>}
-                <div className={isYearView ? "w-full" : "w-2/3 flex justify-start items-start"}>
+                <div className={isYearView ? "w-full" : "w-full flex justify-start items-start"}>
                     <div className={classNames({
                         "grid grid-cols-7 h-fit w-fit": true,
                         "p-1 gap-0.5": size === "small",
@@ -98,6 +88,16 @@ export const CalendarMonth = ({
                     </div>
                 </div>
             </div>
+            {!isYearView &&
+                <div className="">
+                    <ColorsButtons
+                        calendar={calendar}
+                        onColorSelect={onColorSelect}
+                        selectedDate={selectedDate}
+                        monthIndex={monthIndex}
+                        data={data}
+                    />
+                </div>}
             {/* {!isYearView && <Pills type="month" length={12} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />} */}
             {/* <CalendarMonthColorInfo
                 data={data}
@@ -117,7 +117,7 @@ export const CalendarMonth = ({
                             })}
                         />
                         <button
-                            className="flex absolute right-2 bottom-4 items-center justify-center z-0"
+                            className="flex w-full items-center justify-center z-0"
                             onClick={() => onNoteUpdate(note, (success) => {
                                 setIsNoteSaved(success);
                                 setTimeout(() => {

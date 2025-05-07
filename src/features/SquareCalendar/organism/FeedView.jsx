@@ -24,9 +24,9 @@ export const FeedView = ({
                     selectedDate={selectedDate}
                     setSelectedDate={setSelectedDate} />
             </div>
-            <div className="flex gap-4 flex-nowrap w-[94vw] overflow-x-auto snap-x">
+            <div className="flex gap-6 flex-nowrap w-[94vw] overflow-x-auto snap-x">
                 {Object.values(Categories).map((category) => (
-                    <div key={category} className="w-[350px] shrink-0 bg-stone-200 dark:bg-stone-700 p-2
+                    <div key={category} className="w-fit shrink-0 bg-stone-200 dark:bg-stone-700 p-2
                     rounded-xl h-[calc(100vh-210px)] overflow-y-auto snap-center">
                         <h1 className="text-base font-bold">{category.toUpperCase()}</h1>
                         {Object.values(Calendars).filter(calendar => calendar.category === category).map((calendar) => (

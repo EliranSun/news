@@ -25,13 +25,13 @@ export const ColorButton = ({ color, onClick, legend, count, percentage }) => {
             onClick={onClick}
             style={{ color: textColor }}
             className={classNames(bgColor, {
-                "w-full flex justify-between items-center shrink-0": true,
-                "border border-black p-2 h-7 rounded-xl text-xs": true,
+                "flex gap-3 justify-between items-center shrink-0 min-w-9 min-h-9": true,
+                "border border-black p-2 rounded-xl text-xs": true,
             })}>
-            {legend && <label className="">{legend.name}</label>}
-            <span className="">
-                {count || null}{percentage ? ` - %${percentage}` : null}
-            </span>
+            {legend && <label className="">{legend.name.slice(0, 3)}</label>}
+            {/* <span className="text-[8px]">
+                {count || null}{percentage ? `(%${percentage})` : null}
+            </span> */}
         </button>
     );
 };

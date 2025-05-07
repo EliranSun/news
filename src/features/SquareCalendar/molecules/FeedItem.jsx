@@ -19,7 +19,7 @@ export const FeedItem = ({
         <>
             <div className="flex items-center w-full justify-between mb-4">
                 <h1 className="text-xl font-bold">
-                    {calendar.icon} {calendar.name.toUpperCase()}
+                    {calendar.icon} {calendar.name.toUpperCase().slice(0, 4)}
                 </h1>
                 <CalendarGamification calendar={calendar} size="big" />
             </div>
