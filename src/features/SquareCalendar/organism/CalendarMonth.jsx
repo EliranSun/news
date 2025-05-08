@@ -99,9 +99,12 @@ export const CalendarMonth = ({
                                 <button onClick={() => setIsDaySelected(false)}>
                                     <X size={42} />
                                 </button>
-                                <h1 className="merriweather-bold text-2xl text-left w-full">
-                                    {format(selectedDate, "EEEE, MMMM d, yyyy")}
+                                <h1 className="merriweather-bold text-3xl text-left w-full">
+                                    {calendar.name}
                                 </h1>
+                                <h2 className="merriweather-bold text-2xl text-left w-full">
+                                    {format(selectedDate, "EEEE, MMMM d, yyyy")}
+                                </h2>
                                 <ColorsButtons
                                     data={data}
                                     calendar={calendar}
