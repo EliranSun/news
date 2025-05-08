@@ -20,6 +20,7 @@ export const CalendarMonth = ({
     note: initialNote,
     isYearView = false,
     showNote = false,
+    children
 }) => {
     const [note, setNote] = useState(initialNote);
     const [isNoteSaved, setIsNoteSaved] = useState(null);
@@ -88,6 +89,7 @@ export const CalendarMonth = ({
                     </div>
                 </div>
             </div>
+            {children}
             {!isYearView &&
                 <div className="w-full">
                     <ColorsButtons
