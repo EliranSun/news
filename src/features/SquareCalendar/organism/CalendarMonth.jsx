@@ -100,7 +100,7 @@ export const CalendarMonth = ({
                                     <X size={42} />
                                 </button>
                                 <h1 className="merriweather-bold text-3xl text-left w-full">
-                                    {calendar.name}
+                                    {calendar.icon} {calendar.name.toUpperCase()}
                                 </h1>
                                 <h2 className="merriweather-bold text-2xl text-left w-full">
                                     {format(selectedDate, "EEEE, MMMM d, yyyy")}
