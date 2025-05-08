@@ -25,7 +25,7 @@ export const FeedView = ({
             </div>
             <div className="flex flex-nowrap w-[calc(100vw-16px*2)] overflow-x-auto snap-x">
                 {Object.values(Categories).map((category) => (
-                    <div key={category} className="w-[85vw] shrink-0 bg-stone-200 dark:bg-stone-700 p-2
+                    <div key={category} className="w-[90vw] shrink-0 bg-stone-200 dark:bg-stone-700 p-2
                     rounded-xl snap-center mx-10">
                         <h1 className="text-base font-bold px-2">
                             {category.toUpperCase()}
