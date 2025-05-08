@@ -93,7 +93,7 @@ export const CalendarMonth = ({
 
                         {!isYearView && isDaySelected &&
                             <div className="absolute
-                            bottom-0
+                            bottom-0 inset-x-0
                             translate-y-full
                             bg-white shadow-lg p-2 rounded-xl">
                                 <ColorsButtons
@@ -107,21 +107,7 @@ export const CalendarMonth = ({
                                         setIsDaySelected(false);
                                     }}
                                 />
-                            </div>}
-                    </div>
-                </div>
-            </div>
-            {children}
-            {/* {!isYearView && <Pills type="month" length={12} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />} */}
-            {/* <CalendarMonthColorInfo
-                data={data}
-                size={size}
-                selectedDate={month}
-                showInfo /> */}
-            {showNote && (
-                <>
-                    <div className="relative z-0 w-full">
-                        <textarea
+                                <textarea
                             value={note}
                             placeholder="Note"
                             onChange={event => setNote(event.target.value)}
@@ -140,9 +126,17 @@ export const CalendarMonth = ({
                             })}>
                             <NoteSaveIcon size={18} />
                         </button>
+                            </div>}
                     </div>
-                </>
-            )}
+                </div>
+            </div>
+            {children}
+            {/* {!isYearView && <Pills type="month" length={12} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />} */}
+            {/* <CalendarMonthColorInfo
+                data={data}
+                size={size}
+                selectedDate={month}
+                showInfo /> */}
         </div>
     )
 };
