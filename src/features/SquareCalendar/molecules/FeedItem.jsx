@@ -75,13 +75,15 @@ export const FeedItem = ({
                         console.error(error);
                         callback?.(false);
                     }
-                }} />
-                <div className="flex flex-col gap-2 items-start w-full justify-between mb-4">
+                }}>
+                 <div className="flex flex-col gap-2 items-start w-full justify-between mb-4">
                 <h1 className="text-xl font-bold">
                     {calendar.icon} {calendar.name.toUpperCase().slice(0, 4)}
                 </h1>
                 <CalendarGamification calendar={calendar} size="big" />
             </div>
+               
+            </CalendarMonth>
         </>
     )
 }
