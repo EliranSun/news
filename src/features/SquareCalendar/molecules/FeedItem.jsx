@@ -16,75 +16,71 @@ export const FeedItem = ({
     const [note, setNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
 
     return (
-        <>
-            
-            <CalendarMonth
-                size="medium"
-                selectedDate={selectedDate}
-                monthIndex={selectedDate.getMonth()}
-                note={note}
-                calendar={calendar}
-                data={data}
-                showNote={true}
-                setSelectedDate={newDate => {
-                    setSelectedDate(newDate);
-                    const dayItem = data.find(item => isSameDay(item.date, newDate));
-                    setNote(dayItem?.note || "");
-                }}
-                onColorSelect={(color) => {
-                    let newData;
+        <CalendarMonth
+            size="medium"
+            selectedDate={selectedDate}
+            monthIndex={selectedDate.getMonth()}
+            note={note}
+            calendar={calendar}
+            data={data}
+            showNote={true}
+            setSelectedDate={newDate => {
+                setSelectedDate(newDate);
+                const dayItem = data.find(item => isSameDay(item.date, newDate));
+                setNote(dayItem?.note || "");
+            }}
+            onColorSelect={(color) => {
+                let newData;
 
-                    if (color === 'clear') {
-                        newData = data.filter(item => !isSameDay(item.date, selectedDate));
+                if (color === 'clear') {
+                    newData = data.filter(item => !isSameDay(item.date, selectedDate));
+                } else {
+                    const existingEntry = data.find(item =>
+                        isSameDay(item.date, selectedDate));
+
+                    if (existingEntry) {
+                        newData = data.map(item =>
+                            isSameDay(item.date, selectedDate)
+                                ? { ...item, color }
+                                : item
+                        );
                     } else {
-                        const existingEntry = data.find(item =>
-                            isSameDay(item.date, selectedDate));
+                        newData = [...data, { date: selectedDate, color, note }];
+                    }
+                }
 
-                        if (existingEntry) {
-                            newData = data.map(item =>
-                                isSameDay(item.date, selectedDate)
-                                    ? { ...item, color }
-                                    : item
-                            );
-                        } else {
-                            newData = [...data, { date: selectedDate, color, note }];
-                        }
+                setData(newData);
+                saveToStorage(calendar.key, newData);
+            }}
+            onNoteUpdate={(value, callback) => {
+                try {
+                    let newData = [...data];
+                    const hasDay = newData.find(item => isSameDay(item.date, selectedDate));
+                    if (hasDay) {
+                        newData = newData.map(item =>
+                            isSameDay(item.date, selectedDate)
+                                ? { ...item, note: value }
+                                : item);
+                    } else {
+                        newData.push({ date: selectedDate, note: value });
                     }
 
                     setData(newData);
                     saveToStorage(calendar.key, newData);
-                }}
-                onNoteUpdate={(value, callback) => {
-                    try {
-                        let newData = [...data];
-                        const hasDay = newData.find(item => isSameDay(item.date, selectedDate));
-                        if (hasDay) {
-                            newData = newData.map(item =>
-                                isSameDay(item.date, selectedDate)
-                                    ? { ...item, note: value }
-                                    : item);
-                        } else {
-                            newData.push({ date: selectedDate, note: value });
-                        }
-
-                        setData(newData);
-                        saveToStorage(calendar.key, newData);
-                        setNote(value);
-                        callback?.(true);
-                    } catch (error) {
-                        console.error(error);
-                        callback?.(false);
-                    }
-                }}>
-                 <div className="flex flex-col gap-2 items-start w-full justify-between mb-4">
-                <h1 className="text-xl font-bold">
+                    setNote(value);
+                    callback?.(true);
+                } catch (error) {
+                    console.error(error);
+                    callback?.(false);
+                }
+            }}>
+            <div className="flex gap-2 items-center w-full justify-between">
+                <h1 className="text-base font-bold">
                     {calendar.icon} {calendar.name.toUpperCase().slice(0, 4)}
                 </h1>
                 <CalendarGamification calendar={calendar} size="big" />
             </div>
-               
-            </CalendarMonth>
-        </>
+        </CalendarMonth>
     )
 }
 

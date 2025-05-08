@@ -5,14 +5,12 @@ import { useMemo, useState, useEffect } from "react";
 import classNames from "classnames";
 import { ColorsButtons } from "../molecules/ColorsButtons";
 import { FloppyDisk, CheckCircle, WarningCircle } from "@phosphor-icons/react";
-import { DateStrip } from "../molecules/DateStrip";
 
 export const CalendarMonth = ({
     selectedDate = new Date(),
     setSelectedDate,
     data,
     monthIndex,
-    showInfo,
     size = "small",
     calendar,
     onColorSelect,
@@ -24,6 +22,7 @@ export const CalendarMonth = ({
 }) => {
     const [note, setNote] = useState(initialNote);
     const [isNoteSaved, setIsNoteSaved] = useState(null);
+    const [isDaySelected, setIsDaySelected] = useState(false);
 
     useEffect(() => {
         setNote(initialNote);
@@ -67,9 +66,11 @@ export const CalendarMonth = ({
         <div className="flex flex-col justify-between w-full gap-2 h-full overflow-y-scroll" key={`month-${monthIndex}`}>
             {isYearView ? <h2 className="text-xs my-0 text-center">{format(month, "MMM")}</h2> : ""}
             <div className="flex flex-row-reverse gap-4 w-full">
-                <div className={isYearView ? "w-full" : "w-full flex justify-start items-start"}>
+                <div className={isYearView
+                    ? "w-full"
+                    : "z-10 w-full flex justify-start items-start"}>
                     <div className={classNames({
-                        "grid grid-cols-7 h-fit w-fit": true,
+                        "grid grid-cols-7 h-fit w-fit relative": true,
                         "p-1 gap-0.5": size === "small",
                         "p-1 gap-1 justify-center items-start": size !== "small",
                     })}>
@@ -79,27 +80,37 @@ export const CalendarMonth = ({
                                     monthIndex={monthIndex}
                                     dayIndex={dayIndex}
                                     size={size}
-                                    selectedDate={selectedDate}
-                                    setSelectedDate={setSelectedDate}
                                     data={data}
                                     key={`month-${monthIndex}-day-${dayIndex}`}
-                                    dayObj={dayObj} />
+                                    dayObj={dayObj}
+                                    selectedDate={selectedDate}
+                                    setSelectedDate={date => {
+                                        setSelectedDate(date);
+                                        setIsDaySelected(true);
+                                    }} />
                             );
                         })}
+
+                        {!isYearView && isDaySelected &&
+                            <div className="absolute
+                            bottom-0
+                            translate-y-full
+                            bg-white shadow-lg p-2 rounded-xl">
+                                <ColorsButtons
+                                    data={data}
+                                    calendar={calendar}
+                                    selectedDate={selectedDate}
+                                    monthIndex={monthIndex}
+                                    onColorSelect={color => {
+                                        onColorSelect(color);
+                                        setIsDaySelected(false);
+                                    }}
+                                />
+                            </div>}
                     </div>
                 </div>
             </div>
             {children}
-            {!isYearView &&
-                <div className="w-full">
-                    <ColorsButtons
-                        calendar={calendar}
-                        onColorSelect={onColorSelect}
-                        selectedDate={selectedDate}
-                        monthIndex={monthIndex}
-                        data={data}
-                    />
-                </div>}
             {/* {!isYearView && <Pills type="month" length={12} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />} */}
             {/* <CalendarMonthColorInfo
                 data={data}
