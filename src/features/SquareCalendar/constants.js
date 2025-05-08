@@ -402,12 +402,11 @@ export const Calendars = {
         colors: [
             Colors.Purple,
             Colors.Lavender,
-            Colors.Violet,
-            Colors.Black],
+            Colors.Black
+        ],
         legend: [
             { name: "Visit", color: Colors.Purple },
             { name: "Call", color: Colors.Lavender },
-            { name: "PM", color: Colors.Violet },
         ]
     },
     Dad: {
@@ -417,9 +416,17 @@ export const Calendars = {
         redAfter: 30,
         name: "dad",
         key: "dad-square-calendar",
-        colors: [Colors.Navy, Colors.Black],
-        icon: "👨🏾",
         category: Categories.Social,
+        icon: "👨🏾",
+        colors: [
+            Colors.Navy,
+            Colors.Blue,
+            Colors.Black
+        ],
+        legend: [
+            { name: "Visit", color: Colors.Navy },
+            { name: "Call", color: Colors.Blue },
+        ]
     },
     Grandma: {
         showColorStatus: true,
@@ -428,7 +435,15 @@ export const Calendars = {
         redAfter: 90,
         name: "grandma",
         key: "grandma-square-calendar",
-        colors: [Colors.Plum, Colors.Black],
+        colors: [
+            Colors.Plum, 
+            Colors.Purple,
+            Colors.Black
+        ],
+        legend: [
+            { name: "Visit", color: Colors.Plum },
+            { name: "Call", color: Colors.Purple },
+        ],
         icon: "👵🏾",
         category: Categories.Social,
     },
@@ -478,11 +493,13 @@ export const Calendars = {
         colors: [
             Colors.Violet,
             Colors.Purple,
+            Colors.Lavender,
             Colors.Black
         ],
         legend: [
             { name: "PM", color: Colors.Violet },
             { name: "Call", color: Colors.Purple },
+            { name: "Visit", color: Colors.Lavender },
         ]
     },
     Sahar: {
@@ -497,11 +514,13 @@ export const Calendars = {
         colors: [
             Colors.Violet,
             Colors.Purple,
+            Colors.Lavender,
             Colors.Black
         ],
         legend: [
             { name: "PM", color: Colors.Violet },
             { name: "Call", color: Colors.Purple },
+            { name: "Visit", color: Colors.Lavender },
         ]
     },
     Yahel: {
@@ -516,11 +535,13 @@ export const Calendars = {
         colors: [
             Colors.Violet,
             Colors.Purple,
+            Colors.Lavender,
             Colors.Black
         ],
         legend: [
             { name: "PM", color: Colors.Violet },
             { name: "Call", color: Colors.Purple },
+            { name: "Visit", color: Colors.Lavender },
         ]
     },
     Ofek: {
@@ -535,11 +556,13 @@ export const Calendars = {
         colors: [
             Colors.Violet,
             Colors.Purple,
+            Colors.Lavender,
             Colors.Black
         ],
         legend: [
             { name: "PM", color: Colors.Violet },
             { name: "Call", color: Colors.Purple },
+            { name: "Visit", color: Colors.Lavender },
         ]
     },
     Avshalom: {
@@ -553,12 +576,10 @@ export const Calendars = {
         category: Categories.Social,
         colors: [
             Colors.Violet,
-            Colors.Purple,
             Colors.Black
         ],
         legend: [
             { name: "PM", color: Colors.Violet },
-            { name: "Call", color: Colors.Purple },
         ]
     },
     Rotem: {
@@ -573,12 +594,13 @@ export const Calendars = {
         colors: [
             Colors.Violet,
             Colors.Purple,
+            Colors.Lavender,
             Colors.Black
         ],
         legend: [
-            { name: "Meet", color: Colors.Violet },
-            { name: "Personal", color: Colors.Violet },
+            { name: "PM", color: Colors.Violet },
             { name: "Call", color: Colors.Purple },
+            { name: "Visit", color: Colors.Lavender },
         ]
     },
     Maya: {
@@ -593,13 +615,57 @@ export const Calendars = {
         colors: [
             Colors.Violet,
             Colors.Purple,
+            Colors.Lavender,
             Colors.Black
         ],
         legend: [
             { name: "PM", color: Colors.Violet },
             { name: "Call", color: Colors.Purple },
+            { name: "Visit", color: Colors.Lavender },
         ]
     },
+    Nimrod: {
+        showColorStatus: true,
+        showGamification: false,
+        yellowAfter: 30,
+        redAfter: 60,
+        name: "nimrod",
+        key: "nimrod-square-calendar",
+        icon: "🪩",
+        category: Categories.Social,
+        colors: [
+            Colors.Violet,
+            Colors.Purple,
+            Colors.Lavender,
+            Colors.Black
+        ],
+        legend: [
+            { name: "PM", color: Colors.Violet },
+            { name: "Call", color: Colors.Purple },
+            { name: "Visit", color: Colors.Lavender },
+        ]
+    },
+    // Ofir: {
+    //     showColorStatus: true,
+    //     showGamification: false,
+    //     yellowAfter: 30,
+    //     redAfter: 60,
+    //     name: "ofir",
+    //     key: "ofir-square-calendar",
+    //     icon: "👺",
+    //     category: Categories.Social,
+    //     colors: [
+    //         Colors.Violet,
+    //         Colors.Purple,
+    //         Colors.Lavender,
+    //         Colors.Black
+    //     ],
+    //     legend: [
+    //         { name: "PM", color: Colors.Violet },
+    //         { name: "Call", color: Colors.Purple },
+    //         { name: "Visit", color: Colors.Lavender },
+    //     ]
+    // },
     /* Friends: {
         showColorStatus: true,
         showGamification: false,
