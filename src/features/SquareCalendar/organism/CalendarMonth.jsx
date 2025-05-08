@@ -1,7 +1,7 @@
 import { getDaysInMonth, getDay, startOfMonth, subMonths, format } from "date-fns";
 import PropTypes from "prop-types";
 import { DaySquare } from "../atoms/DaySquare";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState, useEffect, createPortal } from "react";
 import classNames from "classnames";
 import { ColorsButtons } from "../molecules/ColorsButtons";
 import { FloppyDisk, CheckCircle, WarningCircle } from "@phosphor-icons/react";
@@ -91,8 +91,9 @@ export const CalendarMonth = ({
                             );
                         })}
 
-                        {!isYearView && isDaySelected &&
-                            <div className="absolute
+                        {!isYearView && isDaySelected && createPortal(
+                            (
+                                <div className="absolute
                             bottom-0 inset-x-0
                             translate-y-full
                             bg-white shadow-lg p-2 rounded-xl">
@@ -108,25 +109,27 @@ export const CalendarMonth = ({
                                     }}
                                 />
                                 <textarea
-                            value={note}
-                            placeholder="Note"
-                            onChange={event => setNote(event.target.value)}
-                            className={classNames({
-                                "w-full border rounded-md p-2": true,
-                                "h-32 bg-transparent text-xs": true,
-                            })}
-                        />
-                        <button
-                            className="flex w-full items-center justify-center z-0"
-                            onClick={() => onNoteUpdate(note, (success) => {
-                                setIsNoteSaved(success);
-                                setTimeout(() => {
-                                    setIsNoteSaved(null);
-                                }, 1000);
-                            })}>
-                            <NoteSaveIcon size={18} />
-                        </button>
-                            </div>}
+                                    value={note}
+                                    placeholder="Note"
+                                    onChange={event => setNote(event.target.value)}
+                                    className={classNames({
+                                        "w-full border rounded-md p-2": true,
+                                        "h-32 bg-transparent text-xs": true,
+                                    })}
+                                />
+                                <button
+                                    className="flex w-full items-center justify-center z-0"
+                                    onClick={() => onNoteUpdate(note, (success) => {
+                                        setIsNoteSaved(success);
+                                        setTimeout(() => {
+                                            setIsNoteSaved(null);
+                                        }, 1000);
+                                    })}>
+                                    <NoteSaveIcon size={18} />
+                                </button>
+                            </div>
+                            ), document.getElementById("day-popover-portal")
+                        )}
                     </div>
                 </div>
             </div>
