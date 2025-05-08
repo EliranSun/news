@@ -94,7 +94,8 @@ export const CalendarMonth = ({
 
                         {!isYearView && isDaySelected && createPortal((
                             <div className="fixed z-50 w-screen h-screen 
-                            flex flex-col items-center justify-center bg-stone-100 dark:bg-stone-900 p-5 space-y-4">
+                            flex flex-col items-center justify-center 
+                            bg-stone-100 dark:bg-stone-900 p-5 space-y-4">
                                 <button onClick={() => setIsDaySelected(false)}>
                                     <X size={42} />
                                 </button>
@@ -118,7 +119,7 @@ export const CalendarMonth = ({
                                     onChange={event => setNote(event.target.value)}
                                     className={classNames({
                                         "w-full p-2 merriweather-bold": true,
-                                        "h-2/3 bg-transparent text-xl": true,
+                                        "h-1/2 bg-transparent text-xl": true,
                                     })}
                                 />
                                 <button
