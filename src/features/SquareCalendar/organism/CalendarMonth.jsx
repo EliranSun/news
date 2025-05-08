@@ -66,6 +66,7 @@ export const CalendarMonth = ({
     return (
         <div className="flex flex-col justify-between w-full gap-2 h-full overflow-y-scroll" key={`month-${monthIndex}`}>
             {isYearView ? <h2 className="text-xs my-0 text-center">{format(month, "MMM")}</h2> : ""}
+                        {children}
             <div className="flex flex-row-reverse gap-4 w-full">
                 <div className={isYearView
                     ? "w-full"
@@ -137,7 +138,7 @@ export const CalendarMonth = ({
                     </div>
                 </div>
             </div>
-            {children}
+
             {/* {!isYearView && <Pills type="month" length={12} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />} */}
             {/* <CalendarMonthColorInfo
                 data={data}
