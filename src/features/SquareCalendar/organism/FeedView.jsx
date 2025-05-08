@@ -27,8 +27,9 @@ export const FeedView = ({
             <div className="flex gap-6 flex-nowrap w-[calc(100vw-16px*2)] overflow-x-auto snap-x">
                 {Object.values(Categories).map((category) => (
                     <div key={category} className="w-[80vw] shrink-0 bg-stone-200 dark:bg-stone-700 p-2
-                    rounded-xl h-[calc(100vh-180px)] overflow-y-auto snap-center">
+                    rounded-xl  snap-center">
                         <h1 className="text-base font-bold">{category.toUpperCase()}</h1>
+                        <div className="h-[calc(100vh-220px)] overflow-y-auto">
                         {Object.values(Calendars).filter(calendar => calendar.category === category).map((calendar) => (
                             <div
                                 key={calendar.key}
@@ -45,6 +46,7 @@ export const FeedView = ({
                                 />
                             </div>
                         ))}
+                        </div>
                     </div>
                 ))}
             </div>
