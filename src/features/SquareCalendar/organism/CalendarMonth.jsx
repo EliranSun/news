@@ -101,6 +101,7 @@ export const CalendarMonth = ({
                                     calendar={calendar}
                                     selectedDate={selectedDate}
                                     monthIndex={monthIndex}
+                                    onClose={() => setIsDaySelected(false)}
                                     onColorSelect={color => {
                                         onColorSelect(color);
                                         setIsDaySelected(false);
