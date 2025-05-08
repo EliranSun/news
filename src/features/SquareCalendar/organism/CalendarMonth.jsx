@@ -126,7 +126,7 @@ export const CalendarMonth = ({
                             onChange={event => setNote(event.target.value)}
                             className={classNames({
                                 "w-full border rounded-md p-2": true,
-                                "h-20 bg-transparent": true,
+                                "h-32 bg-transparent text-xs": true,
                             })}
                         />
                         <button
