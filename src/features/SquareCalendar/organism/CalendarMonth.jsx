@@ -94,10 +94,7 @@ export const CalendarMonth = ({
 
                         {!isYearView && isDaySelected && createPortal(
                             (
-                                <div className="absolute
-                            bottom-0 inset-x-0
-                            translate-y-full
-                            bg-white shadow-lg p-2 rounded-xl">
+                                <div className="bg-white shadow-lg p-2 rounded-xl">
                                 <ColorsButtons
                                     data={data}
                                     calendar={calendar}
