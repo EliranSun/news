@@ -4,7 +4,7 @@ import { DaySquare } from "../atoms/DaySquare";
 import { useMemo, useState, useEffect } from "react";
 import classNames from "classnames";
 import { ColorsButtons } from "../molecules/ColorsButtons";
-import { FloppyDisk, CheckCircle, WarningCircle } from "@phosphor-icons/react";
+import { FloppyDisk, CheckCircle, WarningCircle, X } from "@phosphor-icons/react";
 import { createPortal } from 'react-dom';
 
 export const CalendarMonth = ({
@@ -93,7 +93,12 @@ export const CalendarMonth = ({
                         })}
 
                         {!isYearView && isDaySelected && createPortal((
-                                <div className="fixed w-screen h-screen bg-stone-100 dark:bg-stone-900 p-2">
+                            <div className="fixed z-50 w-screen h-screen 
+                            flex flex-col items-center justify-center bg-stone-100 dark:bg-stone-900 p-4 space-y-4">
+                                <button onClick={() => setIsDaySelected(false)}>
+                                    <X size={42} />
+                                </button>
+                                <h1 className="merriweather-bold text-2xl text-left w-full">{format(selectedDate, "MMMM d, yyyy")}</h1>
                                 <ColorsButtons
                                     data={data}
                                     calendar={calendar}
@@ -110,22 +115,22 @@ export const CalendarMonth = ({
                                     placeholder="Note"
                                     onChange={event => setNote(event.target.value)}
                                     className={classNames({
-                                        "w-full border rounded-md p-2": true,
-                                        "h-32 bg-transparent text-xs": true,
+                                        "w-full p-2 merriweather-bold": true,
+                                        "h-2/3 bg-transparent text-xl": true,
                                     })}
                                 />
                                 <button
-                                    className="flex w-full items-center justify-center z-0"
+                                    className="flex w-full items-center justify-center z-0 border-white"
                                     onClick={() => onNoteUpdate(note, (success) => {
                                         setIsNoteSaved(success);
                                         setTimeout(() => {
                                             setIsNoteSaved(null);
                                         }, 1000);
                                     })}>
-                                    <NoteSaveIcon size={18} />
+                                    <NoteSaveIcon size={42} />
                                 </button>
                             </div>
-                            ), document.getElementById("day-popover-portal"))}
+                        ), document.getElementById("day-popover-portal"))}
                     </div>
                 </div>
             </div>
