@@ -7,7 +7,7 @@ export const StreakBadge = ({ streak, visible = true, size }) => {
 
     return (
         <Badge className="h-fit" size={size}>
-            <Fire size={size === "big" ? 24 : 16} color="red" />
+            <Fire size={size === "big" ? 18 : 16} color="red" />
             <span>{streak}d</span>
         </Badge>
     )
