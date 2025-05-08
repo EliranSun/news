@@ -72,7 +72,7 @@ export const CalendarMonth = ({
                     <div className={classNames({
                         "grid grid-cols-7 h-fit w-fit relative": true,
                         "p-1 gap-0.5": size === "small",
-                        "p-1 gap-1 justify-center items-start": size !== "small",
+                        "p-1 gap-1 mx-auto": size !== "small",
                     })}>
                         {calendarData.map((dayObj, dayIndex) => {
                             return (

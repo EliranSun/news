@@ -23,10 +23,10 @@ export const FeedView = ({
                     selectedDate={selectedDate}
                     setSelectedDate={setSelectedDate} />
             </div>
-            <div className="flex gap-6 flex-nowrap w-[calc(100vw-16px*2)] overflow-x-auto snap-x">
+            <div className="flex flex-nowrap w-[calc(100vw-16px*2)] overflow-x-auto snap-x">
                 {Object.values(Categories).map((category) => (
-                    <div key={category} className="w-[80vw] shrink-0 bg-stone-200 dark:bg-stone-700 p-2
-                    rounded-xl snap-center">
+                    <div key={category} className="w-[85vw] shrink-0 bg-stone-200 dark:bg-stone-700 p-2
+                    rounded-xl snap-center mx-10">
                         <h1 className="text-base font-bold px-2">
                             {category.toUpperCase()}
                         </h1>
