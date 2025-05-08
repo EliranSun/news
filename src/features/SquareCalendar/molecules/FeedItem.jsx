@@ -76,7 +76,7 @@ export const FeedItem = ({
             }}>
             <div className="flex gap-2 items-center w-full justify-between">
                 <h1 className="text-base font-bold">
-                    {calendar.icon} {calendar.name.toUpperCase().slice(0, 4)}
+                    {calendar.icon} {calendar.name.toUpperCase()}
                 </h1>
                 <CalendarGamification calendar={calendar} size="big" />
             </div>
