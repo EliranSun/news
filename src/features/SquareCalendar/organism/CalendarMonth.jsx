@@ -92,9 +92,8 @@ export const CalendarMonth = ({
                             );
                         })}
 
-                        {!isYearView && isDaySelected && createPortal(
-                            (
-                                <div className="bg-white shadow-lg p-2 rounded-xl">
+                        {!isYearView && isDaySelected && (
+                                <div className="fixed w-screen h-screen bg-stone-100 dark:bg-stone-900 p-2">
                                 <ColorsButtons
                                     data={data}
                                     calendar={calendar}
@@ -126,7 +125,6 @@ export const CalendarMonth = ({
                                     <NoteSaveIcon size={18} />
                                 </button>
                             </div>
-                            ), document.getElementById("day-popover-portal")
                         )}
                     </div>
                 </div>
