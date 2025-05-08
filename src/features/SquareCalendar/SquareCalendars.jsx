@@ -55,7 +55,7 @@ export default function SquareCalendars() {
 
     return (
         <>
-            <div id="day-popover-portal" className="fixed inset-0 m-auto"/>
+            <div id="day-popover-portal" className="z-50 bg-white dark:bg-black w-screen h-screen fixed inset-0 m-auto"/>
             {isPhysicsDemoOpen && <PhysicsDemo />}
             <Navbar
                 selectedItem={view}
