@@ -94,11 +94,13 @@ export const CalendarMonth = ({
 
                         {!isYearView && isDaySelected && createPortal((
                             <div className="fixed z-50 w-screen h-screen 
-                            flex flex-col items-center justify-center bg-stone-100 dark:bg-stone-900 p-4 space-y-4">
+                            flex flex-col items-center justify-center bg-stone-100 dark:bg-stone-900 p-5 space-y-4">
                                 <button onClick={() => setIsDaySelected(false)}>
                                     <X size={42} />
                                 </button>
-                                <h1 className="merriweather-bold text-2xl text-left w-full">{format(selectedDate, "MMMM d, yyyy")}</h1>
+                                <h1 className="merriweather-bold text-2xl text-left w-full">
+                                    {format(selectedDate, "EEEE, MMMM d, yyyy")}
+                                </h1>
                                 <ColorsButtons
                                     data={data}
                                     calendar={calendar}
