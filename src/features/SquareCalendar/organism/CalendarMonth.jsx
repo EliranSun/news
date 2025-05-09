@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { ColorsButtons } from "../molecules/ColorsButtons";
 import { FloppyDisk, CheckCircle, WarningCircle, X } from "@phosphor-icons/react";
 import { createPortal } from 'react-dom';
+import { getColorsClassList } from "../utils";
 
 export const CalendarMonth = ({
     selectedDate = new Date(),
