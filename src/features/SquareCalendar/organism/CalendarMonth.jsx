@@ -119,6 +119,7 @@ export const CalendarMonth = ({
                                 <ColorsButtons
                                     data={data}
                                     calendar={calendar}
+                                    selectedColorClass={colorClass}
                                     selectedDate={selectedDate}
                                     monthIndex={monthIndex}
                                     onClose={() => setIsDaySelected(false)}
