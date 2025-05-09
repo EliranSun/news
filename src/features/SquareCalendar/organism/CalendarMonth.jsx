@@ -28,6 +28,11 @@ export const CalendarMonth = ({
     useEffect(() => {
         setNote(initialNote);
     }, [initialNote]);
+    
+    const colorClass = useMemo(() => {
+        const color = data.find(item => new Date(item.date).toDateString() === selectedDate.toDateString())?.color;
+        return color && getColorsClassList(color);
+    }, [data, selectedDate]);
 
     const month = useMemo(() => {
         return new Date(selectedDate.getFullYear(), monthIndex, 1);
@@ -103,7 +108,8 @@ export const CalendarMonth = ({
                                     {calendar.icon} {calendar.name.toUpperCase()}
                                 </h1>
                                 <h2 className="merriweather-bold text-2xl text-left w-full">
-                                    {format(selectedDate, "EEEE, MMMM d, yyyy")}
+                                    {format(selectedDate, "EEEE, MMMM d, yyyy")},
+                                    {colorClass}
                                 </h2>
                                 <ColorsButtons
                                     data={data}
