@@ -68,7 +68,7 @@ export const CalendarMonth = ({
         }
         return WarningCircle;
     }, [isNoteSaved]);
-
+// bg-stone-100 dark:bg-stone-900
     return (
         <div className="flex flex-col justify-between w-full gap-2 h-full overflow-y-scroll" key={`month-${monthIndex}`}>
             {isYearView ? <h2 className="text-xs my-0 text-center">{format(month, "MMM")}</h2> : ""}
@@ -100,8 +100,8 @@ export const CalendarMonth = ({
 
                         {!isYearView && isDaySelected && createPortal((
                             <div className="fixed z-50 w-screen h-screen 
-                            flex flex-col items-center justify-center 
-                            bg-stone-100 dark:bg-stone-900 p-5 space-y-4">
+                            flex flex-col items-center justify-center {colorClass}
+                             p-5 space-y-4">
                                 <button onClick={() => setIsDaySelected(false)}>
                                     <X size={42} />
                                 </button>
