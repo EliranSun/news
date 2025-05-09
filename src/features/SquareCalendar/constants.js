@@ -48,7 +48,7 @@ export const Categories = {
     Wife: "wife",
     Social: "social",
     House: "house",
-    Creative: "creative",
+    Friends: "friends",
     Avoid: "avoid",
     Family: "family"
 };
@@ -612,7 +612,7 @@ export const Calendars = {
         name: "rotem",
         key: "rotem-square-calendar",
         icon: "⭐️",
-        category: Categories.Social,
+        category: Categories.Friends,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -633,7 +633,7 @@ export const Calendars = {
         name: "maya",
         key: "maya-square-calendar",
         icon: "👺",
-        category: Categories.Social,
+        category: Categories.Friends,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -654,7 +654,7 @@ export const Calendars = {
         name: "nimrod",
         key: "nimrod-square-calendar",
         icon: "🪩",
-        category: Categories.Social,
+        category: Categories.Friends,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -675,7 +675,7 @@ export const Calendars = {
     //     name: "ofir",
     //     key: "ofir-square-calendar",
     //     icon: "👺",
-    //     category: Categories.Social,
+    //     category: Categories.Friends,
     //     colors: [
     //         Colors.Violet,
     //         Colors.Purple,
