@@ -99,9 +99,11 @@ export const CalendarMonth = ({
                         })}
 
                         {!isYearView && isDaySelected && createPortal((
-                            <div className="fixed z-50 w-screen h-screen 
-                            flex flex-col items-center justify-center {colorClass}
-                             p-5 space-y-4">
+                            <div className={classNames(colorClass, {
+                                "fixed z-50 w-screen h-screen": true,
+                            "flex flex-col items-center justify-center": true,
+                             "p-5 space-y-4": true,
+                            })}>
                                 <button onClick={() => setIsDaySelected(false)}>
                                     <X size={42} />
                                 </button>
