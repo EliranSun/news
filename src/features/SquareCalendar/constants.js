@@ -50,6 +50,7 @@ export const Categories = {
     House: "house",
     Creative: "creative",
     Avoid: "avoid",
+    Family: "family"
 };
 
 export const Calendars = {
@@ -398,7 +399,7 @@ export const Calendars = {
         name: "mom",
         key: "mom-square-calendar",
         icon: "👩🏾",
-        category: Categories.Social,
+        category: Categories.Family,
         colors: [
             Colors.Purple,
             Colors.Lavender,
@@ -416,7 +417,7 @@ export const Calendars = {
         redAfter: 30,
         name: "dad",
         key: "dad-square-calendar",
-        category: Categories.Social,
+        category: Categories.Family,
         icon: "👨🏾",
         colors: [
             Colors.Navy,
@@ -445,7 +446,7 @@ export const Calendars = {
             { name: "Call", color: Colors.Purple },
         ],
         icon: "👵🏾",
-        category: Categories.Social,
+        category: Categories.Family,
     },
     Mor: {
         showColorStatus: true,
@@ -455,7 +456,7 @@ export const Calendars = {
         name: "mor",
         key: "mor-square-calendar",
         icon: "🌳",
-        category: Categories.Social,
+        category: Categories.Family,
         colors: [
             Colors.Purple,
             Colors.Black
@@ -472,13 +473,34 @@ export const Calendars = {
         name: "nadav",
         key: "nadav-square-calendar",
         icon: "🌳",
-        category: Categories.Social,
+        category: Categories.Family,
         colors: [
             Colors.Purple,
             Colors.Black
         ],
         legend: [
             { name: "PM", color: Colors.Purple },
+        ]
+    },
+    Or: {
+        showColorStatus: true,
+        showGamification: false,
+        yellowAfter: 30,
+        redAfter: 60,
+        name: "or",
+        key: "or-square-calendar",
+        icon: "☀️",
+        category: Categories.Family,
+        colors: [
+            Colors.Violet,
+            Colors.Purple,
+            Colors.Lavender,
+            Colors.Black
+        ],
+        legend: [
+            { name: "PM", color: Colors.Violet },
+            { name: "Call", color: Colors.Purple },
+            { name: "Visit", color: Colors.Lavender },
         ]
     },
     Shahar: {
@@ -489,7 +511,7 @@ export const Calendars = {
         name: "shahar",
         key: "shahar-square-calendar",
         icon: "☀️",
-        category: Categories.Social,
+        category: Categories.Family,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -510,7 +532,7 @@ export const Calendars = {
         name: "sahar",
         key: "sahar-square-calendar",
         icon: "☀️",
-        category: Categories.Social,
+        category: Categories.Family,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -531,7 +553,7 @@ export const Calendars = {
         name: "yahel",
         key: "yahel-square-calendar",
         icon: "☀️",
-        category: Categories.Social,
+        category: Categories.Family,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -552,7 +574,7 @@ export const Calendars = {
         name: "ofek",
         key: "ofek-square-calendar",
         icon: "☀️",
-        category: Categories.Social,
+        category: Categories.Family,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -573,7 +595,7 @@ export const Calendars = {
         name: "avshalom",
         key: "avshalom-square-calendar",
         icon: "☀️",
-        category: Categories.Social,
+        category: Categories.Family,
         colors: [
             Colors.Violet,
             Colors.Black
