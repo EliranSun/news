@@ -29,7 +29,7 @@ export const CalendarMonth = ({
     useEffect(() => {
         setNote(initialNote);
     }, [initialNote]);
-    
+
     const colorClass = useMemo(() => {
         const color = data.find(item => new Date(item.date).toDateString() === selectedDate.toDateString())?.color;
         return color && getColorsClassList(color);
@@ -68,7 +68,7 @@ export const CalendarMonth = ({
         }
         return WarningCircle;
     }, [isNoteSaved]);
-// 
+    // 
     return (
         <div className="flex flex-col justify-between w-full gap-2 h-full overflow-y-scroll" key={`month-${monthIndex}`}>
             {isYearView ? <h2 className="text-xs my-0 text-center">{format(month, "MMM")}</h2> : ""}
@@ -101,10 +101,10 @@ export const CalendarMonth = ({
                         {!isYearView && isDaySelected && createPortal((
                             <div className={classNames(colorClass || "bg-stone-100 dark:bg-stone-900", {
                                 "fixed z-50 w-screen h-screen": true,
-                            "flex flex-col items-center justify-center": true,
-                             "p-5 space-y-4": true,
+                                "flex flex-col items-center justify-center": true,
+                                "p-5 space-y-4": true,
                             })}>
-                                <button 
+                                <button
                                     className="bg-transparent"
                                     onClick={() => setIsDaySelected(false)}>
                                     <X size={42} />
@@ -125,7 +125,6 @@ export const CalendarMonth = ({
                                     onClose={() => setIsDaySelected(false)}
                                     onColorSelect={color => {
                                         onColorSelect(color);
-                                        setIsDaySelected(false);
                                     }}
                                 />
                                 <textarea
@@ -152,7 +151,7 @@ export const CalendarMonth = ({
                     </div>
                 </div>
             </div>
-                        {children}
+            {children}
             {/* {!isYearView && <Pills type="month" length={12} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />} */}
             {/* <CalendarMonthColorInfo
                 data={data}
