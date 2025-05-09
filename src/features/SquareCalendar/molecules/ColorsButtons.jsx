@@ -3,7 +3,15 @@ import PropTypes from "prop-types";
 import { useColorPercentage } from "../useColorPercentage";
 import { getDaysInMonth } from "date-fns";
 
-export const ColorsButtons = ({ data, calendar, onColorSelect, selectedDate, monthIndex, onClose }) => {
+export const ColorsButtons = ({ 
+data,
+calendar, 
+onColorSelect, 
+selectedColorClass,
+selectedDate, 
+monthIndex, 
+onClose
+ }) => {
     const month = new Date(selectedDate.getFullYear(), monthIndex, 1);
     const daysInMonth = getDaysInMonth(month);
     const currentMonthDays = Array.from({ length: daysInMonth }, (_, i) => ({
@@ -21,6 +29,7 @@ export const ColorsButtons = ({ data, calendar, onColorSelect, selectedDate, mon
                 <ColorButton
                     key={color}
                     color={color}
+                    selectedColorClass={selectedColorClass}
                     legend={calendar.legend?.find(item => item.color === color)}
                     onClick={() => onColorSelect(color)}
                     count={colorPercentages.find(item => item.color === color)?.count}
