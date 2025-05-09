@@ -46,6 +46,7 @@ export const Colors = {
 export const Categories = {
     Self: "self",
     Wife: "wife",
+    Creative: "creative",
     Social: "social",
     House: "house",
     Friends: "friends",
