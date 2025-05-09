@@ -5,7 +5,14 @@ import { useMemo } from "react";
 import PropTypes from "prop-types";
 import { Colors } from "../constants";
 
-export const ColorButton = ({ color, onClick, legend, count, percentage }) => {
+export const ColorButton = ({ 
+color, 
+onClick, 
+legend, 
+count, 
+selectedColorClass,
+percentage
+ }) => {
     const bgColor = useMemo(() => getColorsClassList(color), [color]);
     const textColor = useMemo(() => {
         if (color === Colors.Clear) {
@@ -25,8 +32,9 @@ export const ColorButton = ({ color, onClick, legend, count, percentage }) => {
             onClick={onClick}
             style={{ color: textColor }}
             className={classNames(bgColor, {
+                "border border-black dark:border-white": selectedColorClass !== bgColor,
                 "flex gap-3 justify-between items-center shrink-0 min-w-20 min-h-10": true,
-                "border border-black dark:border-white p-2 rounded-xl text-xs": true,
+                "p-2 rounded-xl text-xs": true,
             })}>
             {legend && <label className="">{legend.name}</label>}
             <span className="text-[8px]">
