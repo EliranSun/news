@@ -50,6 +50,7 @@ export const Categories = {
     House: "house",
     Friends: "friends",
     Avoid: "avoid",
+    Shemesh: "shemesh",
     Family: "family"
 };
 
@@ -490,7 +491,7 @@ export const Calendars = {
         name: "or",
         key: "or-square-calendar",
         icon: "☀️",
-        category: Categories.Family,
+        category: Categories.Shemesh,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -511,7 +512,7 @@ export const Calendars = {
         name: "shahar",
         key: "shahar-square-calendar",
         icon: "☀️",
-        category: Categories.Family,
+        category: Categories.Shemesh,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -532,7 +533,7 @@ export const Calendars = {
         name: "sahar",
         key: "sahar-square-calendar",
         icon: "☀️",
-        category: Categories.Family,
+        category: Categories.Shemesh,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -553,7 +554,7 @@ export const Calendars = {
         name: "yahel",
         key: "yahel-square-calendar",
         icon: "☀️",
-        category: Categories.Family,
+        category: Categories.Shemesh,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -574,7 +575,7 @@ export const Calendars = {
         name: "ofek",
         key: "ofek-square-calendar",
         icon: "☀️",
-        category: Categories.Family,
+        category: Categories.Shemesh,
         colors: [
             Colors.Violet,
             Colors.Purple,
@@ -595,7 +596,7 @@ export const Calendars = {
         name: "avshalom",
         key: "avshalom-square-calendar",
         icon: "☀️",
-        category: Categories.Family,
+        category: Categories.Shemesh,
         colors: [
             Colors.Violet,
             Colors.Black
