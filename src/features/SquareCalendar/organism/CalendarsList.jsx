@@ -24,7 +24,7 @@ export const CalendarsList = ({ onClick, isOpen }) => {
             animate={{
                 opacity: isOpen ? 1 : 0,
             }}
-            className={classNames("flex justify-center gap-2", {
+            className={classNames("h-full overflow-y-auto flex justify-center gap-2", {
                 "pointer-events-none": !isOpen,
                 "pointer-events-auto": isOpen,
                 "hidden": !isOpen,
@@ -36,7 +36,7 @@ export const CalendarsList = ({ onClick, isOpen }) => {
                 "border border-black dark:border-white rounded-lg": false,
                 "overflow-y-auto": true,
             })}>
-                {foo.slice(0, 3).map(([category, calendars]) => (
+                {foo.slice(0, 4).map(([category, calendars]) => (
                     <CalendarList
                         key={category}
                         calendars={calendars}
@@ -51,7 +51,7 @@ export const CalendarsList = ({ onClick, isOpen }) => {
                 "border border-black dark:border-white rounded-lg": false,
                 "overflow-y-auto": true,
             })}>
-                {foo.slice(3, foo.length).map(([category, calendars]) => (
+                {foo.slice(4, foo.length).map(([category, calendars]) => (
                     <CalendarList
                         key={category}
                         calendars={calendars}
