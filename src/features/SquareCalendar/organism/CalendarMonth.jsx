@@ -3,10 +3,9 @@ import PropTypes from "prop-types";
 import { DaySquare } from "../atoms/DaySquare";
 import { useMemo, useState, useEffect } from "react";
 import classNames from "classnames";
-import { ColorsButtons } from "../molecules/ColorsButtons";
-import { FloppyDisk, CheckCircle, WarningCircle, X } from "@phosphor-icons/react";
-import { createPortal } from 'react-dom';
+import { FloppyDisk, CheckCircle, WarningCircle } from "@phosphor-icons/react";
 import { getColorsClassList } from "../utils";
+import { DayModalPortal } from "./DayModalPortal";
 
 export const CalendarMonth = ({
     selectedDate = new Date(),
@@ -98,56 +97,20 @@ export const CalendarMonth = ({
                             );
                         })}
 
-                        {!isYearView && isDaySelected && createPortal((
-                            <div className={classNames(colorClass || "bg-stone-100 dark:bg-stone-900", {
-                                "fixed z-50 w-screen h-screen": true,
-                                "flex flex-col items-center justify-center": true,
-                                "p-5 space-y-4": true,
-                            })}>
-                                <button
-                                    className="bg-transparent"
-                                    onClick={() => setIsDaySelected(false)}>
-                                    <X size={42} />
-                                </button>
-                                <h1 className="merriweather-bold text-3xl text-left w-full">
-                                    {calendar.icon} {calendar.name.toUpperCase()}
-                                </h1>
-                                <h2 className="merriweather-bold text-2xl text-left w-full">
-                                    {format(selectedDate, "EEEE, MMMM d, yyyy")},
-                                    {colorClass}
-                                </h2>
-                                <ColorsButtons
-                                    data={data}
-                                    calendar={calendar}
-                                    selectedColorClass={colorClass}
-                                    selectedDate={selectedDate}
-                                    monthIndex={monthIndex}
-                                    onClose={() => setIsDaySelected(false)}
-                                    onColorSelect={color => {
-                                        onColorSelect(color);
-                                    }}
-                                />
-                                <textarea
-                                    value={note}
-                                    placeholder="Note"
-                                    onChange={event => setNote(event.target.value)}
-                                    className={classNames({
-                                        "w-full p-2 merriweather-bold": true,
-                                        "h-1/2 bg-transparent text-xl": true,
-                                    })}
-                                />
-                                <button
-                                    className="flex w-full items-center justify-center z-0 bg-transparent"
-                                    onClick={() => onNoteUpdate(note, (success) => {
-                                        setIsNoteSaved(success);
-                                        setTimeout(() => {
-                                            setIsNoteSaved(null);
-                                        }, 1000);
-                                    })}>
-                                    <NoteSaveIcon size={42} />
-                                </button>
-                            </div>
-                        ), document.getElementById("day-popover-portal"))}
+                        {/* {!isYearView && isDaySelected &&
+                            <DayModalPortal
+                                colorClass={colorClass}
+                                setIsDaySelected={setIsDaySelected}
+                                calendar={calendar}
+                                selectedDate={selectedDate}
+                                data={data}
+                                onColorSelect={onColorSelect}
+                                onNoteUpdate={onNoteUpdate}
+                                note={note}
+                                setNote={setNote}
+                                setIsNoteSaved={setIsNoteSaved}
+                                monthIndex={monthIndex}
+                            />} */}
                     </div>
                 </div>
             </div>
