@@ -11,7 +11,8 @@ import {
     ListBullets,
     Note,
     Timer,
-    Rows
+    Rows,
+    NumberSquareSeven
 } from "@phosphor-icons/react";
 import classNames from "classnames";
 import { useState } from "react";
@@ -81,6 +82,48 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
 
     return (
         <>
+            <div className="fixed z-40 h-24 bg-stone-100 dark:bg-stone-900
+         bottom-0 w-screen grid grid-cols-7 items-start justify-center">
+                <NavbarButton
+                    isSelected={selectedItem === "hour"}
+                    label="hour"
+                    icon={Timer}
+                    onClick={() => { onItemClick("hour") }}
+                />
+                <NavbarButton
+                    isSelected={selectedItem === "list"}
+                    label="list"
+                    icon={ListBullets}
+                    onClick={onListClick}
+                />
+                <NavbarButton
+                    isSelected={selectedItem === "week"}
+                    label="week"
+                    icon={NumberSquareSeven}
+                    onClick={() => { onItemClick("week") }}
+                />
+                <NavbarButton
+                    isSelected={selectedItem === "feed"}
+                    label="feed"
+                    icon={Rows}
+                    onClick={() => { onItemClick("feed") }}
+                />
+                <NavbarButton
+                    isSelected={selectedItem === "year"}
+                    label="year" icon={CalendarDots}
+                    onClick={() => { onItemClick("year") }}
+                />
+                <NavbarButton
+                    isSelected={selectedItem === "day"}
+                    label="day"
+                    icon={TextAa}
+                    onClick={() => { onItemClick("day") }}
+                />
+                <NavbarButton
+                    label="list"
+                    icon={List}
+                    onClick={() => { setIsMenuOpen(true) }} />
+            </div>
             <OpacityTransition isOpen={isMenuOpen}>
                 <div className="fixed z-50 inset-0 m-auto flex items-center justify-center bg-stone-100 dark:bg-stone-900">
                     <div className="flex flex-col items-center justify-center h-fit
@@ -105,42 +148,6 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                     </div>
                 </div>
             </OpacityTransition>
-            <div className="fixed z-40 h-24 bg-stone-100 dark:bg-stone-900
-         bottom-0 w-screen grid grid-cols-6 items-start justify-center">
-                <NavbarButton
-                    isSelected={selectedItem === "hour"}
-                    label="hour"
-                    icon={Timer}
-                    onClick={() => { onItemClick("hour") }}
-                />
-                <NavbarButton
-                    isSelected={selectedItem === "list"}
-                    label="list"
-                    icon={ListBullets}
-                    onClick={onListClick}
-                />
-                <NavbarButton
-                    isSelected={selectedItem === "feed"}
-                    label="feed"
-                    icon={Rows}
-                    onClick={() => { onItemClick("feed") }}
-                />
-                <NavbarButton
-                    isSelected={selectedItem === "year"}
-                    label="year" icon={CalendarDots}
-                    onClick={() => { onItemClick("year") }}
-                />
-                <NavbarButton
-                    isSelected={selectedItem === "day"}
-                    label="day"
-                    icon={TextAa}
-                    onClick={() => { onItemClick("day") }}
-                />
-                <NavbarButton
-                    label="list"
-                    icon={List}
-                    onClick={() => { setIsMenuOpen(true) }} />
-            </div>
         </>
     );
 };

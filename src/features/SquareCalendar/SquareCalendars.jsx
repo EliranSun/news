@@ -52,7 +52,7 @@ export default function SquareCalendars() {
     }, [selectedDate]);
 
     const yearMap = useMemo(() => new Array(12).fill(0), []);
-
+    const isCleanView = view === "hour" || view === "feed" || view === "week" || view === "list" || view === "day";
     return (
         <>
             <div id="day-popover-portal" className="" />
@@ -63,19 +63,21 @@ export default function SquareCalendars() {
                 onPhysicsClick={() => setIsPhysicsDemoOpen(!isPhysicsDemoOpen)}
                 onListClick={() => setView("list")} />
             <div id="note-modal-portal" />
-            <div className="p-4 w-screen overflow-hidden h-[calc(100vh-96px)] 
+            <div className="p-2 w-screen overflow-hidden h-[calc(100vh-96px)] 
             user-select-none space-y-4 font-mono bg-stone-50 dark:bg-stone-900">
-                {view !== "hour" && view !== "feed" &&
-                    <Header
-                        calendar={calendar}
-                        selectedDate={selectedDate}
-                        daysSinceLastEntry={daysSinceLastEntry}
-                        data={data} />}
-                {view !== "day" && view !== "list" && view !== "hour" && view !== "feed" &&
-                    <CalendarsStrip
-                        data={data}
-                        selectedCalendar={calendar}
-                        onCalendarClick={onCalendarClick} />}
+                {!isCleanView &&
+                    <>
+                        <Header
+                            calendar={calendar}
+                            selectedDate={selectedDate}
+                            daysSinceLastEntry={daysSinceLastEntry}
+                            data={data} />
+                        <CalendarsStrip
+                            data={data}
+                            selectedCalendar={calendar}
+                            onCalendarClick={onCalendarClick} />
+                    </>
+                }
                 <FlexibleOpacityTransition>
                     <Body
                         view={view}

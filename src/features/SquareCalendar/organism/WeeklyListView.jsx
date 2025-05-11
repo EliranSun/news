@@ -26,7 +26,7 @@ export const WeeklyListView = () => {
 
     return (
         <div className="w-screen h-[calc(100vh-127px)] overflow-y-auto">
-            <div className="flex gap-4 pb-4 items-center sticky z-10 top-0 bg-white dark:bg-stone-900">
+            <div className="flex gap-4 pb-4 items-center sticky z-10 top-0">
                 <DateStrip
                     length={10}
                     type="week"
@@ -34,13 +34,13 @@ export const WeeklyListView = () => {
                     setSelectedDate={setSelectedDate} />
             </div>
 
-            <div className="font-medium text-sm mb-2 px-2">
+            {/* <div className="font-medium text-sm mb-2 px-2">
                 {weekDays.length > 0 ?
                     `${format(weekDays[0], 'MMM d')} - ${format(weekDays[6], 'MMM d, yyyy')}` :
                     format(selectedDate, 'MMMM yyyy')}
-            </div>
+            </div> */}
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
                 {Object.values(Categories).map((category) => {
                     // Get calendars for this category
                     const categoryCalendars = Object.values(Calendars)
