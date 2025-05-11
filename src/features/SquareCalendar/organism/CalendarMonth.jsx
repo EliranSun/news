@@ -97,10 +97,10 @@ export const CalendarMonth = ({
                             );
                         })}
 
-                        {/* {!isYearView && isDaySelected &&
+                        {!isYearView && isDaySelected &&
                             <DayModalPortal
                                 colorClass={colorClass}
-                                setIsDaySelected={setIsDaySelected}
+                                onClose={() => setIsDaySelected(false)}
                                 calendar={calendar}
                                 selectedDate={selectedDate}
                                 data={data}
@@ -110,7 +110,7 @@ export const CalendarMonth = ({
                                 setNote={setNote}
                                 setIsNoteSaved={setIsNoteSaved}
                                 monthIndex={monthIndex}
-                            />} */}
+                            />}
                     </div>
                 </div>
             </div>

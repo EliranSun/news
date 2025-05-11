@@ -6,8 +6,8 @@ import { isSameDay } from "date-fns";
 import PropTypes from "prop-types";
 import { useCallback } from "react";
 import { HourView } from "../../HourlyTracker/HourView";
-import { FeedView } from "./FeedView";
 import { WeeklyListView } from "./WeeklyListView";
+import { FeedView } from "./FeedView";
 
 export const Body = ({
     view,
@@ -22,36 +22,36 @@ export const Body = ({
     saveToStorage,
     calendar,
     selectedDateNote,
-    onNoteUpdate
+    // onNoteUpdate
 }) => {
-    const updateColor = useCallback((color) => {
+    const updateData = useCallback((color, note, date) => {
         let newData;
 
         if (color === 'clear') {
-            newData = data.filter(item => !isSameDay(item.date, selectedDate));
+            newData = data.filter(item => !isSameDay(item.date, date));
         } else {
             const existingEntry = data.find(item =>
-                isSameDay(item.date, selectedDate));
+                isSameDay(item.date, date));
 
             if (existingEntry) {
                 newData = data.map(item =>
-                    isSameDay(item.date, selectedDate)
-                        ? { ...item, color }
+                    isSameDay(item.date, date)
+                        ? { ...item, color, note }
                         : item
                 );
             } else {
-                newData = [...data, { date: selectedDate, color, note: selectedDateNote }];
+                newData = [...data, { date, color, note }];
             }
         }
 
         setData(newData);
         saveToStorage(calendar.key, newData);
-    }, [selectedDate, data, calendar, selectedDateNote, setData, saveToStorage]);
+    }, [data, calendar, setData, saveToStorage]);
 
     switch (view) {
         case "week":
             return (
-                <WeeklyListView />
+                <WeeklyListView updateData={updateData} data={data} />
             );
 
         case "feed":
@@ -59,11 +59,12 @@ export const Body = ({
                 <FeedView
                     selectedDate={selectedDate}
                     selectedDateNote={selectedDateNote}
-                    updateColor={updateColor}
+                    // updateColor={updateColor}
                     data={data}
+                    updateData={updateData}
                     setSelectedDate={setSelectedDate}
                     setSelectedDateNote={setSelectedDateNote}
-                    onNoteUpdate={onNoteUpdate}
+                // onNoteUpdate={onNoteUpdate}
                 />
             );
 

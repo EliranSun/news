@@ -7,6 +7,7 @@ import { FeedItem } from "../molecules/FeedItem";
 export const FeedView = ({
     selectedDateNote,
     setSelectedDateNote,
+    updateData
 }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [showNotes] = useState(false);
@@ -44,6 +45,7 @@ export const FeedView = ({
                                     setSelectedDate={setSelectedDate}
                                     selectedDateNote={selectedDateNote}
                                     setSelectedDateNote={setSelectedDateNote}
+                                    updateData={updateData}
                                 />
                             </div>
                         ))}

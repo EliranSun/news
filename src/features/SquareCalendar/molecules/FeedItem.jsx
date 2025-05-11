@@ -9,10 +9,12 @@ export const FeedItem = ({
     calendar,
     selectedDate,
     setSelectedDate,
-    updateColor,
-    showNote,
+    // updateColor,
+    // showNote,
+    updateData
 }) => {
-    const [data, setData] = useState(loadFromStorage(calendar.key) || []);
+    const [data] = useState(loadFromStorage(calendar.key) || []);
+    const [color, setColor] = useState(data.find(item => isSameDay(item.date, selectedDate))?.color || "");
     const [note, setNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
 
     return (
@@ -29,50 +31,12 @@ export const FeedItem = ({
                 const dayItem = data.find(item => isSameDay(item.date, newDate));
                 setNote(dayItem?.note || "");
             }}
-            onColorSelect={(color) => {
-                let newData;
-
-                if (color === 'clear') {
-                    newData = data.filter(item => !isSameDay(item.date, selectedDate));
-                } else {
-                    const existingEntry = data.find(item =>
-                        isSameDay(item.date, selectedDate));
-
-                    if (existingEntry) {
-                        newData = data.map(item =>
-                            isSameDay(item.date, selectedDate)
-                                ? { ...item, color }
-                                : item
-                        );
-                    } else {
-                        newData = [...data, { date: selectedDate, color, note }];
-                    }
-                }
-
-                setData(newData);
-                saveToStorage(calendar.key, newData);
+            onColorSelect={(color, date) => {
+                setColor(color);
+                updateData(color, note, date);
             }}
-            onNoteUpdate={(value, callback) => {
-                try {
-                    let newData = [...data];
-                    const hasDay = newData.find(item => isSameDay(item.date, selectedDate));
-                    if (hasDay) {
-                        newData = newData.map(item =>
-                            isSameDay(item.date, selectedDate)
-                                ? { ...item, note: value }
-                                : item);
-                    } else {
-                        newData.push({ date: selectedDate, note: value });
-                    }
-
-                    setData(newData);
-                    saveToStorage(calendar.key, newData);
-                    setNote(value);
-                    callback?.(true);
-                } catch (error) {
-                    console.error(error);
-                    callback?.(false);
-                }
+            onNoteUpdate={(value, date) => {
+                updateData(color, value, date);
             }}>
             <div className="flex gap-2 items-center w-full justify-between">
                 <h1 className="text-base font-bold">
