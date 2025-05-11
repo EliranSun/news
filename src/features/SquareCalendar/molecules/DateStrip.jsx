@@ -7,8 +7,16 @@ export const DateStrip = ({ type = "day", length = 10, selectedDate, setSelected
         <div className="flex gap-1 overflow-x-auto min-h-fit
         py-2 bg-stone-50 dark:bg-stone-900">
             {Array.from({ length }).map((_, index) => {
-                const date = type === "day" ? subDays(new Date(), index) : type === "week" ? subDays(new Date(), index * 7) : subMonths(new Date(), index);
-                const isSelected = type === "day" ? isSameDay(date, selectedDate) : type === "week" ? isSameWeek(date, selectedDate) : isSameMonth(date, selectedDate);
+                const date = type === "day"
+                    ? subDays(new Date(), index)
+                    : type === "week"
+                        ? subDays(new Date(), index * 7)
+                        : subMonths(new Date(), index);
+                const isSelected = type === "day"
+                    ? isSameDay(date, selectedDate)
+                    : type === "week"
+                        ? isSameWeek(date, selectedDate)
+                        : isSameMonth(date, selectedDate);
 
                 return (
                     <Pill

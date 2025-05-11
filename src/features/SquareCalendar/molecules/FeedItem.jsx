@@ -33,10 +33,10 @@ export const FeedItem = ({
             }}
             onColorSelect={(color, date) => {
                 setColor(color);
-                updateData(color, note, date);
+                updateData({ color, note, date, data });
             }}
             onNoteUpdate={(value, date) => {
-                updateData(color, value, date);
+                updateData({ color, value, date, data });
             }}>
             <div className="flex gap-2 items-center w-full justify-between">
                 <h1 className="text-base font-bold">

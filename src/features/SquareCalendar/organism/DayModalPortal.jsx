@@ -22,6 +22,8 @@ export const DayModalPortal = ({
     const [color, setColor] = useState(data.find(item => isSameDay(item.date, selectedDate))?.color || "");
     const [isLoading, setIsLoading] = useState(false);
 
+    console.log({ colorClass, color });
+
     return createPortal((
         <div className={classNames(colorClass || "bg-stone-100 dark:bg-stone-900", {
             "fixed z-50 w-screen h-screen": true,
@@ -47,6 +49,7 @@ export const DayModalPortal = ({
                 monthIndex={monthIndex}
                 onClose={onClose}
                 onColorSelect={color => {
+                    console.log(color);
                     setColor(color);
                     onColorSelect(color, selectedDate);
                 }}

@@ -24,34 +24,33 @@ export const Body = ({
     selectedDateNote,
     // onNoteUpdate
 }) => {
-    const updateData = useCallback((color, note, date) => {
+    const updateData = useCallback(({ color, note, date, data: calendarData, calendar: localCalendar }) => {
         let newData;
+        const formattedDate = date;
 
         if (color === 'clear') {
-            newData = data.filter(item => !isSameDay(item.date, date));
+            newData = calendarData.filter(item => item.date.getTime() !== formattedDate.getTime());
         } else {
-            const existingEntry = data.find(item =>
-                isSameDay(item.date, date));
-
+            const existingEntry = calendarData.find(item => isSameDay(item.date, formattedDate));
             if (existingEntry) {
-                newData = data.map(item =>
-                    isSameDay(item.date, date)
+                newData = calendarData.map(item =>
+                    isSameDay(item.date, formattedDate)
                         ? { ...item, color, note }
                         : item
                 );
             } else {
-                newData = [...data, { date, color, note }];
+                newData = [...calendarData, { date, color, note }];
             }
         }
 
-        setData(newData);
-        saveToStorage(calendar.key, newData);
-    }, [data, calendar, setData, saveToStorage]);
+        // setData(newData);
+        saveToStorage(localCalendar.key, newData);
+    }, [saveToStorage]);
 
     switch (view) {
         case "week":
             return (
-                <WeeklyListView updateData={updateData} data={data} />
+                <WeeklyListView updateData={updateData} />
             );
 
         case "feed":
@@ -124,23 +123,23 @@ export const Body = ({
                 </div>
             );
 
-        case "month":
-            return (
-                <CalendarMonth
-                    selectedDate={selectedDate}
-                    size="big"
-                    note={selectedDateNote}
-                    calendar={calendar}
-                    onColorSelect={updateColor}
-                    data={data}
-                    monthIndex={selectedDate.getMonth()}
-                    setSelectedDate={newDate => {
-                        setSelectedDate(newDate);
-                        const dayItem = data.find(item => isSameDay(item.date, newDate));
-                        setSelectedDateNote(dayItem?.note || "");
-                    }}
-                    onNoteUpdate={onNoteUpdate} />
-            );
+        // case "month":
+        //     return (
+        //         <CalendarMonth
+        //             selectedDate={selectedDate}
+        //             size="big"
+        //             note={selectedDateNote}
+        //             calendar={calendar}
+        //             onColorSelect={updateColor}
+        //             data={data}
+        //             monthIndex={selectedDate.getMonth()}
+        //             setSelectedDate={newDate => {
+        //                 setSelectedDate(newDate);
+        //                 const dayItem = data.find(item => isSameDay(item.date, newDate));
+        //                 setSelectedDateNote(dayItem?.note || "");
+        //             }}
+        //             onNoteUpdate={onNoteUpdate} />
+        //     );
     }
 };
 

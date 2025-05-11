@@ -1,5 +1,5 @@
 import { Calendars, Categories } from "../constants";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { DateStrip } from "../molecules/DateStrip";
 import { format, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay } from "date-fns";
 import { getColorsClassList, loadFromStorage } from "../utils";
@@ -37,7 +37,7 @@ const WeekDay = ({ calendarData, calendar, day, selectedDate, setSelectedDate, u
                     selectedDate={day}
                     data={calendarData[calendar.key]}
                     note={dayData?.note || ""}
-                    onColorSelect={color => updateData(color, dayData?.note, day)}
+                    onColorSelect={(color, selectedDate) => updateData(color, dayData?.note, selectedDate)}
                     onNoteUpdate={note => updateData(dayData?.color, note, day)}
                     monthIndex={day.getMonth()}
                 />}
@@ -53,16 +53,22 @@ const WeekDay = ({ calendarData, calendar, day, selectedDate, setSelectedDate, u
 //     setSelectedDate: PropTypes.func.isRequired,
 // };
 
-export const WeeklyListView = ({ updateData, data }) => {
+export const WeeklyListView = ({ updateData }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [weekDays, setWeekDays] = useState([]);
     const [calendarData, setCalendarData] = useState();
 
-    // Calculate week days when selected date changes
-    useEffect(() => {
+    const updateWeeklyData = useCallback(() => {
+        // Preserve the current time (hours, minutes, seconds, ms) when generating week days
+        const preserveTime = (date, refDate) => {
+            const d = new Date(date);
+            d.setHours(refDate.getHours(), refDate.getMinutes(), refDate.getSeconds(), refDate.getMilliseconds());
+            return d;
+        };
         const start = startOfWeek(selectedDate, { weekStartsOn: 0 });
         const end = endOfWeek(selectedDate, { weekStartsOn: 0 });
-        const days = eachDayOfInterval({ start, end });
+        const days = eachDayOfInterval({ start, end }).map(day => preserveTime(day, selectedDate));
+
         setWeekDays(days);
 
         // Load data for all calendars
@@ -71,7 +77,11 @@ export const WeeklyListView = ({ updateData, data }) => {
             data[calendar.key] = loadFromStorage(calendar.key) || [];
         });
         setCalendarData(data);
-    }, [selectedDate, data]);
+    }, [selectedDate]);
+
+    useEffect(() => {
+        updateWeeklyData();
+    }, [selectedDate, updateData]);
 
     return (
         <div className="w-screen h-[calc(100vh-127px)] overflow-y-auto">
@@ -121,14 +131,21 @@ export const WeeklyListView = ({ updateData, data }) => {
                                                 return (
                                                     <WeekDay
                                                         key={format(day, 'yyyy-MM-dd')}
+                                                        day={day}
                                                         setSelectedDate={setSelectedDate}
                                                         calendarData={calendarData}
-                                                        updateData={(color, note, date) => {
-                                                            updateData(color, note, date);
-                                                        }}
                                                         calendar={calendar}
-                                                        day={day}
                                                         selectedDate={selectedDate}
+                                                        updateData={(color, note, date) => {
+                                                            updateData({
+                                                                color,
+                                                                note,
+                                                                date,
+                                                                data: calendarData[calendar.key],
+                                                                calendar
+                                                            });
+                                                            updateWeeklyData();
+                                                        }}
                                                     />
                                                 );
                                             })}
