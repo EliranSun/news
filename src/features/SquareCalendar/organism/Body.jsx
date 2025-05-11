@@ -6,7 +6,8 @@ import { isSameDay } from "date-fns";
 import PropTypes from "prop-types";
 import { useCallback } from "react";
 import { HourView } from "../../HourlyTracker/HourView";
-import { FeedView } from "./FeedView";
+import { CalendarContainer } from "./CalendarContainer";
+
 export const Body = ({
     view,
     data,
@@ -49,7 +50,7 @@ export const Body = ({
     switch (view) {
         case "feed":
             return (
-                <FeedView
+                <CalendarContainer
                     selectedDate={selectedDate}
                     selectedDateNote={selectedDateNote}
                     updateColor={updateColor}

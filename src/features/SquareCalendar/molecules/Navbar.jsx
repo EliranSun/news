@@ -82,7 +82,7 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
     return (
         <>
             <OpacityTransition isOpen={isMenuOpen}>
-                <div className="fixed z-30 inset-0 m-auto flex items-center justify-center bg-stone-100 dark:bg-stone-900">
+                <div className="fixed z-50 inset-0 m-auto flex items-center justify-center bg-stone-100 dark:bg-stone-900">
                     <div className="flex flex-col items-center justify-center h-fit
                     text-lg gap-0 p-4 rounded-lg
                     w-10/12 m-auto bg-white dark:bg-black">
@@ -105,7 +105,7 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                     </div>
                 </div>
             </OpacityTransition>
-            <div className="fixed h-24 bg-stone-100 dark:bg-stone-900
+            <div className="fixed z-40 h-24 bg-stone-100 dark:bg-stone-900
          bottom-0 w-screen grid grid-cols-6 items-start justify-center">
                 <NavbarButton
                     isSelected={selectedItem === "hour"}

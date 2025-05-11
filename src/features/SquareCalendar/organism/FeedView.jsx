@@ -9,14 +9,14 @@ export const FeedView = ({
     setSelectedDateNote,
 }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [showNotes, setShowNotes] = useState(false);
+    const [showNotes] = useState(false);
 
     return (
-        <div className="h-[calc(100vh-127px)] overflow-y-auto">
+        <div className="w-screen h-[calc(100vh-127px)] overflow-y-auto">
             {/* <div className="flex justify-between items-center font-serif">
                 <h1 className="text-2xl font-bold">Blocks</h1>
             </div> */}
-            <div className="flex gap-4 pb-4 items-center sticky z-10 top-0  dark:bg-stone-900">
+            <div className="flex gap-4 pb-4 items-center sticky top-0 bg-white dark:bg-stone-900">
                 <DateStrip
                     length={10}
                     type="month"
@@ -71,11 +71,6 @@ export const FeedView = ({
 }
 
 FeedView.propTypes = {
-    selectedDate: PropTypes.instanceOf(Date).isRequired,
-    selectedDateNote: PropTypes.string.isRequired,
-    updateColor: PropTypes.func.isRequired,
-    data: PropTypes.array.isRequired,
-    setSelectedDate: PropTypes.func.isRequired,
+    selectedDateNote: PropTypes.string,
     setSelectedDateNote: PropTypes.func.isRequired,
-    onNoteUpdate: PropTypes.func.isRequired,
 }
