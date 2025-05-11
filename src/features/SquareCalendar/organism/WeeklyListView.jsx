@@ -59,37 +59,32 @@ export const WeeklyListView = () => {
                                 {categoryCalendars.map((calendar) => (
                                     <div
                                         key={calendar.key}
-                                        className="bg-white dark:bg-stone-800 rounded-xl p-3">
-                                        <div className="flex items-center gap-2 mb-3">
-                                            <span>{calendar.icon}</span>
+                                        className="bg-white dark:bg-stone-800 rounded-xl flex items-center p-3 justify-between">
+                                        <div className="flex items-center gap-2">
+                                            <span>{calendar.icon.slice(0, 2)}</span>
                                             <h3 className="font-semibold text-sm">
-                                                {calendar.name.toUpperCase()}
+                                                {calendar.name.slice(0, 3).toUpperCase()}
                                             </h3>
                                         </div>
 
-                                        <div className="flex justify-between">
+                                        <div className="flex gap-2">
                                             {weekDays.map((day) => {
                                                 const dayData = calendarData[calendar.key]?.find(item =>
                                                     isSameDay(new Date(item.date), day)
                                                 );
 
-                                                const isToday = isSameDay(day, new Date());
+                                                // const isToday = isSameDay(day, new Date());
                                                 const isSelected = isSameDay(day, selectedDate);
 
                                                 return (
                                                     <div
+
                                                         key={format(day, 'yyyy-MM-dd')}
-                                                        className="flex flex-col items-center">
-                                                        <div className={`text-xs mb-1 ${isToday ? 'font-bold' : ''}`}>
-                                                            {format(day, 'EEE')}
-                                                        </div>
-                                                        <div
-                                                            className={`w-7 h-7 rounded-full flex items-center justify-center text-xs
+                                                        className={`size-7 rounded flex items-center justify-center text-xs
                                                             cursor-pointer ${dayData ? getColorsClassList(dayData.color) : 'bg-gray-200 dark:bg-gray-600'}
                                                             ${isSelected ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}
-                                                            onClick={() => setSelectedDate(day)}>
-                                                            {dayData?.note ? "📝" : ""}
-                                                        </div>
+                                                        onClick={() => setSelectedDate(day)}>
+                                                        {dayData?.note ? "📝" : ""}
                                                     </div>
                                                 );
                                             })}

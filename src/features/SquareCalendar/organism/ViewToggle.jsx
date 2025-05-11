@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 export const ViewToggle = ({ currentView, onViewChange }) => {
     return (
         <div className="flex justify-center mt-2 mb-4">
-            <div className="inline-flex rounded-lg bg-stone-200 dark:bg-stone-700 p-1">
+            <div className="inline-flex rounded-lg bg-stone-200 dark:bg-stone-700 p-1 gap-2">
                 <button
                     onClick={() => onViewChange("feed")}
                     className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200
