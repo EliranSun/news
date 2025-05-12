@@ -24,7 +24,7 @@ const WeekDay = ({ calendarData, calendar, day, selectedDate, setSelectedDate, u
                 className={`size-7 rounded flex items-center justify-center text-sm
                 cursor-pointer ${dayData
                         ? getColorsClassList(dayData.color)
-                        : 'bg-gray-200 dark:bg-gray-600'}
+                        : 'border border-gray-200 dark:border-gray-600'}
                 ${isSelected ? 'ring-2 ring-offset-2 ring-blue-500' : ''}`}>
                 {dayData?.note ? "•" : ""}
             </div>
