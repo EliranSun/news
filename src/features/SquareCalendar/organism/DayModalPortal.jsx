@@ -26,7 +26,7 @@ export const DayModalPortal = ({
     console.log({ colorClass, color });
 
     return createPortal((
-        <div className={classNames(colorClass || "bg-stone-100 dark:bg-stone-900", {
+        <div className={classNames("bg-stone-100 dark:bg-stone-900", {
             "fixed z-50 w-screen h-screen": true,
             "flex flex-col items-center justify-center": true,
             "p-5 space-y-4": true,
@@ -39,7 +39,7 @@ export const DayModalPortal = ({
             <h1 className="merriweather-bold text-3xl text-left w-full">
                 {calendar.icon} {calendar.name.toUpperCase()}
             </h1>
-            <h2 className="merriweather-bold text-2xl text-left w-full">
+            <h2 className={classNames(colorClass, "merriweather-bold text-2xl text-left w-full")}>
                 {format(selectedDate, "EEEE, MMMM d, yyyy")}
             </h2>
             <CalendarGamification calendar={calendar} />
