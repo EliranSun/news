@@ -36,13 +36,18 @@ export const DayModalPortal = ({
                 onClick={onClose}>
                 <X size={42} />
             </button>
+            <div className="w-full flex items-center justify-between">
             <h1 className="merriweather-bold text-3xl text-left w-full">
                 {calendar.icon} {calendar.name.toUpperCase()}
             </h1>
+            <CalendarGamification 
+            size="big"
+            calendar={calendar} />
+            </div>
             <h2 className={classNames(colorClass, "merriweather-bold text-2xl text-left w-full")}>
                 {format(selectedDate, "EEEE, MMMM d, yyyy")}
             </h2>
-            <CalendarGamification calendar={calendar} />
+            
             <ColorsButtons
                 data={data}
                 calendar={calendar}
