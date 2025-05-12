@@ -4,6 +4,7 @@ import { format, isSameDay } from "date-fns";
 import { X, FloppyDisk, Check } from "@phosphor-icons/react";
 import { ColorsButtons } from "../molecules/ColorsButtons";
 import { useState } from "react";
+import { CalendarGamification } from "../molecules/CalendarGamification";
 
 export const DayModalPortal = ({
     colorClass,
@@ -41,6 +42,7 @@ export const DayModalPortal = ({
             <h2 className="merriweather-bold text-2xl text-left w-full">
                 {format(selectedDate, "EEEE, MMMM d, yyyy")}
             </h2>
+            <CalendarGamification calendar={calendar} />
             <ColorsButtons
                 data={data}
                 calendar={calendar}
