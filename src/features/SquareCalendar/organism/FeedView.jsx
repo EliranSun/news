@@ -26,18 +26,19 @@ export const FeedView = ({
             </div>
             <div className="flex flex-nowrap w-[calc(100vw-16px*2)] overflow-x-auto snap-x">
                 {Object.values(Categories).map((category) => (
-                    <div key={category} className="w-[90vw] shrink-0 bg-stone-200 
+                    <div key={category} className="w-[95vw] shrink-0 bg-stone-200 
                     overflow-y-auto
-                    h-[calc(100vh-96px-50px-32px-12px)] dark:bg-stone-700 p-4
-                    rounded-2xl snap-center mx-10">
+                    h-[calc(100vh-96px-50px-32px-12px)] dark:bg-stone-700 p-2
+                    rounded-xl snap-center mx-10">
                         <h1 className="text-base font-bold px-2">
                             {category.toUpperCase()}
                         </h1>
+                        <div className="grid grid-cols-2">
                         {Object.values(Calendars).filter(calendar => calendar.category === category).map((calendar) => (
                             <div
                                 key={calendar.key}
                                 id={calendar.category.toLowerCase()}
-                                className="bg-white dark:bg-stone-800 my-4 shadow-md rounded-xl p-4 w-full shrink-0">
+                                className="bg-white dark:bg-stone-800 my-2 shadow-md rounded-xl p-2 w-full">
                                 <FeedItem
                                     calendar={calendar}
                                     showNote={showNotes}
@@ -49,6 +50,7 @@ export const FeedView = ({
                                 />
                             </div>
                         ))}
+                        </div>
                     </div>
                 ))}
             </div>
