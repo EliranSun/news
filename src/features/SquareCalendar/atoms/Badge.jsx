@@ -15,7 +15,7 @@ size = "small" }) => {
             "px-2": true,
             "bg-black": !transparent,
             "text-sm  rounded-xl": true,
-            "text-black dark:text-white": textBlack,
+            "text-black dark:text-white": textBlack & !transparent,
             "text-white": !textBlack,
             "py-1 px-2": size === "big",
         }, className)}>
