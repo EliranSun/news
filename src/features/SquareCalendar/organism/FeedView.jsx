@@ -26,7 +26,7 @@ export const FeedView = ({
             </div>
             <div className="flex flex-nowrap w-[calc(100vw-16px*2)] overflow-x-auto snap-x">
                 {Object.values(Categories).map((category) => (
-                    <div key={category} className="w-[95vw] shrink-0 bg-stone-200 
+                    <div key={category} className="w-[90vw] shrink-0 bg-stone-200 
                     overflow-y-auto
                     h-[calc(100vh-96px-50px-32px-12px)] dark:bg-stone-700 p-2
                     rounded-xl snap-center mx-10">
