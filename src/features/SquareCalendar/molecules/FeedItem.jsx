@@ -39,10 +39,10 @@ export const FeedItem = ({
                 updateData({ color, value, date, data });
             }}>
             <div className="flex gap-2 items-center w-full justify-between">
-                <h1 className="text-base font-bold">
-                    {calendar.icon} {calendar.name.toUpperCase()}
+                <h1 className="text-xs font-bold">
+                    {calendar.icon} {calendar.name.slice(0.6).toUpperCase()}
                 </h1>
-                <CalendarGamification calendar={calendar} size="big" />
+                <CalendarGamification calendar={calendar} size="small" />
             </div>
         </CalendarMonth>
     )
