@@ -43,7 +43,6 @@ export const Body = ({
             }
         }
 
-        // setData(newData);
         saveToStorage(localCalendar.key, newData);
     }, [saveToStorage]);
 

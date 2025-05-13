@@ -9,11 +9,9 @@ export const FeedItem = ({
     calendar,
     selectedDate,
     setSelectedDate,
-    // updateColor,
-    // showNote,
     updateData
 }) => {
-    const [data] = useState(loadFromStorage(calendar.key) || []);
+    const [data, setData] = useState(loadFromStorage(calendar.key) || []);
     const [color, setColor] = useState(data.find(item => isSameDay(item.date, selectedDate))?.color || "");
     const [note, setNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
 
@@ -30,17 +28,20 @@ export const FeedItem = ({
                 setSelectedDate(newDate);
                 const dayItem = data.find(item => isSameDay(item.date, newDate));
                 setNote(dayItem?.note || "");
+                setData(loadFromStorage(calendar.key));
             }}
             onColorSelect={(color, date) => {
                 setColor(color);
-                updateData({ color, note, date, data });
+                updateData({ color, note, date, data, calendar });
+                setData(loadFromStorage(calendar.key));
             }}
             onNoteUpdate={(value, date) => {
-                updateData({ color, value, date, data });
+                updateData({ color, value, date, data, calendar });
+                setData(loadFromStorage(calendar.key));
             }}>
-            <div className="flex gap-2 items-center w-full justify-between">
+            <div className="flex flex-col gap-1 items-start w-full justify-between">
                 <h1 className="text-xs font-bold">
-                    {calendar.icon} {calendar.name.slice(0, 5).toUpperCase()}
+                    {calendar.icon} {calendar.name.toUpperCase()}
                 </h1>
                 <CalendarGamification calendar={calendar} size="small" />
             </div>
