@@ -11,7 +11,7 @@ export const CalendarGamification = ({ calendar, size }) => {
     const highscore = useMemo(() => getHighestStreakCount(calendar.key), [calendar.key]);
 
     return (
-        <div className="flex text-center gap-1 items-center">
+        <div className="flex bg-stone-700 p-1 rounded text-center gap-1 items-center">
             <StreakBadge
                 streak={streak}
                 size={size}
