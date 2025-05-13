@@ -25,7 +25,6 @@ export const DaysSinceBadge = ({
 
     return (
         <Badge
-            textBlack={transparent}
             size={size}
             className={classNames('h-fit', transparent ? {
                 "text-red-500": isRed,
