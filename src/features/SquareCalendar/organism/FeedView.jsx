@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { DateStrip } from "../molecules/DateStrip";
 import { FeedItem } from "../molecules/FeedItem";
+import classNames from "classnames";
 
 export const FeedView = ({
     selectedDateNote,
@@ -17,39 +18,43 @@ export const FeedView = ({
             {/* <div className="flex justify-between items-center font-serif">
                 <h1 className="text-2xl font-bold">Blocks</h1>
             </div> */}
-            <div className="flex gap-4 pb-4 items-center sticky top-0 bg-white dark:bg-stone-900">
+            <div className="flex gap-4 pb-2 items-center sticky top-0 z-20">
                 <DateStrip
                     length={10}
                     type="month"
                     selectedDate={selectedDate}
                     setSelectedDate={setSelectedDate} />
             </div>
-            <div className="flex p-2 flex-col">
+            <div className="flex flex-col gap-4">
                 {Object.values(Categories).map((category) => (
-                    <div key={category} className="bg-stone-200 
-                    overflow-y-auto
-                    h-[calc(100vh-96px-50px-32px-12px)] dark:bg-stone-700 p-2
-                    rounded-xl snap-center mx-10">
+                    <div key={category} className={classNames({
+                        "bg-stone-200 ": true,
+                        // "h-[calc(100vh-96px-50px-32px-12px)]": true,
+                        "dark:bg-stone-700": true,
+                        "p-2": true,
+                        "rounded-xl": true,
+                        "snap-center": true,
+                    })}>
                         <h1 className="text-base font-bold px-2">
                             {category.toUpperCase()}
                         </h1>
-                        <div className="grid gap-2 grid-cols-2">
-                        {Object.values(Calendars).filter(calendar => calendar.category === category).map((calendar) => (
-                            <div
-                                key={calendar.key}
-                                id={calendar.category.toLowerCase()}
-                                className="bg-white dark:bg-stone-800 my-2 shadow-md rounded-xl p-2 w-full">
-                                <FeedItem
-                                    calendar={calendar}
-                                    showNote={showNotes}
-                                    selectedDate={selectedDate}
-                                    setSelectedDate={setSelectedDate}
-                                    selectedDateNote={selectedDateNote}
-                                    setSelectedDateNote={setSelectedDateNote}
-                                    updateData={updateData}
-                                />
-                            </div>
-                        ))}
+                        <div className="grid grid-cols-2 gap-2 overflow-y-auto h-fit">
+                            {Object.values(Calendars).filter(calendar => calendar.category === category).map((calendar) => (
+                                <div
+                                    key={calendar.key}
+                                    id={calendar.category.toLowerCase()}
+                                    className="bg-white dark:bg-stone-800 shadow-md rounded-xl p-2">
+                                    <FeedItem
+                                        calendar={calendar}
+                                        showNote={showNotes}
+                                        selectedDate={selectedDate}
+                                        setSelectedDate={setSelectedDate}
+                                        selectedDateNote={selectedDateNote}
+                                        setSelectedDateNote={setSelectedDateNote}
+                                        updateData={updateData}
+                                    />
+                                </div>
+                            ))}
                         </div>
                     </div>
                 ))}

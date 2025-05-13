@@ -19,7 +19,7 @@ export default function SquareCalendars() {
     // this works because timestamp is unique
     const [selectedDateNote, setSelectedDateNote] = useState(data.find(item =>
         isSameDay(item.date, selectedDate))?.note || "");
-    const [view, setView] = useState("week");
+    const [view, setView] = useState("feed");
 
     const daysSinceLastEntry = useMemo(() => {
         return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
