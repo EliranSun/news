@@ -19,7 +19,7 @@ export const FeedItem = ({
 
     return (
         <CalendarMonth
-            size="medium"
+            size="small"
             selectedDate={selectedDate}
             monthIndex={selectedDate.getMonth()}
             note={note}
