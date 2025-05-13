@@ -24,6 +24,7 @@ export const CalendarGamification = ({ calendar, size }) => {
             <DaysSinceBadge
                 calendar={calendar}
                 visible={true}
+                transparent
                 hoursSince={daysSinceLastEntry}
                 size={size} />
         </div>
