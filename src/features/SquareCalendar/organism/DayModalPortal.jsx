@@ -91,5 +91,5 @@ export const DayModalPortal = ({
                 </button>
             </motion.div>
         </AnimatePresence>
-    ), document.getElementById("day-popover-portal"))
+    ), document.getElementById("day-popover-portal") || document.body)
 }
