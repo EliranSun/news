@@ -19,11 +19,13 @@ export const CalendarMonth = ({
     note: initialNote,
     isYearView = false,
     showNote = false,
-    children
+    children,
+    title,
 }) => {
     const [note, setNote] = useState(initialNote);
     const [isNoteSaved, setIsNoteSaved] = useState(null);
     const [isDaySelected, setIsDaySelected] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         setNote(initialNote);
@@ -71,6 +73,7 @@ export const CalendarMonth = ({
     return (
         <div className="flex flex-col justify-between w-full gap-2 h-full overflow-y-scroll" key={`month-${monthIndex}`}>
             {isYearView ? <h2 className="text-xs my-0 text-center">{format(month, "MMM")}</h2> : ""}
+            {title}
             <div className="flex flex-row-reverse gap-4 w-full">
                 <div className={isYearView
                     ? "w-full"
@@ -93,14 +96,14 @@ export const CalendarMonth = ({
                                     setSelectedDate={date => {
                                         setSelectedDate(date);
                                         setIsDaySelected(true);
+                                        setIsModalOpen(true);
                                     }} />
                             );
                         })}
 
-                        {!isYearView && isDaySelected &&
+                        {!isYearView &&
                             <DayModalPortal
                                 colorClass={colorClass}
-                                onClose={() => setIsDaySelected(false)}
                                 calendar={calendar}
                                 selectedDate={selectedDate}
                                 data={data}
@@ -110,6 +113,11 @@ export const CalendarMonth = ({
                                 setNote={setNote}
                                 setIsNoteSaved={setIsNoteSaved}
                                 monthIndex={monthIndex}
+                                isOpen={isModalOpen}
+                                onClose={() => {
+                                    setIsModalOpen(false);
+                                    setIsDaySelected(false);
+                                }}
                             />}
                     </div>
                 </div>

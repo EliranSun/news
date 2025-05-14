@@ -11,21 +11,23 @@ export const CalendarGamification = ({ calendar, size }) => {
     const highscore = useMemo(() => getHighestStreakCount(calendar.key), [calendar.key]);
 
     return (
-        <div className="flex w-full bg-stone-700 p-1 rounded text-center gap-1 items-center">
-            <StreakBadge
-                streak={streak}
-                size={size}
-                visible={calendar.showGamification} />
-            <HighscoreBadge
-                streak={streak}
-                highscore={highscore}
-                visible={calendar.showGamification}
-                size={size} />
+        <div className="flex w-full bg-stone-700 py-1 rounded-md text-center gap-1 justify-center items-center">
             <DaysSinceBadge
                 calendar={calendar}
                 visible={true}
                 transparent
                 hoursSince={daysSinceLastEntry}
+                size={size} />
+            <StreakBadge
+                streak={streak}
+                size={size}
+                transparent
+                visible={calendar.showGamification} />
+            <HighscoreBadge
+                streak={streak}
+                highscore={highscore}
+                transparent
+                visible={calendar.showGamification}
                 size={size} />
         </div>
     );

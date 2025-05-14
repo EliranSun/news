@@ -17,12 +17,17 @@ export const FeedItem = ({
 
     return (
         <CalendarMonth
-            size="small"
+            size="medium"
             selectedDate={selectedDate}
             monthIndex={selectedDate.getMonth()}
             note={note}
             calendar={calendar}
             data={data}
+            title={(
+                <h1 className="text-xs font-bold w-full">
+                    {calendar.icon} {calendar.name.toUpperCase()}
+                </h1>
+            )}
             showNote={true}
             setSelectedDate={newDate => {
                 setSelectedDate(newDate);
@@ -40,9 +45,6 @@ export const FeedItem = ({
                 setData(loadFromStorage(calendar.key));
             }}>
             <div className="flex flex-col gap-1 items-start w-full justify-between">
-                <h1 className="text-xs font-bold">
-                    {calendar.icon} {calendar.name.toUpperCase()}
-                </h1>
                 <CalendarGamification calendar={calendar} size="small" />
             </div>
         </CalendarMonth>
