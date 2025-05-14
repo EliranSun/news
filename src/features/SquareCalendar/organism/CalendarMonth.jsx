@@ -93,10 +93,10 @@ export const CalendarMonth = ({
                                     key={`month-${monthIndex}-day-${dayIndex}`}
                                     dayObj={dayObj}
                                     selectedDate={selectedDate}
-                                    setSelectedDate={date => {
+                                    onDoubleClick={() => setIsModalOpen(true)}
+                                    onClick={date => {
                                         setSelectedDate(date);
                                         setIsDaySelected(true);
-                                        setIsModalOpen(true);
                                     }} />
                             );
                         })}
