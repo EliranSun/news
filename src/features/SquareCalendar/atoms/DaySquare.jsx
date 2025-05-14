@@ -22,7 +22,7 @@ export const DaySquare = ({ dayObj, selectedDate, onClick, onDoubleClick, data, 
                 "size-9 rounded-md mx-auto": size === "big",
                 "bg-stone-200 dark:bg-stone-600": !dayObj.previousMonth && !isToday && !colorClass,
                 "opacity-0": dayObj.previousMonth,
-                "border-2 border-black dark:border-white": !dayObj.previousMonth && isToday,
+                // "border-2 border-black dark:border-white": !dayObj.previousMonth && isToday,
             })}>
             {(!dayObj.previousMonth && isToday)
                 ? dayObj.date.toLocaleString('default', { day: 'numeric' })
