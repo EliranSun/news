@@ -675,7 +675,7 @@ export const Calendars = {
          redAfter: 60,
          name: "ofir",
          key: "ofir-square-calendar",
-         icon: "👺",
+         icon: "🧠",
          category: Categories.Friends,
          colors: [
              Colors.Violet,
