@@ -25,7 +25,11 @@ export const DayModalPortal = ({
     const [color, setColor] = useState(data.find(item => isSameDay(item.date, selectedDate))?.color || "");
     const [isLoading, setIsLoading] = useState(false);
 
-    console.log({ colorClass, color });
+    const targetElement = document.getElementById("day-popover-portal");
+
+    if (!targetElement) {
+        return null;
+    }
 
     return createPortal((
         <AnimatePresence>
@@ -91,5 +95,5 @@ export const DayModalPortal = ({
                 </button>
             </motion.div>
         </AnimatePresence>
-    ), document.getElementById("day-popover-portal") || document.body)
+    ), targetElement)
 }
