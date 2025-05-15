@@ -40,8 +40,8 @@ export const FeedItem = ({
                 updateData({ color, note, date, data, calendar });
                 setData(loadFromStorage(calendar.key));
             }}
-            onNoteUpdate={(value, date) => {
-                updateData({ color, value, date, data, calendar });
+            onNoteUpdate={(note, date) => {
+                updateData({ color, note, date, data, calendar });
                 setData(loadFromStorage(calendar.key));
             }}>
             <div className="flex flex-col gap-1 items-start w-full justify-between">
