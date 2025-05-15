@@ -77,7 +77,9 @@ export const DayModalPortal = ({
                 <textarea
                     value={note}
                     placeholder="Note"
-                    onChange={event => setNote(event.target.value)}
+                    onChange={event => }
+                        setNote(event.target.value);
+                    }}
                     className={classNames({
                         "w-full p-2 merriweather-bold": true,
                         "h-1/2 bg-transparent text-xl": true,
