@@ -77,7 +77,7 @@ export const DayModalPortal = ({
                 <textarea
                     value={note}
                     placeholder="Note"
-                    onChange={event => }
+                    onChange={event => {
                         setNote(event.target.value);
                     }}
                     className={classNames({
