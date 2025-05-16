@@ -19,7 +19,7 @@ onClick, onDoubleClick, data, size = "small" }) => {
             onClick={() => onClick(dayObj.date)}
             onDoubleClick={() => onDoubleClick(dayObj.date)}
             className={classNames(colorClass, {
-                "border-2 border-amber-500": Boolean(dayObj.note),
+                // "border-2 border-amber-500": Boolean(dayObj.note),
                 "text-[8px] flex justify-center items-center": true,
                 "size-4 rounded-[2px]": size === "small",
                 "size-5 rounded mx-auto": size === "medium",
@@ -28,7 +28,7 @@ onClick, onDoubleClick, data, size = "small" }) => {
                 "opacity-0": dayObj.previousMonth,
                 // "border-2 border-black dark:border-white": !dayObj.previousMonth && isToday,
             })}>
-            {dayObj?.note ? "·" : ""}
+            {hasNote ? "·" : ""}
             {(!dayObj.previousMonth && isToday)
                 ? dayObj.date.toLocaleString('default', { day: 'numeric' })
                 : null}
