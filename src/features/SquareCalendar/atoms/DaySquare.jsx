@@ -28,7 +28,7 @@ onClick, onDoubleClick, data, size = "small" }) => {
                 "opacity-0": dayObj.previousMonth,
                 // "border-2 border-black dark:border-white": !dayObj.previousMonth && isToday,
             })}>
-            {dayObj?.note ? "·" || ""}
+            {dayObj?.note ? "·" : ""}
             {(!dayObj.previousMonth && isToday)
                 ? dayObj.date.toLocaleString('default', { day: 'numeric' })
                 : null}
