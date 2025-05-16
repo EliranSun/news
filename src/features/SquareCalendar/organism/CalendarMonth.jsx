@@ -16,20 +16,16 @@ export const CalendarMonth = ({
     calendar,
     onColorSelect,
     onNoteUpdate,
-    note: initialNote,
+    note,
     isYearView = false,
     showNote = false,
     children,
     title,
 }) => {
-    const [note, setNote] = useState(initialNote);
+    // const [note, setNote] = useState(initialNote);
     const [isNoteSaved, setIsNoteSaved] = useState(null);
     const [isDaySelected, setIsDaySelected] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    useEffect(() => {
-        setNote(initialNote);
-    }, [initialNote]);
 
     const colorClass = useMemo(() => {
         const color = data.find(item => new Date(item.date).toDateString() === selectedDate.toDateString())?.color;
@@ -111,7 +107,7 @@ export const CalendarMonth = ({
                                 onColorSelect={onColorSelect}
                                 onNoteUpdate={onNoteUpdate}
                                 note={note}
-                                setNote={setNote}
+                                // setNote={setNote}
                                 setIsNoteSaved={setIsNoteSaved}
                                 monthIndex={monthIndex}
                                 isOpen={isModalOpen}
