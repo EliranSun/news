@@ -114,6 +114,26 @@ export const Calendars = {
         icon: "📚",
         category: Categories.Creative
     },
+    Draw: {
+        showColorStatus: true,
+        yellowAfter: 2,
+        redAfter: 5,
+        name: "draw",
+        key: "draw-square-calendar",
+        colors: [Colors.Sage, Colors.Black],
+        icon: "🎨",
+        category: Categories.Creative
+    },
+    Write: {
+        showColorStatus: true,
+        yellowAfter: 2,
+        redAfter: 5,
+        name: "write",
+        key: "write-square-calendar",
+        colors: [Colors.Sage, Colors.Black],
+        icon: "✍️",
+        category: Categories.Creative
+    },
     Game: {
         showColorStatus: true,
         yellowAfter: 30,
