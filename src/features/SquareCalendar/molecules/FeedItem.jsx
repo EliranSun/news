@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { loadFromStorage, saveToStorage } from "../utils";
 import { CalendarGamification } from "./CalendarGamification";
 import { CalendarMonth } from "../organism/CalendarMonth";
@@ -12,9 +12,19 @@ export const FeedItem = ({
     updateData
 }) => {
     const [data, setData] = useState(loadFromStorage(calendar.key) || []);
-    const [color, setColor] = useState(data.find(item => isSameDay(item.date, selectedDate))?.color || "");
-    const [note, setNote] = useState(data.find(item => isSameDay(item.date, selectedDate))?.note || "");
+    const [color, setColor] = useState("");
+    const [note, setNote] = useState("");
 
+useEffect(() => {
+    setColor(data.find(item => {
+        return isSameDay(item.date, selectedDate)?.color || "";
+        }));
+        
+    setNote(data.find(item => {
+        return isSameDay(item.date, selectedDate)?.note || "";
+        }));
+    }, [data]);
+    
     return (
         <CalendarMonth
             size="medium"
