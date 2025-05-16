@@ -3,7 +3,11 @@ import { getColorsClassList } from "../utils";
 import { useMemo } from "react";
 import classNames from "classnames";
 
-export const DaySquare = ({ dayObj, selectedDate, onClick, onDoubleClick, data, size = "small" }) => {
+export const DaySquare = ({ 
+dayObj, 
+selectedDate, 
+hasNote,
+onClick, onDoubleClick, data, size = "small" }) => {
     const isToday = dayObj.date.toDateString() === selectedDate.toDateString();
     const colorClass = useMemo(() => {
         const color = data.find(item => new Date(item.date).toDateString() === dayObj.date.toDateString())?.color;
@@ -24,6 +28,7 @@ export const DaySquare = ({ dayObj, selectedDate, onClick, onDoubleClick, data, 
                 "opacity-0": dayObj.previousMonth,
                 // "border-2 border-black dark:border-white": !dayObj.previousMonth && isToday,
             })}>
+            {hasNote && "·"}
             {(!dayObj.previousMonth && isToday)
                 ? dayObj.date.toLocaleString('default', { day: 'numeric' })
                 : null}
