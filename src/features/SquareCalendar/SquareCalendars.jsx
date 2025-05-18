@@ -53,6 +53,7 @@ export default function SquareCalendars() {
 
     const yearMap = useMemo(() => new Array(12).fill(0), []);
     const isCleanView = view === "hour" || view === "feed" || view === "week" || view === "list" || view === "day";
+
     return (
         <>
             <div id="day-popover-portal" className="" />
@@ -64,7 +65,7 @@ export default function SquareCalendars() {
                 onListClick={() => setView("list")} />
             <div id="note-modal-portal" />
             <div className="p-2 w-screen overflow-hidden h-[calc(100vh-96px)] 
-            user-select-none space-y-4 font-mono bg-stone-50 dark:bg-stone-900">
+            user-select-none space-y-2 font-mono bg-stone-50 dark:bg-stone-900">
                 {!isCleanView &&
                     <>
                         <Header
@@ -72,12 +73,13 @@ export default function SquareCalendars() {
                             selectedDate={selectedDate}
                             daysSinceLastEntry={daysSinceLastEntry}
                             data={data} />
-                        <CalendarsStrip
-                            data={data}
-                            selectedCalendar={calendar}
-                            onCalendarClick={onCalendarClick} />
                     </>
                 }
+                <CalendarsStrip
+                    data={data}
+                    isVisible={view === "year"}
+                    selectedCalendar={calendar}
+                    onCalendarClick={onCalendarClick} />
                 <FlexibleOpacityTransition>
                     <Body
                         view={view}
@@ -92,27 +94,17 @@ export default function SquareCalendars() {
                         calendar={calendar}
                         selectedDateNote={selectedDateNote}
                         yearMap={yearMap}
-                        onNoteUpdate={(value, callback) => {
-                            try {
-                                let newData = [...data];
-                                const hasDay = newData.find(item => isSameDay(item.date, selectedDate));
-                                if (hasDay) {
-                                    newData = newData.map(item =>
-                                        isSameDay(item.date, selectedDate)
-                                            ? { ...item, note: value }
-                                            : item);
-                                } else {
-                                    newData.push({ date: selectedDate, note: value });
-                                }
-
-                                setData(newData);
-                                saveToStorage(calendar.key, newData);
-                                setSelectedDateNote(value);
-                                callback?.(true);
-                            } catch (error) {
-                                console.error(error);
-                                callback?.(false);
-                            }
+                        onCalendarViewClick={(newCalendar, newDate) => {
+                            setCalendar(newCalendar);
+                            setData(loadFromStorage(newCalendar.key));
+                            setSelectedDate(newDate);
+                            setView("year");
+                        }}
+                        onNoteViewClick={(newCalendar, newDate) => {
+                            setCalendar(newCalendar);
+                            setData(loadFromStorage(newCalendar.key));
+                            setSelectedDate(newDate);
+                            setView("note");
                         }}
                     />
                 </FlexibleOpacityTransition>

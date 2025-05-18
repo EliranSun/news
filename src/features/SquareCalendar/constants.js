@@ -458,7 +458,7 @@ export const Calendars = {
         name: "grandma",
         key: "grandma-square-calendar",
         colors: [
-            Colors.Plum, 
+            Colors.Plum,
             Colors.Purple,
             Colors.Black
         ],
@@ -689,26 +689,26 @@ export const Calendars = {
         ]
     },
     Ofir: {
-         showColorStatus: true,
-         showGamification: false,
-         yellowAfter: 30,
-         redAfter: 60,
-         name: "ofir",
-         key: "ofir-square-calendar",
-         icon: "🧠",
-         category: Categories.Friends,
-         colors: [
-             Colors.Violet,
-             Colors.Purple,
-             Colors.Lavender,
-             Colors.Black
-         ],
-         legend: [
-             { name: "PM", color: Colors.Violet },
-             { name: "call", color: Colors.Purple },
-             { name: "meet", color: Colors.Lavender },
-         ]
-     },
+        showColorStatus: true,
+        showGamification: false,
+        yellowAfter: 30,
+        redAfter: 60,
+        name: "ofir",
+        key: "ofir-square-calendar",
+        icon: "🧠",
+        category: Categories.Friends,
+        colors: [
+            Colors.Violet,
+            Colors.Purple,
+            Colors.Lavender,
+            Colors.Black
+        ],
+        legend: [
+            { name: "PM", color: Colors.Violet },
+            { name: "call", color: Colors.Purple },
+            { name: "meet", color: Colors.Lavender },
+        ]
+    },
     /* Friends: {
         showColorStatus: true,
         showGamification: false,
@@ -781,7 +781,7 @@ export const Calendars = {
 };
 
 export const TailwindColorsMap = {
-    [Colors.Clear]: "bg-transparent border",
+    [Colors.Clear]: "bg-transparent",
     [Colors.Black]: "bg-gray-600",
     [Colors.Red]: "bg-red-500",
     [Colors.Green]: "bg-green-500",

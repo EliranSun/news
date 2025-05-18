@@ -1,36 +1,38 @@
-import { getDaysInMonth, getDay, startOfMonth, subMonths, format } from "date-fns";
+import { getDaysInMonth, getDay, startOfMonth, subMonths, format, isSameDay } from "date-fns";
 import PropTypes from "prop-types";
 import { DaySquare } from "../atoms/DaySquare";
 import { useMemo, useState, useEffect } from "react";
 import classNames from "classnames";
-import { FloppyDisk, CheckCircle, WarningCircle } from "@phosphor-icons/react";
-import { getColorsClassList } from "../utils";
-import { DayModalPortal } from "./DayModalPortal";
+// import { FloppyDisk, CheckCircle, WarningCircle } from "@phosphor-icons/react";
+// import { getColorsClassList } from "../utils";
+// import { DayModalPortal } from "./DayModalPortal";
 
 export const CalendarMonth = ({
     selectedDate = new Date(),
     setSelectedDate,
+    setSelectedCalendar,
     data,
     monthIndex,
     size = "small",
     calendar,
-    onColorSelect,
-    onNoteUpdate,
-    note,
+    // onColorSelect,
+    // onNoteUpdate,
+    // note,
     isYearView = false,
-    showNote = false,
+    // showNote = false,
     children,
-    title,
+    header,
+    isSelected,
 }) => {
     // const [note, setNote] = useState(initialNote);
-    const [isNoteSaved, setIsNoteSaved] = useState(null);
-    const [isDaySelected, setIsDaySelected] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    // const [isNoteSaved, setIsNoteSaved] = useState(null);
+    // const [isDaySelected, setIsDaySelected] = useState(false);
+    // const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const colorClass = useMemo(() => {
-        const color = data.find(item => new Date(item.date).toDateString() === selectedDate.toDateString())?.color;
-        return color && getColorsClassList(color);
-    }, [data, selectedDate]);
+    // const colorClass = useMemo(() => {
+    //     const color = data.find(item => new Date(item.date).toDateString() === selectedDate.toDateString())?.color;
+    //     return color && getColorsClassList(color);
+    // }, [data, selectedDate]);
 
     const month = useMemo(() => {
         return new Date(selectedDate.getFullYear(), monthIndex, 1);
@@ -49,27 +51,28 @@ export const CalendarMonth = ({
 
         const currentMonthDays = Array.from({ length: daysInMonth }, (_, i) => ({
             date: new Date(month.getFullYear(), month.getMonth(), i + 1),
-            previousMonth: false
+            previousMonth: false,
+            note: data.find(item => isSameDay(item.date, new Date(month.getFullYear(), month.getMonth(), i + 1)))?.note || ""
         }));
 
         return [...previousMonthDays, ...currentMonthDays];
-    }, [month]);
+    }, [month, data]);
 
-    const NoteSaveIcon = useMemo(() => {
-        if (isNoteSaved === null) {
-            return FloppyDisk;
-        }
+    // const NoteSaveIcon = useMemo(() => {
+    //     if (isNoteSaved === null) {
+    //         return FloppyDisk;
+    //     }
 
-        if (isNoteSaved) {
-            return CheckCircle;
-        }
-        return WarningCircle;
-    }, [isNoteSaved]);
-    // 
+    //     if (isNoteSaved) {
+    //         return CheckCircle;
+    //     }
+    //     return WarningCircle;
+    // }, [isNoteSaved]);
+
     return (
         <div className="flex flex-col justify-between w-full gap-2 h-full overflow-y-scroll" key={`month-${monthIndex}`}>
             {isYearView ? <h2 className="text-xs my-0 text-center">{format(month, "MMM")}</h2> : ""}
-            {title}
+            {header}
             <div className="flex flex-row-reverse gap-4 w-full">
                 <div className={isYearView
                     ? "w-full"
@@ -86,36 +89,18 @@ export const CalendarMonth = ({
                                     dayIndex={dayIndex}
                                     size={size}
                                     data={data}
+                                    isSelected={isSelected}
                                     key={`month-${monthIndex}-day-${dayIndex}`}
                                     dayObj={dayObj}
-                                    hasNote={!!note}
                                     selectedDate={selectedDate}
-                                    onDoubleClick={() => setIsModalOpen(true)}
+                                    // onDoubleClick={() => setIsModalOpen(true)}
                                     onClick={date => {
                                         setSelectedDate(date);
-                                        setIsDaySelected(true);
+                                        // setIsDaySelected(true);
+                                        setSelectedCalendar(calendar);
                                     }} />
                             );
                         })}
-
-                        {!isYearView &&
-                            <DayModalPortal
-                                colorClass={colorClass}
-                                calendar={calendar}
-                                selectedDate={selectedDate}
-                                data={data}
-                                onColorSelect={onColorSelect}
-                                onNoteUpdate={onNoteUpdate}
-                                note={note}
-                                // setNote={setNote}
-                                setIsNoteSaved={setIsNoteSaved}
-                                monthIndex={monthIndex}
-                                isOpen={isModalOpen}
-                                onClose={() => {
-                                    setIsModalOpen(false);
-                                    setIsDaySelected(false);
-                                }}
-                            />}
                     </div>
                 </div>
             </div>

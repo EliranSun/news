@@ -22,7 +22,8 @@ export const Body = ({
     saveToStorage,
     calendar,
     selectedDateNote,
-    // onNoteUpdate
+    onCalendarViewClick,
+    onNoteViewClick
 }) => {
     const updateData = useCallback(({ color, note, date, data: calendarData, calendar: localCalendar }) => {
         let newData;
@@ -57,12 +58,12 @@ export const Body = ({
                 <FeedView
                     selectedDate={selectedDate}
                     selectedDateNote={selectedDateNote}
-                    // updateColor={updateColor}
                     data={data}
                     updateData={updateData}
                     setSelectedDate={setSelectedDate}
                     setSelectedDateNote={setSelectedDateNote}
-                // onNoteUpdate={onNoteUpdate}
+                    onCalendarViewClick={onCalendarViewClick}
+                    onNoteViewClick={onNoteViewClick}
                 />
             );
 

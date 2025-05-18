@@ -4,39 +4,51 @@ import { CalendarGamification } from "./CalendarGamification";
 import { CalendarMonth } from "../organism/CalendarMonth";
 import { isSameDay } from "date-fns";
 import PropTypes from "prop-types";
+import { Note, Calendar } from "@phosphor-icons/react"
 
 export const FeedItem = ({
     calendar,
     selectedDate,
     setSelectedDate,
-    updateData
+    updateData,
+    isSelected,
+    setSelectedCalendar,
+    onCalendarViewClick,
+    onNoteViewClick
 }) => {
     const [data, setData] = useState(loadFromStorage(calendar.key) || []);
     const [color, setColor] = useState("");
     const [note, setNote] = useState("");
 
-useEffect(() => {
-    setColor(data.find(item => {
-        return isSameDay(item.date, selectedDate)?.color || "";
+    useEffect(() => {
+        if (!selectedDate) return;
+
+        setColor(data.find(item => {
+            return isSameDay(item.date, selectedDate)?.color || "";
         }));
-        
-    setNote(data.find(item => {
-        return isSameDay(item.date, selectedDate)?.note || "";
+
+        setNote(data.find(item => {
+            return isSameDay(item.date, selectedDate)?.note || "";
         }));
     }, [data]);
-    
+
     return (
         <CalendarMonth
             size="medium"
+            isSelected={isSelected}
+            setSelectedCalendar={setSelectedCalendar}
             selectedDate={selectedDate}
-            monthIndex={selectedDate.getMonth()}
+            monthIndex={selectedDate?.getMonth()}
             note={note}
             calendar={calendar}
             data={data}
-            title={(
-                <h1 className="text-xs font-bold w-full">
-                    {calendar.icon} {calendar.name.toUpperCase()}
-                </h1>
+            header={(
+                <div className="flex gap-1 justify-between items-center">
+
+                    <h1 className="text-xs font-bold w-full px-2">
+                        {calendar.name.slice(0, 4).toUpperCase()}
+                    </h1>
+                </div>
             )}
             showNote={true}
             setSelectedDate={newDate => {
@@ -56,6 +68,14 @@ useEffect(() => {
             }}>
             <div className="flex flex-col gap-1 items-start w-full justify-between">
                 <CalendarGamification calendar={calendar} size="small" />
+                <div className="flex gap-1 bg-stone-600 rounded-md p-1">
+                    <button className="text-xs font-bold" onClick={() => onCalendarViewClick(calendar)}>
+                        <Calendar size={16} />
+                    </button>
+                    <button className="text-xs font-bold" onClick={() => onNoteViewClick(calendar)}>
+                        <Note size={16} />
+                    </button>
+                </div>
             </div>
         </CalendarMonth>
     )

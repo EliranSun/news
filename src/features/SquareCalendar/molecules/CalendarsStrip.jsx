@@ -2,9 +2,11 @@ import { Calendars } from "../constants";
 import { CalendarButton } from "../atoms/CalendarButton";
 import PropTypes from "prop-types";
 
-export const CalendarsStrip = ({ selectedCalendar, onCalendarClick }) => {
+export const CalendarsStrip = ({ selectedCalendar, onCalendarClick, isVisible }) => {
     const strip = Object.values(Calendars);
-    
+
+    if (!isVisible) return null;
+
     return (
         <div className="flex flex-col gap-1 w-full">
             <div className="text-base font-bold flex flex-nowrap overflow-x-auto gap-2">
