@@ -370,7 +370,7 @@ export const Calendars = {
             { name: "115+", label: "fantastic", color: Colors.Purple },
         ],
     },
-    Protein: {
+    /* Protein: {
         showColorStatus: false,
         showGamification: false,
         name: "Protein",
@@ -389,7 +389,7 @@ export const Calendars = {
             { name: "100", color: Colors.Crimson },
             { name: "150+", color: Colors.Maroon },
         ],
-    },
+    },*/
     Trip: {
         showColorStatus: true,
         showGamification: false,
