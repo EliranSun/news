@@ -20,6 +20,7 @@ export const FeedView = ({
         .find(calendar => calendar.category === selectedCategory));
     const [note, setNote] = useState(loadFromStorage(selectedCalendar.key).find(item => isSameDay(item.date, selectedDate))?.note || "");
     const [colorChanged, setColorChanged] = useState(0);
+    const [isDayPopoverOpen, setIsDayPopoverOpen] = useState(true);
 
     useEffect(() => {
         const calendarData = loadFromStorage(selectedCalendar.key);
@@ -65,10 +66,13 @@ export const FeedView = ({
                                                 setSelectedCalendar={setSelectedCalendar}
                                                 isSelected={selectedCalendar.name === calendar.name}
                                                 selectedDate={selectedDate}
-                                                setSelectedDate={setSelectedDate}
                                                 selectedDateNote={selectedDateNote}
                                                 setSelectedDateNote={setSelectedDateNote}
                                                 updateData={updateData}
+                                                setSelectedDate={newDate => {
+                                                    setIsDayPopoverOpen(!isSameDay(newDate, selectedDate));
+                                                    setSelectedDate(newDate);
+                                                }}
                                             />
                                         </div>
                                     ))}
@@ -80,6 +84,7 @@ export const FeedView = ({
                 "fixed bottom-32 left-0 z-10 inset-x-0 m-auto": true,
                 "p-4": true,
                 "w-[94vw] mx-auto flex flex-col gap-4 h-fit ": true,
+                "hidden": !isDayPopoverOpen,
             })}>
                 <div className="flex flex-wrap gap-2">
                     {selectedCalendar.colors?.map(color => {
