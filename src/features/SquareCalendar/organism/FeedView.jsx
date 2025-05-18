@@ -104,7 +104,7 @@ export const FeedView = ({
 
                                     saveToStorage(selectedCalendar.key, data);
                                 }}>
-                                {selectedCalendar.legend.find(legend => legend.color === color)?.name}
+                                {selectedCalendar.legend?.find(legend => legend.color === color)?.name}
                             </div>
                         );
                     })}
