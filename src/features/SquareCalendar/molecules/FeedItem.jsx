@@ -14,7 +14,8 @@ export const FeedItem = ({
     isSelected,
     setSelectedCalendar,
     onCalendarViewClick,
-    onNoteViewClick
+    onNoteViewClick,
+    colorChanged,
 }) => {
     const [data, setData] = useState(loadFromStorage(calendar.key) || []);
     const [color, setColor] = useState("");
@@ -30,7 +31,11 @@ export const FeedItem = ({
         setNote(data.find(item => {
             return isSameDay(item.date, selectedDate)?.note || "";
         }));
-    }, [data]);
+    }, [selectedDate, data]);
+
+    useEffect(() => {
+        setData(loadFromStorage(calendar.key));
+    }, [colorChanged]);
 
     return (
         <CalendarMonth
