@@ -83,7 +83,7 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
     return (
         <>
             <div className="fixed z-40 h-24 bg-stone-100 dark:bg-stone-900
-         bottom-0 w-screen grid grid-cols-4 items-start justify-center">
+         bottom-0 w-screen grid grid-cols-5 items-start justify-center">
                 {/* <NavbarButton
                     isSelected={selectedItem === "hour"}
                     label="hour"
@@ -96,12 +96,12 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                     icon={ListBullets}
                     onClick={onListClick}
                 />
-                {/* <NavbarButton
+                <NavbarButton
                     isSelected={selectedItem === "week"}
                     label="week"
                     icon={NumberSquareSeven}
                     onClick={() => { onItemClick("week") }}
-                /> */}
+                />
                 <NavbarButton
                     isSelected={selectedItem === "feed"}
                     label="feed"
