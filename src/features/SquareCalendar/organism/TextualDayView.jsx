@@ -75,7 +75,7 @@ export const TextualDayView = ({ selectedDate = new Date(), setSelectedDate }) =
 
     return (
         <>
-            <DateStrip length={10} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+            <DateStrip length={60} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
             <div
                 onClick={() => setFontToggle(!fontToggle)}
                 className={classNames({
