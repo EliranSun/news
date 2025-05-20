@@ -1,7 +1,7 @@
 import { Calendars, Categories } from "../constants";
 import { useState, useEffect, useCallback } from "react";
 import { DateStrip } from "../molecules/DateStrip";
-import { format, startOfWeek, endOfWeek, eachDayOfInterval, isSameDay } from "date-fns";
+import { format, startOfWeek, startOfMonth, endOfWeek, eachDayOfInterval, isSameDay } from "date-fns";
 import { getColorsClassList, loadFromStorage } from "../utils";
 import { DayModalPortal } from "./DayModalPortal";
 
@@ -21,7 +21,7 @@ const WeekDay = ({ calendarData, calendar, day, selectedDate, setSelectedDate, u
                     setSelectedDate(day);
                     setIsDayModelOpen(true);
                 }}
-                className={`size-7 rounded flex items-center justify-center text-sm
+                className={`size-4 rounded flex items-center justify-center text-sm
                 cursor-pointer ${dayData
                         ? getColorsClassList(dayData.color)
                         : 'border border-gray-200 dark:border-gray-600'}
@@ -65,7 +65,7 @@ export const WeeklyListView = ({ updateData }) => {
             d.setHours(refDate.getHours(), refDate.getMinutes(), refDate.getSeconds(), refDate.getMilliseconds());
             return d;
         };
-        const start = startOfWeek(selectedDate, { weekStartsOn: 0 });
+        const start = startOfMonth(selectedDate);
         const end = endOfWeek(selectedDate, { weekStartsOn: 0 });
         const days = eachDayOfInterval({ start, end }).map(day => preserveTime(day, selectedDate));
 
