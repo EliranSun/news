@@ -93,11 +93,11 @@ export const WeeklyListView = ({ updateData }) => {
                     setSelectedDate={setSelectedDate} />
             </div>
 
-            {/* <div className="font-medium text-sm mb-2 px-2">
+            <div className="font-medium text-sm mb-2 px-2">
                 {weekDays.length > 0 ?
                     `${format(weekDays[0], 'MMM d')} - ${format(weekDays[6], 'MMM d, yyyy')}` :
                     format(selectedDate, 'MMMM yyyy')}
-            </div> */}
+            </div>
 
             <div className="flex flex-col gap-2">
                 {Object.values(Categories).map((category) => {
