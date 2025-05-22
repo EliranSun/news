@@ -3,9 +3,9 @@ import { CalendarName } from "../atoms/CalendarName";
 // import { CalendarYearColorInfo } from "./CalendarYearColorInfo";
 import { CalendarGamification } from "./CalendarGamification";
 
-export const Header = ({ calendar, selectedDate, daysSinceLastEntry, data }) => {
+export const Header = ({ calendar, selectedDate, daysSinceLastEntry, data, children }) => {
     return (
-        <div className="flex flex-col gap-2 w-full justify-center items-center">
+        <div className="flex gap-2 w-full justify-center items-center">
             <div className="flex flex-col gap-1">
                 <CalendarName
                     calendar={calendar}
@@ -16,6 +16,7 @@ export const Header = ({ calendar, selectedDate, daysSinceLastEntry, data }) => 
             {/* <CalendarGamification
                 calendar={calendar}
                 size="big" /> */}
+            {children}
         </div>
     )
 };

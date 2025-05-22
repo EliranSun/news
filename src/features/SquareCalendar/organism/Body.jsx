@@ -4,7 +4,7 @@ import { TextualDayView } from "./TextualDayView";
 import { CalendarMonth } from "./CalendarMonth";
 import { isSameDay } from "date-fns";
 import PropTypes from "prop-types";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { HourView } from "../../HourlyTracker/HourView";
 import { WeeklyListView } from "./WeeklyListView";
 import { FeedView } from "./FeedView";
@@ -13,6 +13,10 @@ import { differenceInDays } from "date-fns";
 import { CalendarYearColorInfo } from "../molecules/CalendarYearColorInfo";
 import { CalendarsStrip } from "../molecules/CalendarsStrip";
 import { ColorWheel } from "../molecules/ColorWheel";
+import { Info } from "@phosphor-icons/react"
+import { set } from "lodash";
+
+const InfoStates = ["none", "days", "notes"];
 
 export const Body = ({
     view,
@@ -30,6 +34,8 @@ export const Body = ({
     onCalendarViewClick,
     onNoteViewClick
 }) => {
+    const [infoStateIndex, setInfoStateIndex] = useState(0);
+
     const daysSinceLastEntry = useMemo(() => {
         return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
     }, [data]);
@@ -110,7 +116,7 @@ export const Body = ({
 
         case "year":
             return (
-                <div className="space-y-4 mx-2 w-[calc(100vw-1rem)]">
+                <div className="space-y-6 mx-2 w-[calc(100vw-1rem)]">
                     <div className="overflow-x-scroll flex flex-nowrap gap-2">
                         <CalendarsStrip
                             data={data}
@@ -122,7 +128,12 @@ export const Body = ({
                         calendar={calendar}
                         selectedDate={selectedDate}
                         daysSinceLastEntry={daysSinceLastEntry}
-                        data={data} />
+                        data={data}>
+                        <Info size={16} weight="bold" onClick={() =>
+                            setInfoStateIndex((index) => (index + 1) % InfoStates.length)
+                        } />
+                    </Header>
+
                     {/* <div className="flex gap-2">
                         <button onClick={() => setSelectedDate(new Date(2025, 0, 1))}>2025</button>
                         <button onClick={() => setSelectedDate(new Date(2024, 0, 1))}>2024</button>
@@ -138,6 +149,7 @@ export const Body = ({
                                     selectedDate={selectedDate}
                                     setSelectedDate={setSelectedDate}
                                     calendar={calendar}
+                                    infoState={InfoStates[infoStateIndex]}
                                     data={data}
                                     monthIndex={monthIndex} />
                             )

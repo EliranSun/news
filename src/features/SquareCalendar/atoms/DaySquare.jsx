@@ -13,7 +13,8 @@ export const DaySquare = ({
     onDoubleClick,
     data,
     size = "small",
-    isSelected
+    isSelected,
+    infoState
 }) => {
     // const ref = useRef(null);
     const { setPointerX, setPointerY } = useContext(PointerContext);
@@ -69,10 +70,11 @@ export const DaySquare = ({
                 "opacity-0": dayObj.previousMonth,
                 "border-2 border-black dark:border-white": isToday
             })}>
-            {/* {isToday
+            {infoState === "days"
                 ? dayObj.date.toLocaleString('default', { day: 'numeric' })
-                : dayObj.note ? "●" : ""} */}
-            {dayObj.date.toLocaleString('default', { day: 'numeric' })}
+                : infoState === "notes"
+                    ? dayObj.note ? "●" : ""
+                    : ""}
         </div>
     );
 }

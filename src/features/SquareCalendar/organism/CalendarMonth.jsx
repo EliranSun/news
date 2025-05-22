@@ -23,6 +23,7 @@ export const CalendarMonth = ({
     children,
     header,
     isSelected,
+    infoState
 }) => {
     // const [note, setNote] = useState(initialNote);
     // const [isNoteSaved, setIsNoteSaved] = useState(null);
@@ -96,6 +97,7 @@ export const CalendarMonth = ({
                                     isSelected={isSelected}
                                     key={`month-${monthIndex}-day-${dayIndex}`}
                                     dayObj={dayObj}
+                                    infoState={infoState}
                                     selectedDate={selectedDate}
                                     // onDoubleClick={() => setIsModalOpen(true)}
                                     onClick={date => {
