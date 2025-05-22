@@ -3,6 +3,7 @@ import { contrastColor, getColorsClassList } from "../utils";
 import { useMemo } from "react";
 import classNames from "classnames";
 import { ColorHexMap, TailwindColorsMap } from "../constants";
+import { isSameDay } from "date-fns";
 
 export const DaySquare = ({
     dayObj,
@@ -13,7 +14,10 @@ export const DaySquare = ({
     size = "small",
     isSelected
 }) => {
-    const isToday = dayObj.date.toDateString() === selectedDate.toDateString() && isSelected;
+    const isToday = useMemo(() => {
+        return isSameDay(dayObj.date, selectedDate) && isSelected;
+    }, [dayObj.date, selectedDate, isSelected]);
+
     const color = useMemo(() => {
         return data.find(item => new Date(item.date).toDateString() === dayObj.date.toDateString())?.color;
     }, [data, dayObj.date]);
@@ -21,6 +25,11 @@ export const DaySquare = ({
     const colorClass = useMemo(() => {
         return color && getColorsClassList(color);
     }, [color]);
+
+    if (isSelected) {
+        console.log({ isSelected });
+    }
+
 
     return (
         <div
@@ -32,11 +41,11 @@ export const DaySquare = ({
                 "size-4 rounded-[2px]": size === "small",
                 "size-5 rounded mx-auto": size === "medium",
                 "size-9 rounded-md mx-auto": size === "big",
-                "bg-stone-200 dark:bg-stone-600": !dayObj.previousMonth && !isToday && !colorClass,
+                "bg-stone-200 dark:bg-stone-600": !isToday && !colorClass,
                 "opacity-0": dayObj.previousMonth,
                 "border-2 border-black dark:border-white": isToday
             })}>
-            {(!dayObj.previousMonth && isToday)
+            {isToday
                 ? dayObj.date.toLocaleString('default', { day: 'numeric' })
                 : dayObj.note ? "●" : ""}
         </div>

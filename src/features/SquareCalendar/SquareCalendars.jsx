@@ -1,12 +1,9 @@
 import { useCallback, useState, useEffect, useMemo } from "react";
 import { loadFromStorage, saveToStorage, isSameDay } from "./utils";
 import { Calendars } from "./constants";
-import { CalendarsStrip } from "./molecules/CalendarsStrip";
-import { differenceInDays } from "date-fns";
 import { Navbar } from "./molecules/Navbar";
 import PhysicsDemo from "./organism/PhysicsDemo";
 import { FlexibleOpacityTransition } from "./atoms/FlexibleOpacityTransition";
-import { Header } from "./molecules/Header";
 import { Body } from "./organism/Body";
 
 export default function SquareCalendars() {
@@ -19,11 +16,7 @@ export default function SquareCalendars() {
     // this works because timestamp is unique
     const [selectedDateNote, setSelectedDateNote] = useState(data.find(item =>
         isSameDay(item.date, selectedDate))?.note || "");
-    const [view, setView] = useState("feed");
-
-    const daysSinceLastEntry = useMemo(() => {
-        return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
-    }, [data]);
+    const [view, setView] = useState("year");
 
     useEffect(() => {
         setTimeout(() => {
@@ -52,7 +45,6 @@ export default function SquareCalendars() {
     }, [selectedDate]);
 
     const yearMap = useMemo(() => new Array(12).fill(0), []);
-    const isCleanView = view === "hour" || view === "feed" || view === "week" || view === "list" || view === "day";
 
     return (
         <>
@@ -66,20 +58,6 @@ export default function SquareCalendars() {
             <div id="note-modal-portal" />
             <div className="p-2 w-screen overflow-hidden h-[calc(100vh-96px)] 
             user-select-none space-y-2 font-mono bg-stone-50 dark:bg-stone-900">
-                {!isCleanView &&
-                    <>
-                        <Header
-                            calendar={calendar}
-                            selectedDate={selectedDate}
-                            daysSinceLastEntry={daysSinceLastEntry}
-                            data={data} />
-                    </>
-                }
-                <CalendarsStrip
-                    data={data}
-                    isVisible={view === "year"}
-                    selectedCalendar={calendar}
-                    onCalendarClick={onCalendarClick} />
                 <FlexibleOpacityTransition>
                     <Body
                         view={view}

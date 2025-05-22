@@ -4,11 +4,14 @@ import { TextualDayView } from "./TextualDayView";
 import { CalendarMonth } from "./CalendarMonth";
 import { isSameDay } from "date-fns";
 import PropTypes from "prop-types";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { HourView } from "../../HourlyTracker/HourView";
 import { WeeklyListView } from "./WeeklyListView";
 import { FeedView } from "./FeedView";
-
+import { Header } from "../molecules/Header";
+import { differenceInDays } from "date-fns";
+import { CalendarYearColorInfo } from "../molecules/CalendarYearColorInfo";
+import { CalendarsStrip } from "../molecules/CalendarsStrip";
 export const Body = ({
     view,
     data,
@@ -25,6 +28,10 @@ export const Body = ({
     onCalendarViewClick,
     onNoteViewClick
 }) => {
+    const daysSinceLastEntry = useMemo(() => {
+        return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
+    }, [data]);
+
     const updateData = useCallback(({ color, note, date, data: calendarData, calendar: localCalendar }) => {
         let newData;
         const formattedDate = date;
@@ -101,12 +108,25 @@ export const Body = ({
         case "year":
             return (
                 <div>
+                    <Header
+                        calendar={calendar}
+                        selectedDate={selectedDate}
+                        daysSinceLastEntry={daysSinceLastEntry}
+                        data={data} />
                     <div className="flex gap-2">
                         <button onClick={() => setSelectedDate(new Date(2025, 0, 1))}>2025</button>
                         <button onClick={() => setSelectedDate(new Date(2024, 0, 1))}>2024</button>
                         <button onClick={() => setSelectedDate(new Date(2023, 0, 1))}>2023</button>
                         <button onClick={() => setSelectedDate(new Date(2022, 0, 1))}>2022</button>
                     </div>
+                    {/* <div className="w-full overflow-x-scroll flex flex-nowrap gap-2">
+
+                        <CalendarsStrip
+                            data={data}
+                            isVisible={view === "year"}
+                            selectedCalendar={calendar}
+                            onCalendarClick={onCalendarClick} />
+                    </div> */}
                     <div className="grid grid-cols-3 gap-1">
                         {yearMap.map((_, monthIndex) => {
                             return (
@@ -120,6 +140,7 @@ export const Body = ({
                             )
                         })}
                     </div>
+                    <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
                 </div>
             );
 
