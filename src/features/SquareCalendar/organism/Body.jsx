@@ -12,6 +12,8 @@ import { Header } from "../molecules/Header";
 import { differenceInDays } from "date-fns";
 import { CalendarYearColorInfo } from "../molecules/CalendarYearColorInfo";
 import { CalendarsStrip } from "../molecules/CalendarsStrip";
+import { ColorWheel } from "../molecules/ColorWheel";
+
 export const Body = ({
     view,
     data,
@@ -107,18 +109,18 @@ export const Body = ({
 
         case "year":
             return (
-                <div>
+                <div className="space-y-2">
                     <Header
                         calendar={calendar}
                         selectedDate={selectedDate}
                         daysSinceLastEntry={daysSinceLastEntry}
                         data={data} />
-                    <div className="flex gap-2">
+                    {/* <div className="flex gap-2">
                         <button onClick={() => setSelectedDate(new Date(2025, 0, 1))}>2025</button>
                         <button onClick={() => setSelectedDate(new Date(2024, 0, 1))}>2024</button>
                         <button onClick={() => setSelectedDate(new Date(2023, 0, 1))}>2023</button>
                         <button onClick={() => setSelectedDate(new Date(2022, 0, 1))}>2022</button>
-                    </div>
+                    </div> */}
                     {/* <div className="w-full overflow-x-scroll flex flex-nowrap gap-2">
 
                         <CalendarsStrip
@@ -127,7 +129,7 @@ export const Body = ({
                             selectedCalendar={calendar}
                             onCalendarClick={onCalendarClick} />
                     </div> */}
-                    <div className="grid grid-cols-3 gap-1">
+                    <div className="grid grid-cols-3 gap-2">
                         {yearMap.map((_, monthIndex) => {
                             return (
                                 <CalendarMonth
@@ -135,12 +137,14 @@ export const Body = ({
                                     isYearView={true}
                                     selectedDate={selectedDate}
                                     setSelectedDate={setSelectedDate}
+                                    calendar={calendar}
                                     data={data}
                                     monthIndex={monthIndex} />
                             )
                         })}
                     </div>
                     <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
+                    <ColorWheel calendar={calendar} />
                 </div>
             );
 

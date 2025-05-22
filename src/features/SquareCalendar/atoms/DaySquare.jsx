@@ -15,20 +15,16 @@ export const DaySquare = ({
     isSelected
 }) => {
     const isToday = useMemo(() => {
-        return isSameDay(dayObj.date, selectedDate) && isSelected;
-    }, [dayObj.date, selectedDate, isSelected]);
+        return isSameDay(dayObj.date, selectedDate);
+    }, [dayObj.date, selectedDate]);
 
     const color = useMemo(() => {
-        return data.find(item => new Date(item.date).toDateString() === dayObj.date.toDateString())?.color;
+        return data.find(item => isSameDay(new Date(item.date), dayObj.date))?.color;
     }, [data, dayObj.date]);
 
     const colorClass = useMemo(() => {
         return color && getColorsClassList(color);
     }, [color]);
-
-    if (isSelected) {
-        console.log({ isSelected });
-    }
 
 
     return (
@@ -37,17 +33,18 @@ export const DaySquare = ({
             style={{ color: contrastColor({ bgColor: ColorHexMap[color] }) }}
             onDoubleClick={() => onDoubleClick(dayObj.date)}
             className={classNames(colorClass, {
-                "text-[8px] flex justify-center items-center": true,
+                "text-[7px] flex justify-center items-center": true,
                 "size-4 rounded-[2px]": size === "small",
                 "size-5 rounded mx-auto": size === "medium",
                 "size-9 rounded-md mx-auto": size === "big",
-                "bg-stone-200 dark:bg-stone-600": !isToday && !colorClass,
+                "bg-stone-200 dark:bg-stone-600": !colorClass,
                 "opacity-0": dayObj.previousMonth,
                 "border-2 border-black dark:border-white": isToday
             })}>
-            {isToday
+            {/* {isToday
                 ? dayObj.date.toLocaleString('default', { day: 'numeric' })
-                : dayObj.note ? "●" : ""}
+                : dayObj.note ? "●" : ""} */}
+            {dayObj.date.toLocaleString('default', { day: 'numeric' })}
         </div>
     );
 }

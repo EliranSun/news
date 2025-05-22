@@ -13,7 +13,9 @@ export const Header = ({ calendar, selectedDate, daysSinceLastEntry, data }) => 
                     withDate={true}
                     daysSinceLastEntry={daysSinceLastEntry} />
             </div>
-            <CalendarGamification calendar={calendar} size="big" />
+            {/* <CalendarGamification
+                calendar={calendar}
+                size="big" /> */}
         </div>
     )
 };

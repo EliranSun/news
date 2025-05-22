@@ -70,7 +70,8 @@ export const CalendarMonth = ({
     // }, [isNoteSaved]);
 
     return (
-        <div className="flex flex-col justify-between w-full gap-2 h-full overflow-y-scroll" key={`month-${monthIndex}`}>
+        <div className="flex flex-col w-full gap-0 bg-stone-50 dark:bg-stone-800
+         h-full overflow-y-scroll rounded-md p-1" key={`month-${monthIndex}`}>
             {isYearView ?
                 <h2 className="text-xs my-0 w-full text-center">
                     {format(month, "MMM")}
