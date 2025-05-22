@@ -34,7 +34,7 @@ export const ColorWheel = ({ calendar, onColorSelect, initialColor, date = new D
     // Helper to get label position for each color
     const getLabelPosition = (index) => {
         const angle = ((index + 0.5) / numColors) * 2 * Math.PI; // Midpoint of arc
-        const labelRadius = radius + strokeWidth / 1.5; // Slightly inside the arc
+        const labelRadius = radius + strokeWidth / 3; // Slightly inside the arc
         const x = center + labelRadius * Math.cos(angle - Math.PI / 2);
         const y = center + labelRadius * Math.sin(angle - Math.PI / 2);
         return { x, y };
@@ -119,13 +119,13 @@ export const ColorWheel = ({ calendar, onColorSelect, initialColor, date = new D
                 fill="#fff"
             />
             {/* Donut hole */}
-            <circle 
-            onClick={() => {
-                setPointerX(null);
-                setPointerY(null);
-                                }}
-                
-            cx={center} cy={center} r={radius - strokeWidth} fill="#fff" />
+            <circle
+                onClick={() => {
+                    setPointerX(null);
+                    setPointerY(null);
+                }}
+
+                cx={center} cy={center} r={radius - strokeWidth} fill="#fff" />
             <text x={center} y={center} textAnchor="middle" dominantBaseline="middle"
                 fontSize="12" fill="#000">
                 {date.toLocaleDateString("en-GB", { weekday: "short", day: "numeric" })}

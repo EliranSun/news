@@ -4,7 +4,7 @@ import { TextualDayView } from "./TextualDayView";
 import { CalendarMonth } from "./CalendarMonth";
 import { isSameDay } from "date-fns";
 import PropTypes from "prop-types";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, useContext } from "react";
 import { HourView } from "../../HourlyTracker/HourView";
 import { WeeklyListView } from "./WeeklyListView";
 import { FeedView } from "./FeedView";
@@ -13,10 +13,31 @@ import { differenceInDays } from "date-fns";
 import { CalendarYearColorInfo } from "../molecules/CalendarYearColorInfo";
 import { CalendarsStrip } from "../molecules/CalendarsStrip";
 import { ColorWheel } from "../molecules/ColorWheel";
-import { Info } from "@phosphor-icons/react"
-import { set } from "lodash";
+import { Info, Note } from "@phosphor-icons/react"
+import { PointerContext } from "../PointerContext";
 
 const InfoStates = ["none", "days", "notes"];
+
+const NoteModal = ({ isOpen, onClose }) => {
+    const [note, setNote] = useState("");
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed top-0 inset-x-0 flex flex-col items-center justify-center
+         bg-stone-200 dark:bg-stone-800 rounded-md p-2 w-screen h-[97vh] z-50">
+            <textarea
+                className="w-full h-full"
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+            />
+            <div className="flex gap-2 w-full justify-between">
+                <button onClick={() => setNote("")}>Save</button>
+                <button onClick={() => setNote("")}>Cancel</button>
+            </div>
+        </div>
+    )
+}
 
 export const Body = ({
     view,
@@ -35,7 +56,8 @@ export const Body = ({
     onNoteViewClick
 }) => {
     const [infoStateIndex, setInfoStateIndex] = useState(0);
-
+    const { pointerX, pointerY } = useContext(PointerContext);
+    const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
     const daysSinceLastEntry = useMemo(() => {
         return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
     }, [data]);
@@ -162,6 +184,19 @@ export const Body = ({
                         onColorSelect={(color) => {
                             updateData({ color, date: selectedDate, data, calendar });
                         }} />
+                    {pointerX && pointerY && (
+                        <span
+                            onClick={() => setIsNoteModalOpen(true)}
+                            style={{
+                                left: pointerX - 100 || 0,
+                                top: pointerY + 100 || 0,
+                            }}
+                            className="absolute shadow-lg border border-stone-300 dark:border-stone-700
+                             bg-stone-200 dark:bg-stone-800 rounded-md p-2 z-10">
+                            <Note size={32} />
+                        </span>
+                    )}
+                    <NoteModal isOpen={isNoteModalOpen} onClose={() => setIsNoteModalOpen(false)} />
                     <CalendarDayView
                         data={data}
                         selectedDate={selectedDate} />

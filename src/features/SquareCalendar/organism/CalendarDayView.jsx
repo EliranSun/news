@@ -63,7 +63,8 @@ export const CalendarDayView = ({ data }) => {
     // Sort and filter data
     const sortedData = data
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-        .filter(item => item.note);
+        .filter(item => item.note)
+        .reverse();
 
     let lastMonth = null;
 
