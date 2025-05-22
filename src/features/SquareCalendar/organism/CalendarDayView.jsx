@@ -18,13 +18,13 @@ const CalendarDay = ({ item }) => {
             key={item.date}
             onClick={() => setIsNoteExpanded(!isNoteExpanded)}
             className={classNames({
-                "flex gap-2 items-center": true,
+                "flex gap-2 items-start": true,
                 "dark:bg-black dark:text-white bg-gray-50 dark:odd:bg-gray-900 odd:bg-gray-100": true,
-                "rounded p-2": true,
+                "rounded p-2 inter-500": true,
                 "mb-1": day === "Sat",
             })} >
             <div className={classNames(getColorsClassList(item.color), {
-                "size-2 rounded-sm shrink-0": true,
+                "w-2 h-10 shrink-0": true,
             })} />
             <div className="w-full">
                 {month?.slice(0, 1)}
@@ -70,7 +70,7 @@ export const CalendarDayView = ({ data }) => {
     return (
         <div
             id="calendar-day-view"
-            className="flex flex-col gap-1">
+            className="flex flex-col gap-2">
             {sortedData.map((item, idx) => {
                 const dateObj = new Date(item.date);
                 const month = dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });

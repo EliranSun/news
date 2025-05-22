@@ -82,11 +82,11 @@ export default function SquareCalendars() {
             </div>
             <div id="day-popover-portal" className="" />
             {isPhysicsDemoOpen && <PhysicsDemo />}
-            {/* <Navbar
+            <Navbar
                 selectedItem={view}
                 onItemClick={setView}
                 onPhysicsClick={() => setIsPhysicsDemoOpen(!isPhysicsDemoOpen)}
-                onListClick={() => setView("list")} /> */}
+                onListClick={() => setView("list")} />
             {/* <div id="note-modal-portal" /> */}
         </PointerProvider>
     );
