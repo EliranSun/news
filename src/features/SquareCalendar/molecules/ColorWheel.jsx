@@ -65,11 +65,6 @@ export const ColorWheel = ({ calendar, onColorSelect, initialColor, date = new D
                         onClick={() => {
                             setSelectedColor(color);
                             onColorSelect && onColorSelect(color);
-
-                            setTimeout(() => {
-                                setPointerX(null);
-                                setPointerY(null);
-                            }, 1000);
                         }}
                     />
                     {/* Legend label */}
@@ -124,7 +119,13 @@ export const ColorWheel = ({ calendar, onColorSelect, initialColor, date = new D
                 fill="#fff"
             />
             {/* Donut hole */}
-            <circle cx={center} cy={center} r={radius - strokeWidth} fill="#fff" />
+            <circle 
+            onClick={() => {
+                setPointerX(null);
+                setPointerY(null);
+                                }}
+                
+            cx={center} cy={center} r={radius - strokeWidth} fill="#fff" />
             <text x={center} y={center} textAnchor="middle" dominantBaseline="middle"
                 fontSize="12" fill="#000">
                 {date.toLocaleDateString("en-GB", { weekday: "short", day: "numeric" })}
