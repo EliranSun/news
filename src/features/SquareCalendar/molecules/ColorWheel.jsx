@@ -31,6 +31,15 @@ export const ColorWheel = ({ calendar, onColorSelect, initialColor, date = new D
         return `M ${center} ${center} L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} Z`;
     };
 
+    // Helper to get label position for each color
+    const getLabelPosition = (index) => {
+        const angle = ((index + 0.5) / numColors) * 2 * Math.PI; // Midpoint of arc
+        const labelRadius = radius + strokeWidth / 1.5; // Slightly inside the arc
+        const x = center + labelRadius * Math.cos(angle - Math.PI / 2);
+        const y = center + labelRadius * Math.sin(angle - Math.PI / 2);
+        return { x, y };
+    };
+
     if (!pointerX || !pointerY) return null;
 
     return (
@@ -42,27 +51,68 @@ export const ColorWheel = ({ calendar, onColorSelect, initialColor, date = new D
             }}
             width={center * 2} height={center * 2} viewBox={`0 0 ${center * 2} ${center * 2}`}>
             {colors.map((color, i) => (
-                <path
-                    key={color}
-                    d={getArc(i)}
-                    fill={ColorHexMap[color] || color}
-                    style={{
-                        cursor: "pointer",
-                        filter: selectedColor === color ? "drop-shadow(0 0 6px #0008)" : undefined,
-                        stroke: selectedColor === color ? "#222" : "#fff",
-                        strokeWidth: selectedColor === color ? 4 : 2,
-                        transition: "stroke 0.2s, filter 0.2s"
-                    }}
-                    onClick={() => {
-                        setSelectedColor(color);
-                        onColorSelect && onColorSelect(color);
+                <g key={color}>
+                    <path
+                        d={getArc(i)}
+                        fill={ColorHexMap[color] || color}
+                        style={{
+                            cursor: "pointer",
+                            filter: selectedColor === color ? "drop-shadow(0 0 6px #0008)" : undefined,
+                            stroke: selectedColor === color ? "#222" : "#fff",
+                            strokeWidth: selectedColor === color ? 4 : 2,
+                            transition: "stroke 0.2s, filter 0.2s"
+                        }}
+                        onClick={() => {
+                            setSelectedColor(color);
+                            onColorSelect && onColorSelect(color);
 
-                        setTimeout(() => {
-                            setPointerX(null);
-                            setPointerY(null);
-                        }, 2000);
-                    }}
-                />
+                            setTimeout(() => {
+                                setPointerX(null);
+                                setPointerY(null);
+                            }, 1000);
+                        }}
+                    />
+                    {/* Legend label */}
+                    {(() => {
+                        const legendEntry = calendar.legend?.find(l => l.color === color);
+                        const label = legendEntry?.label || legendEntry?.name || color;
+                        const { x, y } = getLabelPosition(i);
+                        // Estimate width based on label length and font size (11px)
+                        const fontSize = 11;
+                        const padding = 6;
+                        const labelLength = label.length;
+                        const rectWidth = labelLength * fontSize * 0.6 + padding * 2;
+                        const rectHeight = fontSize + 4;
+                        return (
+                            <g>
+                                <rect
+                                    x={x - rectWidth / 2}
+                                    y={y - rectHeight / 2}
+                                    width={rectWidth}
+                                    height={rectHeight}
+                                    rx={6}
+                                    // fill={ColorHexMap[color] || color}
+                                    fill="#fff"
+                                    opacity={0.85}
+                                />
+                                <text
+                                    x={x}
+                                    y={y}
+                                    textAnchor="middle"
+                                    dominantBaseline="middle"
+                                    fontSize={fontSize}
+                                    fill="#222"
+                                    style={{
+                                        pointerEvents: 'none',
+                                        userSelect: 'none',
+                                    }}
+                                >
+                                    {label}
+                                </text>
+                            </g>
+                        );
+                    })()}
+                </g>
             ))}
             {/* Arrow pointing up */}
             <polygon
@@ -85,7 +135,14 @@ export const ColorWheel = ({ calendar, onColorSelect, initialColor, date = new D
 
 ColorWheel.propTypes = {
     calendar: PropTypes.shape({
-        colors: PropTypes.arrayOf(PropTypes.string)
+        colors: PropTypes.arrayOf(PropTypes.string),
+        legend: PropTypes.arrayOf(
+            PropTypes.shape({
+                name: PropTypes.string,
+                label: PropTypes.string,
+                color: PropTypes.string
+            })
+        )
     }).isRequired,
     onColorSelect: PropTypes.func,
     initialColor: PropTypes.string,
