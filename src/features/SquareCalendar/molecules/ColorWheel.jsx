@@ -75,7 +75,7 @@ export const ColorWheel = ({ calendar, onColorSelect, initialColor, date = new D
                     {/* Legend label */}
                     {(() => {
                         const legendEntry = calendar.legend?.find(l => l.color === color);
-                        const label = legendEntry?.label || legendEntry?.name || color;
+                        const label = legendEntry?.name || legendEntry?.label || color;
                         const { x, y } = getLabelPosition(i);
                         // Estimate width based on label length and font size (11px)
                         const fontSize = 11;
