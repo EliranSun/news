@@ -50,13 +50,13 @@ export default function SquareCalendars() {
         <>
             <div id="day-popover-portal" className="" />
             {isPhysicsDemoOpen && <PhysicsDemo />}
-            <Navbar
+            {/* <Navbar
                 selectedItem={view}
                 onItemClick={setView}
                 onPhysicsClick={() => setIsPhysicsDemoOpen(!isPhysicsDemoOpen)}
-                onListClick={() => setView("list")} />
+                onListClick={() => setView("list")} /> */}
             <div id="note-modal-portal" />
-            <div className="p-2 w-screen overflow-hidden h-[calc(100vh-96px)] 
+            <div className="p-2 w-screen overflow-hidden h-[calc(100vh)] 
             user-select-none space-y-2 font-mono bg-stone-50 dark:bg-stone-900">
                 <FlexibleOpacityTransition>
                     <Body

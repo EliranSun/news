@@ -54,7 +54,8 @@ export const Body = ({
         }
 
         saveToStorage(localCalendar.key, newData);
-    }, [saveToStorage]);
+        setData(newData);
+    }, [saveToStorage, setData]);
 
     switch (view) {
         case "week":
@@ -109,7 +110,14 @@ export const Body = ({
 
         case "year":
             return (
-                <div className="space-y-2">
+                <div className="space-y-6">
+                    <div className="w-screen overflow-x-scroll flex flex-nowrap gap-2 px-2">
+                        <CalendarsStrip
+                            data={data}
+                            isVisible={view === "year"}
+                            selectedCalendar={calendar}
+                            onCalendarClick={onCalendarClick} />
+                    </div>
                     <Header
                         calendar={calendar}
                         selectedDate={selectedDate}
@@ -120,14 +128,6 @@ export const Body = ({
                         <button onClick={() => setSelectedDate(new Date(2024, 0, 1))}>2024</button>
                         <button onClick={() => setSelectedDate(new Date(2023, 0, 1))}>2023</button>
                         <button onClick={() => setSelectedDate(new Date(2022, 0, 1))}>2022</button>
-                    </div> */}
-                    {/* <div className="w-full overflow-x-scroll flex flex-nowrap gap-2">
-
-                        <CalendarsStrip
-                            data={data}
-                            isVisible={view === "year"}
-                            selectedCalendar={calendar}
-                            onCalendarClick={onCalendarClick} />
                     </div> */}
                     <div className="grid grid-cols-3 gap-2">
                         {yearMap.map((_, monthIndex) => {
@@ -144,7 +144,12 @@ export const Body = ({
                         })}
                     </div>
                     <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
-                    <ColorWheel calendar={calendar} />
+                    <ColorWheel
+                        date={selectedDate}
+                        calendar={calendar}
+                        onColorSelect={(color) => {
+                            updateData({ color, date: selectedDate, data, calendar });
+                        }} />
                 </div>
             );
 

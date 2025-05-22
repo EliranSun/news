@@ -18,7 +18,7 @@ export const CalendarYearColorInfo = ({ data, selectedDate = new Date() }) => {
     }
 
     return (
-        <div className="flex gap-1">
+        <div className="flex gap-1 w-full justify-center">
             {colorPercentages.map(({ color, percentage }) => (
                 <div
                     key={color}

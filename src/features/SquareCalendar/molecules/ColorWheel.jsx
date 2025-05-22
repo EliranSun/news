@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { ColorHexMap } from "../constants";
 
-export const ColorWheel = ({ calendar, onColorSelect, initialColor }) => {
+export const ColorWheel = ({ calendar, onColorSelect, initialColor, date = new Date() }) => {
     const [selectedColor, setSelectedColor] = React.useState(initialColor || null);
 
-    console.log({ calendar });
+    useEffect(() => {
+        setSelectedColor(initialColor || null);
+    }, [date]);
+
     if (!calendar || !Array.isArray(calendar.colors)) return null;
 
     const colors = calendar.colors;
@@ -27,7 +30,9 @@ export const ColorWheel = ({ calendar, onColorSelect, initialColor }) => {
     };
 
     return (
-        <svg width={center * 2} height={center * 2} viewBox={`0 0 ${center * 2} ${center * 2}`}
+        <svg
+            // className="absolute inset-x-0 bottom-5"
+            width={center * 2} height={center * 2} viewBox={`0 0 ${center * 2} ${center * 2}`}
             style={{ display: "block", margin: "auto" }}>
             {colors.map((color, i) => (
                 <path
@@ -48,7 +53,13 @@ export const ColorWheel = ({ calendar, onColorSelect, initialColor }) => {
                 />
             ))}
             {/* Donut hole */}
-            <circle cx={center} cy={center} r={radius - strokeWidth} fill="#fff" />
+            <circle cx={center} cy={center} r={radius - strokeWidth} fill="#fff">
+
+            </circle>
+            <text x={center} y={center} textAnchor="middle" dominantBaseline="middle"
+                fontSize="12" fill="#000">
+                {date.toLocaleDateString("en-GB", { weekday: "short", day: "numeric" })}
+            </text>
         </svg>
     );
 };
@@ -58,5 +69,6 @@ ColorWheel.propTypes = {
         colors: PropTypes.arrayOf(PropTypes.string)
     }).isRequired,
     onColorSelect: PropTypes.func,
-    initialColor: PropTypes.string
+    initialColor: PropTypes.string,
+    date: PropTypes.instanceOf(Date)
 };

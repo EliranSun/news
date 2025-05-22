@@ -99,9 +99,9 @@ export const CalendarMonth = ({
                                     selectedDate={selectedDate}
                                     // onDoubleClick={() => setIsModalOpen(true)}
                                     onClick={date => {
-                                        setSelectedDate(date);
+                                        setSelectedDate?.(date);
                                         // setIsDaySelected(true);
-                                        setSelectedCalendar(calendar);
+                                        setSelectedCalendar?.(calendar);
                                     }} />
                             );
                         })}
