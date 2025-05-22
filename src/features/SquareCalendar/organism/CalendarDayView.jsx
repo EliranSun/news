@@ -11,6 +11,8 @@ const CalendarDay = ({ item }) => {
     const dayNumber = format(item.date, "dd");
     const month = format(item.date, "MMM");
 
+    // overflow-hidden text-ellipsis whitespace-nowrap
+
     return (
         <div
             key={item.date}
@@ -18,16 +20,16 @@ const CalendarDay = ({ item }) => {
             className={classNames({
                 "flex gap-2 items-center": true,
                 "dark:bg-black dark:text-white bg-gray-50 dark:odd:bg-gray-900 odd:bg-gray-100": true,
-                "rounded px-1.5 py-0 text-[10px]": true,
+                "rounded px-1.5 py-0": true,
                 "mb-1": day === "Sat",
             })} >
             <div className={classNames(getColorsClassList(item.color), {
                 "size-2 rounded-sm shrink-0": true,
             })} />
-            <div className="w-full overflow-x-auto">
+            <div className="w-full">
                 {month?.slice(0, 1)}
                 {dayNumber}
-                <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                <span className="">
                     {day?.slice(0, 1)}
                     {item.note ? ": " : ""}
                     {item.note}
