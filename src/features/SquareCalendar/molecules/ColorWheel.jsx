@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { ColorHexMap } from "../constants";
+import { PointerContext } from "../PointerContext";
 
 export const ColorWheel = ({ calendar, onColorSelect, initialColor, date = new Date() }) => {
     const [selectedColor, setSelectedColor] = React.useState(initialColor || null);
+    const { pointerX, pointerY } = useContext(PointerContext);
 
     useEffect(() => {
         setSelectedColor(initialColor || null);
@@ -29,11 +31,16 @@ export const ColorWheel = ({ calendar, onColorSelect, initialColor, date = new D
         return `M ${center} ${center} L ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2} Z`;
     };
 
+    if (!pointerX || !pointerY) return null;
+
     return (
         <svg
-            // className="absolute inset-x-0 bottom-5"
-            width={center * 2} height={center * 2} viewBox={`0 0 ${center * 2} ${center * 2}`}
-            style={{ display: "block", margin: "auto" }}>
+            className="absolute"
+            style={{
+                left: pointerX - center || 0,
+                top: pointerY - center || 0,
+            }}
+            width={center * 2} height={center * 2} viewBox={`0 0 ${center * 2} ${center * 2}`}>
             {colors.map((color, i) => (
                 <path
                     key={color}

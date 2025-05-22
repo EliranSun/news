@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import { contrastColor, getColorsClassList } from "../utils";
-import { useMemo } from "react";
+import { useMemo, useContext } from "react";
 import classNames from "classnames";
 import { ColorHexMap, TailwindColorsMap } from "../constants";
 import { isSameDay } from "date-fns";
+import { PointerContext } from "../PointerContext";
 
 export const DaySquare = ({
     dayObj,
@@ -14,6 +15,7 @@ export const DaySquare = ({
     size = "small",
     isSelected
 }) => {
+    const { setPointerX, setPointerY } = useContext(PointerContext);
     const isToday = useMemo(() => {
         return isSameDay(dayObj.date, selectedDate);
     }, [dayObj.date, selectedDate]);
@@ -29,9 +31,21 @@ export const DaySquare = ({
 
     return (
         <div
-            onClick={() => onClick(dayObj.date)}
+            onClick={event => {
+                onClick(dayObj.date);
+            }}
+            onMouseDown={event => {
+                console.log("mouse down");
+                setPointerX(event.clientX);
+                setPointerY(event.clientY);
+            }}
+            onMouseUp={() => {
+                console.log("mouse up");
+                setPointerX(null);
+                setPointerY(null);
+            }}
             style={{ color: contrastColor({ bgColor: ColorHexMap[color] }) }}
-            onDoubleClick={() => onDoubleClick(dayObj.date)}
+            // onDoubleClick={() => onDoubleClick(dayObj.date)}
             className={classNames(colorClass, {
                 "text-[7px] flex justify-center items-center": true,
                 "size-4 rounded-[2px]": size === "small",

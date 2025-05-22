@@ -5,6 +5,7 @@ import { Navbar } from "./molecules/Navbar";
 import PhysicsDemo from "./organism/PhysicsDemo";
 import { FlexibleOpacityTransition } from "./atoms/FlexibleOpacityTransition";
 import { Body } from "./organism/Body";
+import { PointerProvider } from "./PointerContext";
 
 export default function SquareCalendars() {
     const calendarKey = useMemo(() => new URL(window.location.href).searchParams.get('calendar'), []);
@@ -47,7 +48,7 @@ export default function SquareCalendars() {
     const yearMap = useMemo(() => new Array(12).fill(0), []);
 
     return (
-        <>
+        <PointerProvider>
             <div className="p-2 overflow-y-auto w-screen h-dvh pb-40
              user-select-none font-mono bg-stone-50 dark:bg-stone-900">
                 <FlexibleOpacityTransition>
@@ -81,12 +82,12 @@ export default function SquareCalendars() {
             </div>
             <div id="day-popover-portal" className="" />
             {isPhysicsDemoOpen && <PhysicsDemo />}
-            <Navbar
+            {/* <Navbar
                 selectedItem={view}
                 onItemClick={setView}
                 onPhysicsClick={() => setIsPhysicsDemoOpen(!isPhysicsDemoOpen)}
-                onListClick={() => setView("list")} />
-            <div id="note-modal-portal" />
-        </>
+                onListClick={() => setView("list")} /> */}
+            {/* <div id="note-modal-portal" /> */}
+        </PointerProvider>
     );
 }   
