@@ -25,16 +25,19 @@ const NoteModal = ({ isOpen, onClose }) => {
 
     return (
         <div className="fixed top-0 inset-x-0 flex flex-col items-center justify-center
-         bg-stone-200 dark:bg-stone-800 rounded-md p-2 w-screen h-[97vh] z-50">
+         bg-stone-100 dark:bg-stone-800 rounded-md p-4 w-screen h-[97vh] z-50 space-y-4">
+            <div className="flex gap-2 w-full justify-between">
+                <button onClick={() => setNote("")}>Save</button>
+                <button onClick={() => {
+                    setNote("");
+                    onClose();
+                }}>Cancel</button>
+            </div>
             <textarea
-                className="w-full h-full"
+                className="w-full h-full bg-transparent border-none outline-none"
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
             />
-            <div className="flex gap-2 w-full justify-between">
-                <button onClick={() => setNote("")}>Save</button>
-                <button onClick={() => setNote("")}>Cancel</button>
-            </div>
         </div>
     )
 }
