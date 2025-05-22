@@ -20,7 +20,7 @@ const CalendarDay = ({ item }) => {
             className={classNames({
                 "flex gap-2 items-center": true,
                 "dark:bg-black dark:text-white bg-gray-50 dark:odd:bg-gray-900 odd:bg-gray-100": true,
-                "rounded px-1.5 py-0": true,
+                "rounded p-2": true,
                 "mb-1": day === "Sat",
             })} >
             <div className={classNames(getColorsClassList(item.color), {
