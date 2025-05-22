@@ -199,7 +199,10 @@ export const Body = ({
                             <Note size={32} />
                         </span>
                     )}
-                    <NoteModal isOpen={isNoteModalOpen} onClose={() => setIsNoteModalOpen(false)} />
+                    <NoteModal 
+                    isOpen={isNoteModalOpen} 
+                    // onSave={note => 
+                    onClose={() => setIsNoteModalOpen(false)} />
                     <CalendarDayView
                         data={data}
                         selectedDate={selectedDate} />
