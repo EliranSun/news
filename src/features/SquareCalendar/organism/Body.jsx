@@ -110,8 +110,8 @@ export const Body = ({
 
         case "year":
             return (
-                <div className="space-y-6">
-                    <div className="w-screen overflow-x-scroll flex flex-nowrap gap-2 px-2">
+                <div className="space-y-4 mx-2 w-full">
+                    <div className="w-screen overflow-x-scroll flex flex-nowrap gap-2">
                         <CalendarsStrip
                             data={data}
                             isVisible={view === "year"}
@@ -150,6 +150,9 @@ export const Body = ({
                         onColorSelect={(color) => {
                             updateData({ color, date: selectedDate, data, calendar });
                         }} />
+                    <CalendarDayView
+                        data={data}
+                        selectedDate={selectedDate} />
                 </div>
             );
 

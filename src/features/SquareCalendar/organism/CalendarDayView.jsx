@@ -68,7 +68,7 @@ export const CalendarDayView = ({ data }) => {
     return (
         <div
             id="calendar-day-view"
-            className="flex flex-col gap-1 h-[80vh] w-screen overflow-y-auto pb-20">
+            className="flex flex-col gap-1">
             {sortedData.map((item, idx) => {
                 const dateObj = new Date(item.date);
                 const month = dateObj.toLocaleString('default', { month: 'long', year: 'numeric' });
@@ -79,7 +79,7 @@ export const CalendarDayView = ({ data }) => {
                 return (
                     <React.Fragment key={item.date}>
                         {showMonth && (
-                            <div className="sticky top-0 z-10 bg-white py-2 font-bold text-lg">
+                            <div className="sticky top-0 z-10 py-2 font-bold text-lg">
                                 {month}
                             </div>
                         )}
