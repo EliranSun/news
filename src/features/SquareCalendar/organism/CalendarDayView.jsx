@@ -76,10 +76,11 @@ export const CalendarDayView = ({ data }) => {
                 const showMonth = lastMonth !== month;
                 lastMonth = month;
 
+                // sticky top-0 z-10 
                 return (
                     <React.Fragment key={item.date}>
                         {showMonth && (
-                            <div className="sticky top-0 z-10 py-2 font-bold text-lg">
+                            <div className="py-2 font-bold text-lg">
                                 {month}
                             </div>
                         )}

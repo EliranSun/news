@@ -110,8 +110,8 @@ export const Body = ({
 
         case "year":
             return (
-                <div className="space-y-4 mx-2 w-full">
-                    <div className="w-screen overflow-x-scroll flex flex-nowrap gap-2">
+                <div className="space-y-4 mx-2 w-[calc(100vw-1rem)]">
+                    <div className="overflow-x-scroll flex flex-nowrap gap-2">
                         <CalendarsStrip
                             data={data}
                             isVisible={view === "year"}
