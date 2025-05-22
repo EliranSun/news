@@ -5,7 +5,7 @@ import { PointerContext } from "../PointerContext";
 
 export const ColorWheel = ({ calendar, onColorSelect, initialColor, date = new Date() }) => {
     const [selectedColor, setSelectedColor] = React.useState(initialColor || null);
-    const { pointerX, pointerY } = useContext(PointerContext);
+    const { pointerX, pointerY, setPointerX, setPointerY } = useContext(PointerContext);
 
     useEffect(() => {
         setSelectedColor(initialColor || null);
@@ -38,7 +38,7 @@ export const ColorWheel = ({ calendar, onColorSelect, initialColor, date = new D
             className="absolute"
             style={{
                 left: pointerX - center || 0,
-                top: pointerY - center || 0,
+                top: pointerY - center / 2 + 25 || 0,
             }}
             width={center * 2} height={center * 2} viewBox={`0 0 ${center * 2} ${center * 2}`}>
             {colors.map((color, i) => (
@@ -56,13 +56,25 @@ export const ColorWheel = ({ calendar, onColorSelect, initialColor, date = new D
                     onClick={() => {
                         setSelectedColor(color);
                         onColorSelect && onColorSelect(color);
+
+                        setTimeout(() => {
+                            setPointerX(null);
+                            setPointerY(null);
+                        }, 2000);
                     }}
                 />
             ))}
+            {/* Arrow pointing up */}
+            <polygon
+                points={`
+                    ${center},${center - radius - 16}
+                    ${center - 16},${center - radius}
+                    ${center + 16},${center - radius}
+                `}
+                fill="#fff"
+            />
             {/* Donut hole */}
-            <circle cx={center} cy={center} r={radius - strokeWidth} fill="#fff">
-
-            </circle>
+            <circle cx={center} cy={center} r={radius - strokeWidth} fill="#fff" />
             <text x={center} y={center} textAnchor="middle" dominantBaseline="middle"
                 fontSize="12" fill="#000">
                 {date.toLocaleDateString("en-GB", { weekday: "short", day: "numeric" })}

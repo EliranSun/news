@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { contrastColor, getColorsClassList } from "../utils";
-import { useMemo, useContext } from "react";
+import { useMemo, useContext, useRef, useEffect } from "react";
 import classNames from "classnames";
 import { ColorHexMap, TailwindColorsMap } from "../constants";
 import { isSameDay } from "date-fns";
@@ -15,6 +15,7 @@ export const DaySquare = ({
     size = "small",
     isSelected
 }) => {
+    // const ref = useRef(null);
     const { setPointerX, setPointerY } = useContext(PointerContext);
     const isToday = useMemo(() => {
         return isSameDay(dayObj.date, selectedDate);
@@ -28,21 +29,34 @@ export const DaySquare = ({
         return color && getColorsClassList(color);
     }, [color]);
 
+    // useEffect(() => {
+    //     if (ref.current) {
+    //         ref.current.addEventListener("mousedown", event => {
+    //             event.preventDefault();
+    //             event.stopPropagation();
+
+    //             console.log("mousedown");
+
+    //         });
+
+    //         ref.current.addEventListener("mouseup", (event) => {
+    //             event.preventDefault();
+    //             event.stopPropagation();
+
+    //             setPointerX(null);
+    //             setPointerY(null);
+    //         });
+    //     }
+    // }, [ref, setPointerX, setPointerY]);
+
 
     return (
         <div
+            // ref={ref}
             onClick={event => {
-                onClick(dayObj.date);
-            }}
-            onMouseDown={event => {
-                console.log("mouse down");
                 setPointerX(event.clientX);
                 setPointerY(event.clientY);
-            }}
-            onMouseUp={() => {
-                console.log("mouse up");
-                setPointerX(null);
-                setPointerY(null);
+                onClick(dayObj.date);
             }}
             style={{ color: contrastColor({ bgColor: ColorHexMap[color] }) }}
             // onDoubleClick={() => onDoubleClick(dayObj.date)}
