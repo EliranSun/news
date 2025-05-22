@@ -5,18 +5,18 @@ import { CalendarGamification } from "./CalendarGamification";
 
 export const Header = ({ calendar, selectedDate, daysSinceLastEntry, data, children }) => {
     return (
-        <div className="flex gap-2 w-full justify-center items-center">
-            <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-2 w-full justify-center items-center">
+            <div className="flex gap-2 items-center">
                 <CalendarName
                     calendar={calendar}
                     date={selectedDate}
                     withDate={true}
                     daysSinceLastEntry={daysSinceLastEntry} />
+                {children}
             </div>
-            {/* <CalendarGamification
+            <CalendarGamification
                 calendar={calendar}
-                size="big" /> */}
-            {children}
+                size="big" />
         </div>
     )
 };

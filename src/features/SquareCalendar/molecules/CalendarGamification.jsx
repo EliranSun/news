@@ -10,11 +10,13 @@ export const CalendarGamification = ({ calendar, size }) => {
     const streak = useMemo(() => getStreakCount(calendar.key), [calendar.key]);
     const highscore = useMemo(() => getHighestStreakCount(calendar.key), [calendar.key]);
 
+    // if (!calendar.showGamification) return null;
+
     return (
         <div className="flex w-full bg-stone-700 py-1 h-10 rounded-md text-center gap-1 justify-center items-center">
             <DaysSinceBadge
                 calendar={calendar}
-                visible={calendar.showGamification}
+                visible={true}
                 transparent
                 hoursSince={daysSinceLastEntry}
                 size={size} />
