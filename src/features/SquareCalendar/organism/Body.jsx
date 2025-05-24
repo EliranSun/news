@@ -184,7 +184,8 @@ export const Body = ({
                         <button onClick={() => setSelectedDate(new Date(2023, 0, 1))}>2023</button>
                         <button onClick={() => setSelectedDate(new Date(2022, 0, 1))}>2022</button>
                     </div> */}
-                    <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2 my-6">
+                    <div className="flex flex-col md:flex-row gap-6">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2">
                         {yearMap.map((_, monthIndex) => {
                             return (
                                 <CalendarMonth
@@ -200,6 +201,10 @@ export const Body = ({
                         })}
                     </div>
                     <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
+                    <CalendarDayView
+                        data={data}
+                        selectedDate={selectedDate} />
+                        </div>
                     <ColorWheel
                         date={selectedDate}
                         calendar={calendar}
@@ -224,9 +229,7 @@ export const Body = ({
                         calendar={calendar}
                         updateData={updateData}
                         date={selectedDate} />
-                    <CalendarDayView
-                        data={data}
-                        selectedDate={selectedDate} />
+                    
                 </div>
             );
 
