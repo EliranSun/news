@@ -165,7 +165,7 @@ export const Body = ({
                         <button onClick={() => setSelectedDate(new Date(2023, 0, 1))}>2023</button>
                         <button onClick={() => setSelectedDate(new Date(2022, 0, 1))}>2022</button>
                     </div> */}
-                    <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2">
                         {yearMap.map((_, monthIndex) => {
                             return (
                                 <CalendarMonth
