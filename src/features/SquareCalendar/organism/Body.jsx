@@ -38,14 +38,14 @@ const NoteModal = ({ isOpen, onClose, calendar, date, updateData }) => {
              border border-stone-300 dark:border-stone-700 max-h-dvh z-50 space-y-4"
                 onClick={e => e.stopPropagation()}>
                 <div className="flex gap-2 w-full justify-between">
+                    <button onClick={onClose}>
+                        Close
+                    </button>
                     <button onClick={() => {
                         updateData({ note, date, data, calendar });
                         setIsSaved(true);
                     }}>
                         {isSaved ? "Saved!" : "Save"}
-                    </button>
-                    <button onClick={onClose}>
-                        Close
                     </button>
                 </div>
                 <h1 className="text-base font-bold inter-500 w-full my-8 text-center">
