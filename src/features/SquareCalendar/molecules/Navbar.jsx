@@ -83,7 +83,7 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
     return (
         <>
             <div className="fixed z-40 h-24 bg-stone-100 dark:bg-stone-900
-         bottom-0 w-screen grid grid-cols-6 items-start justify-center">
+         bottom-0 w-screen grid grid-cols-3 items-start justify-center">
                 {/* <NavbarButton
                     isSelected={selectedItem === "hour"}
                     label="hour"
@@ -96,6 +96,7 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                     icon={ListBullets}
                     onClick={onListClick}
                 />
+                {/*
                 <NavbarButton
                     isSelected={selectedItem === "week"}
                     label="week"
@@ -104,21 +105,21 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                 />
                 <NavbarButton
                     isSelected={selectedItem === "feed"}
-                    label="feed"
+                        label="feed"
                     icon={Rows}
                     onClick={() => { onItemClick("feed") }}
-                />
+                />*/}
                 <NavbarButton
                     isSelected={selectedItem === "year"}
                     label="year" icon={CalendarDots}
                     onClick={() => { onItemClick("year") }}
-                />
+                />{/*
                 <NavbarButton
                     isSelected={selectedItem === "day"}
                     label="day"
                     icon={TextAa}
                     onClick={() => { onItemClick("day") }}
-                />
+                />*/}
                 <NavbarButton
                     label="list"
                     icon={List}
