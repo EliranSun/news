@@ -4,7 +4,7 @@ import { TextualDayView } from "./TextualDayView";
 import { CalendarMonth } from "./CalendarMonth";
 import { isSameDay } from "date-fns";
 import PropTypes from "prop-types";
-import { useCallback, useMemo, useState, useContext } from "react";
+import { useCallback, useMemo, useState, useContext, useEffect } from "react";
 import { HourView } from "../../HourlyTracker/HourView";
 import { WeeklyListView } from "./WeeklyListView";
 import { FeedView } from "./FeedView";
@@ -15,29 +15,48 @@ import { CalendarsStrip } from "../molecules/CalendarsStrip";
 import { ColorWheel } from "../molecules/ColorWheel";
 import { Info, Note } from "@phosphor-icons/react"
 import { PointerContext } from "../PointerContext";
+import { loadFromStorage } from "../utils";
 
 const InfoStates = ["none", "days", "notes"];
 
-const NoteModal = ({ isOpen, onClose }) => {
-    const [note, setNote] = useState("");
+const NoteModal = ({ isOpen, onClose, calendar, date, updateData }) => {
+    const [isSaved, setIsSaved] = useState(false);
+    const data = useMemo(() => loadFromStorage(calendar.key), [calendar.key]);
+    const [note, setNote] = useState(data.find(item => isSameDay(item.date, date))?.note || "");
+
+    useEffect(() => {
+        setIsSaved(false);
+        setNote(data.find(item => isSameDay(item.date, date))?.note || "");
+    }, [data, date]);
 
     if (!isOpen) return null;
 
     return (
-        <div className="fixed top-0 inset-x-0 flex flex-col items-center justify-center
-         bg-stone-100 dark:bg-stone-800 rounded-md p-4 w-screen h-[97vh] z-50 space-y-4">
-            <div className="flex gap-2 w-full justify-between">
-                <button onClick={() => setNote("")}>Save</button>
-                <button onClick={() => {
-                    setNote("");
-                    onClose();
-                }}>Cancel</button>
+        <div className="fixed inset-0 w-screen h-screen backdrop-brightness-50 z-50 p-10" onClick={onClose}>
+            <div className="flex flex-col items-center justify-center
+             bg-stone-100 dark:bg-stone-800 rounded-md h-full p-4
+             border border-stone-300 dark:border-stone-700 max-h-dvh z-50 space-y-4"
+                onClick={e => e.stopPropagation()}>
+                <div className="flex gap-2 w-full justify-between">
+                    <button onClick={() => {
+                        updateData({ note, date, data, calendar });
+                        setIsSaved(true);
+                    }}>
+                        {isSaved ? "Saved!" : "Save"}
+                    </button>
+                    <button onClick={onClose}>
+                        Close
+                    </button>
+                </div>
+                <h1 className="text-base font-bold inter-500 w-full my-8 text-center">
+                    {date.toLocaleDateString("en-GB", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+                </h1>
+                <textarea
+                    className="w-full h-full bg-transparent border border-stone-300 dark:border-stone-700 rounded-md p-2 inter-500"
+                    value={note}
+                    onChange={(e) => setNote(e.target.value)}
+                />
             </div>
-            <textarea
-                className="w-full h-full bg-transparent border-none outline-none"
-                value={note}
-                onChange={(e) => setNote(e.target.value)}
-            />
         </div>
     )
 }
@@ -76,7 +95,7 @@ export const Body = ({
             if (existingEntry) {
                 newData = calendarData.map(item =>
                     isSameDay(item.date, formattedDate)
-                        ? { ...item, color, note }
+                        ? { ...item, color: color || item.color, note: note || item.note }
                         : item
                 );
             } else {
@@ -141,8 +160,8 @@ export const Body = ({
 
         case "year":
             return (
-                <div className="space-y-6 mx-2 w-[calc(100vw-1rem)]">
-                    <div className="overflow-x-scroll flex flex-nowrap gap-2">
+                <div className="mx-2 w-[calc(100vw-1rem)]">
+                    <div className="overflow-x-scroll flex flex-nowrap gap-2 mb-6">
                         <CalendarsStrip
                             data={data}
                             isVisible={view === "year"}
@@ -165,7 +184,7 @@ export const Body = ({
                         <button onClick={() => setSelectedDate(new Date(2023, 0, 1))}>2023</button>
                         <button onClick={() => setSelectedDate(new Date(2022, 0, 1))}>2022</button>
                     </div> */}
-                    <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2 my-6">
                         {yearMap.map((_, monthIndex) => {
                             return (
                                 <CalendarMonth
@@ -191,18 +210,20 @@ export const Body = ({
                         <span
                             onClick={() => setIsNoteModalOpen(true)}
                             style={{
-                                left: pointerX - 100 || 0,
-                                top: pointerY + 100 || 0,
+                                left: pointerX - 128 / 2 || 0,
+                                top: pointerY + 150 || 0,
                             }}
                             className="absolute shadow-lg border border-stone-300 dark:border-stone-700
-                             bg-stone-200 dark:bg-stone-800 rounded-md p-2 z-10">
+                             bg-stone-200 dark:bg-stone-800 rounded-md w-32 flex items-center justify-center p-2 z-10">
                             <Note size={32} />
                         </span>
                     )}
-                    <NoteModal 
-                    isOpen={isNoteModalOpen} 
-                    // onSave={note => 
-                    onClose={() => setIsNoteModalOpen(false)} />
+                    <NoteModal
+                        isOpen={isNoteModalOpen}
+                        onClose={() => setIsNoteModalOpen(false)}
+                        calendar={calendar}
+                        updateData={updateData}
+                        date={selectedDate} />
                     <CalendarDayView
                         data={data}
                         selectedDate={selectedDate} />
