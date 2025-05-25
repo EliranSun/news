@@ -33,7 +33,7 @@ export const CalendarsStrip = ({ onCalendarClick, isVisible }) => {
                                 }}
                                 calendar={item}
                                 isSelected={selectedCalendar.key === item.key}>
-                                {item.icon} {item.name}
+                                {item.icon} {item.name.slice(0, 7)}
                             </CalendarButton>
                         </div>
                     </div>
