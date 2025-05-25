@@ -160,7 +160,7 @@ export const Body = ({
 
         case "year":
             return (
-                <div className="mx-2 w-[calc(100vw-1rem)] max-w-screen-xl mx-auto">
+                <div className="mx-2 w-[calc(100vw-1rem)] max-w-screen-xl mx-auto px-8">
                     <div className="my-4">
                         <Header
                             calendar={calendar}
@@ -206,7 +206,7 @@ export const Body = ({
                             </div>
                             <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
                         </div>
-                        <div className="w-full md:w-1/3 md:h-[calc(100vh-76px-97px-96px-8px-8px)] md:overflow-y-scroll">
+                        <div className="w-full md:w-1/3 md:h-[calc(100vh-80px)] pb-10 md:overflow-y-scroll">
                             <CalendarDayView
                                 data={data}
                                 selectedDate={selectedDate} />

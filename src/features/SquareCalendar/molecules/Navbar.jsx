@@ -82,47 +82,12 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
 
     return (
         <>
-            <div className="fixed z-40 h-24 bg-stone-100 dark:bg-stone-900
-         bottom-0 w-screen grid grid-cols-3 items-start justify-center">
-                {/* <NavbarButton
-                    isSelected={selectedItem === "hour"}
-                    label="hour"
-                    icon={Timer}
-                    onClick={() => { onItemClick("hour") }}
-                /> */}
-                <NavbarButton
-                    isSelected={selectedItem === "list"}
-                    label="list"
-                    icon={ListBullets}
-                    onClick={onListClick}
-                />
-                {/*
-                <NavbarButton
-                    isSelected={selectedItem === "week"}
-                    label="week"
-                    icon={NumberSquareSeven}
-                    onClick={() => { onItemClick("week") }}
-                />
-                <NavbarButton
-                    isSelected={selectedItem === "feed"}
-                        label="feed"
-                    icon={Rows}
-                    onClick={() => { onItemClick("feed") }}
-                />*/}
-                <NavbarButton
-                    isSelected={selectedItem === "year"}
-                    label="year" icon={CalendarDots}
-                    onClick={() => { onItemClick("year") }}
-                />{/*
-                <NavbarButton
-                    isSelected={selectedItem === "day"}
-                    label="day"
-                    icon={TextAa}
-                    onClick={() => { onItemClick("day") }}
-                />*/}
+            <div className="fixed z-40 size-24 dark:bg-stone-100 bg-stone-900 text-white
+         top-10 right-10 rounded-full flex justify-center items-center">
                 <NavbarButton
                     label="list"
                     icon={List}
+
                     onClick={() => { setIsMenuOpen(true) }} />
             </div>
             <OpacityTransition isOpen={isMenuOpen}>
@@ -130,6 +95,24 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
                     <div className="flex flex-col items-center justify-center h-fit
                     text-lg gap-0 p-4 rounded-lg
                     w-10/12 m-auto bg-white dark:bg-black">
+                        <NavbarMenuItem
+                            icon={<CalendarDots size={24} />}
+                            isSelected={selectedItem === "year"}
+                            label="Year view"
+                            onClick={() => {
+                                onItemClick("year");
+                                setIsMenuOpen(false);
+                            }}
+                        />
+                        <NavbarMenuItem
+                            icon={<ListBullets size={24} />}
+                            isSelected={selectedItem === "list"}
+                            label="List view"
+                            onClick={() => {
+                                onItemClick("list");
+                                setIsMenuOpen(false);
+                            }}
+                        />
                         <NavbarMenuItem
                             icon={<Timer size={24} />}
                             isSelected={selectedItem === "hour"}
