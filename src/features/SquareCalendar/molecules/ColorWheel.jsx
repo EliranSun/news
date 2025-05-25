@@ -44,11 +44,11 @@ export const ColorWheel = ({ calendar, onColorSelect, initialColor, date = new D
 
     return (
         <svg
-            className="absolute"
-            style={{
-                left: pointerX - center || 0,
-                top: pointerY - center / 2 + 45 || 0,
-            }}
+            className="fixed z-50 bottom-32 inset-x-0 mx-auto"
+            // style={{
+            //     left: pointerX - center || 0,
+            //     top: pointerY - center / 2 + 45 || 0,
+            // }}
             width={center * 2} height={center * 2} viewBox={`0 0 ${center * 2} ${center * 2}`}>
             {colors.map((color, i) => (
                 <g key={color}>

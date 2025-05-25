@@ -83,6 +83,7 @@ export const CalendarMonth = ({
                     ? "w-full"
                     : "z-10 w-full flex justify-center items-center"}>
                     <div className={classNames({
+                        // "border-8 border-stone-900": true,
                         "grid grid-cols-7 h-fit w-fit relative": true,
                         "p-1 gap-0.5": size === "small",
                         "p-1 gap-1 mx-auto": size !== "small",

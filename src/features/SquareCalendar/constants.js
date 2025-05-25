@@ -55,7 +55,124 @@ export const Categories = {
 };
 
 export const Calendars = {
-    // Self - Using vibrant, energetic colors for personal development
+    Sleep: {
+        showColorStatus: false,
+        name: "REM",
+        key: "rem-sleep-square-calendar",
+        colors: [
+            Colors.Lightblue,
+            Colors.Skyblue,
+            Colors.Blue,
+            Colors.Navy,
+            Colors.Violet,
+            Colors.Purple
+        ],
+        icon: "💤",
+        showGamification: false,
+        category: Categories.Self,
+        legend: [
+            { name: "0", label: "horrible", color: Colors.Lightblue },
+            { name: "30", label: "bad", color: Colors.Skyblue },
+            { name: "100", label: "ok", color: Colors.Blue },
+            { name: "130", label: "good", color: Colors.Navy },
+            { name: "200", label: "great", color: Colors.Violet },
+            { name: "230+", label: "fantastic", color: Colors.Purple },
+        ],
+    },
+    SleepDeep: {
+        showColorStatus: false,
+        name: "DEEP",
+        key: "deep-sleep-square-calendar",
+        colors: [
+            Colors.Lightblue,
+            Colors.Skyblue,
+            Colors.Blue,
+            Colors.Navy,
+            Colors.Violet,
+            Colors.Purple
+        ],
+        icon: "💤",
+        showGamification: false,
+        category: Categories.Self,
+        legend: [
+            { name: "0", label: "horrible", color: Colors.Lightblue },
+            { name: "15", label: "bad", color: Colors.Skyblue },
+            { name: "30", label: "ok", color: Colors.Blue },
+            { name: "45", label: "good", color: Colors.Navy },
+            { name: "100", label: "great", color: Colors.Violet },
+            { name: "115+", label: "fantastic", color: Colors.Purple },
+        ],
+    },
+    Weight: {
+        showColorStatus: false,
+        showGamification: false,
+        name: "weight",
+        key: "weight-square-calendar",
+        colors: [
+            Colors.Blue,
+            Colors.Green,
+            Colors.Yellow,
+            Colors.Orange,
+            Colors.Red,
+        ],
+        icon: "⏲️",
+        category: Categories.Self,
+        legend: [
+            { name: "70-71", color: Colors.Blue },
+            { name: "72-73", color: Colors.Green },
+            { name: "74-75", color: Colors.Yellow },
+            { name: "76-77", color: Colors.Orange },
+            { name: "78-79", color: Colors.Red },
+        ],
+    },
+    Physio: {
+        showColorStatus: true,
+        showGamification: true,
+        name: "physio",
+        key: "physiotherapy-square-calendar",
+        colors: [
+            Colors.Green,
+            Colors.Sage,
+            Colors.Forestgreen,
+            Colors.Black
+        ],
+        legend: [
+            { name: "DH", color: Colors.Green },
+            { name: "knee", color: Colors.Sage },
+            { name: "both", color: Colors.Forestgreen },
+        ],
+        icon: "🦶",
+        category: Categories.Self,
+    },
+    Workout: {
+        showColorStatus: true,
+        showGamification: false,
+        name: "workout",
+        key: "workout-square-calendar",
+        colors: [
+            Colors.Red,
+            Colors.Black
+        ],
+        icon: "🏋",
+        category: Categories.Self,
+    },
+    Loneliness: {
+        name: "loneliness",
+        key: "loneliness-square-tracker",
+        colors: [
+            Colors.Forestgreen,
+            Colors.Green,
+            Colors.Turquoise,
+        ],
+        legend: [
+            { name: "BEL", color: Colors.Forestgreen },
+            { name: "NEU", color: Colors.Green },
+            { name: "LON", color: Colors.Turquoise },
+        ],
+        icon: "😶‍🌫️",
+        category: Categories.Self,
+        showGamification: false,
+    },
     Mood: {
         name: "mood",
         key: "mood-square-tracker",
@@ -74,23 +191,6 @@ export const Calendars = {
             { name: "Awful", color: Colors.Violet },
         ],
         icon: "🌀",
-        category: Categories.Self,
-        showGamification: false,
-    },
-    Loneliness: {
-        name: "loneliness",
-        key: "loneliness-square-tracker",
-        colors: [
-            Colors.Forestgreen,
-            Colors.Green,
-            Colors.Turquoise,
-        ],
-        legend: [
-            { name: "BEL", color: Colors.Forestgreen },
-            { name: "NEU", color: Colors.Green },
-            { name: "LON", color: Colors.Turquoise },
-        ],
-        icon: "😶‍🌫️",
         category: Categories.Self,
         showGamification: false,
     },
@@ -268,107 +368,6 @@ export const Calendars = {
         icon: "❤️",
         category: Categories.Wife,
         showGamification: false,
-    },
-    Weight: {
-        showColorStatus: false,
-        showGamification: false,
-        name: "weight",
-        key: "weight-square-calendar",
-        colors: [
-            Colors.Blue,
-            Colors.Green,
-            Colors.Yellow,
-            Colors.Orange,
-            Colors.Red,
-        ],
-        icon: "⏲️",
-        category: Categories.Self,
-        legend: [
-            { name: "70-71", color: Colors.Blue },
-            { name: "72-73", color: Colors.Green },
-            { name: "74-75", color: Colors.Yellow },
-            { name: "76-77", color: Colors.Orange },
-            { name: "78-79", color: Colors.Red },
-        ],
-    },
-    Physio: {
-        showColorStatus: true,
-        showGamification: true,
-        name: "physio",
-        key: "physiotherapy-square-calendar",
-        colors: [
-            Colors.Green,
-            Colors.Sage,
-            Colors.Forestgreen,
-            Colors.Black
-        ],
-        legend: [
-            { name: "DH", color: Colors.Green },
-            { name: "knee", color: Colors.Sage },
-            { name: "both", color: Colors.Forestgreen },
-        ],
-        icon: "🦶",
-        category: Categories.Self,
-    },
-    Workout: {
-        showColorStatus: true,
-        showGamification: false,
-        name: "workout",
-        key: "workout-square-calendar",
-        colors: [
-            Colors.Red,
-            Colors.Black
-        ],
-        icon: "🏋",
-        category: Categories.Self,
-    },
-    Sleep: {
-        showColorStatus: false,
-        name: "REM",
-        key: "rem-sleep-square-calendar",
-        colors: [
-            Colors.Lightblue,
-            Colors.Skyblue,
-            Colors.Blue,
-            Colors.Navy,
-            Colors.Violet,
-            Colors.Purple
-        ],
-        icon: "💤",
-        showGamification: false,
-        category: Categories.Self,
-        legend: [
-            { name: "0", label: "horrible", color: Colors.Lightblue },
-            { name: "30", label: "bad", color: Colors.Skyblue },
-            { name: "100", label: "ok", color: Colors.Blue },
-            { name: "130", label: "good", color: Colors.Navy },
-            { name: "200", label: "great", color: Colors.Violet },
-            { name: "230+", label: "fantastic", color: Colors.Purple },
-        ],
-    },
-    SleepDeep: {
-        showColorStatus: false,
-        name: "DEEP",
-        key: "deep-sleep-square-calendar",
-        colors: [
-            Colors.Lightblue,
-            Colors.Skyblue,
-            Colors.Blue,
-            Colors.Navy,
-            Colors.Violet,
-            Colors.Purple
-        ],
-        icon: "💤",
-        showGamification: false,
-        category: Categories.Self,
-        legend: [
-            { name: "0", label: "horrible", color: Colors.Lightblue },
-            { name: "15", label: "bad", color: Colors.Skyblue },
-            { name: "30", label: "ok", color: Colors.Blue },
-            { name: "45", label: "good", color: Colors.Navy },
-            { name: "100", label: "great", color: Colors.Violet },
-            { name: "115+", label: "fantastic", color: Colors.Purple },
-        ],
     },
     /* Protein: {
         showColorStatus: false,

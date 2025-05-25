@@ -13,24 +13,19 @@ export const CalendarsStrip = ({ onCalendarClick, isVisible }) => {
     if (!isVisible) return null;
 
     return (
-        <div className="flex flex-col gap-1 w-full">
-            <div className="text-base font-bold flex flex-nowrap overflow-x-auto gap-2">
-                {categories.map(category => {
-                    return (
-                        <CalendarButton
-                            key={category}
-                            id={category}
-                            isSelected={selectedCalendar.category === category}
-                            onClick={() => setSelectedCalendar(strip.find(item => item.category === category))}>
-                            <span>{category}</span>
-                        </CalendarButton>
-                    )
-                })}
-            </div>
-            <div className="text-base font-bold flex flex-nowrap overflow-x-auto gap-2">
-                {strip.filter(item => item.category === selectedCalendar.category).map(item => {
-                    return (
-                        <div key={item.key} id={item.key}>
+        <div className="text-base font-bold flex flex-col 
+        md:h-[calc(100vh-76px-97px-96px-8px-8px)] overflow-y-scroll
+        flex-nowrap overflow-x-auto gap-2 ">
+            {strip.map((item, index) => {
+                const showCategory = index === 0 || strip[index - 1].category !== item.category;
+                return (
+                    <div key={item.key}>
+                        {showCategory && (
+                            <div className="text-sm text-stone-600 dark:text-stone-400 font-semibold mb-1 mt-2">
+                                {item.category}
+                            </div>
+                        )}
+                        <div id={item.key}>
                             <CalendarButton
                                 onClick={() => {
                                     onCalendarClick(item);
@@ -38,26 +33,12 @@ export const CalendarsStrip = ({ onCalendarClick, isVisible }) => {
                                 }}
                                 calendar={item}
                                 isSelected={selectedCalendar.key === item.key}>
-                                {item.icon}
+                                {item.icon} {item.name}
                             </CalendarButton>
                         </div>
-                    )
-                })}
-            </div>
-            {/* <div className="text-base font-bold flex flex-nowrap overflow-x-auto gap-2">
-                {strip.slice(Math.round(strip.length / 2), strip.length).map(item => {
-                    return (
-                        <div key={item.key} className="h-fit" id={item.key}>
-                            <CalendarButton
-                                onClick={() => onCalendarClick(item)}
-                                calendar={item}
-                                isSelected={selectedCalendar.key === item.key}>
-                                {item.icon}
-                            </CalendarButton>
-                        </div>
-                    )
-                })}
-            </div> */}
+                    </div>
+                )
+            })}
         </div>
     );
 };

@@ -160,23 +160,18 @@ export const Body = ({
 
         case "year":
             return (
-                <div className="mx-2 w-[calc(100vw-1rem)]">
-                    <div className="overflow-x-scroll flex flex-nowrap gap-2 mb-6">
-                        <CalendarsStrip
-                            data={data}
-                            isVisible={view === "year"}
-                            selectedCalendar={calendar}
-                            onCalendarClick={onCalendarClick} />
+                <div className="mx-2 w-[calc(100vw-1rem)] max-w-screen-xl mx-auto">
+                    <div className="my-4">
+                        <Header
+                            calendar={calendar}
+                            selectedDate={selectedDate}
+                            daysSinceLastEntry={daysSinceLastEntry}
+                            data={data}>
+                            <Info size={16} weight="bold" onClick={() =>
+                                setInfoStateIndex((index) => (index + 1) % InfoStates.length)
+                            } />
+                        </Header>
                     </div>
-                    <Header
-                        calendar={calendar}
-                        selectedDate={selectedDate}
-                        daysSinceLastEntry={daysSinceLastEntry}
-                        data={data}>
-                        <Info size={16} weight="bold" onClick={() =>
-                            setInfoStateIndex((index) => (index + 1) % InfoStates.length)
-                        } />
-                    </Header>
 
                     {/* <div className="flex gap-2">
                         <button onClick={() => setSelectedDate(new Date(2025, 0, 1))}>2025</button>
@@ -184,56 +179,64 @@ export const Body = ({
                         <button onClick={() => setSelectedDate(new Date(2023, 0, 1))}>2023</button>
                         <button onClick={() => setSelectedDate(new Date(2022, 0, 1))}>2022</button>
                     </div> */}
-                    <div className="flex flex-col sm:flex-row gap-6">
-                        <div className="w-full md:w-2/3">
-                    <div className="grid grid-cols-3 md:grid-cols-4 gap-2">
-                        {yearMap.map((_, monthIndex) => {
-                            return (
-                                <CalendarMonth
-                                    key={monthIndex}
-                                    isYearView={true}
-                                    selectedDate={selectedDate}
-                                    setSelectedDate={setSelectedDate}
-                                    calendar={calendar}
-                                    infoState={InfoStates[infoStateIndex]}
-                                    data={data}
-                                    monthIndex={monthIndex} />
-                            )
-                        })}
-                    </div>
-                    <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
-                    </div>
-                    <div className="w-full md:w-1/3 md:h-[50vh] md:overflow-y-scroll">
-                    <CalendarDayView
-                        data={data}
-                        selectedDate={selectedDate} />
+
+                    <div className="flex flex-col sm:flex-row gap-4 justify-between">
+                        <div className="overflow-x-scroll flex flex-nowrap gap-2 w-1/10">
+                            <CalendarsStrip
+                                data={data}
+                                isVisible={view === "year"}
+                                selectedCalendar={calendar}
+                                onCalendarClick={onCalendarClick} />
                         </div>
+                        <div className="max-w-full md:max-w-2/3">
+                            <div className="grid grid-cols-3 md:grid-cols-4 gap-2">
+                                {yearMap.map((_, monthIndex) => {
+                                    return (
+                                        <CalendarMonth
+                                            key={monthIndex}
+                                            isYearView={true}
+                                            selectedDate={selectedDate}
+                                            setSelectedDate={setSelectedDate}
+                                            calendar={calendar}
+                                            infoState={InfoStates[infoStateIndex]}
+                                            data={data}
+                                            monthIndex={monthIndex} />
+                                    )
+                                })}
+                            </div>
+                            <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
                         </div>
+                        <div className="w-full md:w-1/3 md:h-[calc(100vh-76px-97px-96px-8px-8px)] md:overflow-y-scroll">
+                            <CalendarDayView
+                                data={data}
+                                selectedDate={selectedDate} />
+                        </div>
+                    </div>
                     <ColorWheel
                         date={selectedDate}
                         calendar={calendar}
                         onColorSelect={(color) => {
                             updateData({ color, date: selectedDate, data, calendar });
                         }} />
-                    {pointerX && pointerY && (
+                    {pointerX && pointerY ? (
                         <span
                             onClick={() => setIsNoteModalOpen(true)}
-                            style={{
-                                left: pointerX - 128 / 2 || 0,
-                                top: pointerY + 150 || 0,
-                            }}
-                            className="absolute shadow-lg border border-stone-300 dark:border-stone-700
+                            // style={{
+                            //     left: pointerX - 128 / 2 || 0,
+                            //     top: pointerY + 150 || 0,
+                            // }}
+                            className="fixed z-50 bottom-20 inset-x-0 mx-auto shadow-lg border border-stone-300 dark:border-stone-700
                              bg-stone-200 dark:bg-stone-800 rounded-md w-32 flex items-center justify-center p-2 z-10">
                             <Note size={32} />
                         </span>
-                    )}
+                    ) : null}
                     <NoteModal
                         isOpen={isNoteModalOpen}
                         onClose={() => setIsNoteModalOpen(false)}
                         calendar={calendar}
                         updateData={updateData}
                         date={selectedDate} />
-                    
+
                 </div>
             );
 
