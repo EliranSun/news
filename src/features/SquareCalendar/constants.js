@@ -65,7 +65,8 @@ export const Calendars = {
             Colors.Blue,
             Colors.Navy,
             Colors.Violet,
-            Colors.Purple
+            Colors.Purple,
+            Colors.Black,
         ],
         icon: "💤",
         showGamification: false,
@@ -89,7 +90,8 @@ export const Calendars = {
             Colors.Blue,
             Colors.Navy,
             Colors.Violet,
-            Colors.Purple
+            Colors.Purple,
+                        Colors.Black,
         ],
         icon: "💤",
         showGamification: false,
