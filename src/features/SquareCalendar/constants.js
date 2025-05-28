@@ -165,11 +165,13 @@ export const Calendars = {
             Colors.Forestgreen,
             Colors.Green,
             Colors.Turquoise,
+            Colors.Skyblue
         ],
         legend: [
-            { name: "BEL", color: Colors.Forestgreen },
-            { name: "NEU", color: Colors.Green },
-            { name: "LON", color: Colors.Turquoise },
+            { name: "Belong", color: Colors.Forestgreen },
+            { name: "Neutral", color: Colors.Green },
+            { name: "Lonely", color: Colors.Turquoise },
+                        { name: "Giving", color: Colors.Skyblue },
         ],
         icon: "😶‍🌫️",
         category: Categories.Self,
