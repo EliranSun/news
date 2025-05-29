@@ -218,7 +218,7 @@ export const Body = ({
                                 <h2 className="text-lg my-4">
                                     {selectedDate.toLocaleDateString("en-GB", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
                                 </h2>
-                                <div className="flex flex-wrap gap-2">
+                                <div className="flex w-full flex-wrap gap-2">
                                     {calendar.colors.map((color, index) => {
                                         const legendEntry = calendar.legend?.find(l => l.color === color);
                                         const label = legendEntry?.name || legendEntry?.label || color;
