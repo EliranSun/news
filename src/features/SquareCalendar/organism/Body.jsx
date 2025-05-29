@@ -233,7 +233,7 @@ export const Body = ({
                                                 }}
                                                 className={classNames(`p-4 h-12 w-20 flex items-center 
                                                 justify-center rounded-md ${TailwindColorsMap[color]}`, {
-                                                    "border-2 border-stone-700 shadow-md": selectedColor === color
+                                                    "border-4 border-stone-800 shadow-md": selectedColor === color
                                                 })}>
                                                 {label}
                                             </button>
