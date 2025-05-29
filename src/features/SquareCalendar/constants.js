@@ -177,6 +177,27 @@ export const Calendars = {
         category: Categories.Self,
         showGamification: false,
     },
+    Dopamine: {
+        name: "dopamine",
+        key: "dopamine-square-tracker",
+        colors: [
+            Colors.Yellow,
+            Colors.Orange,
+            Colors.Crimson,
+            Colors.Blue,
+            Colors.Violet
+        ],
+        legend: [
+            { name: "Very high", color: Colors.Yellow },
+            { name: "High", color: Colors.Orange },
+            { name: "Average", color: Colors.Crimson },
+            { name: "Low", color: Colors.Blue },
+            { name: "Very loe", color: Colors.Violet },
+        ],
+        icon: "🍭",
+        category: Categories.Self,
+        showGamification: false,
+    },
     Mood: {
         name: "mood",
         key: "mood-square-tracker",
