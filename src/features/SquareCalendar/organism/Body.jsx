@@ -15,7 +15,9 @@ import { CalendarsStrip } from "../molecules/CalendarsStrip";
 import { ColorWheel } from "../molecules/ColorWheel";
 import { Info, Note } from "@phosphor-icons/react"
 import { PointerContext } from "../PointerContext";
-import { loadFromStorage } from "../utils";
+import { loadFromStorage, contrastColor } from "../utils";
+import { ColorHexMap, TailwindColorsMap } from "../constants";
+import classNames from "classnames";
 
 const InfoStates = ["none", "days", "notes"];
 
@@ -78,13 +80,19 @@ export const Body = ({
     onNoteViewClick
 }) => {
     const [infoStateIndex, setInfoStateIndex] = useState(0);
-    const { pointerX, pointerY } = useContext(PointerContext);
     const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+
     const daysSinceLastEntry = useMemo(() => {
         return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
     }, [data]);
 
-    const updateData = useCallback(({ color, note, date, data: calendarData, calendar: localCalendar }) => {
+    const hasNote = useMemo(() => {
+        return data.find(item => isSameDay(item.date, selectedDate))?.note;
+    }, [data, selectedDate]);
+
+    const updateData = useCallback(({ color, note, date, calendar: localCalendar }) => {
+        const calendarData = loadFromStorage(localCalendar.key);
+
         let newData;
         const formattedDate = date;
 
@@ -205,6 +213,40 @@ export const Body = ({
                                 })}
                             </div>
                             <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
+
+                            <div className="">
+                                <h2 className="text-lg my-4">
+                                    {selectedDate.toLocaleDateString("en-GB", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+                                </h2>
+                                <div className="flex flex-wrap gap-2">
+                                    {calendar.colors.map((color, index) => {
+                                        const legendEntry = calendar.legend?.find(l => l.color === color);
+                                        const label = legendEntry?.name || legendEntry?.label || color;
+                                        const selectedColor = data.find(item => isSameDay(item.date, selectedDate))?.color || color;
+
+                                        return (
+                                            <button
+                                                key={index}
+                                                style={{ color: contrastColor({ bgColor: ColorHexMap[color] }) }}
+                                                onClick={() => {
+                                                    updateData({ color, date: selectedDate, data, calendar });
+                                                }}
+                                                className={classNames(`p-4 h-12 w-20 flex items-center 
+                                                justify-center rounded-md ${TailwindColorsMap[color]}`, {
+                                                    "border-2 border-stone-700 shadow-md": selectedColor === color
+                                                })}>
+                                                {label}
+                                            </button>
+                                        )
+                                    })}
+                                    <span
+                                        onClick={() => setIsNoteModalOpen(true)}
+                                        className="border-stone-300 dark:border-stone-700
+                                 bg-stone-200 dark:bg-stone-800 rounded-full size-12 flex items-center justify-center p-2">
+                                        <Note size={24} weight={hasNote ? "fill" : "regular"} />
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div className="w-full md:w-1/3 md:h-[calc(100vh-80px)] pb-10 md:overflow-y-scroll">
                             <CalendarDayView
@@ -212,24 +254,12 @@ export const Body = ({
                                 selectedDate={selectedDate} />
                         </div>
                     </div>
-                    <ColorWheel
+                    {/* <ColorWheel
                         date={selectedDate}
                         calendar={calendar}
                         onColorSelect={(color) => {
                             updateData({ color, date: selectedDate, data, calendar });
-                        }} />
-                    {pointerX && pointerY ? (
-                        <span
-                            onClick={() => setIsNoteModalOpen(true)}
-                            // style={{
-                            //     left: pointerX - 128 / 2 || 0,
-                            //     top: pointerY + 150 || 0,
-                            // }}
-                            className="fixed z-50 bottom-20 inset-x-0 mx-auto shadow-lg border border-stone-300 dark:border-stone-700
-                             bg-stone-200 dark:bg-stone-800 rounded-md w-32 flex items-center justify-center p-2 z-10">
-                            <Note size={32} />
-                        </span>
-                    ) : null}
+                        }} /> */}
                     <NoteModal
                         isOpen={isNoteModalOpen}
                         onClose={() => setIsNoteModalOpen(false)}
