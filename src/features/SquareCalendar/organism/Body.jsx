@@ -168,7 +168,7 @@ export const Body = ({
 
         case "year":
             return (
-                <div className="mx-2 w-[calc(100vw-1rem)] max-w-screen-xl mx-auto px-8">
+                <div className="sm:mx-2 sm:w-[calc(100vw-1rem)] max-w-screen-xl mx-auto sm:px-8">
                     <div className="my-4">
                         <Header
                             calendar={calendar}
