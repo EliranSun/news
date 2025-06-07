@@ -248,7 +248,7 @@ export const Body = ({
                                 </div>
                             </div>
                         </div>
-                        <div className="w-full md:w-1/3 md:h-[calc(100vh-80px)] pb-10 md:overflow-y-scroll">
+                        <div className="order-3 w-full md:w-1/3 md:h-[calc(100vh-80px)] pb-10 md:overflow-y-scroll">
                             <CalendarDayView
                                 data={data}
                                 selectedDate={selectedDate} />
