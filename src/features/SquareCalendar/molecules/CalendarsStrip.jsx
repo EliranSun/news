@@ -22,9 +22,13 @@ export const CalendarsStrip = ({ onCalendarClick, isVisible }) => {
                 return (
                     <div key={item.key}>
                         {showCategory && (
-                            <div className="text-sm text-stone-600 dark:text-stone-400 font-semibold mb-1 mt-2">
+                            <>
+                            <br/>
+                            <div className="inline-block sm:inline text-sm text-stone-600 dark:text-stone-400 font-semibold mb-1 mt-2">
                                 {item.category}
                             </div>
+                            <br/>
+                            </>
                         )}
                         <div id={item.key}>
                             <CalendarButton
