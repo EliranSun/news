@@ -13,9 +13,10 @@ export const CalendarsStrip = ({ onCalendarClick, isVisible }) => {
     if (!isVisible) return null;
 
     return (
-        <div className="text-base font-bold flex flex-col 
-        md:h-[calc(100vh-80px)] overflow-y-scroll
-        flex-nowrap overflow-x-auto gap-2 pb-10">
+        <div className="text-base font-bold flex 
+            flex-wrap sm:flex-col w-full sm:w-fit
+        md:h-[calc(100vh-80px)] sm:overflow-y-scroll
+        sm:flex-nowrap sm:overflow-x-auto gap-2 sm:pb-10">
             {strip.map((item, index) => {
                 const showCategory = index === 0 || strip[index - 1].category !== item.category;
                 return (
