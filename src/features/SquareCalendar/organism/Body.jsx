@@ -197,7 +197,7 @@ export const Body = ({
                                 onCalendarClick={onCalendarClick} />
                         </div>
                         <div className="max-w-full md:max-w-2/3">
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                            <div className="h-96 sm:h-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                                 {yearMap.map((_, monthIndex) => {
                                     return (
                                         <CalendarMonth
