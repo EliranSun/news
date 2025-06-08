@@ -189,14 +189,14 @@ export const Body = ({
                     </div> */}
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-between">
-                        <div className="order-1 sm:order-2 overflow-x-scroll flex flex-nowrap gap-2 w-1/10">
+                        <div className="overflow-x-scroll flex flex-nowrap gap-2 w-1/10">
                             <CalendarsStrip
                                 data={data}
                                 isVisible={view === "year"}
                                 selectedCalendar={calendar}
                                 onCalendarClick={onCalendarClick} />
                         </div>
-                        <div className="max-w-full md:max-w-2/3 order-2 sm:order-1">
+                        <div className="max-w-full md:max-w-2/3">
                             <div className="h-96 overflow-y-auto sm:h-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                                 {yearMap.map((_, monthIndex) => {
                                     return (
