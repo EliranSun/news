@@ -189,7 +189,7 @@ export const Body = ({
                     </div> */}
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-between">
-                        <div className="order-2 sm:order-1 overflow-x-scroll flex flex-nowrap gap-2 w-1/10">
+                        <div className="order-0 sm:order-1 overflow-x-scroll flex flex-nowrap gap-2 w-1/10">
                             <CalendarsStrip
                                 data={data}
                                 isVisible={view === "year"}
