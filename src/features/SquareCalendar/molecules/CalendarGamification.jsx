@@ -18,7 +18,7 @@ export const CalendarGamification = ({ calendar, size, variant = "default" }) =>
             "flex rounded-full": true,
             "bg-stone-800": variant === "default",
             "text-stone-800": variant === "plain",
-            "p-2 text-center gap-1 justify-center items-center": true, 
+            "p-2 text-center gap-2 justify-center items-center": true, 
         })}>
             <DaysSinceBadge
                 calendar={calendar}
