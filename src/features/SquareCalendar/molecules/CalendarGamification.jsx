@@ -11,7 +11,7 @@ export const CalendarGamification = ({ calendar, size, variant = "default" }) =>
     const streak = useMemo(() => getStreakCount(calendar.key), [calendar.key]);
     const highscore = useMemo(() => getHighestStreakCount(calendar.key), [calendar.key]);
 
-    if (!calendar.showGamification) return null;
+    // if (!calendar.showGamification) return null;
 
     return (
         <div className={classNames({
