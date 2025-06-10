@@ -8,11 +8,10 @@ import { Body } from "./organism/Body";
 import { PointerProvider } from "./PointerContext";
 
 export default function SquareCalendars() {
-    const calendarKey = useMemo(() => new URL(window.location.href).searchParams.get('calendar'), []);
     const [isPhysicsDemoOpen, setIsPhysicsDemoOpen] = useState(false);
-    const [calendar, setCalendar] = useState(Calendars[calendarKey] || Calendars.Mood);
+    const [calendar, setCalendar] = useState(Calendars.Sleep);
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const storageData = loadFromStorage(Calendars[calendarKey]?.key || Calendars.Mood.key);
+    const storageData = loadFromStorage(Calendars.Sleep.key);
     const [data, setData] = useState(storageData);
     // this works because timestamp is unique
     const [selectedDateNote, setSelectedDateNote] = useState(data.find(item =>
