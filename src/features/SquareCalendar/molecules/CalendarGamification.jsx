@@ -4,8 +4,9 @@ import { StreakBadge } from "../atoms/StreakBadge";
 import { DaysSinceBadge } from "../atoms/DaysSinceBadge";
 import { useMemo } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
-export const CalendarGamification = ({ calendar, size }) => {
+export const CalendarGamification = ({ calendar, size, variant = "default" }) => {
     const daysSinceLastEntry = useMemo(() => getDaysSinceLastEntry(calendar.key), [calendar.key]);
     const streak = useMemo(() => getStreakCount(calendar.key), [calendar.key]);
     const highscore = useMemo(() => getHighestStreakCount(calendar.key), [calendar.key]);
@@ -13,7 +14,12 @@ export const CalendarGamification = ({ calendar, size }) => {
     // if (!calendar.showGamification) return null;
 
     return (
-        <div className="flex bg-stone-800 rounded-full p-2 text-center gap-1 justify-center items-center">
+        <div className={classNames({
+            "flex rounded-full": true,
+            "bg-stone-800": variant === "default",
+            "text-stone-800" variant === "plain",
+            "p-2 text-center gap-1 justify-center items-center": true, 
+        })}>
             <DaysSinceBadge
                 calendar={calendar}
                 visible={true}
