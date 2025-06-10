@@ -4,7 +4,7 @@ import { Trophy } from "@phosphor-icons/react";
 import classNames from "classnames";
 
 export const HighscoreBadge = ({ highscore, visible, streak, size, transparent = false }) => {
-    if (!visible || highscore === 0 || streak === highscore) return null;
+    if (!visible || highscore === 0) return null;
 
     return (
         <Badge 

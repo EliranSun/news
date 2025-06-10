@@ -32,7 +32,7 @@ const SingleCalendar = ({
 
     return (
         <>
-            <div className="py-2 py-2 px-1 w-full border-y">
+            <div className="p-4 w-full border rounded my-1">
                 <div className="flex items-center gap-4">
                     <h2 className="text-lg font-bold uppercase heebo-900 my-2">
                         {calendar.icon} {calendar.name}
@@ -55,7 +55,9 @@ const SingleCalendar = ({
                             updateData({ color, date: selectedDate, calendar });
                             const storageData = localStorage.getItem(calendar.key);
                             if (!storageData) return [];
-                            setData(storageData);
+
+                            console.log({ storageData });
+                            setData(JSON.parse(storageData));
                         }}
                     />
                 </div>

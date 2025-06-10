@@ -34,8 +34,8 @@ export const ColorButton = ({
             style={{ color: textColor }}
             className={classNames(bgColor, {
                 // "border-4 border-black dark:border-white": selectedColorClass === bgColor,
-                "grayscale-0": selectedColorClass === bgColor,
-                "grayscale-[90%]": selectedColorClass !== bgColor,
+                "grayscale-0 opacity-100": selectedColorClass === bgColor,
+                "grayscale-[90%] opacity-40": selectedColorClass !== bgColor,
                 // "border border-black dark:border-white": selectedColorClass !== bgColor,
                 "flex gap-3 justify-between items-center min-h-10": true,
                 "p-2 rounded-xl text-xs shrink-0 min-w-20": display !== "compact",

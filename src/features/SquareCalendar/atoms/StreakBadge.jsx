@@ -4,7 +4,7 @@ import { Fire } from "@phosphor-icons/react";
 import classNames from "classnames";
 
 export const StreakBadge = ({ streak, visible = true, size, transparent = false }) => {
-    if (!visible) return null;
+    if (!visible || streak === 0) return null;
 
     return (
         <Badge 
