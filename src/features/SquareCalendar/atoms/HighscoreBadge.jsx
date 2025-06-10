@@ -8,7 +8,7 @@ export const HighscoreBadge = ({ highscore, visible, streak, size, transparent =
     return (
         <Badge className="h-fit" size={size} transparent={transparent}>
             <Trophy size={size === "big" ? 18 : 16} color="gold" />
-            <span className={transparent ? "text-yellow-400" : "text-white"}>{highscore}d</span>
+            <span className={transparent ? "text-yellow-600 dark:text-yellow-300" : "text-white"}>{highscore}d</span>
         </Badge>
     )
 };

@@ -8,7 +8,7 @@ export const StreakBadge = ({ streak, visible = true, size, transparent = false 
     return (
         <Badge className="h-fit" size={size} transparent={transparent}>
             <Fire size={size === "big" ? 18 : 16} className="text-red-400" />
-            <span className={transparent ? "text-red-400" : "text-white"}>{streak}d</span>
+            <span className={transparent ? "text-red-600 dark:text-red-300" : "text-white"}>{streak}d</span>
         </Badge>
     )
 };
