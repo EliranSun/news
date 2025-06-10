@@ -18,7 +18,7 @@ export const NoteModal = ({ isOpen, onClose, calendar, date, updateData }) => {
     return (
         <div className="fixed inset-0 w-screen h-screen backdrop-brightness-50 z-50 p-2" onClick={onClose}>
             <div className="flex flex-col items-center justify-center
-             bg-stone-100 dark:bg-stone-800 rounded-md h-full p-4
+             bg-stone-100 dark:bg-stone-800 rounded-md h-2/3 p-4
              border border-stone-300 dark:border-stone-700 max-h-dvh z-50 space-y-4"
                 onClick={e => e.stopPropagation()}>
                 <h1 className="text-lg font-bold inter-500 w-full my-4">
