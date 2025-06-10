@@ -6,10 +6,8 @@ import { CalendarDayView as CalendarNotes } from "./CalendarDayView";
 import { NoteModal } from "../molecules/NoteModal";
 import { Info, Note } from "@phosphor-icons/react";
 import { isSameDay } from "date-fns";
-import { contrastColor } from "../utils";
 import { useState, useMemo } from "react";
-import classNames from "classnames";
-import { ColorHexMap, TailwindColorsMap } from "../constants";
+import { ColorSelection } from "../molecules/ColorSelection";
 import PropTypes from "prop-types";
 
 const InfoStates = ["none", "days", "notes"];
@@ -65,35 +63,25 @@ export const YearView = ({
 
                     <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
 
-                    <div>
-                        <h2 className="text-lg my-4">
-                            {selectedDate.toLocaleDateString("en-GB", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
-                        </h2>
-                        <div className="flex w-full max-w-[500px] flex-wrap gap-2">
-                            {calendar.colors.map((color, index) => {
-                                const legendEntry = calendar.legend?.find(l => l.color === color);
-                                const label = legendEntry?.name || legendEntry?.label || color;
-                                const selectedColor = data.find(item => isSameDay(item.date, selectedDate))?.color || color;
-
-                                return (
-                                    <button
-                                        key={index}
-                                        style={{ color: contrastColor({ bgColor: ColorHexMap[color] }) }}
-                                        onClick={() => {
-                                            updateData({ color, date: selectedDate, data, calendar });
-                                        }}
-                                        className={classNames(`p-4 h-12 w-20 flex items-center 
-                                                justify-center rounded-md ${TailwindColorsMap[color]}`, {
-                                            "border-4 border-stone-800 dark:border-stone-200 shadow-md": selectedColor !== color
-                                        })}>
-                                        {label}
-                                    </button>
-                                )
+                    <div className="flex flex-col gap-2 my-4">
+                        <h2 className="text-lg ">
+                            {selectedDate.toLocaleDateString("en-GB", {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric"
                             })}
+                        </h2>
+                        <div className="flex w-full flex-wrap gap-2">
+                            <ColorSelection
+                                calendar={calendar}
+                                data={data}
+                                selectedDate={selectedDate}
+                                updateData={updateData} />
                             <span
                                 onClick={() => setIsNoteModalOpen(true)}
-                                className="border-stone-300 dark:border-stone-700
-                                 bg-stone-200 dark:bg-stone-800 rounded-full size-12 flex items-center justify-center p-2">
+                                className="border-stone-300 dark:border-stone-700 h-10 w-20
+                                 bg-stone-200 dark:bg-stone-800 rounded-md flex items-center justify-center p-2">
                                 <Note size={24} weight={hasNote ? "fill" : "regular"} />
                             </span>
                         </div>
