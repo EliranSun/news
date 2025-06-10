@@ -24,7 +24,6 @@ export const CalendarButton = ({ children, calendar, isSelected, ...rest }) => {
         <button
             className={classNames("w-full", {
                 "bg-stone-800 text-white border-stone-200": isSelected,
-                "text-white": !isSelected,
                 "text-sm border-2 text-left": true,
             })} {...rest}>
             {children}

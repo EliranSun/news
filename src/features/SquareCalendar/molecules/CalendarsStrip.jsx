@@ -15,7 +15,7 @@ export const CalendarsStrip = ({ onCalendarClick, isVisible }) => {
     return (
         <div className={classNames(
             "text-base font-bold flex",
-            "flex-wrap sm:flex-col w-full sm:w-fit px-8 pb-40",
+            "flex-wrap sm:flex-col w-1/6 px-8 pb-40 border-r",
             "h-[calc(100vh-40px-32px)] overflow-y-auto ",
             "sm:flex-nowrap sm:overflow-x-auto gap-2 sm:pb-10",
         )}>

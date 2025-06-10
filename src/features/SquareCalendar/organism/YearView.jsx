@@ -44,7 +44,7 @@ export const YearView = ({
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-between">
                 <CalendarsStrip onCalendarClick={onCalendarClick} isVisible={true} />
-                <div className="max-w-full md:max-w-2/3">
+                <div className="w-2/3">
                     <div className="h-96 overflow-y-auto sm:h-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                         {yearMap.map((_, monthIndex) => {
                             return (
@@ -90,7 +90,7 @@ export const YearView = ({
                     </div>
                 </div>
 
-                <div className="order-3 w-full md:w-1/3 md:h-[calc(100vh-80px)] pb-10 md:overflow-y-scroll">
+                <div className="w-full md:w-1/3 md:h-[calc(100vh-80px)] pb-10 md:overflow-y-scroll border-l px-4">
                     <CalendarNotes
                         data={data}
                         selectedDate={selectedDate} />

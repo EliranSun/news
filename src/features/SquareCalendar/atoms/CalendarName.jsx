@@ -4,7 +4,7 @@ import classNames from "classnames";
 export const CalendarName = ({ calendar, variant, date = new Date(), withDate = false }) => {
     return (
         <div className={classNames({
-            "flex items-center gap-2 font-mono": true,
+            "flex items-center gap-2 font-mono text-black dark:text-white": true,
             "text-sm": variant === "list",
             "text-lg font-bold": variant !== "list",
         })}>
