@@ -13,7 +13,7 @@ export const CalendarGamification = ({ calendar, size }) => {
     // if (!calendar.showGamification) return null;
 
     return (
-        <div className="flex bg-stone-900 text-center gap-1 justify-center items-center">
+        <div className="flex bg-stone-800 p-2 text-center gap-1 justify-center items-center">
             <DaysSinceBadge
                 calendar={calendar}
                 visible={true}
