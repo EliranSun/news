@@ -32,7 +32,7 @@ const SingleCalendar = ({
 
     return (
         <>
-            <div className="p-4 w-full border rounded my-1">
+            <div className="p-4 w-full rounded my-1">
                 <div className="flex items-center gap-4">
                     <h2 className="text-lg font-bold uppercase heebo-900 my-2">
                         {calendar.icon} {calendar.name}
