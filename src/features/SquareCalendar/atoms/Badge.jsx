@@ -12,7 +12,6 @@ size = "small" }) => {
         <div className={classNames({
             "w-fit flex gap-1": true,
             "items-center justify-center overflow-hidden": true,
-            "px-2": true,
             "bg-black": !transparent,
             "text-sm  rounded-xl": true,
             "text-black dark:text-white": textBlack & !transparent,
