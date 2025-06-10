@@ -17,10 +17,11 @@ export const ColorSelection = ({ calendar, data, selectedDate, updateData }) => 
                 onClick={() => {
                     updateData({ color, date: selectedDate, data, calendar });
                 }}
-                className={classNames(`p-4 h-10 flex items-center 
-                            justify-center rounded-md ${TailwindColorsMap[color]}`, {
-                    "border-4 border-stone-800 dark:border-stone-200 shadow-md": selectedColor !== color
-                })}>
+                className={classNames(
+                    "p-4 h-10 flex items-center",
+                    `justify-center rounded-md ${TailwindColorsMap[color]}`, 
+                    { "opacity-40 grayscale-[90%] shadow-md": selectedColor !== color }
+                )}>
                 {label}
             </button>
         )

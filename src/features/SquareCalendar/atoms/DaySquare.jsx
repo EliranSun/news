@@ -64,7 +64,7 @@ export const DaySquare = ({
             className={classNames(colorClass, {
                 "text-[7px] flex justify-center items-center": true,
                 "size-4 rounded-[2px]": size === "small",
-                "size-5 rounded mx-auto": size === "medium",
+                "size-5 rounded-[3px] mx-auto": size === "medium",
                 "size-9 rounded-md mx-auto": size === "big",
                 "bg-stone-200 dark:bg-stone-600": !colorClass,
                 "opacity-0": dayObj.previousMonth,

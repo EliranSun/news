@@ -48,8 +48,7 @@ export default function SquareCalendars() {
 
     return (
         <PointerProvider>
-            <div className="p-2 overflow-y-auto w-screen h-dvh pb-40 md:pb-0
-             user-select-none font-mono bg-stone-50 dark:bg-stone-900">
+            <div className="pb-40 sm:pb-0 h-screen w-screen user-select-none font-mono bg-stone-50 dark:bg-stone-900">
                 <FlexibleOpacityTransition>
                     <Body
                         view={view}

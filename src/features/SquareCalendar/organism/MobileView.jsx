@@ -86,24 +86,24 @@ export const MobileView = ({
 }) => {
 
     return (
-        <>
-            <div className="w-full">
-                <div className="flex justify-between py-2 items-center sticky top-0 bg-stone-100 dark:bg-stone-900 z-10">
-                    <button onClick={() => setSelectedDate(subDays(selectedDate, 1))}>
-                        <ArrowLeft size={24} weight="bold" />
-                    </button>
-                    <h1 className="text-2xl font-bold merriweather-black">
-                        {selectedDate.toLocaleDateString("en-GB", {
-                            weekday: "short",
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric"
-                        })}
-                    </h1>
-                    <button onClick={() => setSelectedDate(addDays(selectedDate, 1))}>
-                        <ArrowRight size={24} weight="bold" />
-                    </button>
-                </div>
+        <div className="w-full">
+            <div className="flex justify-between py-2 items-center sticky top-0 bg-stone-100 dark:bg-stone-900 z-10">
+                <button onClick={() => setSelectedDate(subDays(selectedDate, 1))}>
+                    <ArrowLeft size={24} weight="bold" />
+                </button>
+                <h1 className="text-2xl font-bold merriweather-black">
+                    {selectedDate.toLocaleDateString("en-GB", {
+                        weekday: "short",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric"
+                    })}
+                </h1>
+                <button onClick={() => setSelectedDate(addDays(selectedDate, 1))}>
+                    <ArrowRight size={24} weight="bold" />
+                </button>
+            </div>
+            <div className="p-2">
                 {Object.entries(Calendars).map(([key, calendar]) => {
                     return (
                         <SingleCalendar
@@ -113,10 +113,9 @@ export const MobileView = ({
                             updateData={updateData}
                         />
                     );
-                })}
-
+            })}
             </div>
-        </>
+        </div>
     );
 };
 

@@ -2,6 +2,7 @@ import { Calendars } from "../constants";
 import { CalendarButton } from "../atoms/CalendarButton";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import classNames from "classnames";
 
 const strip = Object.values(Calendars);
 
@@ -12,30 +13,30 @@ export const CalendarsStrip = ({ onCalendarClick, isVisible }) => {
     if (!isVisible) return null;
 
     return (
-        <div className="text-base font-bold flex 
-            flex-wrap sm:flex-col w-full sm:w-fit
-        md:h-[calc(100vh-80px)] sm:overflow-y-scroll
-        sm:flex-nowrap sm:overflow-x-auto gap-2 sm:pb-10">
+        <div className={classNames(
+            "text-base font-bold flex",
+            "flex-wrap sm:flex-col w-full sm:w-fit px-8 pb-40",
+            "h-[calc(100vh-40px-32px)] overflow-y-auto ",
+            "sm:flex-nowrap sm:overflow-x-auto gap-2 sm:pb-10",
+        )}>
             {strip.map((item, index) => {
                 const showCategory = index === 0 || strip[index - 1].category !== item.category;
                 return (
-                    <div key={item.key}>
+                    <div key={item.key} className="w-full">
                         {showCategory && (
-                            <div className="inline-block sm:inline text-sm text-stone-600 dark:text-stone-400 font-semibold mb-1 mt-2">
+                            <div className="font-semibold py-2">
                                 {item.category}
                             </div>
                         )}
-                        <div id={item.key}>
-                            <CalendarButton
-                                onClick={() => {
-                                    onCalendarClick(item);
-                                    setSelectedCalendar(item);
-                                }}
-                                calendar={item}
-                                isSelected={selectedCalendar.key === item.key}>
-                                {item.icon} {item.name.slice(0, 7)}
-                            </CalendarButton>
-                        </div>
+                        <CalendarButton
+                            calendar={item}
+                            isSelected={selectedCalendar.key === item.key}
+                            onClick={() => {
+                                onCalendarClick(item);
+                                setSelectedCalendar(item);
+                            }}>
+                            {item.icon} {item.name.slice(0, 7)}
+                        </CalendarButton>
                     </div>
                 )
             })}

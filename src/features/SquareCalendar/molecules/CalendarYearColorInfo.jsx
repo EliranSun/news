@@ -18,11 +18,11 @@ export const CalendarYearColorInfo = ({ data, selectedDate = new Date() }) => {
     }
 
     return (
-        <div className="flex gap-1 w-full justify-center">
+        <div className="flex gap-3 w-full justify-start my-2">
             {colorPercentages.map(({ color, percentage }) => (
                 <div
                     key={color}
-                    className="flex items-center gap-1 text-[8px] inter-500"
+                    className="flex items-center gap-1 text-xs inter-500"
                     title={`${color}: ${percentage}%`}>
                     <div className={`size-2 ${getColorsClassList(color)}`}></div>
                     <span>{percentage}%</span>

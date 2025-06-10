@@ -22,14 +22,10 @@ export const CalendarButton = ({ children, calendar, isSelected, ...rest }) => {
 
     return (
         <button
-            className={classNames("", {
+            className={classNames("w-full", {
                 "bg-stone-800 text-white border-stone-200": isSelected,
-                "bg-stone-200 text-black": !isSelected,
-                // "text-white": !color,
-                // "border-yellow-500": color === "yellow",
-                // "border-green-500": color === "green",
-                // "border-red-500": color === "red",
-                "text-xs border-2 text-center": true,
+                "text-white": !isSelected,
+                "text-sm border-2 text-left": true,
             })} {...rest}>
             {children}
         </button>

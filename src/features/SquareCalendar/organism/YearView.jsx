@@ -30,8 +30,8 @@ export const YearView = ({
     }, [data, selectedDate]);
 
     return (
-        <div className="sm:mx-2 sm:w-[calc(100vw-1rem)] max-w-screen-xl mx-auto sm:px-8">
-            <div className="my-4">
+        <div className="sm:mx-2 w-screen mx-auto overflow-hidden">
+            <div className="my-8">
                 <Header
                     calendar={calendar}
                     selectedDate={selectedDate}
@@ -44,7 +44,6 @@ export const YearView = ({
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-between">
                 <CalendarsStrip onCalendarClick={onCalendarClick} isVisible={true} />
-                {/* <CalendarNavigation onCalendarClick={onCalendarClick} /> */}
                 <div className="max-w-full md:max-w-2/3">
                     <div className="h-96 overflow-y-auto sm:h-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                         {yearMap.map((_, monthIndex) => {
@@ -55,6 +54,7 @@ export const YearView = ({
                                     selectedDate={selectedDate}
                                     setSelectedDate={setSelectedDate}
                                     calendar={calendar}
+                                    size="medium"
                                     infoState={InfoStates[infoStateIndex]}
                                     data={data}
                                     monthIndex={monthIndex} />
@@ -78,6 +78,7 @@ export const YearView = ({
                                 calendar={calendar}
                                 data={data}
                                 selectedDate={selectedDate}
+
                                 onColorSelect={color => updateData({ color, date: selectedDate, calendar })} />
                             <span
                                 onClick={() => setIsNoteModalOpen(true)}
