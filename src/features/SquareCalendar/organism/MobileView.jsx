@@ -32,7 +32,7 @@ const SingleCalendar = ({
 
     return (
         <>
-            <div className="p-4 w-full h-screen overflow-y-auto border-b my-2">
+            <div className="p-4 w-full border-b my-2">
                 <div className="flex items-center gap-4">
                     <h2 className="text-lg font-bold uppercase heebo-900 mb-2">
                         {calendar.icon} {calendar.name}
@@ -86,7 +86,7 @@ export const MobileView = ({
 }) => {
 
     return (
-        <div className="w-full">
+        <div className="w-full h-screen overflow-y-auto">
             <div className="flex justify-between py-2 items-center sticky top-0 bg-stone-100 dark:bg-stone-900 z-10">
                 <button onClick={() => setSelectedDate(subDays(selectedDate, 1))}>
                     <ArrowLeft size={24} weight="bold" />
