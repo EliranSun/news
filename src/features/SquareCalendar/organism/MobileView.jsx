@@ -16,13 +16,15 @@ const SingleCalendar = ({
 
     const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
 
-    const data = useMemo(() => {
+    const [data, setData] = useState(() => {
         const storageData = localStorage.getItem(calendar.key);
         if (!storageData) return [];
         return JSON.parse(storageData);
-    }, [calendar.key]);
+    });
 
-    const hasNote = useMemo(() => data.find(item => isSameDay(item.date, selectedDate))?.note, [data, selectedDate]);
+    const hasNote = useMemo(() => 
+        data.find(item => isSameDay(item.date, selectedDate))?.note, [data, selectedDate]);
+    
     const selectedColorClass = useMemo(() => {
         const selectedColor = data.find(item => isSameDay(item.date, selectedDate))?.color;
         return selectedColor ? getColorsClassList(selectedColor) : null;
@@ -49,7 +51,12 @@ const SingleCalendar = ({
                         data={data}
                         selectedColorClass={selectedColorClass}
                         selectedDate={selectedDate}
-                        onColorSelect={color => updateData({ color, date: selectedDate, calendar })}
+                        onColorSelect={color => {
+                            updateData({ color, date: selectedDate, calendar });
+                            const storageData = localStorage.getItem(calendar.key);
+                            if (!storageData) return [];
+                            setData(storageData);
+                        }}
                     />
                 </div>
             </div>
