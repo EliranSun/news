@@ -54,7 +54,7 @@ export const YearView = ({
                                     selectedDate={selectedDate}
                                     setSelectedDate={setSelectedDate}
                                     calendar={calendar}
-                                    size="medium"
+                                    size="small"
                                     infoState={InfoStates[infoStateIndex]}
                                     data={data}
                                     monthIndex={monthIndex} />
@@ -90,7 +90,7 @@ export const YearView = ({
                     </div>
                 </div>
 
-                <div className="w-full md:w-1/3 md:h-[calc(100vh-80px)] pb-10 md:overflow-y-scroll border-l px-4">
+                <div className="md:h-[calc(100vh-80px)] w-1/3 pb-10 md:overflow-y-scroll px-4">
                     <CalendarNotes
                         data={data}
                         selectedDate={selectedDate} />
