@@ -24,7 +24,7 @@ export const MainPage = ({ savedPath }) => {
 	useEffect(() => {
 		const updateThemeColor = () => {
 			const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-			const themeColor = isDarkMode ? "#000000" : "#FFFFFF";
+			const themeColor = isDarkMode ? "oklch(21.6% 0.006 56.043)" : "#FFFFFF";
 			const metaThemeColor = document.querySelector("meta[name=theme-color]");
 			if (metaThemeColor) {
 				metaThemeColor.setAttribute("content", themeColor);
