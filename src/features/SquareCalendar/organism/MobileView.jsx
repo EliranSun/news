@@ -34,10 +34,10 @@ const SingleCalendar = ({
         <>
             <div className="my-2 py-2 px-1 w-full">
                 <div className="flex items-center gap-4">
-                <h2 className="text-lg font-bold uppercase heebo-900 my-2">
-                    {calendar.icon} {calendar.name}
-                </h2>
-                <CalendarGamification calendar={calendar} variant="plain" />
+                    <h2 className="text-lg font-bold uppercase heebo-900 my-2">
+                        {calendar.icon} {calendar.name}
+                    </h2>
+                    <CalendarGamification calendar={calendar} variant="plain" />
                 </div>
                 <div className="flex gap-2 items-center">
                     <span

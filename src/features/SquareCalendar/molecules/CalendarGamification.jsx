@@ -11,13 +11,13 @@ export const CalendarGamification = ({ calendar, size, variant = "default" }) =>
     const streak = useMemo(() => getStreakCount(calendar.key), [calendar.key]);
     const highscore = useMemo(() => getHighestStreakCount(calendar.key), [calendar.key]);
 
-    // if (!calendar.showGamification) return null;
+    if (!calendar.showGamification) return null;
 
     return (
         <div className={classNames({
             "flex rounded-full": true,
             "bg-stone-800": variant === "default",
-            "text-stone-800" variant === "plain",
+            "text-stone-800": variant === "plain",
             "p-2 text-center gap-1 justify-center items-center": true, 
         })}>
             <DaysSinceBadge
