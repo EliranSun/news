@@ -32,9 +32,9 @@ const SingleCalendar = ({
 
     return (
         <>
-            <div className="p-4 w-full border-b my-1">
+            <div className="p-4 w-full border-b my-2">
                 <div className="flex items-center gap-4">
-                    <h2 className="text-lg font-bold uppercase heebo-900 my-2">
+                    <h2 className="text-lg font-bold uppercase heebo-900 mb-2">
                         {calendar.icon} {calendar.name}
                     </h2>
                     <CalendarGamification calendar={calendar} variant="plain" />
