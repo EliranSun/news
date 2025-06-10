@@ -37,7 +37,7 @@ const SingleCalendar = ({
                 <h2 className="text-lg font-bold uppercase heebo-900 my-2">
                     {calendar.icon} {calendar.name}
                 </h2>
-                <CalendarGamification calendar={calendar} />
+                <CalendarGamification calendar={calendar} variant="plain" />
                 </div>
                 <div className="flex gap-2 items-center">
                     <span
