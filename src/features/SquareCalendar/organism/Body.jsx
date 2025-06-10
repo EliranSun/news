@@ -21,6 +21,18 @@ import classNames from "classnames";
 
 const InfoStates = ["none", "days", "notes"];
 
+const CalendarNavigation = ({ calendarName }) => {
+    const [activeCalendar, setActiveCalendar] = useState(calendarName);
+    
+    return (
+        <div className="flex gap-2 items-center">
+            <button>⏮️</button>
+                <span>{activeCalendar}</span>
+            <button>⏭️</button>
+        </div>
+    );
+};
+
 const NoteModal = ({ isOpen, onClose, calendar, date, updateData }) => {
     const [isSaved, setIsSaved] = useState(false);
     const data = useMemo(() => loadFromStorage(calendar.key), [calendar.key]);
@@ -189,13 +201,15 @@ export const Body = ({
                     </div> */}
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-between">
+                        
+                        {/*
                         <div className="order-2 overflow-x-scroll flex gap-2 w-1/10">
                             <CalendarsStrip
                                 data={data}
                                 isVisible={view === "year"}
                                 selectedCalendar={calendar}
                                 onCalendarClick={onCalendarClick} />
-                        </div>
+                        </div>*/}
                         <div className="max-w-full md:max-w-2/3">
                             <div className="h-96 overflow-y-auto sm:h-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                                 {yearMap.map((_, monthIndex) => {
@@ -248,6 +262,7 @@ export const Body = ({
                                 </div>
                             </div>
                         </div>
+                        <CalendarNavigation calendarName={calendar}/>
                         <div className="order-3 w-full md:w-1/3 md:h-[calc(100vh-80px)] pb-10 md:overflow-y-scroll">
                             <CalendarDayView
                                 data={data}
