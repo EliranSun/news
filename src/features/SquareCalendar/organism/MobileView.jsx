@@ -27,19 +27,17 @@ const SingleCalendar = ({
         return selectedColor ? getColorsClassList(selectedColor) : null;
     }, [data, selectedDate]);
 
-    console.log({ selectedColorClass });
-
     return (
         <>
-            <div className="my-2 py-4 px-1 w-full">
+            <div className="my-2 py-2 px-1 w-full">
                 <h2 className="text-lg font-bold uppercase heebo-900 my-2">
                     {calendar.icon} {calendar.name}
                 </h2>
                 <div className="flex gap-2 items-center">
                     <span
                         onClick={() => setIsNoteModalOpen(true)}
-                        className="p-2 border border-stone-900 dark:border-stone-200 rounded-md">
-                        <Note size={24} weight={hasNote ? "fill" : "regular"} />
+                        className="p-2 bg-white shadow rounded-full">
+                        <Note size={24} weight={hasNote ? "fill" : "regular"} color="black" />
                     </span>
                     <ColorsButtons
                         display="compact"
