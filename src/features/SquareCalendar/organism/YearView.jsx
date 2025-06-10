@@ -78,6 +78,7 @@ export const YearView = ({
                                 calendar={calendar}
                                 data={data}
                                 selectedDate={selectedDate}
+                                updateData={updateData}
 
                                 onColorSelect={color => updateData({ color, date: selectedDate, calendar })} />
                             <span
