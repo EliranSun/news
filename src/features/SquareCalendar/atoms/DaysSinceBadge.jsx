@@ -28,9 +28,9 @@ export const DaysSinceBadge = ({
             size={size}
             transparent
             className={classNames('h-fit', transparent ? {
-                "text-red-600 dark:text-red-300": isRed,
-                "text-yellow-600 dark:text-yellow-300": isYellow,
-                "text-lime-600 dark:text-lime-300": !isRed && !isYellow,
+                "text-red-700 dark:text-red-300": isRed,
+                "text-yellow-700 dark:text-yellow-300": isYellow,
+                "text-lime-700 dark:text-lime-300": !isRed && !isYellow,
             } : {
                 "bg-red-500": isRed,
                 "bg-yellow-400": isYellow,

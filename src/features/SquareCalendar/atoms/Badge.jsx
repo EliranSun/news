@@ -3,11 +3,12 @@ import classNames from "classnames";
 
 // TODO: Refactor to Pill
 export const Badge = ({ 
-children, 
-className = "", 
-textBlack = false,
-transparent = false,
-size = "small" }) => {
+    children, 
+    className = "", 
+    textBlack = false,
+    transparent = false,
+    size = "small" 
+}) => {
     return (
         <div className={classNames({
             "w-fit flex gap-1": true,
