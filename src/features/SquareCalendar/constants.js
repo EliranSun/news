@@ -155,6 +155,10 @@ export const Calendars = {
             Colors.Red,
             Colors.Black
         ],
+        legend: [
+            { name: "yes", label: "yes", color: Colors.Red },
+            { name: "no", label: "no", color: Colors.Black },
+        ],
         icon: "🏋",
         category: Categories.Self,
     },
@@ -223,6 +227,10 @@ export const Calendars = {
         name: "css",
         key: "css-square-calendar",
         colors: [Colors.Yellow, Colors.Black],
+        legend: [
+            { name: "yes", label: "yes", color: Colors.Yellow },
+            { name: "no", label: "no", color: Colors.Black },
+        ],
         icon: "🎭",
         category: Categories.Creative,
         showColorStatus: true,
@@ -236,6 +244,10 @@ export const Calendars = {
         name: "read",
         key: "read-square-calendar",
         colors: [Colors.Sage, Colors.Black],
+        legend: [
+            { name: "yes", label: "yes", color: Colors.Sage },
+            { name: "no", label: "no", color: Colors.Black },
+        ],
         icon: "📚",
         category: Categories.Creative
     },
@@ -246,6 +258,10 @@ export const Calendars = {
         name: "draw",
         key: "draw-square-calendar",
         colors: [Colors.Sage, Colors.Black],
+        legend: [
+            { name: "yes", label: "yes", color: Colors.Sage },
+            { name: "no", label: "no", color: Colors.Black },
+        ],
         icon: "🎨",
         category: Categories.Creative
     },
@@ -256,6 +272,10 @@ export const Calendars = {
         name: "write",
         key: "write-square-calendar",
         colors: [Colors.Sage, Colors.Black],
+        legend: [
+            { name: "yes", label: "yes", color: Colors.Red },
+            { name: "no", label: "no", color: Colors.Black },
+        ],
         icon: "✍️",
         category: Categories.Creative
     },
