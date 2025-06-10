@@ -2,16 +2,17 @@ import { ColorButton } from "../atoms/ColorButton";
 import PropTypes from "prop-types";
 import { useColorPercentage } from "../useColorPercentage";
 import { getDaysInMonth } from "date-fns";
+import classNames from "classnames";
 
-export const ColorsButtons = ({ 
-data,
-calendar, 
-onColorSelect, 
-selectedColorClass,
-selectedDate, 
-monthIndex, 
-onClose
- }) => {
+export const ColorsButtons = ({
+    data,
+    calendar,
+    onColorSelect,
+    selectedColorClass,
+    selectedDate,
+    monthIndex,
+    display = "default"
+}) => {
     const month = new Date(selectedDate.getFullYear(), monthIndex, 1);
     const daysInMonth = getDaysInMonth(month);
     const currentMonthDays = Array.from({ length: daysInMonth }, (_, i) => ({
@@ -24,11 +25,15 @@ onClose
     if (!calendar) return null;
 
     return (
-        <div className="flex flex-wrap items-start overflow-x-auto gap-1 h-fit w-full">
+        <div className={classNames("flex  items-start overflow-x-auto  h-fit w-full", {
+            "gap-px flex-nowrap": display === "compact",
+            "gap-1 flex-wrap": display === "default"
+        })}>
             {calendar.colors.map(color =>
                 <ColorButton
                     key={color}
                     color={color}
+                    display={display}
                     selectedColorClass={selectedColorClass}
                     legend={calendar.legend?.find(item => item.color === color)}
                     onClick={() => onColorSelect(color)}
@@ -36,7 +41,10 @@ onClose
                     percentage={colorPercentages.find(item => item.color === color)?.percentage}
                 />
             )}
-            <ColorButton color="⬜️" onClick={() => onColorSelect('clear')} />
+            <ColorButton
+                color="⬜️"
+                display={display}
+                onClick={() => onColorSelect('clear')} />
         </div>
     )
 }
@@ -46,6 +54,7 @@ ColorsButtons.propTypes = {
     onColorSelect: PropTypes.func.isRequired,
     selectedDate: PropTypes.instanceOf(Date).isRequired,
     monthIndex: PropTypes.number.isRequired,
-    data: PropTypes.array.isRequired
+    data: PropTypes.array.isRequired,
+    selectedColorClass: PropTypes.string.isRequired
 }
 

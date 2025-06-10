@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 
 const strip = Object.values(Calendars);
-const categories = [...new Set(strip.map(item => item.category))];
 
 export const CalendarsStrip = ({ onCalendarClick, isVisible }) => {
     const [selectedCalendar, setSelectedCalendar] = useState(strip[0]);
@@ -18,8 +17,7 @@ export const CalendarsStrip = ({ onCalendarClick, isVisible }) => {
         md:h-[calc(100vh-80px)] sm:overflow-y-scroll
         sm:flex-nowrap sm:overflow-x-auto gap-2 sm:pb-10">
             {strip.map((item, index) => {
-                const showCategory = false;
-                // && index === 0 || strip[index - 1].category !== item.category;
+                const showCategory = index === 0 || strip[index - 1].category !== item.category;
                 return (
                     <div key={item.key}>
                         {showCategory && (

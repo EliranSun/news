@@ -82,8 +82,8 @@ export const Navbar = ({ onListClick, selectedItem, onPhysicsClick, onItemClick 
 
     return (
         <>
-            <div className="fixed z-40 size-16 dark:bg-stone-100 bg-stone-900 text-white
-         top-5 right-5 rounded-full flex justify-center items-center">
+            <div className="fixed z-40 size-10 dark:bg-stone-100 bg-stone-900 text-white
+         bottom-3 right-3 rounded-full flex justify-center items-center">
                 <NavbarButton
                     label="list"
                     icon={List}

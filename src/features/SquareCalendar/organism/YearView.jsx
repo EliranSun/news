@@ -9,7 +9,7 @@ import { isSameDay } from "date-fns";
 import { useState, useMemo } from "react";
 import { ColorSelection } from "../molecules/ColorSelection";
 import PropTypes from "prop-types";
-
+import { CalendarsStrip } from "../molecules/CalendarsStrip";
 const InfoStates = ["none", "days", "notes"];
 
 export const YearView = ({
@@ -43,7 +43,8 @@ export const YearView = ({
                 </Header>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-between">
-                <CalendarNavigation onCalendarClick={onCalendarClick} />
+                <CalendarsStrip onCalendarClick={onCalendarClick} isVisible={true} />
+                {/* <CalendarNavigation onCalendarClick={onCalendarClick} /> */}
                 <div className="max-w-full md:max-w-2/3">
                     <div className="h-96 overflow-y-auto sm:h-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                         {yearMap.map((_, monthIndex) => {
@@ -77,7 +78,7 @@ export const YearView = ({
                                 calendar={calendar}
                                 data={data}
                                 selectedDate={selectedDate}
-                                updateData={updateData} />
+                                onColorSelect={color => updateData({ color, date: selectedDate, calendar })} />
                             <span
                                 onClick={() => setIsNoteModalOpen(true)}
                                 className="border-stone-300 dark:border-stone-700 h-10 w-20

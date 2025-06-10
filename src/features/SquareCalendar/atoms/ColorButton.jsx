@@ -5,14 +5,15 @@ import { useMemo } from "react";
 import PropTypes from "prop-types";
 import { Colors } from "../constants";
 
-export const ColorButton = ({ 
-color, 
-onClick, 
-legend, 
-count, 
-selectedColorClass,
-percentage
- }) => {
+export const ColorButton = ({
+    color,
+    onClick,
+    legend,
+    count,
+    selectedColorClass,
+    percentage,
+    display = "default"
+}) => {
     const bgColor = useMemo(() => getColorsClassList(color), [color]);
     const textColor = useMemo(() => {
         if (color === Colors.Clear) {
@@ -32,11 +33,16 @@ percentage
             onClick={onClick}
             style={{ color: textColor }}
             className={classNames(bgColor, {
+                "border-4 border-black dark:border-white": selectedColorClass === bgColor,
                 "border border-black dark:border-white": selectedColorClass !== bgColor,
-                "flex gap-3 justify-between items-center shrink-0 min-w-20 min-h-10": true,
-                "p-2 rounded-xl text-xs": true,
+                "flex gap-3 justify-between items-center min-h-10": true,
+                "p-2 rounded-xl text-xs shrink-0 min-w-20": display !== "compact",
+                "p-1 rounded-none text-xs min-w-10": display === "compact",
             })}>
-            {legend && <label className="">{legend.name}</label>}
+            {legend &&
+                <label className={display === "compact" ? "text-[8px]" : ""}>
+                    {display === "compact" ? legend.name.slice(0, 5) : legend.name}
+                </label>}
             <span className="text-[8px]">
                 {count || null}{percentage ? `(%${percentage})` : null}
             </span>

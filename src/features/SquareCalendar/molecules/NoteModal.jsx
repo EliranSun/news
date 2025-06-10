@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { isSameDay } from "date-fns";
 import { loadFromStorage } from "../utils";
+import PropTypes from "prop-types";
 
 export const NoteModal = ({ isOpen, onClose, calendar, date, updateData }) => {
     const [isSaved, setIsSaved] = useState(false);
@@ -43,3 +44,12 @@ export const NoteModal = ({ isOpen, onClose, calendar, date, updateData }) => {
         </div>
     )
 }
+
+
+NoteModal.propTypes = {
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    calendar: PropTypes.object.isRequired,
+    date: PropTypes.instanceOf(Date).isRequired,
+    updateData: PropTypes.func.isRequired
+};

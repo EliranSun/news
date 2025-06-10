@@ -8,11 +8,9 @@ import { HourView } from "../../HourlyTracker/HourView";
 import { WeeklyListView } from "./WeeklyListView";
 import { FeedView } from "./FeedView";
 import { differenceInDays } from "date-fns";
-// import { CalendarsStrip } from "../molecules/CalendarsStrip";
-// import { ColorWheel } from "../molecules/ColorWheel";
-// import { PointerContext } from "../PointerContext";
 import { loadFromStorage } from "../utils";
 import { YearView } from "./YearView";
+import { MobileView } from "./MobileView";
 
 export const Body = ({
     view,
@@ -111,6 +109,20 @@ export const Body = ({
             );
 
         case "year":
+            if (window.innerWidth < 768) {
+                return (
+                    <MobileView
+                        calendar={calendar}
+                        selectedDate={selectedDate}
+                        updateData={updateData}
+                        yearMap={yearMap}
+                        setSelectedDate={setSelectedDate}
+                        daysSinceLastEntry={daysSinceLastEntry}
+                        data={data}
+                        onCalendarClick={onCalendarClick}
+                    />
+                );
+            }
             return (
                 <YearView
                     calendar={calendar}
