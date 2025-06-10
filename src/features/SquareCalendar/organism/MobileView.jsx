@@ -88,7 +88,7 @@ export const MobileView = ({
     return (
         <>
             <div className="w-full">
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between py-2 items-center sticky top-0 bg-stone-100 dark:bg-stone-900 z-10">
                     <button onClick={() => setSelectedDate(subDays(selectedDate, 1))}>
                         <ArrowLeft size={24} weight="bold" />
                     </button>
