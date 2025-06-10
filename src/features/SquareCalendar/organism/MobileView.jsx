@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import { Note, ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { isSameDay, subDays, addDays } from "date-fns";
 import { getColorsClassList } from "../utils";
+import { CalendarGamification } from "../molecules/CalendarGamification";
 
 const SingleCalendar = ({
     calendar,
@@ -30,9 +31,12 @@ const SingleCalendar = ({
     return (
         <>
             <div className="my-2 py-2 px-1 w-full">
+                <div className="flex gap-4">
                 <h2 className="text-lg font-bold uppercase heebo-900 my-2">
                     {calendar.icon} {calendar.name}
                 </h2>
+                <CalendarGamification calendar={calendar} />
+                </div>
                 <div className="flex gap-2 items-center">
                     <span
                         onClick={() => setIsNoteModalOpen(true)}
