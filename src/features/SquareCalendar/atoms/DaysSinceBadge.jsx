@@ -4,23 +4,23 @@ import { ClockCounterClockwise } from "@phosphor-icons/react";
 import { useDaysSinceColor } from "../useDaysSinceColor";
 import classNames from "classnames";
 import { useMemo } from "react";
+import { getDaysSinceLastEntry } from "../utils"
 
 export const DaysSinceBadge = ({
-    hoursSince,
     withIcon = true,
     transparent = false,
     calendar,
     visible = true,
     size
 }) => {
-    console.log({ calendar });
     const { isRed, isYellow } = useDaysSinceColor(calendar);
+    const daysSinceLastEntry = useMemo(() => getDaysSinceLastEntry(calendar.key), [calendar.key]);
 
     const text = useMemo(() => {
-        if (hoursSince === null) return "Never";
-        if (hoursSince < 12) return "Today";
-        return `${Math.round(hoursSince / 24).toFixed(0)}d`;
-    }, [hoursSince]);
+        if (daysSinceLastEntry === null) return "Never";
+        if (daysSinceLastEntry < 12) return "Today";
+        return `${Math.round(daysSinceLastEntry / 24).toFixed(0)}d`;
+    }, [daysSinceLastEntry]);
 
     if (!visible) return null;
 

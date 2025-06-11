@@ -10,7 +10,6 @@ const strip = Object.values(Calendars);
 export const CalendarsStrip = ({ onCalendarClick, isVisible }) => {
     const [selectedCalendar, setSelectedCalendar] = useState(strip[0]);
 
-
     if (!isVisible) return null;
 
     return (
@@ -36,7 +35,7 @@ export const CalendarsStrip = ({ onCalendarClick, isVisible }) => {
                                 onCalendarClick(item);
                                 setSelectedCalendar(item);
                             }}>
-                            {item.icon} {item.name.slice(0, 7)} - <DaysSinceBadge calendar={item} />
+                            {item.icon} {item.name.slice(0, 7)} - <DaysSinceBadge transparent calendar={item} />
                         </CalendarButton>
                     </div>
                 )
