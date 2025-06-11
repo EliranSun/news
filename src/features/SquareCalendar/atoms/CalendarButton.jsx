@@ -22,7 +22,7 @@ export const CalendarButton = ({ children, calendar, isSelected, ...rest }) => {
 
     return (
         <button
-            className={classNames("w-full", {
+            className={classNames("w-full flex gap-2", {
                 "bg-stone-800 text-white border-stone-200": isSelected,
                 "text-sm border-2 text-left": true,
             })} {...rest}>

@@ -13,6 +13,7 @@ export const DaysSinceBadge = ({
     visible = true,
     size
 }) => {
+    console.log({ calendar });
     const { isRed, isYellow } = useDaysSinceColor(calendar);
 
     const text = useMemo(() => {
