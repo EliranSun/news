@@ -3,6 +3,7 @@ import { CalendarButton } from "../atoms/CalendarButton";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import classNames from "classnames";
+import { DaysSinceBadge } from "../atoms/DaysSinceBadge";
 
 const strip = Object.values(Calendars);
 
@@ -35,7 +36,7 @@ export const CalendarsStrip = ({ onCalendarClick, isVisible }) => {
                                 onCalendarClick(item);
                                 setSelectedCalendar(item);
                             }}>
-                            {item.icon} {item.name.slice(0, 7)}
+                            {item.icon} {item.name.slice(0, 7)} - <DaysSinceBadge calendar={item} />
                         </CalendarButton>
                     </div>
                 )
