@@ -25,8 +25,8 @@ export const ColorsButtons = ({
     if (!calendar) return null;
 
     return (
-        <div className={classNames("flex  items-start overflow-x-auto  h-fit w-full", {
-            "gap-px flex-nowrap": display === "compact",
+        <div className={classNames("flex items-start overflow-x-auto h-fit w-full", {
+            "gap-1 flex-nowrap": display === "compact",
             "gap-1 flex-wrap": display === "default"
         })}>
             {calendar.colors.map(color =>

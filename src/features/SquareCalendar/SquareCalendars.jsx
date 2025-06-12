@@ -11,12 +11,30 @@ export default function SquareCalendars() {
     const [isPhysicsDemoOpen, setIsPhysicsDemoOpen] = useState(false);
     const [calendar, setCalendar] = useState(Calendars.Sleep);
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const storageData = loadFromStorage(Calendars.Sleep.key);
-    const [data, setData] = useState(storageData);
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     // this works because timestamp is unique
-    const [selectedDateNote, setSelectedDateNote] = useState(data.find(item =>
-        isSameDay(item.date, selectedDate))?.note || "");
+    const [selectedDateNote, setSelectedDateNote] = useState("");
     const [view, setView] = useState("year");
+
+    // Load initial data
+    // useEffect(() => {
+    //     const loadInitialData = async () => {
+    //         try {
+    //             setIsLoading(true);
+    //             const storageData = await loadFromStorage(Calendars.Sleep.key);
+    //             setData(storageData);
+    //             setSelectedDateNote(storageData.find(item =>
+    //                 isSameDay(item.date, selectedDate))?.note || "");
+    //         } catch (error) {
+    //             console.error('Error loading initial data:', error);
+    //             setData([]);
+    //         } finally {
+    //             setIsLoading(false);
+    //         }
+    //     };
+    //     loadInitialData();
+    // }, [selectedDate]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -31,20 +49,32 @@ export default function SquareCalendars() {
         }, 100);
     }, [calendar]);
 
-    const onCalendarClick = useCallback((item) => {
+    const onCalendarClick = useCallback(async (item) => {
         const url = new URL(window.location.href);
         url.searchParams.set('calendar', item.key);
         window.history.pushState({}, '', url);
 
-        const newData = loadFromStorage(item.key);
-        const note = newData.find(item => isSameDay(item.date, selectedDate))?.note || "";
+        try {
+            const newData = await loadFromStorage(item.key);
+            const note = newData.find(item => isSameDay(item.date, selectedDate))?.note || "";
 
-        setCalendar(item);
-        setData(newData);
-        setSelectedDateNote(note);
+            setCalendar(item);
+            setData(newData);
+            setSelectedDateNote(note);
+        } catch (error) {
+            console.error('Error loading calendar data:', error);
+        }
     }, [selectedDate]);
 
     const yearMap = useMemo(() => new Array(12).fill(0), []);
+
+    if (isLoading) {
+        return (
+            <div className="pb-40 sm:pb-0 h-screen w-screen user-select-none font-mono bg-stone-50 dark:bg-stone-900 flex items-center justify-center">
+                <div className="text-lg">Loading...</div>
+            </div>
+        );
+    }
 
     return (
         <PointerProvider>
@@ -63,15 +93,27 @@ export default function SquareCalendars() {
                         calendar={calendar}
                         selectedDateNote={selectedDateNote}
                         yearMap={yearMap}
-                        onCalendarViewClick={(newCalendar, newDate) => {
+                        onCalendarViewClick={async (newCalendar, newDate) => {
                             setCalendar(newCalendar);
-                            setData(loadFromStorage(newCalendar.key));
+                            try {
+                                const newData = await loadFromStorage(newCalendar.key);
+                                setData(newData);
+                            } catch (error) {
+                                console.error('Error loading calendar data:', error);
+                                setData([]);
+                            }
                             setSelectedDate(newDate);
                             setView("year");
                         }}
-                        onNoteViewClick={(newCalendar, newDate) => {
+                        onNoteViewClick={async (newCalendar, newDate) => {
                             setCalendar(newCalendar);
-                            setData(loadFromStorage(newCalendar.key));
+                            try {
+                                const newData = await loadFromStorage(newCalendar.key);
+                                setData(newData);
+                            } catch (error) {
+                                console.error('Error loading calendar data:', error);
+                                setData([]);
+                            }
                             setSelectedDate(newDate);
                             setView("note");
                         }}

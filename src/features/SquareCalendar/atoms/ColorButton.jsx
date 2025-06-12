@@ -28,6 +28,7 @@ export const ColorButton = ({
         }
     }, [color]);
 
+    console.log({ bgColor });
     return (
         <button
             onClick={onClick}
@@ -36,10 +37,11 @@ export const ColorButton = ({
                 // "border-4 border-black dark:border-white": selectedColorClass === bgColor,
                 "grayscale-0 opacity-100": selectedColorClass === bgColor,
                 "grayscale-[90%] opacity-40": selectedColorClass !== bgColor,
+                "border border-black dark:border-white": bgColor === "",
                 // "border border-black dark:border-white": selectedColorClass !== bgColor,
-                "flex gap-3 justify-between items-center min-h-10": true,
+                "flex gap-3 justify-between items-center min-h-10 size-12": true,
                 "p-2 rounded-xl text-xs shrink-0 min-w-20": display !== "compact",
-                "p-1 rounded-none text-xs min-w-10": display === "compact",
+                "p-1 rounded text-xs text-center min-w-10 w-full": display === "compact",
             })}>
             {legend &&
                 <label className={display === "compact" ? "text-[8px]" : ""}>

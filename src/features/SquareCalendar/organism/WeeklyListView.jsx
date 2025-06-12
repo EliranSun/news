@@ -1,7 +1,7 @@
 import { Calendars, Categories } from "../constants";
 import { useState, useEffect, useCallback } from "react";
 import { DateStrip } from "../molecules/DateStrip";
-import { format, startOfWeek, startOfMonth, endOfWeek, eachDayOfInterval, isSameDay } from "date-fns";
+import { format, startOfMonth, endOfWeek, eachDayOfInterval, isSameDay } from "date-fns";
 import { getColorsClassList, loadFromStorage } from "../utils";
 import { DayModalPortal } from "./DayModalPortal";
 
@@ -58,7 +58,7 @@ export const WeeklyListView = ({ updateData }) => {
     const [weekDays, setWeekDays] = useState([]);
     const [calendarData, setCalendarData] = useState();
 
-    const updateWeeklyData = useCallback(() => {
+    const updateWeeklyData = useCallback(async () => {
         // Preserve the current time (hours, minutes, seconds, ms) when generating week days
         const preserveTime = (date, refDate) => {
             const d = new Date(date);
@@ -72,16 +72,26 @@ export const WeeklyListView = ({ updateData }) => {
         setWeekDays(days);
 
         // Load data for all calendars
-        const data = {};
-        Object.values(Calendars).forEach(calendar => {
-            data[calendar.key] = loadFromStorage(calendar.key) || [];
-        });
-        setCalendarData(data);
+        try {
+            const data = {};
+            await Promise.all(Object.values(Calendars).map(async (calendar) => {
+                try {
+                    data[calendar.key] = await loadFromStorage(calendar.key) || [];
+                } catch (error) {
+                    console.error(`Error loading calendar ${calendar.key}:`, error);
+                    data[calendar.key] = [];
+                }
+            }));
+            setCalendarData(data);
+        } catch (error) {
+            console.error('Error loading weekly data:', error);
+            setCalendarData({});
+        }
     }, [selectedDate]);
 
     useEffect(() => {
         updateWeeklyData();
-    }, [selectedDate, updateData]);
+    }, [selectedDate, updateData, updateWeeklyData]);
 
     return (
         <div className="w-screen h-[calc(100vh-127px)] overflow-y-auto">

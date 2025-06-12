@@ -1,8 +1,9 @@
 import { Colors, Calendars, TailwindColorsMap } from "./constants";
 import { differenceInDays, differenceInHours, isEqual, addDays, startOfDay } from "date-fns";
 
-export const getDaysSinceLastEntry = (key = "square-calendar") => {
-    const data = loadFromStorage(key);
+export const getDaysSinceLastEntry = (data) => {
+    // const data = await loadFromStorage(key);
+
 
     if (!data || data.length === 0) {
         return null; // No entries exist
@@ -31,12 +32,12 @@ export const getDaysSinceLastEntry = (key = "square-calendar") => {
     const msDiff = today - lastEntryDate;
     const hoursPassed = Math.floor(msDiff / (1000 * 60 * 60));
 
-    return hoursPassed;
+    return hoursPassed || null;
 };
 
 
-export const getStreakCount = (key = "square-calendar") => {
-    const data = loadFromStorage(key);
+export const getStreakCount = (data, key) => {
+    // const data = await loadFromStorage(key);
 
     if (!data || data.length === 0) {
         return 0; // No entries exist
@@ -74,7 +75,7 @@ export const getStreakCount = (key = "square-calendar") => {
     }
 
     // Check for consecutive days
-    for (let i = 1; i < uniqueDates.length; i++) {
+    for (let i = 1; i <= uniqueDates.length; i++) {
         const expectedPrevDate = startOfDay(addDays(currentDate, -1));
         const actualPrevDate = uniqueDates[i];
 
@@ -88,11 +89,15 @@ export const getStreakCount = (key = "square-calendar") => {
         }
     }
 
+    if (streak > 0 && isSameDay(uniqueDates[0], today)) {
+        streak++;
+    }
+
     return streak;
 };
 
-export const getHighestStreakCount = (key = "square-calendar") => {
-    const data = loadFromStorage(key);
+export const getHighestStreakCount = (data, key) => {
+    // const data = await loadFromStorage(key);
 
     if (!data || data.length === 0) {
         return 0; // No entries exist
@@ -146,16 +151,39 @@ export const getHighestStreakCount = (key = "square-calendar") => {
 }
 
 export const saveToStorage = (key = "square-calendar", data) => {
-    localStorage.setItem(key, JSON.stringify(data));
+    // localStorage.setItem(key, JSON.stringify(data));
 
+    fetch("https://walak.vercel.app/api/store-blocks-data", {
+        method: 'POST',
+        body: JSON.stringify({
+            data,
+            key
+        })
+    }).then(res => res.json()).then(data => {
+        console.log("saved to storage", data);
+    }).catch(err => {
+        console.error("error saving to storage", err);
+    });
 };
 
-export const loadFromStorage = (key = "square-calendar") => {
+export const loadFromStorage = async (key = "square-calendar") => {
+    // try {
+    //     const data = localStorage.getItem(key);
+    //     return data ? JSON.parse(data) : [];
+    // } catch (error) {
+    //     console.error('Error loading data from storage:', error);
+    //     return [];
+    // }
+
     try {
-        const data = localStorage.getItem(key);
-        return data ? JSON.parse(data) : [];
-    } catch (error) {
-        console.error('Error loading data from storage:', error);
+        const res = await fetch(`https://walak.vercel.app/api/store-blocks-data?key=${key}`, {
+            method: 'GET',
+        });
+
+        const data = await res.json();
+        return data || [];
+    } catch (err) {
+        console.error("error loading from storage", err);
         return [];
     }
 };
@@ -164,16 +192,16 @@ export const getColorsClassList = (color) => {
     return TailwindColorsMap[color] || "";
 };
 
-export const exportCalendarData = () => {
+export const exportCalendarData = async () => {
     // Create an object to hold all calendar data
     const allData = {};
 
     // For each calendar in Calendars, get its data from localStorage
-    Object.values(Calendars).forEach(calendar => {
+    await Promise.all(Object.values(Calendars).map(async calendar => {
         const key = calendar.key;
-        const data = loadFromStorage(key);
+        const data = await loadFromStorage(key);
         allData[key] = data;
-    });
+    }));
 
     // Convert to JSON string with pretty formatting
     const dataString = JSON.stringify(allData, null, 2);

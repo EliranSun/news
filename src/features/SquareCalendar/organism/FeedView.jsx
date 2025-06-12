@@ -18,13 +18,22 @@ export const FeedView = ({
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedCalendar, setSelectedCalendar] = useState(Object.values(Calendars)
         .find(calendar => calendar.category === selectedCategory));
-    const [note, setNote] = useState(loadFromStorage(selectedCalendar.key).find(item => isSameDay(item.date, selectedDate))?.note || "");
+    const [note, setNote] = useState("");
     const [colorChanged, setColorChanged] = useState(0);
     const [isDayPopoverOpen, setIsDayPopoverOpen] = useState(true);
 
+    // Load initial note
     useEffect(() => {
-        const calendarData = loadFromStorage(selectedCalendar.key);
-        setNote(calendarData.find(item => isSameDay(item.date, selectedDate))?.note || "");
+        const loadNote = async () => {
+            try {
+                const calendarData = await loadFromStorage(selectedCalendar.key);
+                setNote(calendarData.find(item => isSameDay(item.date, selectedDate))?.note || "");
+            } catch (error) {
+                console.error('Error loading note:', error);
+                setNote("");
+            }
+        };
+        loadNote();
     }, [selectedCalendar, selectedDate]);
 
     return (
@@ -94,21 +103,25 @@ export const FeedView = ({
                                     "size-10 rounded-full shrink-0": true,
                                     "text-xs flex justify-center items-center": true,
                                 })}
-                                onClick={() => {
-                                    let data = loadFromStorage(selectedCalendar.key);
-                                    if (data.find(item => isSameDay(item.date, selectedDate))) {
-                                        data = data.map(item => {
-                                            if (isSameDay(item.date, selectedDate)) {
-                                                return { ...item, color };
-                                            }
-                                            return item;
-                                        });
-                                    } else {
-                                        data.push({ date: selectedDate, color });
-                                    }
+                                onClick={async () => {
+                                    try {
+                                        let data = await loadFromStorage(selectedCalendar.key);
+                                        if (data.find(item => isSameDay(item.date, selectedDate))) {
+                                            data = data.map(item => {
+                                                if (isSameDay(item.date, selectedDate)) {
+                                                    return { ...item, color };
+                                                }
+                                                return item;
+                                            });
+                                        } else {
+                                            data.push({ date: selectedDate, color });
+                                        }
 
-                                    saveToStorage(selectedCalendar.key, data);
-                                    setColorChanged(colorChanged + 1);
+                                        saveToStorage(selectedCalendar.key, data);
+                                        setColorChanged(colorChanged + 1);
+                                    } catch (error) {
+                                        console.error('Error updating color:', error);
+                                    }
                                 }}>
                                 {selectedCalendar.legend?.find(legend => legend.color === color)?.name}
                             </div>
@@ -123,20 +136,24 @@ export const FeedView = ({
                 />
                 <button
                     className="rounded-xl p-2 bg-blue-500 text-white"
-                    onClick={() => {
-                        let data = loadFromStorage(selectedCalendar.key);
-                        if (data.find(item => isSameDay(item.date, selectedDate))) {
-                            data = data.map(item => {
-                                if (isSameDay(item.date, selectedDate)) {
-                                    return { ...item, note };
-                                }
-                                return item;
-                            });
-                        } else {
-                            data.push({ date: selectedDate, note });
-                        }
+                    onClick={async () => {
+                        try {
+                            let data = await loadFromStorage(selectedCalendar.key);
+                            if (data.find(item => isSameDay(item.date, selectedDate))) {
+                                data = data.map(item => {
+                                    if (isSameDay(item.date, selectedDate)) {
+                                        return { ...item, note };
+                                    }
+                                    return item;
+                                });
+                            } else {
+                                data.push({ date: selectedDate, note });
+                            }
 
-                        saveToStorage(selectedCalendar.key, data);
+                            saveToStorage(selectedCalendar.key, data);
+                        } catch (error) {
+                            console.error('Error saving note:', error);
+                        }
                     }}>
                     SAVE NOTE
                 </button>
