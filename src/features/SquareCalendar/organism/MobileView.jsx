@@ -63,7 +63,7 @@ const SingleCalendar = ({
 
     return (
         <>
-            <div className="p-4 w-full border-b my-2">
+            <div className="p-4 w-full my-2 border-b last:border-b-0">
                 <div className="flex items-center gap-4">
                     <h2 className="text-lg font-bold uppercase heebo-900 mb-2">
                         {calendar.icon} {calendar.name}
@@ -75,9 +75,7 @@ const SingleCalendar = ({
                     data={data}
                     selectedColorClass={selectedColorClass}
                     selectedDate={selectedDate}
-                    onColorSelect={async (color) => {
-                        await updateData({ color, date: selectedDate, calendar });
-                    }}
+                    onColorSelect={(color) => updateData({ color, date: selectedDate, calendar })}
                 />
                 <div className="flex justify-start items-center gap-4 py-2 border p-2 rounded-full w-fit mt-4">
                     <CalendarGamification
@@ -196,23 +194,25 @@ export const MobileView = ({
                     initial="enter"
                     animate="center"
                     exit="exit"
+                    className="p-2"
                     transition={{
                         type: "spring",
                         stiffness: 400,
                         damping: 25,
                         duration: 0.12
                     }}
-                    className="p-2"
                 >
                     {data.map((calendarData, index) => {
-                        debugger;
                         return (
                             <SingleCalendar
                                 key={index}
                                 calendar={Calendars[Object.keys(Calendars)[index]]}
                                 selectedDate={selectedDate}
-                                updateData={updateData}
                                 data={calendarData}
+                                updateData={async params => {
+                                    const newData = await updateData(params);
+                                    setData(data.map((item, i) => i === index ? newData : item));
+                                }}
                             />
                         );
                     })}

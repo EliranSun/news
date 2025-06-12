@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useColorPercentage } from "../useColorPercentage";
 import { getDaysInMonth } from "date-fns";
 import classNames from "classnames";
+import { useMemo } from "react";
 
 export const ColorsButtons = ({
     data,
@@ -13,12 +14,12 @@ export const ColorsButtons = ({
     monthIndex,
     display = "default"
 }) => {
-    const month = new Date(selectedDate.getFullYear(), monthIndex, 1);
-    const daysInMonth = getDaysInMonth(month);
-    const currentMonthDays = Array.from({ length: daysInMonth }, (_, i) => ({
+    const month = useMemo(() => new Date(selectedDate.getFullYear(), monthIndex, 1), [selectedDate, monthIndex]);
+    const daysInMonth = useMemo(() => getDaysInMonth(month), [month]);
+    const currentMonthDays = useMemo(() => Array.from({ length: daysInMonth }, (_, i) => ({
         date: new Date(month.getFullYear(), month.getMonth(), i + 1),
         previousMonth: false
-    }));
+    })), [month, daysInMonth]);
 
     const colorPercentages = useColorPercentage(data, currentMonthDays);
 

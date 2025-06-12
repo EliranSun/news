@@ -28,7 +28,6 @@ export const ColorButton = ({
         }
     }, [color]);
 
-    console.log({ bgColor });
     return (
         <button
             onClick={onClick}
