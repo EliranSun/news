@@ -91,7 +91,7 @@ export const Calendars = {
             Colors.Navy,
             Colors.Violet,
             Colors.Purple,
-                        Colors.Black,
+            Colors.Black,
         ],
         icon: "💤",
         showGamification: false,
@@ -175,7 +175,7 @@ export const Calendars = {
             { name: "Belong", color: Colors.Forestgreen },
             { name: "Neutral", color: Colors.Green },
             { name: "Lonely", color: Colors.Turquoise },
-                        { name: "Giving", color: Colors.Skyblue },
+            { name: "Giving", color: Colors.Skyblue },
         ],
         icon: "😶‍🌫️",
         category: Categories.Self,
@@ -234,6 +234,7 @@ export const Calendars = {
         icon: "🎭",
         category: Categories.Creative,
         showColorStatus: true,
+        showGamification: true,
         yellowAfter: 3,
         redAfter: 10,
     },
@@ -421,11 +422,11 @@ export const Calendars = {
         name: "date",
         key: "date-square-calendar",
         colors: [Colors.Rose, Colors.Black],
-      legend: [
+        legend: [
             { name: "yes", label: "yes", color: Colors.Rose },
             { name: "no", label: "no", color: Colors.Black },
         ],
-          icon: "💑",
+        icon: "💑",
         category: Categories.Wife,
         showGamification: false,
     },
@@ -436,11 +437,11 @@ export const Calendars = {
         name: "sex",
         key: "sex-square-calendar",
         colors: [Colors.Hotpink, Colors.Black],
-       legend: [
+        legend: [
             { name: "yes", label: "yes", color: Colors.Hotpink },
             { name: "no", label: "no", color: Colors.Black },
         ],
-         icon: "❤️",
+        icon: "❤️",
         category: Categories.Wife,
         showGamification: false,
     },
@@ -487,11 +488,11 @@ export const Calendars = {
         name: "gestures",
         key: "little-things-square-calendar",
         colors: [Colors.Coral, Colors.Black],
-       legend: [
+        legend: [
             { name: "yes", label: "yes", color: Colors.Coral },
             { name: "no", label: "no", color: Colors.Black },
         ],
-         icon: "🎁",
+        icon: "🎁",
         category: Categories.Wife,
     },
     Mom: {
@@ -842,11 +843,11 @@ export const Calendars = {
     Porn: {
         name: "porn", key: "porn-square-calendar",
         colors: [Colors.Maroon, Colors.Black],
-      legend: [
+        legend: [
             { name: "yes", label: "yes", color: Colors.Maroon },
             { name: "no", label: "no", color: Colors.Black },
         ],
-          icon: "⛔",
+        icon: "⛔",
         category: Categories.Avoid,
         avoid: true,
         showGamification: true,

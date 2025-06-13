@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { format } from "date-fns";
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Calendars } from "../constants";
 import { loadFromStorage, isSameDay, contrastColor, getColorsClassList } from "../utils";
 import { ColorHexMap } from "../constants";
@@ -42,26 +42,64 @@ ColorLabel.propTypes = {
 
 export const TextualDayView = ({ selectedDate = new Date(), setSelectedDate }) => {
     const [fontToggle, setFontToggle] = useState(false);
-    const dayColours = useMemo(() => {
-        if (!selectedDate) return {};
+    const [dayColours, setDayColours] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
 
-        return Object.values(Calendars).reduce((acc, cal) => {
-            const stored = loadFromStorage(cal.key) ?? [];
-            const entry = stored.find(e => isSameDay(e.date, selectedDate));
-            const legend = Object.values(Calendars).find(c => c.key === cal.key)?.legend;
+    useEffect(() => {
+        const loadDayColours = async () => {
+            if (!selectedDate) {
+                setDayColours({});
+                setIsLoading(false);
+                return;
+            }
 
-            acc[cal.key] = entry?.color ? {
-                color: entry.color,
-                note: entry.note,
-                label: legend?.find(l => l?.color === entry?.color)?.label ||
-                    legend?.find(l => l?.color === entry?.color)?.name
-            } : null; // null → no colour that day
-            return acc;
-        }, {});
+            try {
+                setIsLoading(true);
+                const colours = {};
+
+                await Promise.all(Object.values(Calendars).map(async (cal) => {
+                    try {
+                        const stored = await loadFromStorage(cal.key) ?? [];
+                        const entry = stored.find(e => isSameDay(e.date, selectedDate));
+                        const legend = Object.values(Calendars).find(c => c.key === cal.key)?.legend;
+
+                        colours[cal.key] = entry?.color ? {
+                            color: entry.color,
+                            note: entry.note,
+                            label: legend?.find(l => l?.color === entry?.color)?.label ||
+                                legend?.find(l => l?.color === entry?.color)?.name
+                        } : null; // null → no colour that day
+                    } catch (error) {
+                        console.error(`Error loading data for calendar ${cal.key}:`, error);
+                        colours[cal.key] = null;
+                    }
+                }));
+
+                setDayColours(colours);
+            } catch (error) {
+                console.error('Error loading day colours:', error);
+                setDayColours({});
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadDayColours();
     }, [selectedDate]);
 
 
     if (!selectedDate) return null;
+
+    if (isLoading) {
+        return (
+            <>
+                <DateStrip length={60} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+                <div className="h-[70vh] flex items-center justify-center">
+                    <div className="text-lg">Loading...</div>
+                </div>
+            </>
+        );
+    }
 
     const mood = dayColours[Calendars.Mood.key];
     const css = dayColours[Calendars.Css.key];

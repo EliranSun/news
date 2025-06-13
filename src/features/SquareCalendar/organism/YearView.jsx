@@ -1,5 +1,4 @@
 import { Header } from "../molecules/Header";
-import { CalendarNavigation } from "../molecules/CalendarNavigation";
 import { CalendarMonth } from "./CalendarMonth";
 import { CalendarYearColorInfo } from "../molecules/CalendarYearColorInfo";
 import { CalendarDayView as CalendarNotes } from "./CalendarDayView";
@@ -20,18 +19,21 @@ export const YearView = ({
     onCalendarClick,
     updateData,
     setSelectedDate,
-    yearMap,
+    onlyCalendar = false,
 }) => {
     const [infoStateIndex, setInfoStateIndex] = useState(0);
     const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
 
     const hasNote = useMemo(() => {
+        if (!data) return false;
         return data.find(item => isSameDay(item.date, selectedDate))?.note;
     }, [data, selectedDate]);
 
+    if (!data) return null;
+
     return (
-        <div className="sm:mx-2 w-screen mx-auto overflow-hidden">
-            <div className="my-8">
+        <div className="sm:mx-2 sm:h-auto mx-auto overflow-y-auto sm:overflow-hidden">
+            {onlyCalendar ? null : <div className="my-8">
                 <Header
                     calendar={calendar}
                     selectedDate={selectedDate}
@@ -41,12 +43,12 @@ export const YearView = ({
                         setInfoStateIndex((index) => (index + 1) % InfoStates.length)
                     } />
                 </Header>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-between">
-                <CalendarsStrip onCalendarClick={onCalendarClick} isVisible={true} />
-                <div className="w-2/3">
-                    <div className="h-96 overflow-y-auto sm:h-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                        {yearMap.map((_, monthIndex) => {
+            </div>}
+            <div className="flex flex-col sm:flex-row gap-4 justify-between p-2">
+                {onlyCalendar ? null : <CalendarsStrip onCalendarClick={onCalendarClick} isVisible={true} />}
+                <div className="sm:w-2/3">
+                    <div className="overflow-y-auto grid grid-cols-3 md:grid-cols-4 gap-2">
+                        {new Array(12).fill(0).map((_, monthIndex) => {
                             return (
                                 <CalendarMonth
                                     key={monthIndex}
@@ -64,8 +66,8 @@ export const YearView = ({
 
                     <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
 
-                    <div className="flex flex-col gap-2 my-4">
-                        <h2 className="text-lg ">
+                    {onlyCalendar ? null : <div className="flex flex-col gap-2 my-4">
+                        <h2 className="text-lg">
                             {selectedDate.toLocaleDateString("en-GB", {
                                 weekday: "long",
                                 year: "numeric",
@@ -88,10 +90,10 @@ export const YearView = ({
                                 <Note size={24} weight={hasNote ? "fill" : "regular"} />
                             </span>
                         </div>
-                    </div>
+                    </div>}
                 </div>
 
-                <div className="md:h-[calc(100vh-80px)] w-1/3 pb-10 md:overflow-y-scroll px-4">
+                <div className="sm:h-[calc(100vh-80px)] sm:w-1/3 pb-10 sm:overflow-y-scroll sm:px-4">
                     <CalendarNotes
                         data={data}
                         selectedDate={selectedDate} />
@@ -115,6 +117,5 @@ YearView.propTypes = {
     data: PropTypes.array.isRequired,
     onCalendarClick: PropTypes.func.isRequired,
     updateData: PropTypes.func.isRequired,
-    yearMap: PropTypes.array.isRequired,
     setSelectedDate: PropTypes.func.isRequired,
 };

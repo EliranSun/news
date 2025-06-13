@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { loadFromStorage, saveToStorage } from "../utils";
+import { loadFromStorage } from "../utils";
 import { CalendarGamification } from "./CalendarGamification";
 import { CalendarMonth } from "../organism/CalendarMonth";
 import { isSameDay } from "date-fns";
@@ -17,9 +17,23 @@ export const FeedItem = ({
     onNoteViewClick,
     colorChanged,
 }) => {
-    const [data, setData] = useState(loadFromStorage(calendar.key) || []);
+    const [data, setData] = useState([]);
     const [color, setColor] = useState("");
     const [note, setNote] = useState("");
+
+    // Load initial data
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const loadedData = await loadFromStorage(calendar.key);
+                setData(loadedData || []);
+            } catch (error) {
+                console.error('Error loading calendar data:', error);
+                setData([]);
+            }
+        };
+        loadData();
+    }, [calendar.key]);
 
     useEffect(() => {
         if (!selectedDate) return;
@@ -34,8 +48,16 @@ export const FeedItem = ({
     }, [selectedDate, data]);
 
     useEffect(() => {
-        setData(loadFromStorage(calendar.key));
-    }, [colorChanged]);
+        const reloadData = async () => {
+            try {
+                const loadedData = await loadFromStorage(calendar.key);
+                setData(loadedData);
+            } catch (error) {
+                console.error('Error reloading calendar data:', error);
+            }
+        };
+        reloadData();
+    }, [colorChanged, calendar.key]);
 
     return (
         <CalendarMonth
@@ -56,20 +78,35 @@ export const FeedItem = ({
                 </div>
             )}
             showNote={true}
-            setSelectedDate={newDate => {
+            setSelectedDate={async (newDate) => {
                 setSelectedDate(newDate);
                 const dayItem = data.find(item => isSameDay(item.date, newDate));
                 setNote(dayItem?.note || "");
-                setData(loadFromStorage(calendar.key));
+                try {
+                    const reloadedData = await loadFromStorage(calendar.key);
+                    setData(reloadedData);
+                } catch (error) {
+                    console.error('Error reloading data:', error);
+                }
             }}
-            onColorSelect={(color, date) => {
+            onColorSelect={async (color, date) => {
                 setColor(color);
                 updateData({ color, note, date, data, calendar });
-                setData(loadFromStorage(calendar.key));
+                try {
+                    const reloadedData = await loadFromStorage(calendar.key);
+                    setData(reloadedData);
+                } catch (error) {
+                    console.error('Error reloading data:', error);
+                }
             }}
-            onNoteUpdate={(note, date) => {
+            onNoteUpdate={async (note, date) => {
                 updateData({ color, note, date, data, calendar });
-                setData(loadFromStorage(calendar.key));
+                try {
+                    const reloadedData = await loadFromStorage(calendar.key);
+                    setData(reloadedData);
+                } catch (error) {
+                    console.error('Error reloading data:', error);
+                }
             }}>
             <div className="flex flex-col gap-1 items-start w-full justify-between">
                 <CalendarGamification calendar={calendar} size="small" />

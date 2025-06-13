@@ -4,25 +4,28 @@ import { ClockCounterClockwise } from "@phosphor-icons/react";
 import { useDaysSinceColor } from "../useDaysSinceColor";
 import classNames from "classnames";
 import { useMemo } from "react";
-import { getDaysSinceLastEntry } from "../utils"
+import { getDaysSinceLastEntry } from "../utils";
 
 export const DaysSinceBadge = ({
     withIcon = true,
     transparent = false,
     calendar,
     visible = true,
-    size
+    size,
+    data = [],
+    hideToday = false,
+    daysSinceLastEntry
 }) => {
-    const { isRed, isYellow } = useDaysSinceColor(calendar);
-    const daysSinceLastEntry = useMemo(() => getDaysSinceLastEntry(calendar.key), [calendar.key]);
+    const { isRed, isYellow } = useDaysSinceColor(calendar, data);
 
     const text = useMemo(() => {
         if (daysSinceLastEntry === null) return "Never";
-        if (daysSinceLastEntry < 12) return "Today";
-        return `${Math.round(daysSinceLastEntry / 24).toFixed(0)}d`;
-    }, [daysSinceLastEntry]);
+        if (daysSinceLastEntry === 0) if (hideToday) return null; else return "Today";
+        if (daysSinceLastEntry < 12) if (hideToday) return null; else return "Today";
+        return `${Math.round(daysSinceLastEntry / 24).toFixed(0)}d ago`;
+    }, [daysSinceLastEntry, hideToday]);
 
-    if (!visible) return null;
+    if (!visible || !text) return null;
 
     return (
         <Badge
@@ -49,4 +52,7 @@ DaysSinceBadge.propTypes = {
     calendar: PropTypes.object.isRequired,
     transparent: PropTypes.bool,
     showValue: PropTypes.bool,
+    data: PropTypes.array,
+    visible: PropTypes.bool,
+    size: PropTypes.string,
 };
