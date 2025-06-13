@@ -113,19 +113,19 @@ export const Body = ({
             );
 
         case "year":
-            if (window.innerWidth < 768) {
-                return (
-                    <MobileView
-                        calendar={calendar}
-                        selectedDate={selectedDate}
-                        updateData={updateData}
-                        yearMap={yearMap}
-                        setSelectedDate={setSelectedDate}
-                        daysSinceLastEntry={daysSinceLastEntry}
-                        onCalendarClick={onCalendarClick}
-                    />
-                );
-            }
+            // if (window.innerWidth < 768) {
+            //     return (
+            //         <MobileView
+            //             calendar={calendar}
+            //             selectedDate={selectedDate}
+            //             updateData={updateData}
+            //             yearMap={yearMap}
+            //             setSelectedDate={setSelectedDate}
+            //             daysSinceLastEntry={daysSinceLastEntry}
+            //             onCalendarClick={onCalendarClick}
+            //         />
+            //     );
+            // }
             return (
                 <YearView
                     calendar={calendar}
