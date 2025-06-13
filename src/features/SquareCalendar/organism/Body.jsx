@@ -123,9 +123,11 @@ export const Body = ({
                     />
                 );
             }
+
             return (
                 <YearView
                     calendar={calendar}
+                    onlyCalendar={true}
                     selectedDate={selectedDate}
                     updateData={updateData}
                     yearMap={yearMap}
