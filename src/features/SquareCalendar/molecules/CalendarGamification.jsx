@@ -22,15 +22,6 @@ export const CalendarGamification = ({ calendar, size, variant = "default", data
             "text-stone-800": variant === "plain",
             "py-2 px-4 text-center": true,
         })}>
-            <DaysSinceBadge
-                calendar={calendar}
-                data={data}
-                hideToday={hideToday}
-                daysSinceLastEntry={daysSinceLastEntry}
-                visible={true}
-                withIcon={!hideIcons}
-                transparent
-                size={size} />
             <StreakBadge
                 streak={streak}
                 size={size}
@@ -41,6 +32,15 @@ export const CalendarGamification = ({ calendar, size, variant = "default", data
                 highscore={highscore}
                 transparent
                 visible={highscore > 0 && highscore > streak}
+                size={size} />
+            <DaysSinceBadge
+                calendar={calendar}
+                data={data}
+                hideToday={hideToday}
+                daysSinceLastEntry={daysSinceLastEntry}
+                visible={true}
+                withIcon={!hideIcons}
+                transparent
                 size={size} />
         </div>
     );

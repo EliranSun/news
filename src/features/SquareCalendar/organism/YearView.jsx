@@ -45,7 +45,8 @@ export const YearView = ({
                 </Header>
             </div>}
             <div className="flex flex-col sm:flex-row gap-4 justify-between p-2">
-                {onlyCalendar ? null : <CalendarsStrip onCalendarClick={onCalendarClick} isVisible={true} />}
+                {onlyCalendar ? null
+                    : <CalendarsStrip onCalendarClick={onCalendarClick} isVisible={true} />}
                 <div className="sm:w-2/3">
                     <div className="overflow-y-auto grid grid-cols-3 md:grid-cols-4 gap-2">
                         {new Array(12).fill(0).map((_, monthIndex) => {

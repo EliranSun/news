@@ -1,5 +1,5 @@
 import { Colors, Calendars, TailwindColorsMap } from "./constants";
-import { differenceInDays, differenceInHours, isEqual, addDays, startOfDay } from "date-fns";
+import { differenceInDays, isEqual, addDays, startOfDay } from "date-fns";
 
 export const getDaysSinceLastEntry = (data) => {
     if (!data || data.length === 0) {
@@ -60,17 +60,17 @@ export const getStreakCount = (data, key) => {
 
     const today = startOfDay(new Date());
 
-    // Start counting streak from most recent entry
-    let currentDate = uniqueDates[0];
-    let streak = 0;
-
     // If most recent entry is before yesterday, no active streak
-    if (differenceInDays(today, currentDate) > 1) {
+    if (differenceInDays(today, uniqueDates[0]) > 1) {
         return 0;
     }
 
-    // Check for consecutive days
-    for (let i = 1; i <= uniqueDates.length; i++) {
+    // Count consecutive days starting from the most recent entry
+    let streak = 1; // Start with 1 to count the first entry
+    let currentDate = uniqueDates[0];
+
+    // Check for consecutive days going backwards
+    for (let i = 1; i < uniqueDates.length; i++) {
         const expectedPrevDate = startOfDay(addDays(currentDate, -1));
         const actualPrevDate = uniqueDates[i];
 
@@ -82,10 +82,6 @@ export const getStreakCount = (data, key) => {
             // Streak is broken
             break;
         }
-    }
-
-    if (streak > 0 && isSameDay(uniqueDates[0], today)) {
-        streak++;
     }
 
     return streak;

@@ -244,13 +244,14 @@ export const Calendars = {
         redAfter: 5,
         name: "read",
         key: "read-square-calendar",
+        icon: "📚",
+        category: Categories.Creative,
+        showGamification: true,
         colors: [Colors.Sage, Colors.Black],
         legend: [
             { name: "yes", label: "yes", color: Colors.Sage },
             { name: "no", label: "no", color: Colors.Black },
         ],
-        icon: "📚",
-        category: Categories.Creative
     },
     Draw: {
         showColorStatus: true,
