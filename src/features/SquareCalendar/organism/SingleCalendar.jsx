@@ -1,11 +1,11 @@
 import classNames from "classnames";
 import { isSameDay } from "date-fns";
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { CalendarGamification } from "../molecules/CalendarGamification";
 import { ColorsButtons } from "../molecules/ColorsButtons";
-import { NoteModal } from "../molecules/NoteModal";
 import { getColorsClassList } from "../utils";
 import PropTypes from "prop-types";
+import { Note, Calendar } from "@phosphor-icons/react";
 
 export const SingleCalendar = ({
     calendar,
@@ -49,12 +49,12 @@ export const SingleCalendar = ({
                         "text-stone-500": !hasNote,
                         "text-stone-900 font-bold": hasNote,
                     }, "cursor-pointer")}>
-                    {hasNote ? "Noted" : "Add Note"}
+                    {hasNote ? <Note size={16} weight="bold" /> : <Note size={16} weight="bold" />}
                 </span>
                 <span
                     onClick={() => openCalendarModal(calendar)}
                     className={classNames("text-sm text-stone-500 border py-2 px-4 rounded-full", "cursor-pointer")}>
-                    Calendar
+                    <Calendar size={16} weight="bold" />
                 </span>
             </div>
         </div>

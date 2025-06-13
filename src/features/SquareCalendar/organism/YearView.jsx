@@ -63,8 +63,14 @@ export const YearView = ({
                             )
                         })}
                     </div>
-
-                    <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
+                    {onlyCalendar ? (
+                        <div className="w-full flex items-center justify-between my-4">
+                            <Info size={16} weight="bold" onClick={() =>
+                                setInfoStateIndex((index) => (index + 1) % InfoStates.length)
+                            } />
+                            <CalendarYearColorInfo data={data} selectedDate={selectedDate} />
+                        </div>
+                    ) : null}
 
                     {onlyCalendar ? null : <div className="flex flex-col gap-2 my-4">
                         <h2 className="text-lg">

@@ -72,20 +72,20 @@ export const CalendarMonth = ({
 
     return (
         <div className="flex flex-col w-full gap-0 bg-stone-100 dark:bg-stone-800
-         rounded-md p-1" key={`month-${monthIndex}`}>
+         rounded p-2 shadow" key={`month-${monthIndex}`}>
             {isYearView ?
-                <h2 className="text-xs my-0 w-full text-center">
+                <h2 className="text-xs w-full text-center">
                     {format(month, "MMM")}
                 </h2> : ""}
             {header}
             <div className="flex flex-row-reverse gap-4 w-full">
                 <div className={isYearView
-                    ? "w-full"
+                    ? "w-full flex justify-center items-center"
                     : "z-10 w-full flex justify-center items-center"}>
                     <div className={classNames({
                         // "border-8 border-stone-900": true,
                         "grid grid-cols-7 h-fit w-fit relative": true,
-                        "p-1 gap-0.5": size === "small",
+                        "p-0 gap-0.5": size === "small",
                         "p-1 gap-1 mx-auto": size !== "small",
                     })}>
                         {calendarData.map((dayObj, dayIndex) => {

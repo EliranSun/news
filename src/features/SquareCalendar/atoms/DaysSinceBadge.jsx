@@ -40,7 +40,7 @@ export const DaysSinceBadge = ({
                 "bg-yellow-400": isYellow,
                 "bg-lime-400": !isRed && !isYellow,
             })}>
-            {withIcon && <ClockCounterClockwise size={size === "big" ? 18 : 16} />}
+            {withIcon && <ClockCounterClockwise size={size === "big" ? 18 : 16} weight="bold" />}
             {text}
         </Badge>
     )

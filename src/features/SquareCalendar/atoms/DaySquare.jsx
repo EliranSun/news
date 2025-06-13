@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { contrastColor, getColorsClassList } from "../utils";
-import { useMemo, useContext, useRef, useEffect } from "react";
+import { useMemo, useContext } from "react";
 import classNames from "classnames";
-import { ColorHexMap, TailwindColorsMap } from "../constants";
+import { ColorHexMap } from "../constants";
 import { isSameDay } from "date-fns";
 import { PointerContext } from "../PointerContext";
 
@@ -10,10 +10,8 @@ export const DaySquare = ({
     dayObj,
     selectedDate,
     onClick,
-    onDoubleClick,
     data,
     size = "small",
-    isSelected,
     infoState
 }) => {
     // const ref = useRef(null);
@@ -30,40 +28,17 @@ export const DaySquare = ({
         return color && getColorsClassList(color);
     }, [color]);
 
-    // useEffect(() => {
-    //     if (ref.current) {
-    //         ref.current.addEventListener("mousedown", event => {
-    //             event.preventDefault();
-    //             event.stopPropagation();
-
-    //             console.log("mousedown");
-
-    //         });
-
-    //         ref.current.addEventListener("mouseup", (event) => {
-    //             event.preventDefault();
-    //             event.stopPropagation();
-
-    //             setPointerX(null);
-    //             setPointerY(null);
-    //         });
-    //     }
-    // }, [ref, setPointerX, setPointerY]);
-
-
     return (
         <div
-            // ref={ref}
             onClick={event => {
                 setPointerX(event.clientX);
                 setPointerY(event.clientY);
                 onClick(dayObj.date);
             }}
             style={{ color: contrastColor({ bgColor: ColorHexMap[color] }) }}
-            // onDoubleClick={() => onDoubleClick(dayObj.date)}
             className={classNames(colorClass, {
                 "text-[7px] flex justify-center items-center": true,
-                "size-4 rounded-[2px]": size === "small",
+                "size-[10px] rounded-[1px]": size === "small",
                 "size-5 rounded-[3px] mx-auto": size === "medium",
                 "size-9 rounded-md mx-auto": size === "big",
                 "bg-stone-200 dark:bg-stone-600": !colorClass,
