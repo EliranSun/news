@@ -17,10 +17,10 @@ export const CalendarGamification = ({ calendar, size, variant = "default", data
 
     return (
         <div className={classNames({
-            "flex justify-center items-center gap-2 rounded-full": true,
-            "bg-stone-800": variant === "default",
+            "flex justify-center items-center gap-4 rounded-full": true,
+            "bg-stone-300": variant === "default",
             "text-stone-800": variant === "plain",
-            "p-2 text-center": true,
+            "py-2 px-4 text-center": true,
         })}>
             <DaysSinceBadge
                 calendar={calendar}

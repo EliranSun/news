@@ -2,12 +2,12 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 // TODO: Refactor to Pill
-export const Badge = ({ 
-    children, 
-    className = "", 
+export const Badge = ({
+    children,
+    className = "",
     textBlack = false,
     transparent = false,
-    size = "small" 
+    size = "small"
 }) => {
     return (
         <div className={classNames({
@@ -16,8 +16,8 @@ export const Badge = ({
             "bg-black": !transparent,
             "text-sm  rounded-xl": true,
             "text-black dark:text-white": textBlack & !transparent,
-           // "text-white": !textBlack,
-            "py-1 px-2": size === "big",
+            // "text-white": !textBlack,
+            "py-1 px-3": size === "big",
         }, className)}>
             {children}
         </div>

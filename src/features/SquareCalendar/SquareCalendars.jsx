@@ -66,8 +66,6 @@ export default function SquareCalendars() {
         }
     }, [selectedDate]);
 
-    const yearMap = useMemo(() => new Array(12).fill(0), []);
-
     if (isLoading) {
         return (
             <div className="pb-40 sm:pb-0 h-screen w-screen user-select-none font-mono bg-stone-50 dark:bg-stone-900 flex items-center justify-center">
@@ -92,7 +90,6 @@ export default function SquareCalendars() {
                         saveToStorage={saveToStorage}
                         calendar={calendar}
                         selectedDateNote={selectedDateNote}
-                        yearMap={yearMap}
                         onCalendarViewClick={async (newCalendar, newDate) => {
                             setCalendar(newCalendar);
                             try {

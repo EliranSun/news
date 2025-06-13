@@ -2,9 +2,6 @@ import { Colors, Calendars, TailwindColorsMap } from "./constants";
 import { differenceInDays, differenceInHours, isEqual, addDays, startOfDay } from "date-fns";
 
 export const getDaysSinceLastEntry = (data) => {
-    // const data = await loadFromStorage(key);
-
-
     if (!data || data.length === 0) {
         return null; // No entries exist
     }
@@ -37,8 +34,6 @@ export const getDaysSinceLastEntry = (data) => {
 
 
 export const getStreakCount = (data, key) => {
-    // const data = await loadFromStorage(key);
-
     if (!data || data.length === 0) {
         return 0; // No entries exist
     }
@@ -97,8 +92,6 @@ export const getStreakCount = (data, key) => {
 };
 
 export const getHighestStreakCount = (data, key) => {
-    // const data = await loadFromStorage(key);
-
     if (!data || data.length === 0) {
         return 0; // No entries exist
     }
@@ -151,41 +144,41 @@ export const getHighestStreakCount = (data, key) => {
 }
 
 export const saveToStorage = (key = "square-calendar", data) => {
-    // localStorage.setItem(key, JSON.stringify(data));
+    localStorage.setItem(key, JSON.stringify(data));
 
-    fetch("https://walak.vercel.app/api/store-blocks-data", {
-        method: 'POST',
-        body: JSON.stringify({
-            data,
-            key
-        })
-    }).then(res => res.json()).then(data => {
-        console.log("saved to storage", data);
-    }).catch(err => {
-        console.error("error saving to storage", err);
-    });
+    // fetch("https://walak.vercel.app/api/store-blocks-data", {
+    //     method: 'POST',
+    //     body: JSON.stringify({
+    //         data,
+    //         key
+    //     })
+    // }).then(res => res.json()).then(data => {
+    //     console.log("saved to storage", data);
+    // }).catch(err => {
+    //     console.error("error saving to storage", err);
+    // });
 };
 
 export const loadFromStorage = async (key = "square-calendar") => {
-    // try {
-    //     const data = localStorage.getItem(key);
-    //     return data ? JSON.parse(data) : [];
-    // } catch (error) {
-    //     console.error('Error loading data from storage:', error);
-    //     return [];
-    // }
-
     try {
-        const res = await fetch(`https://walak.vercel.app/api/store-blocks-data?key=${key}`, {
-            method: 'GET',
-        });
-
-        const data = await res.json();
-        return data || [];
-    } catch (err) {
-        console.error("error loading from storage", err);
+        const data = localStorage.getItem(key);
+        return data ? JSON.parse(data) : [];
+    } catch (error) {
+        console.error('Error loading data from storage:', error);
         return [];
     }
+
+    // try {
+    //     const res = await fetch(`https://walak.vercel.app/api/store-blocks-data?key=${key}`, {
+    //         method: 'GET',
+    //     });
+
+    //     const data = await res.json();
+    //     return data || [];
+    // } catch (err) {
+    //     console.error("error loading from storage", err);
+    //     return [];
+    // }
 };
 
 export const getColorsClassList = (color) => {

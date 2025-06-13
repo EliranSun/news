@@ -22,7 +22,7 @@ export const DaysSinceBadge = ({
         if (daysSinceLastEntry === null) return "Never";
         if (daysSinceLastEntry === 0) if (hideToday) return null; else return "Today";
         if (daysSinceLastEntry < 12) if (hideToday) return null; else return "Today";
-        return `${Math.round(daysSinceLastEntry / 24).toFixed(0)}d`;
+        return `${Math.round(daysSinceLastEntry / 24).toFixed(0)}d ago`;
     }, [daysSinceLastEntry, hideToday]);
 
     if (!visible || !text) return null;
