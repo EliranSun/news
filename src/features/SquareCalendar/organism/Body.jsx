@@ -8,7 +8,7 @@ import { HourView } from "../../HourlyTracker/HourView";
 import { WeeklyListView } from "./WeeklyListView";
 import { FeedView } from "./FeedView";
 import { differenceInDays } from "date-fns";
-import { loadFromStorage } from "../utils";
+import { loadFromStorage, saveToStorage } from "../utils";
 import { YearView } from "./YearView";
 import { MobileView } from "./MobileView";
 
@@ -22,7 +22,6 @@ export const Body = ({
     onCalendarClick,
     setSelectedDateNote,
     setData,
-    saveToStorage,
     calendar,
     selectedDateNote,
     onCalendarViewClick,
@@ -32,29 +31,34 @@ export const Body = ({
         return data.length > 0 ? differenceInDays(new Date(), new Date(data[data.length - 1].date)) : 0;
     }, [data]);
 
-    const updateData = useCallback(({ color, note, date, calendar: localCalendar }) => {
-        const calendarData = loadFromStorage(localCalendar.key);
+    const updateData = useCallback(async ({ color, note, date, calendar: localCalendar }) => {
+        try {
+            const calendarData = await loadFromStorage(localCalendar.key);
 
-        let newData;
-        const formattedDate = date;
+            let newData;
+            const formattedDate = date;
 
-        if (color === 'clear') {
-            newData = calendarData.filter(item => item.date.getTime() !== formattedDate.getTime());
-        } else {
-            const existingEntry = calendarData.find(item => isSameDay(item.date, formattedDate));
-            if (existingEntry) {
-                newData = calendarData.map(item =>
-                    isSameDay(item.date, formattedDate)
-                        ? { ...item, color: color || item.color, note: note || item.note }
-                        : item
-                );
+            if (color === 'clear') {
+                newData = calendarData.filter(item => item.date.getTime() !== formattedDate.getTime());
             } else {
-                newData = [...calendarData, { date, color, note }];
+                const existingEntry = calendarData.find(item => isSameDay(item.date, formattedDate));
+                if (existingEntry) {
+                    newData = calendarData.map(item =>
+                        isSameDay(item.date, formattedDate)
+                            ? { ...item, color: color || item.color, note: note || item.note }
+                            : item
+                    );
+                } else {
+                    newData = [...calendarData, { date, color, note }];
+                }
             }
-        }
 
-        saveToStorage(localCalendar.key, newData);
-        setData(newData);
+            saveToStorage(localCalendar.key, newData);
+            setData(newData);
+            return newData;
+        } catch (error) {
+            console.error('Error updating data:', error);
+        }
     }, [saveToStorage, setData]);
 
     switch (view) {
@@ -118,7 +122,6 @@ export const Body = ({
                         yearMap={yearMap}
                         setSelectedDate={setSelectedDate}
                         daysSinceLastEntry={daysSinceLastEntry}
-                        data={data}
                         onCalendarClick={onCalendarClick}
                     />
                 );
@@ -130,7 +133,6 @@ export const Body = ({
                     onlyCalendar={true}
                     selectedDate={selectedDate}
                     updateData={updateData}
-                    yearMap={yearMap}
                     setSelectedDate={setSelectedDate}
                     daysSinceLastEntry={daysSinceLastEntry}
                     data={data}

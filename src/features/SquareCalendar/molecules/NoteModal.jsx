@@ -1,12 +1,30 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { isSameDay } from "date-fns";
 import { loadFromStorage } from "../utils";
 import PropTypes from "prop-types";
 
-export const NoteModal = ({ isOpen, onClose, calendar, date, updateData }) => {
+export const NoteModal = ({ isOpen, onClose, calendar, date, updateData, data = [] }) => {
     const [isSaved, setIsSaved] = useState(false);
-    const data = useMemo(() => loadFromStorage(calendar.key), [calendar.key]);
-    const [note, setNote] = useState(data.find(item => isSameDay(item.date, date))?.note || "");
+    // const [data, setData] = useState([]);
+    const [note, setNote] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+
+    // useEffect(() => {
+    //     const loadData = async () => {
+    //         try {
+    //             setIsLoading(true);
+    //             const loadedData = await loadFromStorage(calendar.key);
+    //             setData(loadedData);
+    //             setNote(loadedData.find(item => isSameDay(item.date, date))?.note || "");
+    //         } catch (error) {
+    //             console.error('Error loading data:', error);
+    //             setData([]);
+    //         } finally {
+    //             setIsLoading(false);
+    //         }
+    //     };
+    //     loadData();
+    // }, [calendar.key]);
 
     useEffect(() => {
         setIsSaved(false);
@@ -14,6 +32,16 @@ export const NoteModal = ({ isOpen, onClose, calendar, date, updateData }) => {
     }, [data, date]);
 
     if (!isOpen) return null;
+
+    if (isLoading) {
+        return (
+            <div className="fixed inset-0 w-screen h-screen backdrop-brightness-50 z-50 p-2 flex items-center justify-center">
+                <div className="bg-stone-100 dark:bg-stone-800 rounded-md p-4 border border-stone-300 dark:border-stone-700">
+                    Loading...
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="fixed inset-0 w-screen h-screen backdrop-brightness-50 z-50 p-2" onClick={onClose}>
@@ -34,12 +62,12 @@ export const NoteModal = ({ isOpen, onClose, calendar, date, updateData }) => {
                     <button onClick={onClose}>
                         Close
                     </button>
-                    <button 
-                    className="bg-blue-400"
-                    onClick={() => {
-                        updateData({ note, date, data, calendar });
-                        setIsSaved(true);
-                    }}>
+                    <button
+                        className="bg-blue-400"
+                        onClick={() => {
+                            updateData({ note, date, data, calendar });
+                            setIsSaved(true);
+                        }}>
                         {isSaved ? "Saved!" : "Save"}
                     </button>
                 </div>
