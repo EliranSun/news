@@ -49,7 +49,7 @@ export const SingleCalendar = ({
                         "text-stone-500": !hasNote,
                         "text-stone-900 font-bold": hasNote,
                     }, "cursor-pointer")}>
-                    {hasNote ? <Note size={16} weight="bold" /> : <Note size={16} weight="bold" />}
+                    {hasNote ? <Note size={16} weight="fill" /> : <Note size={16} weight="bold" />}
                 </span>
                 <span
                     onClick={() => openCalendarModal(calendar)}
