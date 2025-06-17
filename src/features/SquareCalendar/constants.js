@@ -55,6 +55,28 @@ export const Categories = {
 };
 
 export const Calendars = {
+
+    Mood: {
+        name: "mood",
+        key: "mood-square-tracker",
+        colors: [
+            Colors.Yellow,
+            Colors.Orange,
+            Colors.Crimson,
+            Colors.Blue,
+            Colors.Violet
+        ],
+        legend: [
+            { name: "Great", color: Colors.Yellow },
+            { name: "Good", color: Colors.Orange },
+            { name: "OK", color: Colors.Crimson },
+            { name: "Bad", color: Colors.Blue },
+            { name: "Awful", color: Colors.Violet },
+        ],
+        icon: "🌀",
+        category: Categories.Self,
+        showGamification: false,
+    },
     Sleep: {
         showColorStatus: false,
         name: "REM",
@@ -181,48 +203,27 @@ export const Calendars = {
         category: Categories.Self,
         showGamification: false,
     },
-    Dopamine: {
-        name: "dopamine",
-        key: "dopamine-square-tracker",
-        colors: [
-            Colors.Violet,
-            Colors.Blue,
-            Colors.Yellow,
-            Colors.Orange,
-            Colors.Crimson,
-        ],
-        legend: [
-            { name: "Very low", color: Colors.Violet },
-            { name: "Low", color: Colors.Blue },
-            { name: "Average", color: Colors.Yellow },
-            { name: "High", color: Colors.Orange },
-            { name: "Very high", color: Colors.Crimson },
-        ],
-        icon: "🍭",
-        category: Categories.Self,
-        showGamification: false,
-    },
-    Mood: {
-        name: "mood",
-        key: "mood-square-tracker",
-        colors: [
-            Colors.Yellow,
-            Colors.Orange,
-            Colors.Crimson,
-            Colors.Blue,
-            Colors.Violet
-        ],
-        legend: [
-            { name: "Great", color: Colors.Yellow },
-            { name: "Good", color: Colors.Orange },
-            { name: "OK", color: Colors.Crimson },
-            { name: "Bad", color: Colors.Blue },
-            { name: "Awful", color: Colors.Violet },
-        ],
-        icon: "🌀",
-        category: Categories.Self,
-        showGamification: false,
-    },
+    // Dopamine: {
+    //     name: "dopamine",
+    //     key: "dopamine-square-tracker",
+    //     colors: [
+    //         Colors.Violet,
+    //         Colors.Blue,
+    //         Colors.Yellow,
+    //         Colors.Orange,
+    //         Colors.Crimson,
+    //     ],
+    //     legend: [
+    //         { name: "Very low", color: Colors.Violet },
+    //         { name: "Low", color: Colors.Blue },
+    //         { name: "Average", color: Colors.Yellow },
+    //         { name: "High", color: Colors.Orange },
+    //         { name: "Very high", color: Colors.Crimson },
+    //     ],
+    //     icon: "🍭",
+    //     category: Categories.Self,
+    //     showGamification: false,
+    // },
     Css: {
         name: "css",
         key: "css-square-calendar",
@@ -692,23 +693,23 @@ export const Calendars = {
             { name: "meet", color: Colors.Lavender },
         ]
     },
-    Avshalom: {
-        showColorStatus: true,
-        showGamification: false,
-        yellowAfter: 30,
-        redAfter: 60,
-        name: "avshalom",
-        key: "avshalom-square-calendar",
-        icon: "☀️",
-        category: Categories.Shemesh,
-        colors: [
-            Colors.Violet,
-            Colors.Black
-        ],
-        legend: [
-            { name: "PM", color: Colors.Violet },
-        ]
-    },
+    // Avshalom: {
+    //     showColorStatus: true,
+    //     showGamification: false,
+    //     yellowAfter: 30,
+    //     redAfter: 60,
+    //     name: "avshalom",
+    //     key: "avshalom-square-calendar",
+    //     icon: "☀️",
+    //     category: Categories.Shemesh,
+    //     colors: [
+    //         Colors.Violet,
+    //         Colors.Black
+    //     ],
+    //     legend: [
+    //         { name: "PM", color: Colors.Violet },
+    //     ]
+    // },
     Rotem: {
         showColorStatus: true,
         showGamification: false,
