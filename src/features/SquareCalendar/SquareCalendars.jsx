@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect, useMemo } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { loadFromStorage, saveToStorage, isSameDay } from "./utils";
 import { Calendars } from "./constants";
 import { Navbar } from "./molecules/Navbar";
@@ -6,6 +6,7 @@ import PhysicsDemo from "./organism/PhysicsDemo";
 import { FlexibleOpacityTransition } from "./atoms/FlexibleOpacityTransition";
 import { Body } from "./organism/Body";
 import { PointerProvider } from "./PointerContext";
+import NotesByDayView from "./NotesByDayView";
 
 export default function SquareCalendars() {
     const [isPhysicsDemoOpen, setIsPhysicsDemoOpen] = useState(false);
@@ -15,26 +16,7 @@ export default function SquareCalendars() {
     const [isLoading, setIsLoading] = useState(false);
     // this works because timestamp is unique
     const [selectedDateNote, setSelectedDateNote] = useState("");
-    const [view, setView] = useState("year");
-
-    // Load initial data
-    // useEffect(() => {
-    //     const loadInitialData = async () => {
-    //         try {
-    //             setIsLoading(true);
-    //             const storageData = await loadFromStorage(Calendars.Sleep.key);
-    //             setData(storageData);
-    //             setSelectedDateNote(storageData.find(item =>
-    //                 isSameDay(item.date, selectedDate))?.note || "");
-    //         } catch (error) {
-    //             console.error('Error loading initial data:', error);
-    //             setData([]);
-    //         } finally {
-    //             setIsLoading(false);
-    //         }
-    //     };
-    //     loadInitialData();
-    // }, [selectedDate]);
+    const [view, setView] = useState("notes");
 
     useEffect(() => {
         setTimeout(() => {
@@ -74,8 +56,18 @@ export default function SquareCalendars() {
         );
     }
 
+    if (view === "notes") {
+        return (
+            <>
+                <button onClick={() => setView("year")}>Back</button>
+                <NotesByDayView />
+            </>
+        );
+    }
+
     return (
         <PointerProvider>
+            <button onClick={() => setView("notes")}>Notes</button>
             <div className="pb-40 sm:pb-0 h-screen w-screen user-select-none font-mono bg-stone-50 dark:bg-stone-900">
                 <FlexibleOpacityTransition>
                     <Body
