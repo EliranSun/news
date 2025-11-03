@@ -95,10 +95,8 @@ export const MainPage = ({ savedPath }) => {
 		case currentPath.includes("/physics"):
 			return <PhysicsDemoWrapper />;
 
+		default:
 		case currentPath.includes("/news"):
 			return <News />;
-
-		default:
-			return <SquareCalendars />;
 	}
 };
