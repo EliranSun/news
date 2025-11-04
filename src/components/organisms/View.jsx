@@ -80,4 +80,5 @@ View.propTypes = {
     view: PropTypes.string,
     onItemRead: PropTypes.func,
     onItemsScroll: PropTypes.func,
+    isLoadingFeeds: PropTypes.bool,
 };

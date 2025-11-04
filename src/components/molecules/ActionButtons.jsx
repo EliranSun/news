@@ -26,12 +26,9 @@ export const ActionButtons = ({
     const AIQueryIcon = aiQueryStatus.isError ? Skull : aiQueryStatus.isLoading ? Brain : Robot;
 
     return (
-        <div className="fixed bottom-0 pt-4 pb-8
-         border-gray-200 bg-white dark:bg-black inset-x-0 flex justify-center items-center 
+        <div className="py-8
+         bg-white dark:bg-black flex justify-center items-center 
          gap-4">
-            {/* <RoundButton big onClick={() => window.open(contextualItems[0].link, "_blank")}>
-                <Link size={24} />
-            </RoundButton> */}
             <RoundButton big onClick={onQueryClick}>
                 <AIQueryIcon size={24} className={aiQueryStatus.isLoading ? "animate-pulse" : ""} />
             </RoundButton>

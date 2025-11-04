@@ -11,10 +11,16 @@ const RssFeedComponent = () => {
 	const [isSweepDataView, setIsSweepDataView] = useState(false);
 	const { items, setFeeds, isLoading: isLoadingFeeds } = useRssFeed(view === "saved");
 	const [scrolledItems, setScrolledItems] = useState([]);
-	const { queryResult, onQueryClick, setQueryResult, isLoading: isLoadingAI, isError } = useQueryAI(items);
+	const {
+		queryResult,
+		onQueryClick,
+		setQueryResult,
+		isLoading: isLoadingAI,
+		isError
+	} = useQueryAI(items);
 
 	useEffect(() => {
-		setScrolledItems(0);
+		setScrolledItems([]);
 	}, [items]);
 
 	return (
@@ -33,6 +39,7 @@ const RssFeedComponent = () => {
 					isError,
 				}}
 				onItemsScroll={(itemLink) => {
+					console.log({ itemLink, scrolledItems });
 					if (!scrolledItems.includes(itemLink)) {
 						setScrolledItems(prev => [...prev, itemLink]);
 					}
@@ -44,11 +51,12 @@ const RssFeedComponent = () => {
 			/>
 			<ActionButtons
 				contextualItems={items}
-				unreadItemsCount={items.length - scrolledItems.length <= 0 ? 0 : items.length - scrolledItems.length}
 				setFeeds={setFeeds}
 				setQueryResult={setQueryResult}
 				isSweepDataView={isSweepDataView}
 				setIsSweepDataView={setIsSweepDataView}
+				unreadItemsCount={items.length - scrolledItems.length <= 0
+					? 0 : items.length - scrolledItems.length}
 				onQueryClick={() => {
 					if (view === "feeds") onQueryClick(items);
 					else onQueryClick(items.slice(0, 1));

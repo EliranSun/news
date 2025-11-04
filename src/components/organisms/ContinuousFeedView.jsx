@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-const useCurrentItemScroll = (items = [], onItemsScroll = () => { }) => {
+const useCurrentItemScroll = (elementRef, items = [], onItemsScroll = () => { }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentItem, setCurrentItem] = useState(items[0]);
 
@@ -31,8 +31,8 @@ const useCurrentItemScroll = (items = [], onItemsScroll = () => { }) => {
             onItemsScroll(currentItem.link);
         };
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        elementRef.current.addEventListener('scroll', handleScroll);
+        return () => elementRef.current.removeEventListener('scroll', handleScroll);
     }, [items, currentIndex]);
 
     return { currentItem, currentIndex };
@@ -45,40 +45,55 @@ function hasHebrewCharacters(text) {
 const Item = ({ item, index, currentIndex }) => {
     const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
     const isHebrew = hasHebrewCharacters(item.title);
-    
+
     return (
         <p
-                    dir={ isHebrew ? "rtl" : "ltr"}
-                    onClick={() => {
-                        if (isDescriptionOpen)
-                            window.open(item.link, "_blank");
-                        else 
-                            setIsDescriptionOpen(true);
-                    }}
-                    className={classNames("py-4 item", {
-                        "opacity-20": index < currentIndex,
-                        "merriweather-regular": !isHebrew,
-                        "heebo-500": isHebrew
-                    })}>
-                    {item.title}{isDescriptionOpen? `: ${item.description}` : ""}
-                </p>
-                );
+            dir={isHebrew ? "rtl" : "ltr"}
+            onClick={() => {
+                if (isDescriptionOpen)
+                    window.open(item.link, "_blank");
+                else
+                    setIsDescriptionOpen(true);
+            }}
+            className={classNames("py-4 item", {
+                "opacity-20": index < currentIndex,
+                "merriweather-regular": !isHebrew,
+                "heebo-500": isHebrew
+            })}>
+            {item.title}{isDescriptionOpen ? `: ${item.description}` : ""}
+        </p>
+    );
+};
+
+Item.propTypes = {
+    item: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        link: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        diff: PropTypes.shape({
+            value: PropTypes.number,
+            unit: PropTypes.string,
+        }),
+        isSaved: PropTypes.bool,
+        feedName: PropTypes.string,
+    }),
+    index: PropTypes.number,
+    currentIndex: PropTypes.number,
 };
 
 export default function ContinuousFeedView({ items = [], onItemsScroll = () => { } }) {
-    const { currentItem, currentIndex } = useCurrentItemScroll(items, onItemsScroll);
+    const elementRef = useRef(null);
+    const { currentItem, currentIndex } = useCurrentItemScroll(elementRef, items, onItemsScroll);
 
     return (
-        <div className="pt-24 pb-[50rem] px-4 text-xl">
-            <span className="text-sm font-bold 
-            bg-black text-white fixed left-1 top-16 p-2">
+        <div
+            ref={elementRef}
+            id="continuous-feed-view"
+            className="px-4 h-[75vh] overflow-y-auto">
+            <span className="text-sm font-extrabold bg-black text-white fixed left-1 top-16 p-2">
                 {currentItem?.diff?.value}{currentItem?.diff?.unit} ago
             </span>
-            {/* <span className="text-sm font-bold border-b-2 border-black 
-            fixed top-20 bg-white p-4">
-                {JSON.stringify({ currentIndex }, null, 2)}
-            </span> */}
-            {items.map((item, index) => <Item 
+            {items.map((item, index) => <Item
                 item={item}
                 index={index}
                 currentIndex={currentIndex}
@@ -88,6 +103,18 @@ export default function ContinuousFeedView({ items = [], onItemsScroll = () => {
 }
 
 ContinuousFeedView.propTypes = {
-    items: PropTypes.array,
     onItemsScroll: PropTypes.func,
+    items: PropTypes.arrayOf(
+        PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            link: PropTypes.string.isRequired,
+            description: PropTypes.string,
+            diff: PropTypes.shape({
+                value: PropTypes.number,
+                unit: PropTypes.string,
+            }),
+            isSaved: PropTypes.bool,
+            feedName: PropTypes.string,
+        })
+    ),
 };

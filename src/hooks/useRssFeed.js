@@ -35,6 +35,8 @@ export const useRssFeed = (isSavedView) => {
 
                 if (!isItemExist && !isRead) {
                     items.push(props);
+                } else {
+                    console.debug("item already exists", { isItemExist, isRead });
                 }
             });
 
