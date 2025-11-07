@@ -55,7 +55,7 @@ const Item = ({ item, index, currentIndex }) => {
                 else
                     setIsDescriptionOpen(true);
             }}
-            className={classNames("py-4 text-lg", {
+            className={classNames("py-4 text-2xl", {
                 "opacity-20": index < currentIndex,
                 "merriweather-regular": !isHebrew,
                 "heebo-500": isHebrew
@@ -89,7 +89,7 @@ export default function ContinuousFeedView({ items = [], onItemsScroll = () => {
         <div
             ref={elementRef}
             id="continuous-feed-view"
-            className="py-16 px-4 h-[70vh] border overflow-y-auto">
+            className="py-8 px-4 h-[70vh] border overflow-y-auto">
             <span className="text-sm font-extrabold bg-black text-white fixed left-1 top-16 p-2">
                 {currentItem?.diff?.value}{currentItem?.diff?.unit} ago
             </span>
