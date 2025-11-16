@@ -20,7 +20,7 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
-	overflow: hidden;
+	/* overflow: hidden; */
 }
 
 .space-grotesk-700 {

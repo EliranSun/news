@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { Github, Mail, Phone } from "lucide-react";
+import { GithubIcon, MailIcon, PhoneIcon } from "lucide-react";
 
 const Title = ({ children }) => {
     return <h1 className="text-5xl font-bold text-black merriweather-black my-4">{children}</h1>;
@@ -66,26 +66,26 @@ const ListItem = ({ children }) => {
 
 export const CurriculumVitae = () => {
     return (
-        <main className="cv">
+        <main className="">
             <Title><span className="text-yellow-500 text-[3.4rem]">☀</span> Eliran Shemesh</Title>
             <div className="flex flex-col gap-4">
                 {/* Contact information */}
                 <UnorderedList>
                     <ListItem>
                         <Link href="https://github.com/EliranSun">
-                            <Github size={20} />
+                            <GithubIcon size={16} />
                             <span className="text-gray-500 text-xs">github.com/EliranSun</span>
                         </Link>
                     </ListItem>
                     <ListItem>
                         <Link href="mailto:piro27@gmail.com">
-                            <Mail size={20} />
+                            <MailIcon size={16} />
                             <span className="text-gray-500 text-xs">piro27@gmail.com</span>
                         </Link>
                     </ListItem>
                     <ListItem>
                         <Link href="tel:+972503443947">
-                            <Phone size={20} />
+                            <PhoneIcon size={16} />
                             <span className="text-gray-500 text-xs">050-344-3947</span>
                         </Link>
                     </ListItem>
@@ -102,7 +102,7 @@ export const CurriculumVitae = () => {
                     <Section>
                         <Subtitle>Experience</Subtitle>
                         <Article>
-                            <Heading>Frontend Engineer, Atly: 2022-Present</Heading>
+                            <Heading>Frontend Engineer, Atly: 2022-2025</Heading>
                             <Paragraph>
                                 Implementing best practices and refactored an admin application. Migrating existing React projects to Next.js. Single handedly responsible of SEO, performance, the design system, architecture and technologies.
                             </Paragraph>
