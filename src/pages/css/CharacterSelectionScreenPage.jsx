@@ -163,6 +163,12 @@ const CharacterSelectionScreenPage = () => {
                         </p>
                     </div>
                     <div className="space-y-4">
+                        <h2 className="press-start-2p-700">How are you doing this?</h2>
+                        <p>
+                            WIP
+                        </p>
+                    </div>
+                    <div className="space-y-4">
                         <h2 className="press-start-2p-700">Where can I play this?</h2>
                         <p>
                             You can't. Yet. It's in the phase of Proof of Concept/early Alpha/Demo. Once I'll have something of <b>SIGNIFICANT</b> to show I'll let you know. Personally.
