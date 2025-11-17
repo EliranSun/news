@@ -87,9 +87,18 @@ const CharacterSelectionScreenPage = () => {
                         <h2 className="press-start-2p-700">What is this?</h2>
                         <p>
                             It is a game about selecting a character, essentially. <br />
-                            But what <i>DOES</i> building a character means?<br />
-                            Looking through the lens of video games, it is the virtual aspect of selecting body parts, shapes, facial expressions and clothes. Going one layer of interperation under though, the <i>ACT</i> of choosing a face, body, clothes, expressions etc. is not that simple. <br />
-                            <b>WHY</b> did you choose a smiley face? Why red as the color of the shirt? Why is she muscular? Why is he bald? Are you mimicing yourself? An ideal? Or are you representing something hidden from you - subconsicous even - and let it surface via the technical aspect of selecting a character?
+                            But what does <i>BUILDING</i>  a character means?<br /><br />
+                            Looking through the lens of video games, it is the virtual aspect of selecting body parts, shapes, facial expressions and clothes. Going one layer of interperation deeper though, the <i>ACT</i> of choosing a face, body, clothes, expressions etc. is not that obvious. <br /><br />
+                            <b>WHY</b> did you choose a smiley face? Why red as the color of the shirt? Why is she muscular? Why is he bald? Are you mimicking yourself? An ideal? Or are you representing something hidden from you - subconsicous even - and let it surface via the technical aspect of selecting a character?<br /><br />
+                            Because these are complex questions that change from one person to the other, I wanted to find a way to let us <b>DISCOVER</b> the answers ourselves, by building a character... but not directly.
+                        </p>
+                    </div>
+                    <div className="space-y-4">
+                        <h2 className="press-start-2p-700">
+                            What do you mean?
+                        </h2>
+                        <p className="clearfix text-justify">
+                            Imagine real life for a sec. How do you <i>BUILD</i> character in real life?
                         </p>
                     </div>
                     <div className="space-y-4">
@@ -149,6 +158,12 @@ const CharacterSelectionScreenPage = () => {
                         <h2 className="press-start-2p-700">Why can't I scroll all the way up?</h2>
                         <p>
                             WIP
+                        </p>
+                    </div>
+                    <div className="space-y-4">
+                        <h2 className="press-start-2p-700">Where can I play this?</h2>
+                        <p>
+                            You can't. Yet. It's in the phase of Proof of Concept/early Alpha/Demo. Once I'll have something of <b>SIGNIFICANT</b> to show I'll let you know. Personally.
                         </p>
                     </div>
                     <div className="space-y-4">
