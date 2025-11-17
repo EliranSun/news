@@ -145,7 +145,9 @@ const CharacterSelectionScreenPage = () => {
                     <div className="space-y-4">
                         <h2 className="press-start-2p-700">The Story</h2>
                         <p>
-                            TBD
+
+                            The game follows a faceless character and a branching, evolving storyline that leads players to shape their character—not through a traditional character-creation screen, but through the experiences, stories, and mini-games they go through by interacting with the characters and the world. <br /><br />
+                            Players reside in a building with endless floors, can design their own apartment, visit other characters (and later possibly other players), and face everyday situations in ways that feel authentic and sometimes difficult—and through all of this, perhaps understand a thing or two about themselves and their choices.
                         </p>
                     </div>
                     <div className="space-y-4">
