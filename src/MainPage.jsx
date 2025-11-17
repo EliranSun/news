@@ -12,6 +12,7 @@ import SleepGraph from "./pages/SleepGraph.jsx";
 import SleepAdd from "./pages/SleepAdd.jsx";
 import Orchuk from "./pages/Orchuk.jsx";
 import Squares from "./pages/Squares.jsx";
+import Css from "./pages/css/CharacterSelectionScreenPage.jsx";
 import SquareCalendars from "./features/SquareCalendar/SquareCalendars.jsx";
 import { PhysicsDemoWrapper } from "./App.jsx";
 import { useEffect } from "react";
@@ -94,6 +95,9 @@ export const MainPage = ({ savedPath }) => {
 
 		case currentPath.includes("/physics"):
 			return <PhysicsDemoWrapper />;
+
+		case currentPath.includes("/css"):
+			return <Css />;
 
 		default:
 		case currentPath.includes("/news"):
