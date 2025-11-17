@@ -6,7 +6,7 @@ const Title = ({ children }) => {
 };
 
 const Subtitle = ({ children }) => {
-    return <h2 className="text-xl font-bold text-amber-600 heebo-900">{children}</h2>;
+    return <h2 className="text-xl font-bold text-amber-500 heebo-900">{children}</h2>;
 };
 
 const Heading = ({ children }) => {
@@ -25,11 +25,11 @@ const Paragraph = ({ children, variant = "primary" }) => {
 };
 
 const Section = ({ children }) => {
-    return <section className="my-4">{children}</section>;
+    return <section className="mb-4">{children}</section>;
 };
 
 const Article = ({ children }) => {
-    return <article className="flex flex-col gap-0 my-4">{children}</article>;
+    return <article className="flex flex-col gap-0 mb-4">{children}</article>;
 };
 
 const UnorderedList = ({ children }) => {
@@ -46,12 +46,16 @@ const Tags = [
     "React",
     "Next.js",
     "Node.js",
-    "Express",
-    "Webpack",
-    "Docker",
-    "Kubernetes",
+    // "Express",
+    "Vite",
+    // "Webpack",
+    // "Docker",
+    // "Kubernetes",
     "Tailwind CSS",
     "Storybook",
+    "Jest",
+    "Cypress",
+    "Playwright",
     "HTML",
     "CSS",
 ];
@@ -67,7 +71,9 @@ const ListItem = ({ children }) => {
 export const CurriculumVitae = () => {
     return (
         <main className="">
-            <Title><span className="text-yellow-500 text-[3.4rem]">☀</span> Eliran Shemesh</Title>
+            <Title>
+                <span className="text-amber-500">☀</span> Eliran Shemesh
+            </Title>
             <div className="flex flex-col gap-4">
                 {/* Contact information */}
                 <UnorderedList>
@@ -95,7 +101,7 @@ export const CurriculumVitae = () => {
                         <Subtitle>Profile</Subtitle>
                         <Article>
                             <Paragraph>
-                                Dedicated, hard-working & positive.  Collaborative and team-oriented. Seeing the big picture while focusing on the details. Creative and passionate - yet methodological and thorough. Coding == life.
+                                Dedicated, hard-working & positive. Collaborative and team-oriented. Seeing the big picture while focusing on the details. Creative and passionate - yet methodological and thorough.
                             </Paragraph>
                         </Article>
                     </Section>
