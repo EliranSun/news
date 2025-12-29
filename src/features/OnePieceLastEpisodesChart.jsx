@@ -148,7 +148,7 @@ export const OnePieceLastEpisodesChart = () => {
 					Episode
 				</button>
 			</div>
-			<div className="border h-[50vh] overflow-y-auto  w-full md:w-[50vw] m-auto text-base">
+			<div className="border h-[50vh] overflow-y-auto  w-full md:w-[50vw] m-auto text-base" style={{ boxSizing: 'content-box' }}>
 				{[...data]
 					.sort((a, b) => {
 						if (sortBy === "score") {
