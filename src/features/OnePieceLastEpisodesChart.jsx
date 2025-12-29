@@ -62,7 +62,7 @@ export const OnePieceLastEpisodesChart = () => {
 	const xDomain = [data[0].x, "dataMax"];
 
 	return (
-		<div className="flex flex-col md:flex-row">
+		<div className="max-w-screen-lg flex flex-col">
 			<div className="flex w-full mb-2">
 				<button
 					className="w-full"
