@@ -87,8 +87,8 @@ export const OnePieceLastEpisodesChart = () => {
 			</div>
 			<div className="w-screen md:w-1/3">
 				<ResponsiveContainer
-					style={{ marginLeft: -50 }}
-					width={window.innerWidth + 50}
+					style={{ marginLeft: 0 }}
+					width={window.innerWidth / 3 * 2}
 					height={window.innerHeight / 3}>
 					<LineChart
 						margin={{
