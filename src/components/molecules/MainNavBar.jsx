@@ -1,4 +1,4 @@
-import { Bed, Rss, Skull, Menu, Briefcase, Clock } from "lucide-react";
+import { Bed, Rss, Skull, Menu, Briefcase, Clock, Bell } from "lucide-react";
 import { useState } from "react";
 
 const savePath = (path) => {
@@ -48,6 +48,11 @@ const InnerMenu = () => {
 				className="transition-transform hover:scale-110 active:scale-95 cursor-pointer"
 				onClick={() => savePath("/clock")}>
 				<Clock size={20} />
+			</span>
+			<span
+				className="transition-transform hover:scale-110 active:scale-95 cursor-pointer"
+				onClick={() => savePath("/alerts")}>
+				<Bell size={20} />
 			</span>
 		</div>
 	);

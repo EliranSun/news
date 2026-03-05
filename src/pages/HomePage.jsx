@@ -14,6 +14,7 @@ const pages = [
   { path: "/square-calendar", label: "Square Calendar" },
   { path: "/physics", label: "Physics Demo" },
   { path: "/css", label: "CSS Character Selection" },
+  { path: "/alerts", label: "Alerts Dashboard" },
 ];
 
 export const HomePage = () => {
