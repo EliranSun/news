@@ -1,11 +1,12 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
   CartesianGrid, LineChart, Line
 } from "recharts";
 import ISRAEL_CITIES from "../data/israelCities";
-import { getArchiveForZone, getArchiveStats } from "../data/alertsArchive";
+import { getArchiveStats } from "../data/alertsArchive";
 import useAlerts from "../hooks/useAlerts";
+import useArchiveData from "../hooks/useArchiveData";
 
 // ──────────────────────────────────────────────
 // Helpers
@@ -356,7 +357,7 @@ export default function AlertsDashboard() {
 
   const { activeAlerts, history, loading, error } = useAlerts(selectedCity.name);
 
-  const archive = useMemo(() => getArchiveForZone(selectedCity.zone), [selectedCity.zone]);
+  const { archive, loading: archiveLoading, error: archiveError } = useArchiveData(selectedCity.name);
   const archiveStats = useMemo(() => getArchiveStats(archive), [archive]);
 
   const handleCityChange = useCallback((id) => {
@@ -470,11 +471,17 @@ export default function AlertsDashboard() {
       {/* ── SECTION B: Historical Archive ── */}
       <SectionDivider label="Historical Archive" />
 
-      {archive && archiveStats ? (
+      {archiveLoading ? (
+        <div style={{ color: "#444", fontSize: 12, letterSpacing: "0.1em" }}>
+          LOADING HISTORICAL DATA...
+        </div>
+      ) : archive && archiveStats ? (
         <ArchiveSection archive={archive} stats={archiveStats} />
       ) : (
         <div style={{ color: "#333", fontSize: 12, letterSpacing: "0.06em" }}>
-          No historical archive data available for the {selectedCity.zone} zone.
+          {archiveError
+            ? "Failed to load historical archive data. Please try again later."
+            : `No historical archive data available for ${selectedCity.nameEn}.`}
         </div>
       )}
 
