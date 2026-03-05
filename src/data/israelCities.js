@@ -1,0 +1,30 @@
+// Major Israeli cities with Hebrew names (for oref API matching), English names, and coordinates
+const ISRAEL_CITIES = [
+  { id: "tlv", name: "תל אביב", nameEn: "Tel Aviv", lat: 32.0853, lng: 34.7818, zone: "גוש דן" },
+  { id: "jerusalem", name: "ירושלים", nameEn: "Jerusalem", lat: 31.7683, lng: 35.2137, zone: "ירושלים" },
+  { id: "haifa", name: "חיפה", nameEn: "Haifa", lat: 32.7940, lng: 34.9896, zone: "חיפה" },
+  { id: "ramat-gan", name: "רמת גן", nameEn: "Ramat Gan", lat: 32.0680, lng: 34.8241, zone: "גוש דן" },
+  { id: "bnei-brak", name: "בני ברק", nameEn: "Bnei Brak", lat: 32.0833, lng: 34.8333, zone: "גוש דן" },
+  { id: "beer-sheva", name: "באר שבע", nameEn: "Beer Sheva", lat: 31.2530, lng: 34.7915, zone: "באר שבע" },
+  { id: "ashdod", name: "אשדוד", nameEn: "Ashdod", lat: 31.8014, lng: 34.6435, zone: "לכיש" },
+  { id: "ashkelon", name: "אשקלון", nameEn: "Ashkelon", lat: 31.6688, lng: 34.5743, zone: "שפלה" },
+  { id: "netanya", name: "נתניה", nameEn: "Netanya", lat: 32.3215, lng: 34.8532, zone: "שרון" },
+  { id: "petah-tikva", name: "פתח תקווה", nameEn: "Petah Tikva", lat: 32.0866, lng: 34.8859, zone: "ירקון" },
+  { id: "rishon", name: "ראשון לציון", nameEn: "Rishon LeZion", lat: 31.9730, lng: 34.7925, zone: "גוש דן" },
+  { id: "holon", name: "חולון", nameEn: "Holon", lat: 32.0117, lng: 34.7748, zone: "גוש דן" },
+  { id: "bat-yam", name: "בת ים", nameEn: "Bat Yam", lat: 32.0236, lng: 34.7515, zone: "גוש דן" },
+  { id: "herzliya", name: "הרצליה", nameEn: "Herzliya", lat: 32.1629, lng: 34.8447, zone: "שרון" },
+  { id: "kfar-saba", name: "כפר סבא", nameEn: "Kfar Saba", lat: 32.1780, lng: 34.9078, zone: "שרון" },
+  { id: "raanana", name: "רעננה", nameEn: "Ra'anana", lat: 32.1849, lng: 34.8710, zone: "שרון" },
+  { id: "givatayim", name: "גבעתיים", nameEn: "Giv'atayim", lat: 32.0716, lng: 34.8124, zone: "גוש דן" },
+  { id: "rehovot", name: "רחובות", nameEn: "Rehovot", lat: 31.8928, lng: 34.8113, zone: "שפלה" },
+  { id: "modiin", name: "מודיעין", nameEn: "Modi'in", lat: 31.8969, lng: 35.0104, zone: "שפלה" },
+  { id: "nazareth", name: "נצרת", nameEn: "Nazareth", lat: 32.6996, lng: 35.3035, zone: "העמקים" },
+  { id: "akko", name: "עכו", nameEn: "Akko", lat: 32.9260, lng: 35.0764, zone: "גליל עליון" },
+  { id: "sderot", name: "שדרות", nameEn: "Sderot", lat: 31.5254, lng: 34.5958, zone: "עוטף עזה" },
+  { id: "kiryat-shmona", name: "קריית שמונה", nameEn: "Kiryat Shmona", lat: 33.2068, lng: 35.5714, zone: "גליל עליון" },
+  { id: "eilat", name: "אילת", nameEn: "Eilat", lat: 29.5581, lng: 34.9482, zone: "ערבה" },
+  { id: "tiberias", name: "טבריה", nameEn: "Tiberias", lat: 32.7960, lng: 35.5310, zone: "גליל תחתון" },
+];
+
+export default ISRAEL_CITIES;
