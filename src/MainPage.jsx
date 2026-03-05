@@ -1,4 +1,5 @@
 import News from "./App.jsx";
+import { HomePage } from "./pages/HomePage.jsx";
 import FireRekindle from "./features/FireRekindle.jsx";
 import BirthdayQrCodes from "./features/BirthdayQrCodes.jsx";
 import { BirthdayImagePage } from "./features/BirthdayImagePage.jsx";
@@ -54,6 +55,9 @@ export const MainPage = ({ savedPath }) => {
 	}
 
 	switch (true) {
+		case currentPath === "/":
+			return <HomePage />;
+
 		case currentPath.includes("/qr"):
 			return <BirthdayQrCodes />;
 
