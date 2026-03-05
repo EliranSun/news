@@ -4,6 +4,7 @@ import {
   CartesianGrid, LineChart, Line
 } from "recharts";
 import ISRAEL_CITIES from "../data/israelCities";
+import { getArchiveForZone, getArchiveStats } from "../data/alertsArchive";
 import useAlerts from "../hooks/useAlerts";
 
 // ──────────────────────────────────────────────
@@ -177,18 +178,12 @@ function ActiveAlertsBanner({ alerts, cityName }) {
 }
 
 function HistoryList({ history }) {
-  if (!history.length) {
-    return (
-      <div style={{ color: "#333", fontSize: 12, marginTop: 16, letterSpacing: "0.06em" }}>
-        No recent alert history for this city.
-      </div>
-    );
-  }
+  if (!history.length) return null;
 
   return (
     <div style={{ marginTop: 28 }}>
       <div style={{ fontSize: 11, letterSpacing: "0.2em", color: "#444", textTransform: "uppercase", marginBottom: 12 }}>
-        Recent History
+        Recent Live History
       </div>
       <div style={{ maxHeight: 300, overflowY: "auto" }}>
         {history.slice(0, 50).map((h, i) => (
@@ -209,37 +204,137 @@ function HistoryList({ history }) {
   );
 }
 
+function SectionDivider({ label }) {
+  return (
+    <div style={{
+      display: "flex",
+      alignItems: "center",
+      gap: 16,
+      margin: "36px 0 24px",
+    }}>
+      <div style={{ flex: 1, height: 1, background: "#1e1e2e" }} />
+      <span style={{
+        fontSize: 10,
+        letterSpacing: "0.3em",
+        color: "#333",
+        textTransform: "uppercase",
+        whiteSpace: "nowrap",
+      }}>
+        {label}
+      </span>
+      <div style={{ flex: 1, height: 1, background: "#1e1e2e" }} />
+    </div>
+  );
+}
+
 // ──────────────────────────────────────────────
-// Chart data from history
+// Archive chart section
 // ──────────────────────────────────────────────
 
-function buildChartData(history) {
-  const byMonth = {};
-  const byHour = {};
-  for (let h = 0; h < 24; h++) {
-    byHour[h] = 0;
-  }
+const ARCHIVE_TABS = [
+  { id: "year", label: "By Year" },
+  { id: "month", label: "By Month" },
+  { id: "hour", label: "By Hour of Day" },
+];
 
-  for (const item of history) {
-    const dateStr = item.alertDate || item.date;
-    if (!dateStr) continue;
+function ArchiveSection({ archive, stats }) {
+  const [tab, setTab] = useState("year");
 
-    const d = new Date(dateStr);
-    if (isNaN(d)) continue;
-
-    const monthKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
-    byMonth[monthKey] = (byMonth[monthKey] || 0) + 1;
-    byHour[d.getHours()] = (byHour[d.getHours()] || 0) + 1;
-  }
-
-  return {
-    byMonth: Object.entries(byMonth)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(([label, alerts]) => ({ label, alerts })),
-    byHour: Object.entries(byHour)
-      .sort(([a], [b]) => Number(a) - Number(b))
-      .map(([h, alerts]) => ({ label: `${String(h).padStart(2, "0")}:00`, alerts })),
+  const dataMap = {
+    year: archive.byYear,
+    month: archive.byMonth,
+    hour: archive.byHour,
   };
+  const currentData = dataMap[tab];
+
+  return (
+    <div>
+      {/* Archive header */}
+      <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16 }}>
+        <div style={{
+          width: 8, height: 8, borderRadius: "50%",
+          background: "#555",
+        }} />
+        <span style={{ fontSize: 11, letterSpacing: "0.2em", color: "#555", textTransform: "uppercase" }}>
+          {archive.label}
+        </span>
+      </div>
+
+      {/* Archive stats */}
+      <div style={{ display: "flex", gap: 40, flexWrap: "wrap", marginBottom: 24 }}>
+        <Stat label="Total Alerts" value={stats.total} />
+        <Stat label="Peak Year" value={stats.peakYear} />
+        <Stat label="Peak Hour" value={stats.peakHour} />
+      </div>
+
+      {/* Tabs */}
+      <div style={{ display: "flex", marginBottom: 28, borderBottom: "1px solid #1e1e2e" }}>
+        {ARCHIVE_TABS.map((t) => (
+          <button key={t.id} onClick={() => setTab(t.id)} style={{
+            background: "none", border: "none", cursor: "pointer",
+            padding: "10px 22px",
+            fontFamily: "'Courier New', monospace",
+            fontSize: 12, letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: tab === t.id ? "#ff3a3a" : "#444",
+            borderBottom: tab === t.id ? "2px solid #ff3a3a" : "2px solid transparent",
+            marginBottom: -1,
+            transition: "color 0.15s",
+          }}>
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Chart */}
+      <div style={{
+        background: "#0c0c14",
+        border: "1px solid #16162a",
+        borderRadius: 8,
+        padding: "28px 12px 16px",
+      }}>
+        <ResponsiveContainer width="100%" height={360}>
+          {tab === "month" ? (
+            <LineChart data={currentData} margin={{ left: 0, right: 20, top: 4, bottom: 30 }}>
+              <CartesianGrid stroke="#111822" strokeDasharray="3 3" />
+              <XAxis
+                dataKey="label"
+                tick={{ fill: "#444", fontSize: 11, fontFamily: "Courier New" }}
+                angle={-40} textAnchor="end" height={55}
+              />
+              <YAxis tick={{ fill: "#444", fontSize: 11, fontFamily: "Courier New" }} width={40} />
+              <Tooltip content={<CustomTooltip />} />
+              <Line
+                type="monotone" dataKey="alerts" name="Alerts"
+                stroke="#ff3a3a" strokeWidth={2}
+                dot={{ fill: "#ff3a3a", r: 4 }}
+                activeDot={{ r: 6, fill: "#ff3a3a" }}
+              />
+            </LineChart>
+          ) : (
+            <BarChart data={currentData} margin={{ left: 0, right: 20, top: 4, bottom: 10 }}>
+              <CartesianGrid stroke="#111822" strokeDasharray="3 3" vertical={false} />
+              <XAxis
+                dataKey="label"
+                tick={{ fill: "#555", fontSize: tab === "year" ? 13 : 11, fontFamily: "Courier New" }}
+              />
+              <YAxis tick={{ fill: "#444", fontSize: 11, fontFamily: "Courier New" }} width={40} />
+              <Tooltip content={<CustomTooltip />} />
+              <Bar
+                dataKey="alerts" name="Alerts"
+                fill="#ff3a3a" radius={[3, 3, 0, 0]}
+                maxBarSize={tab === "year" ? 70 : 36}
+              />
+            </BarChart>
+          )}
+        </ResponsiveContainer>
+      </div>
+
+      <div style={{ marginTop: 14, fontSize: 11, color: "#2a2a3a", letterSpacing: "0.06em" }}>
+        SOURCE · {archive.source}
+      </div>
+    </div>
+  );
 }
 
 // ──────────────────────────────────────────────
@@ -253,7 +348,6 @@ export default function AlertsDashboard() {
     () => localStorage.getItem(STORAGE_KEY) || "ramat-gan"
   );
   const [locating, setLocating] = useState(false);
-  const [tab, setTab] = useState("month");
 
   const selectedCity = useMemo(
     () => ISRAEL_CITIES.find((c) => c.id === selectedCityId) || ISRAEL_CITIES[0],
@@ -262,7 +356,8 @@ export default function AlertsDashboard() {
 
   const { activeAlerts, history, loading, error } = useAlerts(selectedCity.name);
 
-  const chartData = useMemo(() => buildChartData(history), [history]);
+  const archive = useMemo(() => getArchiveForZone(selectedCity.zone), [selectedCity.zone]);
+  const archiveStats = useMemo(() => getArchiveStats(archive), [archive]);
 
   const handleCityChange = useCallback((id) => {
     setSelectedCityId(id);
@@ -289,13 +384,6 @@ export default function AlertsDashboard() {
     );
   }, [handleCityChange]);
 
-  const TABS = useMemo(() => [
-    { id: "month", label: "By Month", data: chartData.byMonth },
-    { id: "hour", label: "By Hour of Day", data: chartData.byHour },
-  ], [chartData]);
-
-  const current = TABS.find((t) => t.id === tab);
-
   return (
     <div style={{
       background: "#07070d",
@@ -321,7 +409,7 @@ export default function AlertsDashboard() {
             animation: "pulse 1.4s ease-in-out infinite",
           }} />
           <span style={{ fontSize: 11, letterSpacing: "0.25em", color: "#ff5555", textTransform: "uppercase" }}>
-            Live Alerts Monitor
+            Alerts Monitor · Live + Archive
           </span>
         </div>
 
@@ -345,7 +433,9 @@ export default function AlertsDashboard() {
         locating={locating}
       />
 
-      {/* Active Alerts */}
+      {/* ── SECTION A: Live Alerts ── */}
+      <SectionDivider label="Live Status" />
+
       {loading ? (
         <div style={{ color: "#444", fontSize: 12, marginBottom: 28, letterSpacing: "0.1em" }}>
           CONNECTING TO ALERT SYSTEM...
@@ -365,91 +455,31 @@ export default function AlertsDashboard() {
           color: "#666",
           letterSpacing: "0.06em",
         }}>
-          Note: The alert API is only accessible from Israel. If you're outside Israel, alerts may not load.
+          Note: The alert API is only accessible from Israel. If you're outside Israel, live alerts may not load.
         </div>
       )}
 
-      {/* Stats */}
-      <div style={{ display: "flex", gap: 40, flexWrap: "wrap", marginBottom: 28 }}>
-        <Stat label="Total (history)" value={history.length} />
+      <div style={{ display: "flex", gap: 40, flexWrap: "wrap", marginBottom: 12 }}>
         <Stat label="Active Now" value={activeAlerts.length} />
+        <Stat label="Recent (API)" value={history.length} />
         <Stat label="City" value={selectedCity.name} />
       </div>
 
-      {/* Tabs */}
-      {history.length > 0 && (
-        <>
-          <div style={{ display: "flex", marginBottom: 28, borderBottom: "1px solid #1e1e2e" }}>
-            {TABS.map((t) => (
-              <button key={t.id} onClick={() => setTab(t.id)} style={{
-                background: "none", border: "none", cursor: "pointer",
-                padding: "10px 22px",
-                fontFamily: "'Courier New', monospace",
-                fontSize: 12, letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                color: tab === t.id ? "#ff3a3a" : "#444",
-                borderBottom: tab === t.id ? "2px solid #ff3a3a" : "2px solid transparent",
-                marginBottom: -1,
-                transition: "color 0.15s",
-              }}>
-                {t.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Chart */}
-          {current?.data.length > 0 && (
-            <div style={{
-              background: "#0c0c14",
-              border: "1px solid #16162a",
-              borderRadius: 8,
-              padding: "28px 12px 16px",
-            }}>
-              <ResponsiveContainer width="100%" height={360}>
-                {tab === "month" ? (
-                  <LineChart data={current.data} margin={{ left: 0, right: 20, top: 4, bottom: 30 }}>
-                    <CartesianGrid stroke="#111822" strokeDasharray="3 3" />
-                    <XAxis
-                      dataKey="label"
-                      tick={{ fill: "#444", fontSize: 11, fontFamily: "Courier New" }}
-                      angle={-40} textAnchor="end" height={55}
-                    />
-                    <YAxis tick={{ fill: "#444", fontSize: 11, fontFamily: "Courier New" }} width={40} />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Line
-                      type="monotone" dataKey="alerts" name="Alerts"
-                      stroke="#ff3a3a" strokeWidth={2}
-                      dot={{ fill: "#ff3a3a", r: 4 }}
-                      activeDot={{ r: 6, fill: "#ff3a3a" }}
-                    />
-                  </LineChart>
-                ) : (
-                  <BarChart data={current.data} margin={{ left: 0, right: 20, top: 4, bottom: 10 }}>
-                    <CartesianGrid stroke="#111822" strokeDasharray="3 3" vertical={false} />
-                    <XAxis
-                      dataKey="label"
-                      tick={{ fill: "#555", fontSize: 11, fontFamily: "Courier New" }}
-                    />
-                    <YAxis tick={{ fill: "#444", fontSize: 11, fontFamily: "Courier New" }} width={40} />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Bar
-                      dataKey="alerts" name="Alerts"
-                      fill="#ff3a3a" radius={[3, 3, 0, 0]}
-                      maxBarSize={36}
-                    />
-                  </BarChart>
-                )}
-              </ResponsiveContainer>
-            </div>
-          )}
-        </>
-      )}
-
-      {/* History List */}
       <HistoryList history={history} />
 
-      <div style={{ marginTop: 20, fontSize: 11, color: "#2a2a3a", letterSpacing: "0.06em" }}>
-        SOURCE · oref.org.il · Pikud HaOref (Home Front Command)
+      {/* ── SECTION B: Historical Archive ── */}
+      <SectionDivider label="Historical Archive" />
+
+      {archive && archiveStats ? (
+        <ArchiveSection archive={archive} stats={archiveStats} />
+      ) : (
+        <div style={{ color: "#333", fontSize: 12, letterSpacing: "0.06em" }}>
+          No historical archive data available for the {selectedCity.zone} zone.
+        </div>
+      )}
+
+      <div style={{ marginTop: 36, fontSize: 11, color: "#2a2a3a", letterSpacing: "0.06em" }}>
+        LIVE · oref.org.il · Pikud HaOref (Home Front Command)
       </div>
 
       <style>{`
