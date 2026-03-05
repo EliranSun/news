@@ -15,6 +15,7 @@ import Squares from "./pages/Squares.jsx";
 import Css from "./pages/css/CharacterSelectionScreenPage.jsx";
 import SquareCalendars from "./features/SquareCalendar/SquareCalendars.jsx";
 import { PhysicsDemoWrapper } from "./App.jsx";
+import AlertsDashboard from "./pages/AlertsDashboard.jsx";
 import { useEffect } from "react";
 
 export const MainPage = ({ savedPath }) => {
@@ -98,6 +99,9 @@ export const MainPage = ({ savedPath }) => {
 
 		case currentPath.includes("/css"):
 			return <Css />;
+
+		case currentPath.includes("/alerts"):
+			return <AlertsDashboard />;
 
 		default:
 		case currentPath.includes("/news"):
