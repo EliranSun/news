@@ -5,12 +5,18 @@ import {
 } from "recharts";
 
 // Data extracted from github.com/dleshem/israel-alerts-data
-// Filtered for Gush Dan / Ramat Gan district (דן) — 2014–2018
+// Filtered for Gush Dan / Ramat Gan district (דן) — 2014–2026
 const BY_YEAR = [
   {"label":"2014","alerts":57},
   {"label":"2016","alerts":14},
   {"label":"2017","alerts":4},
-  {"label":"2018","alerts":2}
+  {"label":"2018","alerts":11},
+  {"label":"2019","alerts":6},
+  {"label":"2021","alerts":70},
+  {"label":"2023","alerts":142},
+  {"label":"2024","alerts":77},
+  {"label":"2025","alerts":452},
+  {"label":"2026","alerts":457},
 ];
 
 const BY_MONTH = [
@@ -21,22 +27,45 @@ const BY_MONTH = [
   {"label":"2016-12","alerts":1},
   {"label":"2017-07","alerts":1},
   {"label":"2017-11","alerts":3},
-  {"label":"2018-07","alerts":2}
+  {"label":"2018-07","alerts":2},
+  {"label":"2018-12","alerts":9},
+  {"label":"2019-03","alerts":6},
+  {"label":"2021-05","alerts":69},
+  {"label":"2021-11","alerts":1},
+  {"label":"2023-05","alerts":5},
+  {"label":"2023-10","alerts":92},
+  {"label":"2023-11","alerts":21},
+  {"label":"2023-12","alerts":24},
+  {"label":"2024-09","alerts":11},
+  {"label":"2024-10","alerts":21},
+  {"label":"2024-11","alerts":17},
+  {"label":"2024-12","alerts":28},
+  {"label":"2025-01","alerts":8},
+  {"label":"2025-03","alerts":22},
+  {"label":"2025-04","alerts":8},
+  {"label":"2025-05","alerts":70},
+  {"label":"2025-06","alerts":228},
+  {"label":"2025-07","alerts":32},
+  {"label":"2025-08","alerts":36},
+  {"label":"2025-09","alerts":44},
+  {"label":"2025-10","alerts":4},
+  {"label":"2026-02","alerts":150},
+  {"label":"2026-03","alerts":307},
 ];
 
 const BY_HOUR = [
-  {"label":"00:00","alerts":0},{"label":"01:00","alerts":0},
-  {"label":"02:00","alerts":6},{"label":"03:00","alerts":0},
-  {"label":"04:00","alerts":0},{"label":"05:00","alerts":0},
-  {"label":"06:00","alerts":13},{"label":"07:00","alerts":0},
-  {"label":"08:00","alerts":1},{"label":"09:00","alerts":0},
-  {"label":"10:00","alerts":5},{"label":"11:00","alerts":10},
-  {"label":"12:00","alerts":0},{"label":"13:00","alerts":1},
-  {"label":"14:00","alerts":0},{"label":"15:00","alerts":1},
-  {"label":"16:00","alerts":0},{"label":"17:00","alerts":7},
-  {"label":"18:00","alerts":13},{"label":"19:00","alerts":3},
-  {"label":"20:00","alerts":4},{"label":"21:00","alerts":0},
-  {"label":"22:00","alerts":13},{"label":"23:00","alerts":0}
+  {"label":"00:00","alerts":59},{"label":"01:00","alerts":48},
+  {"label":"02:00","alerts":54},{"label":"03:00","alerts":49},
+  {"label":"04:00","alerts":30},{"label":"05:00","alerts":32},
+  {"label":"06:00","alerts":47},{"label":"07:00","alerts":55},
+  {"label":"08:00","alerts":21},{"label":"09:00","alerts":32},
+  {"label":"10:00","alerts":46},{"label":"11:00","alerts":35},
+  {"label":"12:00","alerts":53},{"label":"13:00","alerts":62},
+  {"label":"14:00","alerts":43},{"label":"15:00","alerts":31},
+  {"label":"16:00","alerts":93},{"label":"17:00","alerts":73},
+  {"label":"18:00","alerts":54},{"label":"19:00","alerts":88},
+  {"label":"20:00","alerts":97},{"label":"21:00","alerts":99},
+  {"label":"22:00","alerts":65},{"label":"23:00","alerts":24},
 ];
 
 const TOTAL = BY_YEAR.reduce((s, d) => s + d.alerts, 0);
@@ -111,7 +140,7 @@ export default function AlertsDashboard() {
             animation: "pulse 1.4s ease-in-out infinite",
           }} />
           <span style={{ fontSize: 11, letterSpacing: "0.25em", color: "#ff5555", textTransform: "uppercase" }}>
-            Israel Alerts Archive · 2014–2018
+            Israel Alerts Archive · 2014–2026
           </span>
         </div>
 
