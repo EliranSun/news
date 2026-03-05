@@ -1,47 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
   CartesianGrid, LineChart, Line
 } from "recharts";
+import ISRAEL_CITIES from "../data/israelCities";
+import useAlerts from "../hooks/useAlerts";
 
-// Data extracted from github.com/dleshem/israel-alerts-data
-// Filtered for Gush Dan / Ramat Gan district (דן) — 2014–2018
-const BY_YEAR = [
-  {"label":"2014","alerts":57},
-  {"label":"2016","alerts":14},
-  {"label":"2017","alerts":4},
-  {"label":"2018","alerts":2}
-];
+// ──────────────────────────────────────────────
+// Helpers
+// ──────────────────────────────────────────────
 
-const BY_MONTH = [
-  {"label":"2014-07","alerts":11},
-  {"label":"2014-08","alerts":46},
-  {"label":"2016-06","alerts":3},
-  {"label":"2016-09","alerts":10},
-  {"label":"2016-12","alerts":1},
-  {"label":"2017-07","alerts":1},
-  {"label":"2017-11","alerts":3},
-  {"label":"2018-07","alerts":2}
-];
+function getDistance(lat1, lng1, lat2, lng2) {
+  const R = 6371;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLng = ((lng2 - lng1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
 
-const BY_HOUR = [
-  {"label":"00:00","alerts":0},{"label":"01:00","alerts":0},
-  {"label":"02:00","alerts":6},{"label":"03:00","alerts":0},
-  {"label":"04:00","alerts":0},{"label":"05:00","alerts":0},
-  {"label":"06:00","alerts":13},{"label":"07:00","alerts":0},
-  {"label":"08:00","alerts":1},{"label":"09:00","alerts":0},
-  {"label":"10:00","alerts":5},{"label":"11:00","alerts":10},
-  {"label":"12:00","alerts":0},{"label":"13:00","alerts":1},
-  {"label":"14:00","alerts":0},{"label":"15:00","alerts":1},
-  {"label":"16:00","alerts":0},{"label":"17:00","alerts":7},
-  {"label":"18:00","alerts":13},{"label":"19:00","alerts":3},
-  {"label":"20:00","alerts":4},{"label":"21:00","alerts":0},
-  {"label":"22:00","alerts":13},{"label":"23:00","alerts":0}
-];
+function findNearestCity(lat, lng) {
+  let nearest = ISRAEL_CITIES[0];
+  let minDist = Infinity;
+  for (const city of ISRAEL_CITIES) {
+    const d = getDistance(lat, lng, city.lat, city.lng);
+    if (d < minDist) {
+      minDist = d;
+      nearest = city;
+    }
+  }
+  return nearest;
+}
 
-const TOTAL = BY_YEAR.reduce((s, d) => s + d.alerts, 0);
-const PEAK_YEAR = BY_YEAR.reduce((a, b) => a.alerts > b.alerts ? a : b).label;
-const PEAK_HOUR = BY_HOUR.reduce((a, b) => a.alerts > b.alerts ? a : b).label;
+// ──────────────────────────────────────────────
+// Sub-components
+// ──────────────────────────────────────────────
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
@@ -76,15 +72,229 @@ function Stat({ label, value }) {
   );
 }
 
-const TABS = [
-  { id: "year", label: "By Year", data: BY_YEAR },
-  { id: "month", label: "By Month", data: BY_MONTH },
-  { id: "hour", label: "By Hour of Day", data: BY_HOUR },
-];
+function CitySelector({ selectedId, onSelect, onUseLocation, locating }) {
+  return (
+    <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap", marginBottom: 24 }}>
+      <select
+        value={selectedId}
+        onChange={(e) => onSelect(e.target.value)}
+        style={{
+          background: "#0c0c14",
+          border: "1px solid #2a2a3a",
+          borderRadius: 6,
+          color: "#ccc",
+          fontFamily: "'Courier New', monospace",
+          fontSize: 13,
+          padding: "10px 14px",
+          minWidth: 200,
+          cursor: "pointer",
+          outline: "none",
+        }}
+      >
+        {ISRAEL_CITIES.map((c) => (
+          <option key={c.id} value={c.id}>
+            {c.nameEn} — {c.name}
+          </option>
+        ))}
+      </select>
+
+      <button
+        onClick={onUseLocation}
+        disabled={locating}
+        style={{
+          background: "none",
+          border: "1px solid #2a2a3a",
+          borderRadius: 6,
+          color: locating ? "#444" : "#ff3a3a",
+          fontFamily: "'Courier New', monospace",
+          fontSize: 12,
+          padding: "10px 16px",
+          cursor: locating ? "default" : "pointer",
+          letterSpacing: "0.06em",
+          transition: "border-color 0.15s, color 0.15s",
+        }}
+      >
+        {locating ? "LOCATING..." : "USE MY LOCATION"}
+      </button>
+    </div>
+  );
+}
+
+function ActiveAlertsBanner({ alerts, cityName }) {
+  if (!alerts.length) {
+    return (
+      <div style={{
+        background: "#0a1a0a",
+        border: "1px solid #1a3a1a",
+        borderRadius: 8,
+        padding: "16px 20px",
+        marginBottom: 28,
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
+      }}>
+        <div style={{
+          width: 10, height: 10, borderRadius: "50%",
+          background: "#22c55e",
+          boxShadow: "0 0 8px #22c55e",
+        }} />
+        <span style={{ color: "#22c55e", fontSize: 13, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+          No active alerts — {cityName}
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{
+      background: "#1a0a0a",
+      border: "1px solid #ff3a3a",
+      borderRadius: 8,
+      padding: "16px 20px",
+      marginBottom: 28,
+      animation: "alertFlash 1s ease-in-out infinite",
+    }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
+        <div style={{
+          width: 10, height: 10, borderRadius: "50%",
+          background: "#ff3a3a",
+          boxShadow: "0 0 12px #ff3a3a",
+          animation: "pulse 0.6s ease-in-out infinite",
+        }} />
+        <span style={{ color: "#ff3a3a", fontSize: 14, fontWeight: 900, letterSpacing: "0.15em", textTransform: "uppercase" }}>
+          ACTIVE ALERT
+        </span>
+      </div>
+      {alerts.map((a, i) => (
+        <div key={i} style={{ color: "#fff", fontSize: 13, marginTop: 6 }}>
+          <span style={{ color: "#ff3a3a", fontWeight: 700 }}>{a.title || a.cat || "Alert"}</span>
+          {" — "}
+          {(a.data || a.cities || []).join(", ")}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function HistoryList({ history }) {
+  if (!history.length) {
+    return (
+      <div style={{ color: "#333", fontSize: 12, marginTop: 16, letterSpacing: "0.06em" }}>
+        No recent alert history for this city.
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ marginTop: 28 }}>
+      <div style={{ fontSize: 11, letterSpacing: "0.2em", color: "#444", textTransform: "uppercase", marginBottom: 12 }}>
+        Recent History
+      </div>
+      <div style={{ maxHeight: 300, overflowY: "auto" }}>
+        {history.slice(0, 50).map((h, i) => (
+          <div key={i} style={{
+            borderBottom: "1px solid #111",
+            padding: "10px 0",
+            display: "flex",
+            justifyContent: "space-between",
+            fontSize: 12,
+          }}>
+            <span style={{ color: "#ff5555" }}>{h.alertDate || h.date || "—"}</span>
+            <span style={{ color: "#888" }}>{h.title || h.cat || "Alert"}</span>
+            <span style={{ color: "#555" }}>{(h.data || h.cities || []).join(", ")}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ──────────────────────────────────────────────
+// Chart data from history
+// ──────────────────────────────────────────────
+
+function buildChartData(history) {
+  const byMonth = {};
+  const byHour = {};
+  for (let h = 0; h < 24; h++) {
+    byHour[h] = 0;
+  }
+
+  for (const item of history) {
+    const dateStr = item.alertDate || item.date;
+    if (!dateStr) continue;
+
+    const d = new Date(dateStr);
+    if (isNaN(d)) continue;
+
+    const monthKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`;
+    byMonth[monthKey] = (byMonth[monthKey] || 0) + 1;
+    byHour[d.getHours()] = (byHour[d.getHours()] || 0) + 1;
+  }
+
+  return {
+    byMonth: Object.entries(byMonth)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([label, alerts]) => ({ label, alerts })),
+    byHour: Object.entries(byHour)
+      .sort(([a], [b]) => Number(a) - Number(b))
+      .map(([h, alerts]) => ({ label: `${String(h).padStart(2, "0")}:00`, alerts })),
+  };
+}
+
+// ──────────────────────────────────────────────
+// Main component
+// ──────────────────────────────────────────────
+
+const STORAGE_KEY = "alerts-selected-city";
 
 export default function AlertsDashboard() {
-  const [tab, setTab] = useState("year");
-  const current = TABS.find(t => t.id === tab);
+  const [selectedCityId, setSelectedCityId] = useState(
+    () => localStorage.getItem(STORAGE_KEY) || "ramat-gan"
+  );
+  const [locating, setLocating] = useState(false);
+  const [tab, setTab] = useState("month");
+
+  const selectedCity = useMemo(
+    () => ISRAEL_CITIES.find((c) => c.id === selectedCityId) || ISRAEL_CITIES[0],
+    [selectedCityId]
+  );
+
+  const { activeAlerts, history, loading, error } = useAlerts(selectedCity.name);
+
+  const chartData = useMemo(() => buildChartData(history), [history]);
+
+  const handleCityChange = useCallback((id) => {
+    setSelectedCityId(id);
+    localStorage.setItem(STORAGE_KEY, id);
+  }, []);
+
+  const handleUseLocation = useCallback(() => {
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser.");
+      return;
+    }
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const nearest = findNearestCity(pos.coords.latitude, pos.coords.longitude);
+        handleCityChange(nearest.id);
+        setLocating(false);
+      },
+      () => {
+        alert("Unable to get your location. Please select a city manually.");
+        setLocating(false);
+      },
+      { timeout: 10000 }
+    );
+  }, [handleCityChange]);
+
+  const TABS = useMemo(() => [
+    { id: "month", label: "By Month", data: chartData.byMonth },
+    { id: "hour", label: "By Hour of Day", data: chartData.byHour },
+  ], [chartData]);
+
+  const current = TABS.find((t) => t.id === tab);
 
   return (
     <div style={{
@@ -102,7 +312,7 @@ export default function AlertsDashboard() {
       }} />
 
       {/* Header */}
-      <div style={{ marginBottom: 36 }}>
+      <div style={{ marginBottom: 28 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 8 }}>
           <div style={{
             width: 10, height: 10, borderRadius: "50%",
@@ -111,7 +321,7 @@ export default function AlertsDashboard() {
             animation: "pulse 1.4s ease-in-out infinite",
           }} />
           <span style={{ fontSize: 11, letterSpacing: "0.25em", color: "#ff5555", textTransform: "uppercase" }}>
-            Israel Alerts Archive · 2014–2018
+            Live Alerts Monitor
           </span>
         </div>
 
@@ -121,87 +331,135 @@ export default function AlertsDashboard() {
           color: "#fff", lineHeight: 1.1,
         }}>
           MISSILE ALERTS
-          <span style={{ color: "#ff3a3a", display: "block" }}>RAMAT GAN AREA</span>
+          <span style={{ color: "#ff3a3a", display: "block" }}>
+            {selectedCity.nameEn.toUpperCase()}
+          </span>
         </h1>
+      </div>
 
-        <div style={{ marginTop: 20, display: "flex", gap: 40, flexWrap: "wrap" }}>
-          <Stat label="Total Alerts" value={TOTAL} />
-          <Stat label="Peak Year" value={PEAK_YEAR} />
-          <Stat label="Peak Hour" value={PEAK_HOUR} />
+      {/* City Selector */}
+      <CitySelector
+        selectedId={selectedCityId}
+        onSelect={handleCityChange}
+        onUseLocation={handleUseLocation}
+        locating={locating}
+      />
+
+      {/* Active Alerts */}
+      {loading ? (
+        <div style={{ color: "#444", fontSize: 12, marginBottom: 28, letterSpacing: "0.1em" }}>
+          CONNECTING TO ALERT SYSTEM...
         </div>
+      ) : (
+        <ActiveAlertsBanner alerts={activeAlerts} cityName={selectedCity.nameEn} />
+      )}
+
+      {error && (
+        <div style={{
+          background: "#0c0c14",
+          border: "1px solid #2a2a3a",
+          borderRadius: 8,
+          padding: "12px 16px",
+          marginBottom: 28,
+          fontSize: 11,
+          color: "#666",
+          letterSpacing: "0.06em",
+        }}>
+          Note: The alert API is only accessible from Israel. If you're outside Israel, alerts may not load.
+        </div>
+      )}
+
+      {/* Stats */}
+      <div style={{ display: "flex", gap: 40, flexWrap: "wrap", marginBottom: 28 }}>
+        <Stat label="Total (history)" value={history.length} />
+        <Stat label="Active Now" value={activeAlerts.length} />
+        <Stat label="City" value={selectedCity.name} />
       </div>
 
       {/* Tabs */}
-      <div style={{ display: "flex", marginBottom: 28, borderBottom: "1px solid #1e1e2e" }}>
-        {TABS.map((t) => (
-          <button key={t.id} onClick={() => setTab(t.id)} style={{
-            background: "none", border: "none", cursor: "pointer",
-            padding: "10px 22px",
-            fontFamily: "'Courier New', monospace",
-            fontSize: 12, letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            color: tab === t.id ? "#ff3a3a" : "#444",
-            borderBottom: tab === t.id ? "2px solid #ff3a3a" : "2px solid transparent",
-            marginBottom: -1,
-            transition: "color 0.15s",
-          }}>
-            {t.label}
-          </button>
-        ))}
-      </div>
+      {history.length > 0 && (
+        <>
+          <div style={{ display: "flex", marginBottom: 28, borderBottom: "1px solid #1e1e2e" }}>
+            {TABS.map((t) => (
+              <button key={t.id} onClick={() => setTab(t.id)} style={{
+                background: "none", border: "none", cursor: "pointer",
+                padding: "10px 22px",
+                fontFamily: "'Courier New', monospace",
+                fontSize: 12, letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: tab === t.id ? "#ff3a3a" : "#444",
+                borderBottom: tab === t.id ? "2px solid #ff3a3a" : "2px solid transparent",
+                marginBottom: -1,
+                transition: "color 0.15s",
+              }}>
+                {t.label}
+              </button>
+            ))}
+          </div>
 
-      {/* Chart */}
-      <div style={{
-        background: "#0c0c14",
-        border: "1px solid #16162a",
-        borderRadius: 8,
-        padding: "28px 12px 16px",
-      }}>
-        <ResponsiveContainer width="100%" height={360}>
-          {tab === "month" ? (
-            <LineChart data={current.data} margin={{ left: 0, right: 20, top: 4, bottom: 30 }}>
-              <CartesianGrid stroke="#111822" strokeDasharray="3 3" />
-              <XAxis
-                dataKey="label"
-                tick={{ fill: "#444", fontSize: 11, fontFamily: "Courier New" }}
-                angle={-40} textAnchor="end" height={55}
-              />
-              <YAxis tick={{ fill: "#444", fontSize: 11, fontFamily: "Courier New" }} width={40} />
-              <Tooltip content={<CustomTooltip />} />
-              <Line
-                type="monotone" dataKey="alerts" name="Alerts"
-                stroke="#ff3a3a" strokeWidth={2}
-                dot={{ fill: "#ff3a3a", r: 4 }}
-                activeDot={{ r: 6, fill: "#ff3a3a" }}
-              />
-            </LineChart>
-          ) : (
-            <BarChart data={current.data} margin={{ left: 0, right: 20, top: 4, bottom: 10 }}>
-              <CartesianGrid stroke="#111822" strokeDasharray="3 3" vertical={false} />
-              <XAxis
-                dataKey="label"
-                tick={{ fill: "#555", fontSize: tab === "year" ? 13 : 11, fontFamily: "Courier New" }}
-              />
-              <YAxis tick={{ fill: "#444", fontSize: 11, fontFamily: "Courier New" }} width={40} />
-              <Tooltip content={<CustomTooltip />} />
-              <Bar
-                dataKey="alerts" name="Alerts"
-                fill="#ff3a3a" radius={[3, 3, 0, 0]}
-                maxBarSize={tab === "year" ? 70 : 36}
-              />
-            </BarChart>
+          {/* Chart */}
+          {current?.data.length > 0 && (
+            <div style={{
+              background: "#0c0c14",
+              border: "1px solid #16162a",
+              borderRadius: 8,
+              padding: "28px 12px 16px",
+            }}>
+              <ResponsiveContainer width="100%" height={360}>
+                {tab === "month" ? (
+                  <LineChart data={current.data} margin={{ left: 0, right: 20, top: 4, bottom: 30 }}>
+                    <CartesianGrid stroke="#111822" strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="label"
+                      tick={{ fill: "#444", fontSize: 11, fontFamily: "Courier New" }}
+                      angle={-40} textAnchor="end" height={55}
+                    />
+                    <YAxis tick={{ fill: "#444", fontSize: 11, fontFamily: "Courier New" }} width={40} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Line
+                      type="monotone" dataKey="alerts" name="Alerts"
+                      stroke="#ff3a3a" strokeWidth={2}
+                      dot={{ fill: "#ff3a3a", r: 4 }}
+                      activeDot={{ r: 6, fill: "#ff3a3a" }}
+                    />
+                  </LineChart>
+                ) : (
+                  <BarChart data={current.data} margin={{ left: 0, right: 20, top: 4, bottom: 10 }}>
+                    <CartesianGrid stroke="#111822" strokeDasharray="3 3" vertical={false} />
+                    <XAxis
+                      dataKey="label"
+                      tick={{ fill: "#555", fontSize: 11, fontFamily: "Courier New" }}
+                    />
+                    <YAxis tick={{ fill: "#444", fontSize: 11, fontFamily: "Courier New" }} width={40} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Bar
+                      dataKey="alerts" name="Alerts"
+                      fill="#ff3a3a" radius={[3, 3, 0, 0]}
+                      maxBarSize={36}
+                    />
+                  </BarChart>
+                )}
+              </ResponsiveContainer>
+            </div>
           )}
-        </ResponsiveContainer>
-      </div>
+        </>
+      )}
 
-      <div style={{ marginTop: 14, fontSize: 11, color: "#2a2a3a", letterSpacing: "0.06em" }}>
-        SOURCE · github.com/dleshem/israel-alerts-data · Gush Dan district (דן) · Covers Ramat Gan, Bnei Brak, Giv'atayim
+      {/* History List */}
+      <HistoryList history={history} />
+
+      <div style={{ marginTop: 20, fontSize: 11, color: "#2a2a3a", letterSpacing: "0.06em" }}>
+        SOURCE · oref.org.il · Pikud HaOref (Home Front Command)
       </div>
 
       <style>{`
         @keyframes pulse {
           0%, 100% { opacity: 1; transform: scale(1); }
           50% { opacity: 0.4; transform: scale(0.85); }
+        }
+        @keyframes alertFlash {
+          0%, 100% { background: #1a0a0a; }
+          50% { background: #2a0a0a; }
         }
       `}</style>
     </div>
