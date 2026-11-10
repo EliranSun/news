@@ -289,8 +289,8 @@ export const View = ({
             return (
                 <EmptyState kicker="Saved" title="Nothing put aside yet">
                     <p>
-                        Tap <BookmarkSimple size={15} weight="bold" className="nw-inline-icon" /> on
-                        any story to keep it here for later.
+                        Swipe a story right, or tap <BookmarkSimple size={15} weight="bold" className="nw-inline-icon" />,
+                        to keep it here for later.
                     </p>
                 </EmptyState>
             );
