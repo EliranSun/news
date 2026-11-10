@@ -122,13 +122,17 @@ const FocusView = ({ item, position, total }) => {
             <h2 className={classNames("nw-focus__title", { "nw-headline--he": rtl })}>
                 {item.title}
             </h2>
-            {item.description && <p className="nw-focus__deck">{item.description}</p>}
+            {item.description &&
+                <p className="nw-focus__deck" dir={isRtl(item.description) ? "rtl" : "ltr"}>
+                    {item.description}
+                </p>}
             <a
                 className="nw-read-link nw-read-link--lg"
                 href={item.link}
                 target="_blank"
-                rel="noopener noreferrer">
-                Read the full story at {item.feedName}
+                rel="noopener noreferrer"
+                dir="ltr">
+                <span>Read the full story at <bdi>{item.feedName}</bdi></span>
                 <ArrowUpRight size={16} weight="bold" />
             </a>
         </article>

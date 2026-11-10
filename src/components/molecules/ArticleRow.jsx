@@ -113,13 +113,17 @@ export const ArticleRow = ({ item, index = 0, isSeen = false, onDone, onSave }) 
                     </h2>
                     {isOpen &&
                         <div className="nw-row__body">
-                            {item.description && <p className="nw-deck">{item.description}</p>}
+                            {item.description &&
+                                <p className="nw-deck" dir={isRtl(item.description) ? "rtl" : "ltr"}>
+                                    {item.description}
+                                </p>}
                             <a
                                 className="nw-read-link"
                                 href={item.link}
                                 target="_blank"
-                                rel="noopener noreferrer">
-                                Read at {item.feedName}
+                                rel="noopener noreferrer"
+                                dir="ltr">
+                                <span>Read at <bdi>{item.feedName}</bdi></span>
                                 <ArrowUpRight size={14} weight="bold" />
                             </a>
                         </div>}

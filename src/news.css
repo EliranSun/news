@@ -668,6 +668,22 @@
 	text-wrap: pretty;
 }
 
+/* Hebrew text: align explicitly and skip text-wrap: pretty, which has left
+   RTL paragraphs flush-left in Safari. */
+.nw-deck,
+.nw-focus__deck,
+.nw-brief__body {
+	text-align: start;
+}
+
+.nw-app [dir="rtl"].nw-deck,
+.nw-app [dir="rtl"].nw-focus__deck,
+.nw-app [dir="rtl"] .nw-headline,
+.nw-app [dir="rtl"] .nw-focus__title,
+.nw-app [dir="rtl"] .nw-source__link {
+	text-wrap: wrap;
+}
+
 .nw-app .nw-read-link {
 	display: inline-flex;
 	align-items: center;
