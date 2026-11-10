@@ -14,6 +14,10 @@
 	--nw-accent: #b8321c;
 	--nw-accent-soft: rgba(184, 50, 28, 0.1);
 	--nw-on-accent: #fffaf2;
+	--nw-swipe-idle: #e8e2d4;
+	--nw-swipe-read: #2f6b4a;
+	--nw-swipe-save: #b8321c;
+	--nw-on-swipe: #fffaf2;
 	--nw-shadow: 0 10px 30px -12px rgba(40, 30, 10, 0.35), 0 2px 6px rgba(40, 30, 10, 0.08);
 	--nw-bar-h: 52px;
 	--nw-serif: "Newsreader", "Frank Ruhl Libre", Georgia, "Times New Roman", serif;
@@ -36,6 +40,10 @@
 		--nw-accent: #ff7d5c;
 		--nw-accent-soft: rgba(255, 125, 92, 0.14);
 		--nw-on-accent: #1a0f0b;
+		--nw-swipe-idle: #24221e;
+		--nw-swipe-read: #3f8f63;
+		--nw-swipe-save: #d9553a;
+		--nw-on-swipe: #fffaf2;
 		--nw-shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.06);
 
 		color-scheme: dark;
@@ -447,6 +455,8 @@
 	margin: 0;
 	padding-block: 8px;
 	background-color: var(--nw-paper);
+	/* Cover the full-bleed swipe backdrop of rows scrolling under the label. */
+	box-shadow: -20px 0 0 var(--nw-paper), 20px 0 0 var(--nw-paper);
 	border-bottom: 1px solid var(--nw-rule-strong);
 	font-size: 11px;
 	font-weight: 700;
@@ -487,12 +497,86 @@
 }
 
 .nw-row__clip {
+	position: relative;
 	min-height: 0;
 	overflow: hidden;
+	/* Full-bleed on phones so the swipe backdrop reaches the screen edges. */
+	margin-inline: -20px;
+	touch-action: pan-y;
 }
 
 .nw-row__pad {
-	padding-block: 10px 16px;
+	position: relative;
+	z-index: 1;
+	padding: 10px 20px 16px;
+	background-color: var(--nw-paper);
+	will-change: transform;
+}
+
+.nw-row.is-dragging .nw-row__pad {
+	user-select: none;
+	-webkit-user-select: none;
+	cursor: grabbing;
+}
+
+.nw-row.is-swiping .nw-row__pad {
+	box-shadow: 0 0 0 1px var(--nw-rule), 0 6px 18px -8px rgba(40, 30, 10, 0.35);
+}
+
+/* Revealed behind the row while swiping. Muted until the drag passes the
+   arm distance, then it floods with the action color: release to apply. */
+.nw-swipe {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	padding-inline: 24px;
+	background-color: var(--nw-swipe-idle);
+	color: var(--nw-ink-2);
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.nw-swipe--right {
+	justify-content: flex-start;
+}
+
+.nw-swipe--left {
+	justify-content: flex-end;
+}
+
+.nw-swipe.is-armed {
+	color: var(--nw-on-swipe);
+}
+
+.nw-swipe--right.is-armed {
+	background-color: var(--nw-swipe-save);
+}
+
+.nw-swipe--left.is-armed {
+	background-color: var(--nw-swipe-read);
+}
+
+.nw-swipe__action {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	/* Grows with the drag, then pops when armed. */
+	opacity: calc(0.35 + var(--nw-swipe, 0) * 2.5);
+	transform: scale(calc(0.8 + min(var(--nw-swipe, 0), 0.3) * 0.5));
+	transition: transform 0.18s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.nw-swipe.is-armed .nw-swipe__action {
+	opacity: 1;
+	transform: scale(1.12);
+}
+
+.nw-row.is-leaving.is-swiping {
+	opacity: 1;
 }
 
 .nw-meta {

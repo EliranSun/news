@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { ArrowUpRight, BookmarkSimple, Check } from "@phosphor-icons/react";
 import { formatAge, isRtl } from "../../utils.js";
+import { useSwipeAction } from "../../hooks/useSwipeAction.js";
 
 const LEAVE_MS = 220;
 
@@ -42,18 +43,46 @@ export const ArticleRow = ({ item, index = 0, isSeen = false, onDone, onSave }) 
         setTimeout(() => callback(item), LEAVE_MS);
     };
 
+    const swipe = useSwipeAction({
+        onSwipeLeft: () => leaveThen(onDone),
+        onSwipeRight: () => leaveThen(onSave),
+        disabled: isLeaving,
+    });
+
     return (
         <li
             className={classNames("nw-row", {
                 "is-seen": isSeen && !isOpen,
                 "is-open": isOpen,
                 "is-leaving": isLeaving,
+                "is-swiping": swipe.side !== null,
+                "is-dragging": swipe.isDragging,
             })}
             data-link={item.link}
             dir={rtl ? "rtl" : "ltr"}
             style={{ "--nw-i": Math.min(index, 10) }}>
-            <div className="nw-row__clip">
-                <article className="nw-row__pad">
+            <div
+                className="nw-row__clip"
+                ref={swipe.rowRef}
+                {...swipe.handlers}>
+                {swipe.side &&
+                    <div
+                        className={classNames("nw-swipe", `nw-swipe--${swipe.side}`, {
+                            "is-armed": swipe.isArmed,
+                        })}
+                        dir="ltr"
+                        aria-hidden="true">
+                        {swipe.side === "right"
+                            ? <span className="nw-swipe__action">
+                                <BookmarkSimple size={22} weight={swipe.isArmed ? "fill" : "bold"} />
+                                <span>Save</span>
+                            </span>
+                            : <span className="nw-swipe__action">
+                                <span>Read</span>
+                                <Check size={22} weight="bold" />
+                            </span>}
+                    </div>}
+                <article className="nw-row__pad" ref={swipe.contentRef}>
                     <ArticleMeta item={item}>
                         <span className="nw-row__quick">
                             <button
