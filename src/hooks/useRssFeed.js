@@ -1,75 +1,109 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { getDiffTime, removeUnicode, sanitizeText } from "../utils.js";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { getDiffTime, isRead, removeUnicode, sanitizeText } from "../utils.js";
 
+const API_URL = "https://walak.vercel.app/api/rss";
+const REFRESH_MS = 5 * 60 * 1000;
 
-export const useRssFeed = (isSavedView) => {
-    const [isLoading, setIsLoading] = useState(false);
-    const [feeds, setFeeds] = useState([]);
+const parseItems = (data) => {
+    const items = [];
+    const titles = new Set();
+    const links = new Set();
 
-    const fetchAndParseFeeds = useCallback(async () => {
+    (Array.isArray(data) ? data : []).forEach((item) => {
+        if (!item?.link || !item?.title) return;
+
+        const title = removeUnicode(sanitizeText(item.title)).trim();
+        if (!title || titles.has(title) || links.has(item.link) || isRead(item.link)) return;
+
+        titles.add(title);
+        links.add(item.link);
+        items.push({
+            title,
+            link: item.link,
+            description: removeUnicode(sanitizeText(item.description || "")).trim(),
+            language: item.language || "",
+            diff: getDiffTime(item.pubDate),
+            feedName: item.feedName || "Unknown",
+            date: item.pubDate,
+        });
+    });
+
+    return items;
+};
+
+const refreshAges = (items) => items.map((item) => ({ ...item, diff: getDiffTime(item.date) }));
+
+/**
+ * status: "loading" (first load) | "ready" | "error" (first load failed)
+ * pending: stories that arrived in a background refresh, held back so the
+ * list does not shift under the reader until they ask for them.
+ */
+export const useRssFeed = () => {
+    const [items, setItems] = useState([]);
+    const [pending, setPending] = useState([]);
+    const [status, setStatus] = useState("loading");
+    const [isRefreshing, setIsRefreshing] = useState(false);
+    const [lastUpdated, setLastUpdated] = useState(null);
+    const itemsRef = useRef(items);
+    const hasLoadedRef = useRef(false);
+    itemsRef.current = items;
+
+    const load = useCallback(async (mode = "background") => {
+        const isFirstLoad = !hasLoadedRef.current;
+        if (isFirstLoad) setStatus("loading");
+        setIsRefreshing(true);
+
         try {
-            setIsLoading(true);
-            const url = "https://walak.vercel.app/api/rss";
-            const response = await fetch(url);
-            const data = (await response.json()) || [];
-            const items = [];
+            const response = await fetch(API_URL);
+            if (!response.ok) throw new Error(`Feed request failed: ${response.status}`);
+            const parsed = parseItems(await response.json());
 
-            data.forEach((item) => {
-                const isRead = localStorage.getItem(item.link) === "read";
-                const isSaved = localStorage.getItem(item.link) === "saved";
-                const isItemExist = items.some(
-                    (existingItem) => existingItem.title === item.title
-                );
+            if (isFirstLoad) {
+                setItems(parsed);
+            } else {
+                const known = new Set(itemsRef.current.map((item) => item.link));
+                const knownTitles = new Set(itemsRef.current.map((item) => item.title));
+                const fresh = parsed.filter((item) => !known.has(item.link) && !knownTitles.has(item.title));
 
-                const props = {
-                    title: removeUnicode(sanitizeText(item.title)),
-                    link: item.link,
-                    description: removeUnicode(sanitizeText(item.description)),
-                    language: item.language,
-                    diff: getDiffTime(item.pubDate),
-                    feedName: item.feedName,
-                    date: item.pubDate,
-                    isRead,
-                    isSaved,
-                };
-
-                if (!isItemExist && !isRead) {
-                    items.push(props);
+                if (mode === "manual") {
+                    setItems((prev) => [...refreshAges(prev), ...fresh]);
+                    setPending([]);
                 } else {
-                    console.debug("item already exists", { isItemExist, isRead });
+                    setItems(refreshAges);
+                    setPending(fresh);
                 }
-            });
+            }
 
-            const sortedItems = items.sort(
-                (a, b) => b.diff.diffTime - a.diff.diffTime
-            );
-            console.log({ sortedItems });
-            setFeeds(sortedItems);
+            hasLoadedRef.current = true;
+            setStatus("ready");
+            setLastUpdated(new Date());
         } catch (error) {
             console.error("Error fetching and parsing feeds:", error);
+            if (isFirstLoad) setStatus("error");
         } finally {
-            setIsLoading(false);
+            setIsRefreshing(false);
         }
-    }, [isSavedView]);
+    }, []);
 
     useEffect(() => {
-        fetchAndParseFeeds();
+        load("initial");
+        const interval = setInterval(() => load("background"), REFRESH_MS);
+        return () => clearInterval(interval);
+    }, [load]);
 
-        setInterval(() => {
-            console.log("fetching feeds");
-            fetchAndParseFeeds();
-        }, 5 * 60 * 1000);
-    }, [fetchAndParseFeeds]);
+    const mergePending = useCallback(() => {
+        setPending((fresh) => {
+            if (fresh.length > 0) {
+                setItems((prev) => {
+                    const known = new Set(prev.map((item) => item.link));
+                    return [...prev, ...fresh.filter((item) => !known.has(item.link))];
+                });
+            }
+            return [];
+        });
+    }, []);
 
+    const refresh = useCallback(() => load("manual"), [load]);
 
-    const savedItems = useMemo(() => feeds.filter(feed => feed.isSaved), [feeds]);
-    const nonSavedItems = useMemo(() => feeds.filter(feed => !feed.isSaved), [feeds]);
-    const contextualItems = useMemo(() => {
-        if (isSavedView) {
-            return savedItems;
-        }
-        return nonSavedItems;
-    }, [isSavedView, savedItems, nonSavedItems]);
-
-    return { items: contextualItems, setFeeds, isLoading };
+    return { items, setItems, pending, mergePending, status, isRefreshing, lastUpdated, refresh };
 };

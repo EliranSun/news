@@ -27,7 +27,11 @@ export const MainPage = ({ savedPath }) => {
 	useEffect(() => {
 		const updateThemeColor = () => {
 			const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-			const themeColor = isDarkMode ? "oklch(21.6% 0.006 56.043)" : "#FFFFFF";
+			// The news page sets this class before this effect runs and has its own paper colors.
+			const isNews = document.documentElement.classList.contains("nw-root");
+			const themeColor = isNews
+				? (isDarkMode ? "#11100e" : "#f5f1e8")
+				: (isDarkMode ? "oklch(21.6% 0.006 56.043)" : "#FFFFFF");
 			const metaThemeColor = document.querySelector("meta[name=theme-color]");
 			if (metaThemeColor) {
 				metaThemeColor.setAttribute("content", themeColor);

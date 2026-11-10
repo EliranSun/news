@@ -53,3 +53,46 @@ function isToday(date) {
 
 	return false;
 }
+
+export const isRtl = (text = "") => /[֐-׿؀-ۿ]/.test(text);
+
+export const formatAge = (diff) => {
+	if (!diff || !Number.isFinite(diff.value)) return "";
+	if (diff.unit === "m" && diff.value < 1) return "now";
+	return `${diff.value}${diff.unit}`;
+};
+
+const HOUR = 60 * 60 * 1000;
+
+export const getAgeGroup = (diff) => {
+	const age = diff?.diffTime;
+	if (!Number.isFinite(age)) return "Undated";
+	if (age < HOUR) return "Past hour";
+	if (age < 24 * HOUR) return "Past 24 hours";
+	if (age < 48 * HOUR) return "Yesterday";
+	return "Earlier";
+};
+
+export const isRead = (link) => {
+	try {
+		return localStorage.getItem(link) === "read";
+	} catch {
+		return false;
+	}
+};
+
+export const markRead = (link) => {
+	try {
+		localStorage.setItem(link, "read");
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export const unmarkRead = (link) => {
+	try {
+		localStorage.removeItem(link);
+	} catch (error) {
+		console.error(error);
+	}
+};
