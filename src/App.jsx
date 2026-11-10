@@ -8,6 +8,8 @@ import { BriefPanel } from "./components/molecules/BriefPanel.jsx";
 import { Masthead, NewsBar } from "./components/molecules/NewsHeader.jsx";
 import PhysicsDemo from "./features/SquareCalendar/organism/PhysicsDemo.jsx";
 import { markRead, unmarkRead } from "./utils.js";
+import "@fontsource-variable/noto-serif-hebrew";
+import "@fontsource-variable/assistant";
 import "./news.css";
 
 const VIEWS = ["feed", "page", "feeds", "saved"];

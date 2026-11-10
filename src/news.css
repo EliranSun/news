@@ -20,9 +20,10 @@
 	--nw-on-swipe: #fffaf2;
 	--nw-shadow: 0 10px 30px -12px rgba(40, 30, 10, 0.35), 0 2px 6px rgba(40, 30, 10, 0.08);
 	--nw-bar-h: 52px;
-	--nw-serif: "Newsreader", "Frank Ruhl Libre", Georgia, "Times New Roman", serif;
-	--nw-serif-he: "Frank Ruhl Libre", "Newsreader", Georgia, serif;
-	--nw-sans: "Instrument Sans", "Heebo", system-ui, -apple-system, "Segoe UI", sans-serif;
+	/* Hebrew glyphs fall through to the self-hosted Noto Serif Hebrew / Assistant. */
+	--nw-serif: "Newsreader", "Noto Serif Hebrew Variable", Georgia, "Times New Roman", serif;
+	--nw-serif-he: "Noto Serif Hebrew Variable", "Newsreader", Georgia, serif;
+	--nw-sans: "Instrument Sans", "Assistant Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
 
 	color-scheme: light;
 	background-color: var(--nw-paper);
@@ -630,8 +631,9 @@
 
 .nw-app .nw-headline--he {
 	font-family: var(--nw-serif-he);
-	font-weight: 500;
-	line-height: 1.35;
+	font-size: 1.3125rem;
+	font-weight: 520;
+	line-height: 1.4;
 	letter-spacing: 0;
 }
 
@@ -738,8 +740,8 @@
 
 .nw-app .nw-focus__title.nw-headline--he {
 	font-family: var(--nw-serif-he);
-	font-weight: 700;
-	line-height: 1.2;
+	font-weight: 620;
+	line-height: 1.25;
 	letter-spacing: 0;
 }
 
@@ -1271,6 +1273,10 @@
 
 	.nw-app .nw-headline {
 		font-size: 1.5rem;
+	}
+
+	.nw-app .nw-headline--he {
+		font-size: 1.4375rem;
 	}
 
 	.nw-sources {
