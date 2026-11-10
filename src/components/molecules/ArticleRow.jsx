@@ -84,7 +84,7 @@ export const ArticleRow = ({ item, index = 0, isSeen = false, onDone, onSave }) 
                     </div>}
                 <article className="nw-row__pad" ref={swipe.contentRef}>
                     <ArticleMeta item={item}>
-                        <span className="nw-row__quick">
+                        <span className="nw-row__quick nw-row__quick--swipe">
                             <button
                                 type="button"
                                 className="nw-icon-btn nw-icon-btn--sm"

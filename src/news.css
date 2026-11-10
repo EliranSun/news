@@ -617,6 +617,29 @@
 	margin-inline-end: -9px;
 }
 
+/* On touch screens swiping replaces the read/save buttons. They stay in the
+   accessibility tree (VoiceOver users cannot easily swipe a row) but take no
+   space, so rows get the room back. */
+@media (hover: none) and (pointer: coarse) {
+	.nw-row__quick--swipe {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+	}
+
+	.nw-list:not(.nw-list--saved) .nw-row__pad {
+		padding-block: 20px 22px;
+	}
+
+	.nw-list:not(.nw-list--saved) .nw-meta {
+		min-height: 0;
+		margin-bottom: 8px;
+	}
+}
+
 .nw-app .nw-headline {
 	margin: 0;
 	font-family: var(--nw-serif);
