@@ -16,7 +16,13 @@ export default defineConfig({
 				name: "News",
 				short_name: "News",
 				description: "Up to Date & Full of Anxiety",
-				theme_color: "#ffffff",
+				// iOS and Android open start_url, not the page that was added to the
+				// home screen. Without it the plugin defaults to "/", the app index.
+				start_url: "/news",
+				scope: "/",
+				display: "standalone",
+				theme_color: "#f5f1e8",
+				background_color: "#f5f1e8",
 				icons: [
 					{
 						src: "/icon.jpeg",
