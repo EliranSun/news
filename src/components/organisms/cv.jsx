@@ -45,13 +45,18 @@ const Tags = [
     "TypeScript",
     "React",
     "Next.js",
+    "TanStack Query",
+    "Tailwind CSS",
     "Node.js",
+    "NestJS",
+    "OpenAPI",
     // "Express",
     "Vite",
     // "Webpack",
     // "Docker",
     // "Kubernetes",
-    "Tailwind CSS",
+    "Mixpanel",
+    "Google Tag Manager",
     "Storybook",
     "Jest",
     "Cypress",
@@ -101,40 +106,46 @@ export const CurriculumVitae = () => {
                         <Subtitle>Profile</Subtitle>
                         <Article>
                             <Paragraph>
-                                Dedicated, hard-working & positive. Collaborative and team-oriented. Seeing the big picture while focusing on the details. Creative and passionate - yet methodological and thorough.
+                                Dedicated, hard-working & positive. Collaborative and team-oriented. Seeing the big picture while focusing on the details. Creative and passionate, yet methodical and thorough.
                             </Paragraph>
                         </Article>
                     </Section>
                     <Section>
                         <Subtitle>Experience</Subtitle>
                         <Article>
-                            <Heading>Frontend Engineer, Atly: 2022-2025</Heading>
+                            <Heading>Full Stack Engineer, Tikal: 2026–Present</Heading>
                             <Paragraph>
-                                Implementing best practices and refactored an admin application. Migrating existing React projects to Next.js. Single handedly responsible of SEO, performance, the design system, architecture and technologies.
+                                Consultant at Elementor on its AI app-builder platform. Owned features end-to-end (UI, API, database & SDK), including pricing & plans, an enterprise plan, file storage and security scans. Led the analytics & marketing instrumentation effort (GTM, Mixpanel, Braze).
                             </Paragraph>
                         </Article>
                         <Article>
-                            <Heading>Full Stack Engineer, Fiverr: 2021-2022</Heading>
+                            <Heading>Frontend Engineer, Atly: 2022–2025</Heading>
                             <Paragraph>
-                                Developing production-ready, high scale and optimized performant features. Developing front-end packages for consumers using the micro-frontend architecture.
+                                Implemented best practices and refactored an admin application. Migrated existing React projects to Next.js. Single-handedly responsible for SEO, performance, the design system, architecture and technology choices.
                             </Paragraph>
                         </Article>
                         <Article>
-                            <Heading>Full Stack Team Leader, Netomedia: 2020-2021</Heading>
+                            <Heading>Full Stack Engineer, Fiverr: 2021–2022</Heading>
                             <Paragraph>
-                                Leading 3 senior web developers. Emphasizing on quality over quantity and building excellent communication in the team.
+                                Developed production-ready, high-scale, performance-optimized features. Built frontend packages for consumers within a micro-frontend architecture.
                             </Paragraph>
                         </Article>
                         <Article>
-                            <Heading>Full Stack Developer, Netomedia: 2016-2020</Heading>
+                            <Heading>Full Stack Team Leader, Netomedia: 2020–2021</Heading>
                             <Paragraph>
-                                Writing technical specs, collaborating with tech leads & software architectures on new features & infrastructures. Quick responses to design changes due to the nature of the online gaming arena.
+                                Led 3 senior web developers. Emphasized quality over quantity and built excellent communication within the team.
+                            </Paragraph>
+                        </Article>
+                        <Article>
+                            <Heading>Full Stack Developer, Netomedia: 2016–2020</Heading>
+                            <Paragraph>
+                                Wrote technical specs and collaborated with tech leads & software architects on new features & infrastructure. Responded quickly to design changes in the fast-moving online gaming industry.
                             </Paragraph>
                         </Article>
                         <Article>
                             <Heading>Full Stack Developer, Homismart: 2016</Heading>
                             <Paragraph>
-                                Developing a frontend application from scratch.
+                                Built a frontend application from scratch.
                             </Paragraph>
                         </Article>
                     </Section>
@@ -142,7 +153,7 @@ export const CurriculumVitae = () => {
                         <Subtitle>Education</Subtitle>
                         <Article>
                             <Heading>500Tech — Full Stack Internship</Heading>
-                            <Heading>HackerU — Full Stack Developer</Heading>
+                            <Heading>HackerU — Full Stack Development Course</Heading>
                         </Article>
                     </Section>
                     <Section>
