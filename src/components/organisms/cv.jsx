@@ -50,6 +50,10 @@ const Tags = [
     "Node.js",
     "NestJS",
     "OpenAPI",
+    "Zod",
+    "AWS",
+    "DynamoDB",
+    "Auth0",
     // "Express",
     "Vite",
     // "Webpack",
@@ -58,6 +62,9 @@ const Tags = [
     "Mixpanel",
     "Google Tag Manager",
     "Storybook",
+    "Figma",
+    "Claude Code",
+    "Vitest",
     "Jest",
     "Cypress",
     "Playwright",
@@ -113,9 +120,15 @@ export const CurriculumVitae = () => {
                     <Section>
                         <Subtitle>Experience</Subtitle>
                         <Article>
-                            <Heading>Full Stack Engineer, Tikal: 2026–Present</Heading>
+                            <Heading>Full Stack Engineer, Bonterra (via Tikal): 2026–Present</Heading>
                             <Paragraph>
-                                Consultant at Elementor on its AI app-builder platform. Owned features end-to-end (UI, API, database & SDK), including pricing & plans, an enterprise plan, file storage and security scans. Led the analytics & marketing instrumentation effort (GTM, Mixpanel, Braze).
+                                Building Giving Hub, a new corporate philanthropy product, from scratch toward its MVP. Owned authentication & authorization end-to-end, from cross-team design to OIDC sign-in and role-based permissions on every API. Built a notification center and team invites & roles on AWS (Lambda, DynamoDB), working spec-first with Claude Code agents.
+                            </Paragraph>
+                        </Article>
+                        <Article>
+                            <Heading>Full Stack Engineer, Elementor (via Tikal): 2026</Heading>
+                            <Paragraph>
+                                Worked on Elementor's AI app-builder platform. Owned features end-to-end (UI, API, database & SDK), including pricing & plans, an enterprise plan, file storage and security scans. Led the analytics & marketing instrumentation effort (GTM, Mixpanel, Braze).
                             </Paragraph>
                         </Article>
                         <Article>
